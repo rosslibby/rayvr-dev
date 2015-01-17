@@ -1,0 +1,39 @@
+/** footer **/
+
+html, body { height: 100%; }
+
+.wrapper { min-height: 100%; height: auto !important; height: 100%; margin: 0 auto -40px; }
+
+.footer-fix, .push { height: 40px;}
+
+.footer-bg-dark { background-color: #434A54; }
+
+.footer-fix p { padding-top: 10px; font-size: 90%; }
+
+.footer-fix p span { padding: 0 20px; display: inline-block; }
+
+/** colors **/
+
+::selection { background: #FC6E51; color: #fff; text-shadow: 1px 1px #E9573F; }
+
+.fg-scheme-dark { color: #E9573F; }
+.fg-scheme-light { color: #FC6E51; }
+
+.bg-scheme-dark { background-color: #E9573F; }
+.bg-scheme-light { background-color: #FC6E51; }
+
+.fg-scheme-white { color: #FFF; }
+
+/** sizes **/
+
+.h3-5 { font-size: 220%; }
+
+.larger { font-size: 130%; }
+
+.lighter { font-weight: 100; }
+
+/** images **/
+
+.inline-img { float: left; }
+
+.early-signup-header-bg { background-image: url('../img/early-signup-header-bg.jpg'); background-size: 60%; }
