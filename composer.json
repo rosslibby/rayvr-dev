@@ -11,6 +11,7 @@
 	"require-dev": {
 		"way/generators": "~2.0",
 		"mockery/mockery": "dev-master@dev",
+		"fzaninotto/faker": "1.4.*@dev",
 		"league/factory-muffin": "~2.0"
 	},
 	"autoload": {

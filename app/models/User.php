@@ -84,4 +84,20 @@ class User extends Ardent implements UserInterface, RemindableInterface {
 		return $this->hasMany('Points');
 	}
 
+	/**
+	 * Category relationship
+	 */
+	public function category()
+	{
+		return $this->hasMany('Category');
+	}
+
+	/**
+	 * User categories relationship
+	 */
+	public function interest()
+	{
+		return $this->belongsToMany('Category', 'interest', 'user_id', 'cat_id');
+	}
+
 }
