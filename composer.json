@@ -5,7 +5,13 @@
 	"license": "MIT",
 	"type": "project",
 	"require": {
-		"laravel/framework": "4.2.*"
+		"laravel/framework": "4.2.*",
+		"laravelbook/ardent": "dev-master"
+	},
+	"require-dev": {
+		"way/generators": "~2.0",
+		"mockery/mockery": "dev-master@dev",
+		"league/factory-muffin": "~2.0"
 	},
 	"autoload": {
 		"classmap": [
@@ -14,7 +20,8 @@
 			"app/models",
 			"app/database/migrations",
 			"app/database/seeds",
-			"app/tests/TestCase.php"
+			"app/tests/TestCase.php",
+			"app/lib"
 		]
 	},
 	"scripts": {
