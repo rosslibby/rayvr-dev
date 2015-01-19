@@ -16,26 +16,17 @@ Route::get('/', function()
 	return View::make('hello');
 });
 
-Route::resource('user', 'UserController');
+Route::get('register/profile', array(
+	'as' => 'register.profile',
+	'uses' => 'RegisterController@profile'
+));
 
 Route::get('register', array(
 	'uses' => 'RegisterController@index',
 	'as' => 'register.index'
 ));
+
 Route::post('register', array(
 	'uses' => 'RegisterController@store',
 	'as' => 'register.store'
-));
-
-Route::get('login', array(
-	'uses' => 'SessionController@create',
-	'as' => 'session.create'
-));
-Route::post('login', array(
-	'uses' => 'SessionController@store',
-	'as' => 'session.store'
-));
-Route::get('logout', array(
-	'uses' => 'SessionController@destroy',
-	'as' => 'sesion.destroy'
 ));
