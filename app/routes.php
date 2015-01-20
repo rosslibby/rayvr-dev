@@ -16,11 +16,6 @@ Route::get('/', function()
 	return View::make('hello');
 });
 
-Route::get('register/profile', array(
-	'as' => 'register.profile',
-	'uses' => 'RegisterController@profile'
-));
-
 Route::get('register', array(
 	'uses' => 'RegisterController@index',
 	'as' => 'register.index'
@@ -30,3 +25,8 @@ Route::post('register', array(
 	'uses' => 'RegisterController@store',
 	'as' => 'register.store'
 ));
+
+/**
+ * Preference route
+ */
+Route::resource('preferences', 'PreferencesController');
