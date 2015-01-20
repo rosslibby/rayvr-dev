@@ -30,3 +30,19 @@ Route::post('register', array(
  * Preference route
  */
 Route::resource('preferences', 'PreferencesController');
+
+/**
+ * Session routes
+ */
+Route::get('login', array(
+	'uses' => 'SessionController@create',
+	'as' => 'session.create'
+));
+Route::post('login', array(
+	'uses' => 'SessionController@store',
+	'as' => 'session.store'
+));
+Route::get('logout', array(
+	'uses' => 'SessionController@destroy',
+	'as' => 'session.destroy'
+));
