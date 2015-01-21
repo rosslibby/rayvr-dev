@@ -16,6 +16,25 @@ Route::get('/', function()
 	return View::make('hello');
 });
 
+/**
+ * Secure the routes
+ */
+Route::group(array('before' => 'auth.basic'), function()
+{
+	/**
+	 * Preference routes
+	 */
+	Route::get('user/preferences', array(
+		'uses' => 'PreferencesController@index',
+		'as' => 'user.preferences'
+	));
+	Route::post('preferences', array(
+		'uses' => 'UserController@store',
+		'as' => 'user.store'
+	));
+	Route::get('welcome', 'RegisterController@welcome');
+});
+
 Route::get('register', array(
 	'uses' => 'RegisterController@index',
 	'as' => 'register.index'
@@ -25,11 +44,6 @@ Route::post('register', array(
 	'uses' => 'RegisterController@store',
 	'as' => 'register.store'
 ));
-
-/**
- * Preference route
- */
-Route::resource('preferences', 'PreferencesController');
 
 Route::get('welcome', array(
 	'uses' => 'RegisterController@welcome',
