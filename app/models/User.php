@@ -100,4 +100,11 @@ class User extends Ardent implements UserInterface, RemindableInterface {
 		return $this->belongsToMany('Category', 'interest', 'user_id', 'cat_id');
 	}
 
+	/**
+	 * User preferences relationship
+	 */
+	public function preference()
+	{
+		return $this->belongsTo('Preference', 'preferences', 'user_id');
+	}
 }

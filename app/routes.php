@@ -31,6 +31,11 @@ Route::post('register', array(
  */
 Route::resource('preferences', 'PreferencesController');
 
+Route::get('welcome', array(
+	'uses' => 'RegisterController@welcome',
+	'as' => 'register.welcome'
+));
+
 /**
  * Session routes
  */
