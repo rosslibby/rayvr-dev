@@ -1,1 +1,5 @@
-/Users/Ross/Documents/rayvr/reboot/rayvr-dev/app/views/offers/index.blade.php
+@extends('includes.business-nav')
+
+@section('sidebar')
+	@include('includes.business-sidebar')
+@stop

@@ -8,6 +8,9 @@
 	{{ HTML::style( asset('resources/css/bootflat.css') ) }}
 	{{ HTML::style( asset('resources/css/skins/flat/red.css') ) }}
 	{{ HTML::style( asset('resources/css/custom.business.css') ) }}
+
+	<!-- In an attempt for AJAX posting... -->
+	<meta name="_token" content="{{ csrf_token() }}" />
 </head>
 <body>
 
@@ -25,11 +28,8 @@
 			</div>
 			<div id="top-nav" class="navbar-collapse collapse">
 				<ul class="nav navbar-nav navbar-left fg-scheme-black anchor lighter">
-					<li><a href="/new-offer">Add Offer</a></li>
-					<li><a href="/track-offers">Track Offers</a></li>
-					<li><a href="/shipping-claims">Shipping Claims</a></li>
-					<li><a href="/purchase-offers">Purchase Offers</a></li>
-					<li><a href="/preferences">Preferences</a></li>
+					@section('topnav')
+					@show
 				</ul>
 				<div class="col-md-2 navbar-right">
 					<div class="col-md-8 col-md-offset-4">

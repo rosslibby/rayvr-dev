@@ -2,9 +2,20 @@
 
 html, body { height: 100%; }
 
-body { padding-top: 50px; background-image: url(../img/business/dash-bg.jpg); background-size: 60%; }
+body
+{
+	padding-top: 50px;
+	background-image: url(../img/business/dash-bg.jpg);
+	background-size: 60%;
+}
 
-.wrapper { min-height: 100%; height: auto !important; height: 100%; margin: 0 auto -40px; }
+.wrapper
+{
+	min-height: 100%;
+	height: auto !important;
+	height: 100%;
+	margin: 0 auto -40px;
+}
 
 .content-area { margin-left: 258px; }
 
@@ -13,8 +24,16 @@ body { padding-top: 50px; background-image: url(../img/business/dash-bg.jpg); ba
 /* Hide for mobile, show later */
 .sidebar { display: none; }
 
-@media (min-width: 768px) {
-  .sidebar { position: fixed; width: 258px; height: 100%; display: block; overflow-x: hidden; overflow-y: auto; }
+@media (min-width: 768px){
+	.sidebar
+	{
+		position: fixed;
+		width: 258px;
+		height: 100%;
+		display: block;
+		overflow-x: hidden;
+		overflow-y: auto;
+	}
 }
 
 /** top nav **/
@@ -25,7 +44,7 @@ body { padding-top: 50px; background-image: url(../img/business/dash-bg.jpg); ba
 
 /** colors **/
 
-::selection { background: #FC6E51; color: #fff; text-shadow: 1px 1px #E9573F; }
+::selection{ background: #FC6E51; color: #fff; text-shadow: 1px 1px #E9573F; }
 
 .fg-scheme-dark { color: #E9573F; }
 .fg-scheme-light { color: #FC6E51; }
@@ -34,16 +53,48 @@ body { padding-top: 50px; background-image: url(../img/business/dash-bg.jpg); ba
 .bg-scheme-light { background-color: #FC6E51; }
 .bg-scheme-gray { background-color: #2B2B2B; }
 .bg-scheme-white { background-color: #FFF; }
+.bg-scheme-transparent-gray
+{
+	/** For browsers that don't support the alpha channel **/
+	background-color: rgb(230, 233, 237);
+
+	/** For browsers that support the alpha channel **/
+	background-color: rgba(230, 233, 237, .1);
+
+	border-color: #525252;
+	color: #CCC;
+}
+.bg-scheme-transparent-gray:focus { border-color: #E9573F; }
 
 .fg-scheme-white { color: #FFF; }
 .fg-scheme-white.anchor a { color: #FFF; }
-.fg-scheme-white.anchor a:hover, .fg-scheme-white.anchor li.active a { background-color: #E9573F; color: #FFF; }
+.fg-scheme-white.anchor a:hover,
+.fg-scheme-white.anchor li.active a
+{
+	background-color: #E9573F; color: #FFF;
+}
 .fg-scheme-black.anchor a { color: #000; }
-.fg-scheme-black.anchor a:hover, .fg-scheme-black.anchor li.active a { background-color: #E9573F; color: #FFF; }
+.fg-scheme-black.anchor a:hover,
+.fg-scheme-black.anchor li.active a
+{
+	background-color: #E9573F; color: #FFF;
+}
 .fg-scheme-gray.anchor a { color: #707070; }
-.fg-scheme-gray.anchor a:hover, .fg-scheme-gray.anchor li.active a { background-color: #E9573F; color: #FFF; }
+.fg-scheme-gray.anchor a:hover,
+.fg-scheme-gray.anchor li.active a
+{
+	background-color: #E9573F;
+	color: #FFF;
+}
 .fg-scheme-dark-gray.anchor a { color: #333; }
-.fg-scheme-dark-gray.anchor a:hover, .fg-scheme-dark-gray.anchor li.active a { background-color: #E9573F; color: #FFF; }
+.fg-scheme-dark-gray.anchor a:hover,
+.fg-scheme-dark-gray.anchor li.active a
+{
+	background-color: #E9573F;
+	color: #FFF;
+}
+
+.progress-bar-dark { background-color: #E9573F; }
 
 /** sizes **/
 
@@ -59,4 +110,11 @@ body { padding-top: 50px; background-image: url(../img/business/dash-bg.jpg); ba
 
 .inline-img { float: left; }
 
-.early-signup-header-bg { background-image: url('../img/early-signup-header-bg.jpg'); background-size: 60%; }
+.early-signup-header-bg
+{
+	background-image: url('../img/early-signup-header-bg.jpg');
+	background-size: 60%;
+}
+
+/** tooltips **/
+.progressbar + .tooltip { margin-top: -10px; }

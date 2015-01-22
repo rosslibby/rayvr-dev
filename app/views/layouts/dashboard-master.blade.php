@@ -13,10 +13,11 @@
 
 		</div>
 
-		<!-- Jumbotron -->
+		<!-- Content area -->
 
 		<div class="content-area">
-			{{ HTML::image( 'resources/img/business/ad/35-percent-off.png', 'Get 35% Off Your Next Order of 50 Offers Or More', array('width' => '1000') ) }}
+			@section('contentarea')
+			@show
 		</div>
 
 	</div>
