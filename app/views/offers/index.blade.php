@@ -1,0 +1,1 @@
+/Users/Ross/Documents/rayvr/reboot/rayvr-dev/app/views/offers/index.blade.php
