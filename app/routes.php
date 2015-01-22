@@ -72,3 +72,8 @@ Route::get('logout', array(
 Route::get('business', function(){
 	return View::make('business.index');
 });
+
+/**
+ * Offers
+ */
+Route::resource('offer', 'OffersController');
