@@ -65,3 +65,10 @@ Route::get('logout', array(
 	'uses' => 'SessionController@destroy',
 	'as' => 'session.destroy'
 ));
+
+/**
+ * Business pages
+ */
+Route::get('business', function(){
+	return View::make('business.index');
+});
