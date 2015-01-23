@@ -6,7 +6,8 @@
 	"type": "project",
 	"require": {
 		"laravel/framework": "4.2.*",
-		"laravelbook/ardent": "dev-master"
+		"laravelbook/ardent": "dev-master",
+		"gidlov/copycat": "dev-master"
 	},
 	"require-dev": {
 		"way/generators": "~2.0",
@@ -23,6 +24,9 @@
 			"app/database/seeds",
 			"app/tests/TestCase.php",
 			"app/lib"
+		],
+		"files": [
+			"vendor/gidlov/copycat/src/Gidlov/Copycat/Copycat.php"
 		]
 	},
 	"scripts": {

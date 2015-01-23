@@ -122,7 +122,8 @@ return array(
 		'Illuminate\View\ViewServiceProvider',
 		'Illuminate\Workbench\WorkbenchServiceProvider',
 		'Way\Generators\GeneratorsServiceProvider',
-		'RAYVR\Storage\StorageServiceProvider'
+		'RAYVR\Storage\StorageServiceProvider',
+		'Gidlov\Copycat\CopycatServiceProvider',
 
 	),
 
@@ -161,6 +162,7 @@ return array(
 		'Config'            => 'Illuminate\Support\Facades\Config',
 		'Controller'        => 'Illuminate\Routing\Controller',
 		'Cookie'            => 'Illuminate\Support\Facades\Cookie',
+		'Copycat'			=> 'Gidlov\Copycat\Copycat',
 		'Crypt'             => 'Illuminate\Support\Facades\Crypt',
 		'DB'                => 'Illuminate\Support\Facades\DB',
 		'Eloquent'          => 'Illuminate\Database\Eloquent\Model',

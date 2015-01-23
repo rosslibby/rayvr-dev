@@ -1,5 +1,7 @@
 <?php
 
+
+
 class OffersController extends BaseController {
 
 	/**
@@ -44,13 +46,36 @@ class OffersController extends BaseController {
 		if(Request::ajax())
 		{
 			$url = Input::get('url');
+
+			/**
+			 * Start ye old page scraper
+			 */
+			$cc = new Copycat;
+			$cc->setCURL(array(
+				CURLOPT_RETURNTRANSFER => 1,
+				CURLOPT_CONNECTTIMEOUT => 5,
+				CURLOPT_HTTPHEADER, "Content-Type: text/html; charset=iso-8859-1",
+				CURLOPT_USERAGENT => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1312.57 Safari/537.17',
+				CURLOPT_PROGRESSFUNCTION => 'callback'
+			));
+
+			$cc->match(array(
+				'title' => '/id="productTitle" class="a-size-large">(.*?)</ms',
+				'photo' => '/id="landingImage" data-a-dynamic-image="{&quot;(.*?)&/',
+				'description' => '/var iframeContent = "(.*?)"/'
+			))->URLs($url)
+			->callback(array(
+				'_all_' => array('trim')
+			));
+//				return $cc->get();
+
 			/**
 			 * For testing purposes, return a false array
 			 */
 			$product = array(
-				'photo' => 'http://ecx.images-amazon.com/images/I/71YPFO-Q%2BLL._SL1500_.jpg',
-				'title' => 'Symphonized NRG Premium Genuine Wood In-ear Noise-isolating Headphones with Mic (White)',
-				'description' => 'With its unique acoustical properties, wood provides the best sound reproduction there is, which is why most high-end speakers and many musical instruments are made of wood, not to mention the interiors of concert halls. And that\'s where you\'ll feel you are when you listen to your favorite audio devices with Symphonized natural wood headphones, with neodymium magnets providing enough power to bring out top-quality acoustics, surrounding you with energizing, high- fidelity sound as if you\'re right there at a live show. With their superior strength and durability, excellent noise isolation, distortion-free volume levels and deep base, Symphonized headphones are perfect for iPhones, iPods and iPads, mp3 players, CD players and more. Choose Symphonized natural wood headphones for your listening pleasure, and we\'re sure you\'ll never go back to plastic.',
+				'photo' => $cc->get()[0]['photo'],
+				'title' => $cc->get()[0]['title'],
+				'description' => urldecode($cc->get()[0]['description']),
 				'url' => $url
 			);
 
