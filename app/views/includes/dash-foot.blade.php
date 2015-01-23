@@ -4,6 +4,8 @@
 {{ HTML::script( 'resources/js/icheck.min.js' ) }}
 {{ HTML::script( 'resources/js/jquery.fs.selecter.min.js' ) }}
 {{ HTML::script( 'resources/js/jquery.fs.stepper.min.js' ) }}
+{{ HTML::script( 'resources/js/jquery.fs.selecter.js' ) }}
+{{ HTML::script( 'resources/js/bootstrap-datepicker.js' ) }}
 
 <script>
 $(document).ready(function(){
@@ -58,6 +60,12 @@ $(document).ready(function(){
 			}
 		},"json");
 	});
+	
+	/** Selecter **/
+	$("select").selecter();
+
+	/** Date range **/
+	$('.input-daterange').datepicker();
 });
 </script>
 

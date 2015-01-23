@@ -23,4 +23,8 @@
 	</div>
 </div>
 
+<!-- Content filling the page -->
+@section('content')
+@show
+
 @include('includes.dash-foot')

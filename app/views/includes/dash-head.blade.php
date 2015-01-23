@@ -8,6 +8,8 @@
 	{{ HTML::style( asset('resources/css/bootflat.css') ) }}
 	{{ HTML::style( asset('resources/css/skins/flat/red.css') ) }}
 	{{ HTML::style( asset('resources/css/custom.business.css') ) }}
+	{{ HTML::style( asset('resources/css/jquery.fs.selecter.css') ) }}
+	{{ HTML::style( asset('resources/css/datepicker.css') ) }}
 
 	<!-- In an attempt for AJAX posting... -->
 	<meta name="_token" content="{{ csrf_token() }}" />
