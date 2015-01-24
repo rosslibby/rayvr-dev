@@ -79,6 +79,10 @@ Route::group(['before' => 'csrf'], function()
 	 */
 	Route::post('offers/fetch', 'OffersController@fetch');
 	Route::get('offers/add', 'OffersController@add');
+	Route::post('offers', array(
+		'uses' =>  'OffersController@store',
+		'as' => 'offers.store'
+	));
 	Route::get('offers/track', 'OffersController@track');
 	Route::resource('offers', 'OffersController');
 });

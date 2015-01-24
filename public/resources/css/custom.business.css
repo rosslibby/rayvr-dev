@@ -140,3 +140,5 @@ iframe#product-description
 	-o-border-radius: 4px;
 	-ms-border-radius: 4px;
 }
+
+.hidden-input { display: none; }
