@@ -57,6 +57,13 @@ $(document).ready(function(){
 
 				// Log the data temporarily
 				console.log(data);
+
+				/** Popluate the form with the returned data **/
+				$("#product-photo").attr('src', data['photo']);
+				$("#product-title").html(data['title']);
+				$("#product-description").attr('src', 'data:text/html;charset=utf-8,'+data['description']);
+				$("#product-url").attr('href', data['url']);
+				$("#product-url").html('Product link ['+data['url']);
 			}
 		},"json");
 	});

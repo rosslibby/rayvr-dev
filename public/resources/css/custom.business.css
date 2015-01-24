@@ -5,19 +5,23 @@ html, body { height: 100%; }
 body
 {
 	padding-top: 50px;
-	background-image: url(../img/business/dash-bg.jpg);
+	background-color: rgba(255, 255, 255, .2);
+}
+
+.header-wrapper
+{
+	float: left;
+	width: 100%;
+	padding: 50px 0 100px 0;
 	background-size: 25%;
+	background-image: url(../img/business/dash-bg.jpg);
 }
 
 .content-wrapper
 {
-	position: absolute;
-	padding-top: 30px;
-	left: 258px;
-	bottom: 0;
-	top: 350px;
-	right: 0;
-	background-color: rgba(255, 255, 255, .2);
+	float: left;
+	margin-left: 258px;
+	padding: 0 0 100px 0;
 }
 
 .content-area { margin-left: 258px; }
@@ -124,3 +128,15 @@ body
 
 /** tooltips **/
 .progressbar + .tooltip { margin-top: -10px; }
+
+/** product data **/
+iframe#product-description
+{
+	width: 100%;
+	border: 1px solid #CCC;
+	border-radius: 4px;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	-o-border-radius: 4px;
+	-ms-border-radius: 4px;
+}

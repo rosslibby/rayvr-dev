@@ -1,7 +1,5 @@
 <?php
 
-
-
 class OffersController extends BaseController {
 
 	/**
@@ -23,7 +21,7 @@ class OffersController extends BaseController {
 	 */
 	public function add()
 	{
-		return View::make('offers.add', array('progress' => 63));
+		return View::make('offers.add', array('progress' => 63, 'title' => 'Title', 'photo' => 'http://placehold.it/400x400', 'description' => 'Description', 'url' => 'URL'));
 	}
 
 	/**
@@ -62,20 +60,27 @@ class OffersController extends BaseController {
 			$cc->match(array(
 				'title' => '/id="productTitle" class="a-size-large">(.*?)</ms',
 				'photo' => '/id="landingImage" data-a-dynamic-image="{&quot;(.*?)&/',
-				'description' => '/var iframeContent = "(.*?)"/'
+				'description' => '/%22productDescriptionWrapper%22%3E%0A(.*?)%3Ch3%20class%3D%22productDescriptionSource/',
+				'alt_description' => '/%3D%22productDescriptionWrapper%22%3E%0A(.*?)%0A/'
 			))->URLs($url)
 			->callback(array(
 				'_all_' => array('trim')
 			));
-//				return $cc->get();
 
 			/**
-			 * For testing purposes, return a false array
+			 * Make sure description exists
+			 */
+			$description = $cc->get()[0]['description'];
+			if($description == "")
+				$description = $cc->get()[0]['alt_description'];
+
+			/**
+			 * Return an array of the data
 			 */
 			$product = array(
 				'photo' => $cc->get()[0]['photo'],
 				'title' => $cc->get()[0]['title'],
-				'description' => urldecode($cc->get()[0]['description']),
+				'description' => urldecode($description),
 				'url' => $url
 			);
 
