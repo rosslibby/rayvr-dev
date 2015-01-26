@@ -20,13 +20,19 @@
 	<div class="container-fluid">
 		<div class="row">
 			<div class="navbar-header bg-scheme-gray">
-				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#top-nav" aria-expanded="false" aria-controls="top-nav">
-					<span class="sr-only">Toggle navigation</span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-				</button>
-				<strong><a class="navbar-brand fg-scheme-light" href="#">{{ HTML::image( 'resources/img/logo.png', 'Get Free Stuff with RAYVR', array('width' => '30', 'class' => 'inline-img') ) }}&nbsp;&nbsp;RAYVR</a></strong>
+				<div class="col-md-11">
+					<div class="row">
+						<div class="col-md-11 col-md-offset-1">
+							<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#top-nav" aria-expanded="false" aria-controls="top-nav">
+								<span class="sr-only">Toggle navigation</span>
+								<span class="icon-bar"></span>
+								<span class="icon-bar"></span>
+								<span class="icon-bar"></span>
+							</button>
+							<strong><a class="navbar-brand fg-scheme-light" href="/business">{{ HTML::image( 'resources/img/logo.png', 'Get Free Stuff with RAYVR', array('width' => '30', 'class' => 'inline-img') ) }}&nbsp;&nbsp;RAYVR</a></strong>
+						</div>
+					</div>
+				</div>
 			</div>
 			<div id="top-nav" class="navbar-collapse collapse">
 				<ul class="nav navbar-nav navbar-left fg-scheme-black anchor lighter">

@@ -1,8 +1,16 @@
 <?php namespace RAYVR\Storage\User;
 
 use User;
+use Hashids\Hashids as Hashids;
 
 class EloquentUserRepository implements UserRepository {
+
+	protected $hashids;
+
+	public function __construct(Hashids $hashids)
+	{
+		$this->hashids = $hashids;
+	}
 
 	public function all()
 	{
@@ -20,11 +28,14 @@ class EloquentUserRepository implements UserRepository {
 		return User::find($id);
 	}
 
-	public function create($input, $code)
+	public function create($input)
 	{
-		$invite = ['invite_code' => $code];
-		$input = array_merge($input, $invite);
+		$c = User::create($input);
 
-		return User::create($input);
+		if($c)
+		{
+			$c->invite_code = $this->hashids->encode($c->id);;
+			return $c;
+		}
 	}
 }

@@ -8,5 +8,5 @@ interface UserRepository {
 
 	public function userByEmail($string);
 
-	public function create($input, $code);
+	public function create($input);
 }
