@@ -54,6 +54,11 @@ Route::group(['before' => 'csrf'], function()
 		'as' => 'register.welcome'
 	));
 
+	Route::get('resources/privacy', function()
+	{
+		return View::make('resources.privacy');
+	});
+
 	/**
 	 * Session routes
 	 */

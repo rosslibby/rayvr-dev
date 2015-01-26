@@ -82,7 +82,7 @@ class PreferencesController extends BaseController {
 		$s = $this->preference->create($preferences);
 
 		/**
-		 * Store first name in session variable for
+		 * Store first name in a session variable for
 		 * access on the Welcome page
 		 */
 		Session::put('name', Input::get('first_name'));

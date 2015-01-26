@@ -68,6 +68,15 @@ class RegisterController extends BaseController {
 	 */
 	public function welcome()
 	{
+		/**
+		 * Send the welcome email
+		 */
+		$user = Session::get('new_user');
+		Mail::send('emails.welcome', ['name' => Session::get('name'), 'from' => 'The RAYVR team'], function($message) use ($user)
+		{
+			$message->to($user->email)->subject('Welcome to RAYVR!');
+		});
+
 		return View::make('register.welcome', array('name' => Session::pull('name')));
 	}
 }
