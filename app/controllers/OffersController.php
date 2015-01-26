@@ -105,7 +105,7 @@ class OffersController extends BaseController {
 
 		Offer::create($data);
 
-		return Redirect::route('offers.index');
+		return Redirect::route('offers.track');
 	}
 
 	/**

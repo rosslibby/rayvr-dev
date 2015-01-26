@@ -37,3 +37,6 @@ html, body { height: 100%; }
 .inline-img { float: left; }
 
 .early-signup-header-bg { background-image: url('../img/early-signup-header-bg.jpg'); background-size: 60%; }
+
+/** forms **/
+.hidden-input { display: none; }

@@ -52,6 +52,9 @@
 							<div class="col-md-9">
 								{{ Form::email('email', $value = null, array('class' => 'form-control', 'placeholder' => 'Enter your email')) }}
 							</div>
+
+							{{ Form::text('invited_by', $value = $referral['referral'], array('class' => 'hidden-input')) }}
+
 							<div class="col-md-3">
 								{{ Form::submit('SIGN UP', array('class' => 'btn btn-primary col-md-12')) }}
 							</div>

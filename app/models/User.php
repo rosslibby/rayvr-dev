@@ -27,7 +27,7 @@ class User extends Ardent implements UserInterface, RemindableInterface {
 	/**
 	 * Allow for mass assignment
 	 */
-	protected $fillable = array('email');
+	protected $fillable = array('email', 'invite_code', 'invited_by');
 
 	/**
 	 * Deny for mass assignment

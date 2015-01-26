@@ -7,7 +7,9 @@
 	"require": {
 		"laravel/framework": "4.2.*",
 		"laravelbook/ardent": "dev-master",
-		"gidlov/copycat": "dev-master"
+		"gidlov/copycat": "dev-master",
+		"guzzlehttp/guzzle": "~5.1",
+		"mitch/hashids": "1.x"
 	},
 	"require-dev": {
 		"way/generators": "~2.0",

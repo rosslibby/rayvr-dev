@@ -14,7 +14,10 @@ Route::group(['before' => 'csrf'], function()
 {
 	Route::get('/', function()
 	{
-		return View::make('hello');
+		Mail::send('emails.test', [], function($message)
+		{
+			$message->to('rosslibby92@gmail.com')->subject('RAYVR Email');
+		});
 	});
 
 	/**
@@ -36,7 +39,7 @@ Route::group(['before' => 'csrf'], function()
 		Route::get('welcome', 'RegisterController@welcome');
 	});
 
-	Route::get('register', array(
+	Route::get('register/{referral?}', array(
 		'uses' => 'RegisterController@index',
 		'as' => 'register.index'
 	));
@@ -83,6 +86,14 @@ Route::group(['before' => 'csrf'], function()
 		'uses' =>  'OffersController@store',
 		'as' => 'offers.store'
 	));
-	Route::get('offers/track', 'OffersController@track');
+	Route::get('offers/track', array(
+		'uses' => 'OffersController@track',
+		'as' => 'offers.track'
+	));
 	Route::resource('offers', 'OffersController');
+
+	/**
+	 * Referrals
+	 */
+	Route::resource('referrals', 'ReferralsController');
 });

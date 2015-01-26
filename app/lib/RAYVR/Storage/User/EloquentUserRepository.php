@@ -20,8 +20,11 @@ class EloquentUserRepository implements UserRepository {
 		return User::find($id);
 	}
 
-	public function create($input)
+	public function create($input, $code)
 	{
+		$invite = ['invite_code' => $code];
+		$input = array_merge($input, $invite);
+
 		return User::create($input);
 	}
 }
