@@ -22,6 +22,11 @@ class StorageServiceProvider extends ServiceProvider {
 		);
 
 		$this->app->bind(
+			'RAYVR\Storage\Offer\OfferRepository',
+			'RAYVR\Storage\Offer\EloquentOfferRepository'
+		);
+
+		$this->app->bind(
 			'RAYVR\Storage\Preference\PreferenceRepository',
 			'RAYVR\Storage\Preference\EloquentPreferenceRepository'
 		);

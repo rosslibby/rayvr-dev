@@ -1,20 +1,25 @@
 <?php
 
 use RAYVR\Storage\Category\CategoryRepository as Category;
+use RAYVR\Storage\Offer\OfferRepository as Offer;
 
 class OffersController extends BaseController {
 
 	/**
-	 * Use Category
+	 * Use Category repository
+	 * Use Offer repository
 	 */
 	protected $category;
+	protected $offer;
 
 	/**
 	 * Inject the Category repository
+	 * Inject the Offer repository
 	 */
-	public function __construct(Category $category)
+	public function __construct(Category $category, Offer $offer)
 	{
 		$this->category = $category;
+		$this->offer = $offer;
 	}
 
 	/**
@@ -44,7 +49,7 @@ class OffersController extends BaseController {
 	 */
 	public function track()
 	{
-		$offers = Offer::all();
+//		$offers = Offer::all();
 
 		return View::make('offers.track');
 	}
@@ -111,16 +116,17 @@ class OffersController extends BaseController {
 	 */
 	public function store()
 	{
-		$validator = Validator::make($data = Input::all(), Offer::$rules);
+		$data = Input::except('interest');
 
-		if ($validator->fails())
-		{
-			return Redirect::back()->withErrors($validator)->withInput();
-		}
+		/**
+		 * Create the offer
+		 */
 
-		Offer::create($data);
+		$categories = Input::get('interest');
+		$s = $this->offer->categories($data, $categories);
 
-		return Redirect::route('offers.track');
+		if($s)
+			return Redirect::route('offers.track');
 	}
 
 	/**

@@ -2,6 +2,8 @@
 
 class Offer extends \Eloquent {
 
+	protected $table = 'offers';
+
 	// Add your validation rules here
 	public static $rules = [
 		// 'title' => 'required'
@@ -11,10 +13,10 @@ class Offer extends \Eloquent {
 	protected $fillable = ['title', 'photo', 'description', 'start', 'end', 'prime', 'female', 'male', 'link'];
 
 	/**
-	 * Create offer <--> categories relationship
+	 * User categories relationship
 	 */
 	public function category()
 	{
-		$this->belongsToMany('OfferCategory', 'offer_id', 'category_id');
+		return $this->belongsToMany('Category', 'offer_categories', 'offer_id', 'category_id');
 	}
 }
