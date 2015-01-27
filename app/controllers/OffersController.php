@@ -1,6 +1,21 @@
 <?php
 
+use RAYVR\Storage\Category\CategoryRepository as Category;
+
 class OffersController extends BaseController {
+
+	/**
+	 * Use Category
+	 */
+	protected $category;
+
+	/**
+	 * Inject the Category repository
+	 */
+	public function __construct(Category $category)
+	{
+		$this->category = $category;
+	}
 
 	/**
 	 * Display a listing of offers
@@ -21,7 +36,7 @@ class OffersController extends BaseController {
 	 */
 	public function add()
 	{
-		return View::make('offers.add', array('progress' => 63, 'title' => 'Title', 'photo' => 'http://placehold.it/400x400', 'description' => 'Description', 'url' => 'URL'));
+		return View::make('offers.add', array('progress' => 63, 'title' => 'Title', 'photo' => 'http://placehold.it/400x400', 'description' => 'Description', 'url' => 'URL', 'interests' => $this->category->all()));
 	}
 
 	/**

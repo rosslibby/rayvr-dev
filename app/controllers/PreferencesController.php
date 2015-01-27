@@ -127,5 +127,4 @@ class PreferencesController extends BaseController {
 	{
 		//
 	}
-
 }
