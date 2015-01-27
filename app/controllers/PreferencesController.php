@@ -66,43 +66,8 @@ class PreferencesController extends BaseController {
 		$preferences = Input::only('first_name', 'last_name'/** Disabled until site is live:, 'prime', 'address_1', 'address_2', 'city', 'state_id', 'zip', 'country_id'*/);
 		
 		$interests = Input::only('interest');
-		$interests = $interests['interest'];
 
-		/**
-		 * Get the new user's id from the entered email
-		 */
-		$user_id = Session::get('new_user');
-
-		/**
-		 * Add the user_id to the input array
-		 */
-		$userid = ['user_id' => $user_id->id];
-		$preferences = array_merge($userid, $preferences);
-
-		$s = $this->preference->create($preferences);
-
-		/**
-		 * Store first name in a session variable for
-		 * access on the Welcome page
-		 */
-		Session::put('name', Input::get('first_name'));
-
-		/**
-		 * Create a user relationship with each
-		 * category they are interested in
-		 */
-		for($i = 0; $i < count($interests); $i++)
-		{
-			/**
-			 * Find category associated with user selection
-			 */
-			$category = $this->category->find($interests[$i]);
-
-			/**
-			 * Create new Interest (user-category relationship)
-			 */
-			$user_id->interest()->save($category);
-		}
+		$this->preference->interests($preferences, $interests);
 
 		if($s->save())
 		{
