@@ -53,7 +53,7 @@ html, body { height: 100%; }
 
 .fg-scheme-dark-gray.anchor a { color: #333; }
 .fg-scheme-dark-gray.anchor a:hover,
-.fg-scheme-dark-gray.anchor li.active a
+.fg-scheme-dark-gray.anchor.active a
 {
 	background-color: #E9573F;
 	color: #FFF;

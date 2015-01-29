@@ -10,14 +10,24 @@
 | and give it the Closure to execute when that URI is requested.
 |
 */
+
+/**
+ * Handle active nav items
+ */
+HTML::macro('clever_link', function($route, $text){
+	if( Request::path() == $route )
+	{
+		$active = "class = \"fg-scheme-dark-gray anchor active\"";
+	} else {
+		$active = "class = \"fg-scheme-dark-gray anchor\"";
+	}
+	return '<li '. $active . '>' . link_to($route, $text) . '</li>';
+});
+
 Route::group(['before' => 'csrf'], function()
 {
-	Route::get('/', function()
-	{
-		Mail::send('emails.test', [], function($message)
-		{
-			$message->to('rosslibby92@gmail.com')->subject('RAYVR Email');
-		});
+	Route::get('/', function(){
+		return View::make('landing.home');
 	});
 
 	/**
@@ -28,31 +38,43 @@ Route::group(['before' => 'csrf'], function()
 		/**
 		 * Preference routes
 		 */
-		Route::get('user/preferences', array(
+		Route::get('user/preferences', [
 			'uses' => 'PreferencesController@index',
 			'as' => 'user.preferences'
-		));
-		Route::post('preferences', array(
+		]);
+		Route::post('preferences', [
 			'uses' => 'UserController@store',
 			'as' => 'user.store'
-		));
+		]);
 		Route::get('welcome', 'RegisterController@welcome');
+
+		/**
+		 * Business pages
+		 */
+		Route::get('business', function(){
+			return View::make('business.index');
+		});
 	});
 
-	Route::get('register/{referral?}', array(
-		'uses' => 'RegisterController@index',
-		'as' => 'register.index'
-	));
+	Route::get('register/{referral?}', [
+		'uses' => 'SessionController@register',
+		'as' => 'session.index'
+	]);
 
-	Route::post('register', array(
-		'uses' => 'RegisterController@store',
-		'as' => 'register.store'
-	));
+	Route::get('early/{referral?}', [
+		'uses' => 'RegisterController@early',
+		'as' => 'register.early'
+	]);
 
-	Route::get('welcome', array(
+	Route::post('early', [
+		'uses' => 'RegisterController@earlyStore',
+		'as' => 'register.earlystore'
+	]);
+
+	Route::get('welcome', [
 		'uses' => 'RegisterController@welcome',
 		'as' => 'register.welcome'
-	));
+	]);
 
 	Route::get('resources/privacy', function()
 	{
@@ -76,25 +98,18 @@ Route::group(['before' => 'csrf'], function()
 	));
 
 	/**
-	 * Business pages
-	 */
-	Route::get('business', function(){
-		return View::make('business.index');
-	});
-
-	/**
 	 * Offers
 	 */
 	Route::post('offers/fetch', 'OffersController@fetch');
 	Route::get('offers/add', 'OffersController@add');
-	Route::post('offers', array(
+	Route::post('offers', [
 		'uses' =>  'OffersController@store',
 		'as' => 'offers.store'
-	));
-	Route::get('offers/track', array(
+	]);
+	Route::get('offers/track', [
 		'uses' => 'OffersController@track',
 		'as' => 'offers.track'
-	));
+	]);
 	Route::resource('offers', 'OffersController');
 
 	/**

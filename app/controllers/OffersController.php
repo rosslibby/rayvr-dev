@@ -41,7 +41,7 @@ class OffersController extends BaseController {
 	 */
 	public function add()
 	{
-		return View::make('offers.add', array('progress' => 63, 'title' => 'Title', 'photo' => 'http://placehold.it/400x400', 'description' => 'Description', 'url' => 'URL', 'interests' => $this->category->all()));
+		return View::make('offers.add', array('title' => 'Title', 'photo' => 'http://placehold.it/400x400', 'description' => 'Description', 'url' => 'URL', 'interests' => $this->category->all()));
 	}
 
 	/**

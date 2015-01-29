@@ -20,7 +20,6 @@
 				<ul id="loginTabs" class="nav nav-tabs nav-justified" role="tablist">
 					<li role="presentation"><a href="#user" aria-controls="user" role="tab" data-toggle="tab">User</a></li>
 					<li role="presentation" data-toggle="tab" class="active"><a href="#business" aria-controls="business" role="tab" data-toggle="tab">Business</a></li>
-					<li role="presentation" data-toggle="tab"><a href="#register" aria-controls="register" role="tab" data-toggle="tab">Register</a></li>
 				</ul>
 				<br>
 				<div class="tab-content">

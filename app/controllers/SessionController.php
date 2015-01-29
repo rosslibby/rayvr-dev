@@ -25,15 +25,28 @@ class SessionController extends BaseController {
 		return View::make('session.create');
 	}
 
+	public function register($referral = null)
+	{
+		if($referral)
+			$referral = ['referral' => $referral];
+		else
+			$referral = ['referral' => ''];
+
+		return View::make('session.index')->with('referral', $referral);
+	}
+
 	public function store()
 	{
-		if(Auth::attempt(array('email' => Input::get('email'), 'password' => Input::get('password'))))
-		{
-			return Redirect::intended('/');
-		}
-		return Redirect::route('session.create')
-			->withInput()
-			->with('login_errors', true);
+		$input = Input::all();
+
+		$attempt = Auth::attempt([
+			'email' => $input['email'],
+			'password' => $input['password']
+		]);
+
+		if($attempt) return Redirect::intended('/');
+
+		dd('problem');
 	}
 
 	public function destroy()

@@ -1,4 +1,4 @@
-@include('includes.head')
+@include('includes.landing-head')
 
 <!-- Content filling the page -->
 @section('content')

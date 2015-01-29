@@ -9,4 +9,6 @@ interface UserRepository {
 	public function userByEmail($string);
 
 	public function create($input);
+
+	public function createEarly($input);
 }

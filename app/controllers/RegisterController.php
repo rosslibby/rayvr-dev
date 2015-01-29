@@ -25,6 +25,16 @@ class RegisterController extends BaseController {
 		$this->category = $category;
 	}
 
+	public function early($referral = null)
+	{
+		if($referral)
+			$referral = ['referral' => $referral];
+		else
+			$referral = ['referral' => ''];
+
+		return View::make('register.early')->with('referral', $referral);
+	}
+
 	public function index($referral = null)
 	{
 		if($referral)
@@ -33,6 +43,34 @@ class RegisterController extends BaseController {
 			$referral = ['referral' => ''];
 
 		return View::make('register.index')->with('referral', $referral);
+	}
+
+	public function earlyStore()
+	{
+		/**
+		 * Set email as a session variable
+		 * so the user can save preferences
+		 * without logging in
+		 */
+
+		$s = $this->user->createEarly(Input::all());
+
+		if($s)
+		{
+			Session::put('new_user', $s->email);
+			
+			/**
+			 * Log the user in manually
+			 */
+			Auth::once(['email' => $s->email, 'password' => $s->password]);
+			
+			return Redirect::route('user.preferences')
+				->with('flash', 'The new user has been created');
+		}
+
+		return Redirect::route('register.early')
+			->withInput()
+			->withErrors($s->errors());
 	}
 
 	public function store()
@@ -52,7 +90,7 @@ class RegisterController extends BaseController {
 			/**
 			 * Log the user in manually
 			 */
-			Auth::login($s);
+			Auth::once(['email' => $s->email, 'password' => $s->password]);
 			
 			return Redirect::route('user.preferences')
 				->with('flash', 'The new user has been created');

@@ -12,8 +12,6 @@ class User extends Ardent implements UserInterface, RemindableInterface, Billabl
 
 	use UserTrait, RemindableTrait, BillableTrait;
 
-	protected $dates = ['trial_ends_at', 'subscription_ends_at'];
-
 	/**
 	 * The database table used by the model.
 	 *
@@ -26,17 +24,17 @@ class User extends Ardent implements UserInterface, RemindableInterface, Billabl
 	 *
 	 * @var array
 	 */
-	protected $hidden = array('password', 'remember_token');
+	protected $hidden = ['password', 'remember_token'];
 
 	/**
 	 * Allow for mass assignment
 	 */
-	protected $fillable = array('email', 'invite_code', 'invited_by');
+	protected $fillable = ['email', 'password', 'invite_code', 'invited_by', 'address', 'address_2', 'city', 'state', 'zip', 'country', 'phone', 'business'];
 
 	/**
 	 * Deny for mass assignment
 	 */
-	protected $guarded = array('id', 'password');
+	protected $guarded = array('id');
 
 	/**
 	 * Get the unique identifier for the user.
@@ -55,7 +53,7 @@ class User extends Ardent implements UserInterface, RemindableInterface, Billabl
 	 */
 	public function getAuthPassword()
 	{
-		return $this->password();
+		return $this->password;
 	}
 
 	/**
@@ -72,7 +70,9 @@ class User extends Ardent implements UserInterface, RemindableInterface, Billabl
 	 * Ardent validation rules
 	 */
 	public static $rules = array(
-		'email' => 'required'
+		'email' => 'required',
+		'password' => 'required',
+		'business' => 'required'
 	);
 
 	/**
