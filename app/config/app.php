@@ -125,6 +125,7 @@ return array(
 		'RAYVR\Storage\StorageServiceProvider',
 		'Gidlov\Copycat\CopycatServiceProvider',
 		'Mitch\Hashids\HashidsServiceProvider',
+		'Laravel\Cashier\CashierServiceProvider',
 
 	),
 

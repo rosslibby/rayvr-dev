@@ -9,7 +9,8 @@
 		"laravelbook/ardent": "dev-master",
 		"gidlov/copycat": "dev-master",
 		"guzzlehttp/guzzle": "~5.1",
-		"mitch/hashids": "1.x"
+		"mitch/hashids": "1.x",
+		"laravel/cashier": "~2.0"
 	},
 	"require-dev": {
 		"way/generators": "~2.0",

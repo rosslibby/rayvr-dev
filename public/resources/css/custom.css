@@ -59,6 +59,12 @@ html, body { height: 100%; }
 	color: #FFF;
 }
 
+.form-group.required .control-label:after
+{
+	content:" *";
+	color:red;
+}
+
 /** sizes **/
 
 .h3-5 { font-size: 220%; }
