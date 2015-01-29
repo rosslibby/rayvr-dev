@@ -1,3 +1,29 @@
+/** content **/
+
+.content-wrapper-bg
+{
+	background-size: 40%;
+	background-image: url(../img/business/dash-bg.jpg);
+}
+
+.subtle-label
+{
+	font-size: 80%;
+	color: #767676;
+	text-transform: uppercase;
+}
+
+.checkbox .subtle-label
+{
+	font-weight: bold !important;
+}
+
+.subtle-input
+{
+	background-color: #E6E9ED;
+	border-color: #E6E9ED;
+}
+
 /** footer **/
 
 html, body { height: 100%; }
@@ -5,8 +31,6 @@ html, body { height: 100%; }
 .wrapper { min-height: 100%; height: auto !important; height: 100%; margin: 0 auto -40px; }
 
 .footer-fix, .push { height: 40px;}
-
-.footer-bg-dark { background-color: #434A54; }
 
 .footer-fix p { padding-top: 10px; font-size: 90%; }
 
@@ -18,11 +42,22 @@ html, body { height: 100%; }
 
 .fg-scheme-dark { color: #E9573F; }
 .fg-scheme-light { color: #FC6E51; }
+.fg-scheme-white { color: #FFF; }
 
 .bg-scheme-dark { background-color: #E9573F; }
 .bg-scheme-light { background-color: #FC6E51; }
+.bg-scheme-white { background-color: #FFF; }
+.bg-scheme-dark-gray { background-color: #2B2B2B; }
 
-.fg-scheme-white { color: #FFF; }
+.border-scheme-dark-gray { border-color: #2B2B2B; }
+
+.fg-scheme-dark-gray.anchor a { color: #333; }
+.fg-scheme-dark-gray.anchor a:hover,
+.fg-scheme-dark-gray.anchor li.active a
+{
+	background-color: #E9573F;
+	color: #FFF;
+}
 
 /** sizes **/
 

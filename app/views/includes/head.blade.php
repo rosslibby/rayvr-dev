@@ -10,8 +10,8 @@
 	{{ HTML::style( asset('resources/css/custom.css') ) }}
 </head>
 <body>
-	<div class="wrapper">
-		<div class="header">
+	<div class="wrapper content-wrapper-bg">
+		<div class="header bg-scheme-white">
 			<div class="nav navbar-primary" role="navigation">
 				<div class="container">
 					<div class="container-fluid">
@@ -24,9 +24,7 @@
 							</button>
 							<strong><a class="navbar-brand fg-scheme-dark" href="#">{{ HTML::image( 'resources/img/logo.png', 'Get Free Stuff with RAYVR', array('width' => '30', 'class' => 'inline-img') ) }}&nbsp;&nbsp;RAYVR</a></strong>
 						</div>
-						<div class="collapse navbar-collapse">
-							<button class="navbar-btn navbar-right btn btn-primary">COMING SOON</button>
-						</div>
+						@include('includes.navigation')
 					</div>
 				</div>
 			</div>

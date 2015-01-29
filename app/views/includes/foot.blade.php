@@ -1,7 +1,7 @@
 		<div class="push"></div>
 	</div>
 
-	<div class="footer-fix footer-bg-dark">
+	<div class="footer-fix bg-scheme-dark-gray">
 
 		<div class="container text-center">
 
