@@ -126,6 +126,7 @@ return array(
 		'Gidlov\Copycat\CopycatServiceProvider',
 		'Mitch\Hashids\HashidsServiceProvider',
 		'Laravel\Cashier\CashierServiceProvider',
+		'Ignited\LaravelOmnipay\LaravelOmnipayServiceProvider',
 
 	),
 
@@ -195,6 +196,7 @@ return array(
 		'URL'               => 'Illuminate\Support\Facades\URL',
 		'Validator'         => 'Illuminate\Support\Facades\Validator',
 		'View'              => 'Illuminate\Support\Facades\View',
+		'Omnipay'			=> 'Ignited\LaravelOmnipay\Facades\OmnipayFacade',
 
 	),
 

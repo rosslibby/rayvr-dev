@@ -96,20 +96,35 @@ Route::group(['before' => 'csrf'], function()
 		'as' => 'session.destroy'
 	));
 
-	/**
-	 * Offers
-	 */
-	Route::post('offers/fetch', 'OffersController@fetch');
-	Route::get('offers/add', 'OffersController@add');
-	Route::post('offers', [
-		'uses' =>  'OffersController@store',
-		'as' => 'offers.store'
-	]);
-	Route::get('offers/track', [
-		'uses' => 'OffersController@track',
-		'as' => 'offers.track'
-	]);
-	Route::resource('offers', 'OffersController');
+	Route::group(['before' => 'auth'], function()
+	{
+		/**
+		 * Offers
+		 */
+		Route::post('offers/fetch', 'OffersController@fetch');
+
+		Route::get('offers/add', 'OffersController@add');
+
+		Route::post('offers', [
+			'uses' =>  'OffersController@store',
+			'as' => 'offers.store'
+		]);
+
+		Route::get('offers/track', [
+			'uses' => 'OffersController@track',
+			'as' => 'offers.track'
+		]);
+
+		Route::resource('offers', 'OffersController');
+
+		/**
+		 * Payments
+		 */
+		Route::get('payments', [
+			'uses' => 'PaymentController@paid',
+			'as' => 'paid'
+		]);
+	});
 
 	/**
 	 * Referrals

@@ -10,7 +10,10 @@
 		"gidlov/copycat": "dev-master",
 		"guzzlehttp/guzzle": "~5.1",
 		"mitch/hashids": "1.x",
-		"laravel/cashier": "~2.0"
+		"laravel/cashier": "~2.0",
+		"ignited/laravel-omnipay": "1.*",
+		"omnipay/paypal": "~2.0",
+		"omnipay/stripe": "~2.0"
 	},
 	"require-dev": {
 		"way/generators": "~2.0",
