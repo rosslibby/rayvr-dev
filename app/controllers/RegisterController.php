@@ -87,11 +87,6 @@ class RegisterController extends BaseController {
 		{
 			Session::put('new_user', $this->user->userByEmail(Input::get('email')));
 			
-			/**
-			 * Log the user in manually
-			 */
-			Auth::once(['email' => $s->email, 'password' => $s->password]);
-			
 			return Redirect::route('user.preferences')
 				->with('flash', 'The new user has been created');
 		}

@@ -61,8 +61,34 @@ class EloquentUserRepository implements UserRepository {
 
 	public function create($input)
 	{
+		/**
+		 * Hash the bloody password before it's too late
+		 */
+		$input['password'] = Hash::make($input['password']);
+		/**
+		 * Phew! *wipes sweat away from brow* We hashed that
+		 * just in time!
+		 */
+
+		/**
+		 * Whoaa there, where do you think you're going?!
+		 * Better determine whether this is a business or
+		 * a user, don't you think?
+		 */
+		if($input['business'] == 'true')
+			$input['business'] = 1;
+		else
+			$input['business'] = 0;
+
+		/**
+		 * Don't just lollygag around! CREATE THE USER!!!
+		 */
+
 		$c = User::create($input);
 
+		/**
+		 * If the user was successfully created, do a thing
+		 */
 		if($c)
 		{
 			$c->invite_code = $this->hashids->encode($c->id);;

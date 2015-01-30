@@ -123,7 +123,7 @@ class OffersController extends BaseController {
 		 */
 
 		$categories = Input::get('interest');
-		$s = $this->offer->categories($data, $categories);
+		$s = $this->offer->categories($data, $categories, Auth::user()->id);
 
 		if($s)
 			return Redirect::route('offers.track');

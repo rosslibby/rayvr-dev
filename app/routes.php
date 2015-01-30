@@ -31,29 +31,23 @@ Route::group(['before' => 'csrf'], function()
 	});
 
 	/**
-	 * Secure the routes
+	 * Preference routes
 	 */
-	Route::group(array('before' => 'auth.basic'), function()
-	{
-		/**
-		 * Preference routes
-		 */
-		Route::get('user/preferences', [
-			'uses' => 'PreferencesController@index',
-			'as' => 'user.preferences'
-		]);
-		Route::post('preferences', [
-			'uses' => 'UserController@store',
-			'as' => 'user.store'
-		]);
-		Route::get('welcome', 'RegisterController@welcome');
+	Route::get('user/preferences', [
+		'uses' => 'PreferencesController@index',
+		'as' => 'user.preferences'
+	]);
+	Route::post('preferences', [
+		'uses' => 'UserController@store',
+		'as' => 'user.store'
+	]);
+	Route::get('welcome', 'RegisterController@welcome');
 
-		/**
-		 * Business pages
-		 */
-		Route::get('business', function(){
-			return View::make('business.index');
-		});
+	/**
+	 * Business pages
+	 */
+	Route::get('business', function(){
+		return View::make('business.index');
 	});
 
 	Route::get('register/{referral?}', [
@@ -69,6 +63,11 @@ Route::group(['before' => 'csrf'], function()
 	Route::post('early', [
 		'uses' => 'RegisterController@earlyStore',
 		'as' => 'register.earlystore'
+	]);
+
+	Route::post('register', [
+		'uses' => 'RegisterController@store',
+		'as' => 'register.store'
 	]);
 
 	Route::get('welcome', [
