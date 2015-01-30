@@ -49,9 +49,9 @@ class OffersController extends BaseController {
 	 */
 	public function track()
 	{
-//		$offers = Offer::all();
+		$offers = $this->offer->offers(Auth::user()->id);
 
-		return View::make('offers.track');
+		return View::make('offers.track')->with('offers', $offers);
 	}
 
 	/**

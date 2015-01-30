@@ -105,14 +105,10 @@ Route::group(['before' => 'csrf'], function()
 		'uses' =>  'OffersController@store',
 		'as' => 'offers.store'
 	]);
-/*	Route::get('offers/track', [
+	Route::get('offers/track', [
 		'uses' => 'OffersController@track',
 		'as' => 'offers.track'
-	]);*/
-	Route::get('offers/track', function()
-	{
-		return Offer::where('business_id', '=', 18)->get();
-	});
+	]);
 	Route::resource('offers', 'OffersController');
 
 	/**
