@@ -1,6 +1,6 @@
 <?php
 
-class Offer extends \Eloquent {
+class Offer extends Eloquent {
 
 	protected $table = 'offers';
 
@@ -18,5 +18,10 @@ class Offer extends \Eloquent {
 	public function category()
 	{
 		return $this->belongsToMany('Category', 'offer_categories', 'offer_id', 'category_id');
+	}
+
+	public function offers()
+	{
+		return Offer::where('business_id', '=', Auth::user()->id);
 	}
 }
