@@ -31,6 +31,13 @@ class EloquentOfferRepository implements OfferRepository {
 	public function categories($data, $categories, $business)
 	{
 		/**
+		 * Convert the inputted dates to
+		 * appropriate date format
+		 */
+		$data['start'] = date("Y-m-d", strtotime($data['start']));
+		$data['end'] = date("Y-m-d", strtotime($data['end']));
+
+		/**
 		 * Create the offer
 		 */
 		$s = Offer::create($data);

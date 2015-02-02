@@ -73,13 +73,13 @@ $(document).ready(function(){
 				/** Popluate the form with the returned data **/
 				$("#photo_input").val(data['photo']);
 				$("#title_input").val(data['title']);
-				$("#description_input").html(data['description']);
+				/* $("#description_input").html(data['description']); */
 				$("#link_input").val(data['url']);
 
 				/** Display the returned data **/
 				$("#product-photo").attr('src', data['photo']);
 				$("#product-title").html(data['title']);
-				$("#product-description").attr('src', 'data:text/html;charset=utf-8,'+data['description']);
+				/* $("#product-description").attr('src', 'data:text/html;charset=utf-8,'+data['description']); */
 				$("#product-url").attr('href', data['url']);
 				$("#product-url").html('Product link ['+data['url']);
 			}

@@ -9,14 +9,14 @@
 		<div class="text-center">
 			<h2 class="fg-scheme-dark"><span class="glyphicon glyphicon-link"></span>&nbsp;Enter the product link</h2>
 
-			{{ Form::open(array('', 'id' => 'fetch')) }}
+			{{ Form::open(['', 'id' => 'fetch']) }}
 
 				<div class="col-md-6 col-md-offset-3">
 					<div class="row">
 						<div class="col-md-9 col-md-offset-1">
-							{{ Form::text('url', null, array('class' => 'form-control bg-scheme-transparent-gray', 'id' => 'url')) }}
+							{{ Form::text('url', null, ['class' => 'form-control bg-scheme-transparent-gray', 'id' => 'url']) }}
 						</div>
-						{{ Form::submit('FETCH DATA', array('class' => 'btn btn-primary')) }}
+						{{ Form::submit('FETCH DATA', ['class' => 'btn btn-primary']) }}
 					</div>
 
 					<br>
@@ -43,29 +43,31 @@
 <br>
 <div class="content-wrapper">
 	<div class="col-md-6 col-md-offset-3">
-		{{ Form::open(array('route' => 'offers.store')) }}
+		{{ Form::open(['route' => 'offers.store']) }}
 
 		<div class="row">
+			<br>
+			<br>
 
 			<!-- Targeted gender -->
 
 			<div class="col-md-4">
 				<div class="row">
 					<div class="col-md-6">
-					{{ Form::label('gender', 'Targeted Gender', array('class' => 'label bg-scheme-dark fg-scheme-white h6')) }}
+					{{ Form::label('gender', 'Targeted Gender', ['class' => 'label bg-scheme-dark fg-scheme-white h6']) }}
 					</div>
 				</div>
 				<br>
 				<div class="row">
 					<div class="col-md-6">
 						<div class="checkbox">
-							{{ Form::checkbox('female', '1', null, array('id' => 'female')) }}
+							{{ Form::checkbox('female', '1', null, ['id' => 'female']) }}
 							{{ Form::label('female', 'Female') }}
 						</div>
 					</div>
 					<div class="col-md-6">
 						<div class="checkbox">
-							{{ Form::checkbox('male', '0', null, array('id' => 'male')) }}
+							{{ Form::checkbox('male', '0', null, ['id' => 'male']) }}
 							{{ Form::label('male', 'Male') }}
 						</div>
 					</div>
@@ -77,14 +79,14 @@
 			<div class="col-md-4">
 				<div class="row">
 					<div class="col-md-6">
-					{{ Form::label('gender', 'Prime Exclusive', array('class' => 'label bg-scheme-dark fg-scheme-white h6')) }}
+						{{ Form::label('prime', 'Prime Exclusive', ['class' => 'label bg-scheme-dark fg-scheme-white h6']) }}
 					</div>
 				</div>
 				<br>
 				<div class="row">
 					<div class="col-md-4">
 						<div class="radio" data-toggle="tooltip" data-placement="bottom" title data-original-title="This option is reserved for premium members">
-							{{ Form::radio('prime', '1', false, array('disabled')) }}
+							{{ Form::radio('prime', '1', false, ['disabled']) }}
 							{{ Form::label('prime', 'Yes') }}
 						</div>
 					</div>
@@ -93,6 +95,19 @@
 							{{ Form::radio('prime', '0', true) }}
 							{{ Form::label('prime', 'No') }}
 						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-4">
+				<div class="row">
+					<div class="col-md-6">
+						{{ Form::label('code', 'Discount Code', ['class' => 'label bg-scheme-dark fg-scheme-white h6']) }}
+					</div>
+				</div>
+				<br>
+				<div class="row">
+					<div class="col-md-12">
+						{{ Form::text('code', null, ['id' => 'code', 'class' => 'form-control']) }}
 					</div>
 				</div>
 			</div>
@@ -110,13 +125,13 @@
 			<div class="col-md-4">
 				<div class="row">
 					<div class="col-md-6">
-					{{ Form::label('quota', 'Number of Offers', array('class' => 'label bg-scheme-dark fg-scheme-white h6')) }}
+					{{ Form::label('quota', 'Number of Offers', ['class' => 'label bg-scheme-dark fg-scheme-white h6']) }}
 					</div>
 				</div>
 				<br>
 				<div class="row">
 					<div class="col-md-8">
-						{{ Form::select('quota', array('25' => '25', '50' => '50', '100' => '100', '200' => '200'), array('class' => 'selecter_basic', 'id' => 'quota')) }}
+						{{ Form::select('quota', ['25' => '25', '50' => '50', '100' => '100', '200' => '200'], ['class' => 'selecter_basic', 'id' => 'quota']) }}
 					</div>
 				</div>
 			</div>
@@ -126,16 +141,16 @@
 			<div class="col-md-8">
 				<div class="row">
 					<div class="col-md-4">
-					{{ Form::label('quota', 'Start &amp; End', array('class' => 'label bg-scheme-dark fg-scheme-white h6')) }}
+					{{ Form::label('date', 'Start &amp; End', ['class' => 'label bg-scheme-dark fg-scheme-white h6']) }}
 					</div>
 				</div>
 				<br>
 				<div class="row form-horizontal">
 					<div class="col-md-10" id="sandbox-container">
 						<div class="input-daterange input-group" id="datepicker">
-							{{ Form::text('start', null, array('class' => 'form-control')) }}
+							{{ Form::text('start', null, ['class' => 'form-control']) }}
 							<span class="input-group-addon">to</span>
-							{{ Form::text('end', null, array('class' => 'form-control')) }}
+							{{ Form::text('end', null, ['class' => 'form-control']) }}
 						</div>
 					</div>
 				</div>
@@ -147,7 +162,7 @@
 				<br>
 				<div class="row">
 					<div class="col-md-4">
-						{{ Form::label('categories', 'Categories', array('class' => 'label bg-scheme-dark fg-scheme-white h6')) }}
+						{{ Form::label('categories', 'Categories', ['class' => 'label bg-scheme-dark fg-scheme-white h6']) }}
 					</div>
 				</div>
 			</div>
@@ -157,8 +172,8 @@
 					@foreach ($interests as $interest)
 						<div class="col-md-4">
 							<div class="checkbox">
-								{{ Form::checkbox('interest[]', $value = $interest['id'], null, array('id' =>  'interest_'.$interest['id'], 'class' => 'form-control')) }}
-								{{ Form::label('interest_'.$interest['id'], $interest['title'], array('id' => 'interest_'.$interest['id'])) }}
+								{{ Form::checkbox('interest[]', $value = $interest['id'], null, ['id' =>  'interest_'.$interest['id'], 'class' => 'form-control']) }}
+								{{ Form::label('interest_'.$interest['id'], $interest['title'], ['id' => 'interest_'.$interest['id']]) }}
 							</div>
 						</div>
 					@endforeach
@@ -176,17 +191,20 @@
 		<div class="row">
 			<div class="col-md-11">
 				<div class="jumbotron">
+					<br>
+					<br>
 					<div class="jumbotron-photo">
-						{{ HTML::image($photo, $title, array('id' => 'product-photo')) }}
-						{{ Form::text('photo', $photo, array('id' => 'photo_input', 'class' => 'hidden-input')) }}
+						{{ HTML::image($photo, $title, ['id' => 'product-photo']) }}
+						{{ Form::text('photo', $photo, ['id' => 'photo_input', 'class' => 'hidden-input']) }}
 					</div>
 					<div class="jumbotron-contents">
 						<h2 id="product-title">{{ $title }}</h2>
-						{{ Form::text('title', $title, array('id' => 'title_input', 'class' => 'hidden-input')) }}
-						<p><iframe src="data:text/html;charset=utf-8,{{ $description }}" id="product-description"></iframe></p>
-						{{ Form::textarea('description', null, array('id' => 'description_input', 'class' => 'hidden-input')) }}
-						<p><em>{{ HTML::link($url, $url, array('id' => 'product-url', 'target' => '_blank')) }}</em></p>
-						{{ Form::text('link', $url, array('id' => 'link_input', 'class' => 'hidden-input')) }}
+						{{ Form::text('title', $title, ['id' => 'title_input', 'class' => 'hidden-input']) }}
+						<hr>
+						{{ Form::label('description', 'Description') }}
+						{{ Form::textarea('description', null, ['id' => 'description_input', 'class' => 'form-control']) }}
+						<p><em>{{ HTML::link($url, $url, ['id' => 'product-url', 'target' => '_blank']) }}</em></p>
+						{{ Form::text('link', $url, ['id' => 'link_input', 'class' => 'hidden-input']) }}
 					</div>
 				</div>
 			</div>
@@ -194,7 +212,7 @@
 
 		<div class="row">
 			<div class="col-md-11 text-right">
-				{{ Form::submit('Submit Offer', array('class' => 'btn btn-primary')) }}
+				{{ Form::submit('Submit Offer', ['class' => 'btn btn-primary']) }}
 			</div>
 		</div>
 		{{ Form::close() }}
