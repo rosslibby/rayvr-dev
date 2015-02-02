@@ -79,7 +79,7 @@ class OffersController extends BaseController {
 
 			$cc->match(array(
 				'title' => '/id="productTitle" class="a-size-large">(.*?)</ms',
-				'photo' => '/id="landingImage" data-a-dynamic-image="{&quot;(.*?)&/',
+				'photo' => '/data-a-dynamic-image="{&quot;(.*?)&quot;/',
 				'description' => '/%22productDescriptionWrapper%22%3E%0A(.*?)%3Ch3%20class%3D%22productDescriptionSource/',
 				'alt_description' => '/%3D%22productDescriptionWrapper%22%3E%0A(.*?)%0A/'
 			))->URLs($url)

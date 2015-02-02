@@ -5,9 +5,6 @@
 	<br>
 	<br>
 	<div class="col-md-4 col-md-offset-4">
-		<div class="row">
-			<h3 class="fg-scheme-white lighter text-center">Sign in to your dashboard</h3>
-		</div>
 		<br>
 		<br>
 		<div class="row">

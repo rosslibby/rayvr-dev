@@ -10,9 +10,15 @@
 	{{ HTML::style( asset('resources/css/custom.business.css') ) }}
 	{{ HTML::style( asset('resources/css/jquery.fs.selecter.css') ) }}
 	{{ HTML::style( asset('resources/css/datepicker.css') ) }}
+	{{ HTML::script('https://js.stripe.com/v2/') }}
 
 	<!-- In an attempt for AJAX posting... -->
 	<meta name="_token" content="{{ csrf_token() }}" />
+
+	<!-- Setting up things -->
+	<script type="text/javascript">
+		Stripe.setPublishableKey('pk_test_X8GEnzu7zmgQ1N62Nr3W5vqD');
+	</script>
 </head>
 <body>
 
@@ -41,7 +47,7 @@
 				</ul>
 				<div class="col-md-2 navbar-right">
 					<div class="col-md-8 col-md-offset-4">
-						<button class="navbar-btn btn btn-primary text-right">SIGN OUT</button>
+						<a href="/logout" class="navbar-btn btn btn-primary text-right">SIGN OUT</a>
 					</div>
 				</div>
 			</div>

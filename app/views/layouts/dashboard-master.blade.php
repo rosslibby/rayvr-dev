@@ -18,13 +18,13 @@
 		<div class="content-area">
 			@section('contentarea')
 			@show
+			
+			<!-- Content filling the page -->
+			@section('content')
+			@show
 		</div>
 
 	</div>
 </div>
-
-<!-- Content filling the page -->
-@section('content')
-@show
 
 @include('includes.dash-foot')

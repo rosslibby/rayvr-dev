@@ -20,7 +20,7 @@ body
 .content-wrapper
 {
 	float: left;
-	margin-left: 258px;
+	width: 100%;
 	padding: 0 0 100px 0;
 }
 
@@ -142,3 +142,17 @@ iframe#product-description
 }
 
 .hidden-input { display: none; }
+
+/** payments **/
+
+.card-data input { border: none; }
+
+.card-data input.number { border-bottom: 1px solid #e4e4e4; }
+
+.card-data input.date { border-right: 1px solid #e4e4e4; }
+
+.subtle-input
+{
+	background-color: #E6E9ED;
+	border-color: #E6E9ED;
+}

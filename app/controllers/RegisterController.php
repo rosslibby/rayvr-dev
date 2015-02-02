@@ -75,19 +75,25 @@ class RegisterController extends BaseController {
 
 	public function store()
 	{
-		/**
-		 * Set email as a session variable
-		 * so the user can save preferences
-		 * without logging in
-		 */
-
 		$s = $this->user->create(Input::all());
 
 		if($s->save())
 		{
 			Session::put('new_user', $this->user->userByEmail(Input::get('email')));
 			
-			return Redirect::route('user.preferences')
+			/**
+			 * Determine the redirect based on
+			 * whether this is a user or
+			 * business registration
+			 */
+			$route = 'user.preferences';
+
+			if(Input::get('business') == 'true')
+			{
+				$route = 'business.preferences';
+			}
+
+			return Redirect::route($route)
 				->with('flash', 'The new user has been created');
 		}
 

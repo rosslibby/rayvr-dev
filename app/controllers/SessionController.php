@@ -45,8 +45,6 @@ class SessionController extends BaseController {
 		]);
 
 		if($attempt) return Redirect::intended('/');
-
-		dd('problem');
 	}
 
 	public function destroy()

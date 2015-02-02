@@ -4,7 +4,7 @@ use RAYVR\Storage\User\UserRepository as User;
 use Omnipay\Omnipay;
 
 class PaymentController extends BaseController {
-	public function paid()
+	public function payments()
 	{
 		return View::make('payments.index');
 	/*	$gateway = Omnipay::create('Stripe');
@@ -33,5 +33,15 @@ class PaymentController extends BaseController {
 			// payment failed: display message to customer
 			echo $response->getMessage();
 		}*/
+	}
+
+	public function membership()
+	{
+		return View::make('payments.membership');
+	}
+
+	public function subscribe()
+	{
+		return View::make('payments.subscription');
 	}
 }

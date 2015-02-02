@@ -39,7 +39,7 @@
 
 				<div class="row">
 					<div class="col-md-12 text-right">
-						{{ Form::submit('Sign In', array('class' => 'btn btn-primary')) }}
+						{{ Form::submit('Sign Up', array('class' => 'btn btn-primary')) }}
 					</div>
 				</div>
 

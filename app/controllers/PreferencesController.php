@@ -45,6 +45,15 @@ class PreferencesController extends BaseController {
 	}
 
 	/**
+	 * Business preferences form
+	 */
+	public function business()
+	{
+		$model = Auth::user();
+		return View::make('forms.preferences.business')->with(compact('model'));
+	}
+
+	/**
 	 * Show the form for creating a new resource.
 	 * GET /preferences/create
 	 *

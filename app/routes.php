@@ -11,24 +11,13 @@
 |
 */
 
-/**
- * Handle active nav items
- */
-HTML::macro('clever_link', function($route, $text){
-	if( Request::path() == $route )
-	{
-		$active = "class = \"fg-scheme-dark-gray anchor active\"";
-	} else {
-		$active = "class = \"fg-scheme-dark-gray anchor\"";
-	}
-	return '<li '. $active . '>' . link_to($route, $text) . '</li>';
-});
-
 Route::group(['before' => 'csrf'], function()
 {
 	Route::get('/', function(){
 		return View::make('landing.home');
 	});
+
+	Route::get('/', 'LandingController@index');
 
 	/**
 	 * Preference routes
@@ -121,8 +110,21 @@ Route::group(['before' => 'csrf'], function()
 		 * Payments
 		 */
 		Route::get('payments', [
-			'uses' => 'PaymentController@paid',
-			'as' => 'paid'
+			'uses' => 'PaymentController@payments',
+			'as' => 'payments'
+		]);
+
+		Route::get('payments/membership', [
+			'uses' => 'PaymentController@membership',
+			'as' => 'membership'
+		]);
+
+		/**
+		 * Preferences
+		 */
+		Route::get('settings', [
+			'uses' => 'PreferencesController@business',
+			'as' => 'business.preferences'
 		]);
 	});
 

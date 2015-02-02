@@ -32,14 +32,9 @@
 					{{ Form::hidden('business', 'true') }}
 				</div>
 
-				<div class="form-group required">
-					{{ Form::label('referral', 'Invite code', array('class' => 'control-label subtle-label')) }}
-					{{ Form::text('referral', $referral['referral'], array('class' => 'form-control subtle-input')) }}
-				</div>
-
 				<div class="row">
 					<div class="col-md-12 text-right">
-						{{ Form::submit('Sign In', array('class' => 'btn btn-primary')) }}
+						{{ Form::submit('Register', array('class' => 'btn btn-primary')) }}
 					</div>
 				</div>
 
