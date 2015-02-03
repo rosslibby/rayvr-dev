@@ -1,6 +1,6 @@
 <?php namespace RAYVR\Storage\Preference;
 
-use Preference;
+use Preference, User;
 
 class EloquentPreferenceRepository implements PreferenceRepository {
 
@@ -58,5 +58,24 @@ class EloquentPreferenceRepository implements PreferenceRepository {
 			 */
 			$user_id->interest()->save($category);
 		}
+	}
+
+	/**
+	 * This sets up preferences without
+	 * associating any user <--> category
+	 * relationships (interests)
+	 */
+	public function preferences($preferences, $user)
+	{
+		/**
+		 * Check if preference record exists.
+		 * If true, update
+		 * If false, create
+		 */
+		$pref = User::find($user);
+		$pref->fill($preferences);
+		$s = $pref->save();
+
+		return $s;
 	}
 }

@@ -57,6 +57,6 @@ class Preference extends Ardent {
 	 */
 	public function user()
 	{
-		return $this->belongsToMany('User', 'preferences', 'user_id');
+		return $this->belongsTo('User');
 	}
 }

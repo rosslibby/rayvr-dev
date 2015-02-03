@@ -29,7 +29,7 @@ class User extends Ardent implements UserInterface, RemindableInterface, Billabl
 	/**
 	 * Allow for mass assignment
 	 */
-	protected $fillable = ['email', 'password', 'invite_code', 'invited_by', 'business', 'address', 'address_2', 'city', 'state', 'zip', 'country', 'phone', 'current'];
+	protected $fillable = ['email', 'password', 'invite_code', 'invited_by', 'first_name', 'last_name', 'business_name', 'address', 'address_2', 'city', 'state', 'zip', 'country', 'phone', 'current'];
 
 	/**
 	 * Deny for mass assignment
@@ -109,6 +109,6 @@ class User extends Ardent implements UserInterface, RemindableInterface, Billabl
 	 */
 	public function preference()
 	{
-		return $this->belongsTo('Preference', 'preferences', 'user_id');
+		return $this->hasOne('Preference');
 	}
 }

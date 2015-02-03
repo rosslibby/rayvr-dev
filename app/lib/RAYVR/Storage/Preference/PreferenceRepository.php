@@ -9,4 +9,6 @@ interface PreferenceRepository {
 	public function create($input);
 
 	public function interests($preferences, $interests);
+
+	public function preferences($preferences, $user);
 }

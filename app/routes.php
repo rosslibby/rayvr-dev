@@ -126,6 +126,11 @@ Route::group(['before' => 'csrf'], function()
 			'uses' => 'PreferencesController@business',
 			'as' => 'business.preferences'
 		]);
+
+		Route::post('settings', [
+			'uses' => 'PreferencesController@storeBusiness',
+			'as' => 'preferences.storeBusiness'
+		]);
 	});
 
 	/**

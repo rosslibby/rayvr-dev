@@ -90,6 +90,26 @@ class PreferencesController extends BaseController {
 	}
 
 	/**
+	 * Store the Business users' preferences
+	 */
+	public function storeBusiness()
+	{
+		$preferences = Input::all();
+
+		$s = $this->preference->preferences($preferences, Auth::user()->id);
+
+		if($s)
+		{
+			return Redirect::route('business.preferences')
+				->with('flash', 'The user registration is complete');
+		}
+
+		return Redirect::route('user.preferences')
+			->withInput()
+			->withErrors($s->errors());
+	}
+
+	/**
 	 * Display the specified resource.
 	 * GET /preferences/{id}
 	 *
