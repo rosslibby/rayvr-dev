@@ -44,7 +44,9 @@ class SessionController extends BaseController {
 			'password' => $input['password']
 		]);
 
-		if($attempt) return Redirect::intended('/');
+		if($attempt)
+			return Redirect::intended('/');
+		return Redirect::to('login')->with('error', 'Your email/password combination was incorrect.');
 	}
 
 	public function destroy()
