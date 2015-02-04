@@ -8,7 +8,7 @@
 		<br>
 		<br>
 		<div class="row">
-			<div class="col-md-8 col-md-offset-2">
+			<div class="col-md-10 col-md-offset-1">
 				<div class="panel" role="tabpanel">
 					<ul id="loginTabs" class="nav nav-tabs nav-justified" role="tablist">
 						<li role="presentation"><a href="#user" aria-controls="user" role="tab" data-toggle="tab">User</a></li>
