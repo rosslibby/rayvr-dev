@@ -33,7 +33,7 @@ class LandingController extends BaseController {
 		 */
 		if(Auth::user())
 			if(Auth::user()->business)
-				return View::make('business.index');
+				return Redirect::to('offers/track');
 			else
 				return View::make('landing.home');
 		else
