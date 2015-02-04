@@ -96,12 +96,34 @@ class PreferencesController extends BaseController {
 	{
 		$preferences = Input::all();
 
+		/**
+		 * Validate input
+		 */
+		$validator = Validator::make(
+			Input::except('business_name', 'address_2'),
+			[
+				'email' => 'required|unique',
+				'first_name' => 'required',
+				'last_name' => 'required',
+				'address' => 'required',
+				'city' => 'required',
+				'state' => 'required',
+				'zip' => 'required',
+				'country' => 'required',
+				'phone' => 'required'
+			]
+		);
+
 		$s = $this->preference->preferences($preferences, Auth::user()->id);
 
 		if($s)
 		{
-			return Redirect::route('business.preferences')
-				->with('flash', 'The user registration is complete');
+			if($validator)
+				return Redirect::route('business.preferences')
+					->with('flash', 'The user registration is complete');
+			else
+				return Redirect::route('business.preferences')
+					->with('flash', 'The user registration is not complete');
 		}
 
 		return Redirect::route('user.preferences')

@@ -29,7 +29,7 @@ class User extends Ardent implements UserInterface, RemindableInterface, Billabl
 	/**
 	 * Allow for mass assignment
 	 */
-	protected $fillable = ['email', 'password', 'invite_code', 'invited_by', 'first_name', 'last_name', 'business_name', 'address', 'address_2', 'city', 'state', 'zip', 'country', 'phone', 'current'];
+	protected $fillable = ['email', 'password', 'invite_code', 'invited_by', 'first_name', 'last_name', 'business', 'business_name', 'address', 'address_2', 'city', 'state', 'zip', 'country', 'phone', 'current'];
 
 	/**
 	 * Deny for mass assignment
