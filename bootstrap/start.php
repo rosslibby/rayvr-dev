@@ -27,7 +27,7 @@ $app = new Illuminate\Foundation\Application;
 $env = $app->detectEnvironment(array(
 
 	'local' => array('localhost'),
-	'production' => array('104.236.204.234')
+	'rayvr.com' => array('104.236.204.234')
 
 ));
 
