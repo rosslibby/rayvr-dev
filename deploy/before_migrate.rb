@@ -3,10 +3,10 @@
         level :debug
     end
     # run composer install
-    execute "composer install" do
+    execute "composer.phar install" do
         user "deploy"
         cwd path
-        command "composer install --no-dev --no-interaction --optimize-autoloader"
+        command "composer.phar install --no-dev --no-interaction --optimize-autoloader"
         # only execute for composer projects
         only_if "test -f \"#{path}/composer.json\""
     end
