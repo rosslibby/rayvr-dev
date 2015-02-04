@@ -27,7 +27,7 @@ $app = new Illuminate\Foundation\Application;
 $env = $app->detectEnvironment(array(
 
 	'local' => array('localhost'),
-	'/home/forge/rayvr.com' => array('104.236.204.234')
+	'production' => array('stunning-shelter')
 
 ));
 
