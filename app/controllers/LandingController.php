@@ -30,10 +30,18 @@ class LandingController extends BaseController {
 		 * 
 		 * Otherwise return the user
 		 * dashboard
+		 * 
+		 * If the user's preferences
+		 * have not been completed,
+		 * redirect to the
+		 * preferences page
 		 */
 		if(Auth::user())
 			if(Auth::user()->business)
-				return Redirect::to('offers/track');
+				if(Auth::user()->address)
+					return Redirect::to('offers/track');
+				else
+					return Redirect::to('settings');
 			else
 				return View::make('landing.home');
 		else
