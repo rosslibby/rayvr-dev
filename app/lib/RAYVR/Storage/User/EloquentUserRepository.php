@@ -3,6 +3,7 @@
 use User;
 use Hashids\Hashids as Hashids;
 use Illuminate\Support\Facades\Hash;
+use Validator;
 
 class EloquentUserRepository implements UserRepository {
 
@@ -61,6 +62,10 @@ class EloquentUserRepository implements UserRepository {
 
 	public function create($input)
 	{
+		$rules = ['email' => 'unique:users,email', 'password_confirmation' => 'same:password'];
+
+		$validator = Validator::make($input, $rules);
+
 		/**
 		 * Hash the bloody password before it's too late
 		 */
@@ -82,17 +87,22 @@ class EloquentUserRepository implements UserRepository {
 
 		/**
 		 * Don't just lollygag around! CREATE THE USER!!!
+		 * 
+		 * -- only if the user doesn't already exist
 		 */
 
-		$c = User::create($input);
-
-		/**
-		 * If the user was successfully created, do a thing
-		 */
-		if($c)
-		{
+		if($validator->passes()){
+			/**
+			 * Set email as temporary referral code
+			 * to get past the "unique" requirement
+			 */
+			$code = ['invite_code' => $input['email']];
+			$input = array_merge($input, $code);
+			$c = User::create($input);
 			$c->invite_code = $this->hashids->encode($c->id);;
-			return $c;
+			return [true, $c];
+		} else {
+			return [false, $validator->messages()->first()];
 		}
 	}
 }

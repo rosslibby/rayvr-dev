@@ -77,12 +77,10 @@ class RegisterController extends BaseController {
 	{
 		$s = $this->user->create(Input::all());
 
-		if($s)
+		if($s[0])
 		{
-			Auth::login($s);
+			Auth::login($s[1]);
 
-			Session::put('new_user', $s->email);
-			
 			/**
 			 * Determine the redirect based on
 			 * whether this is a user or
@@ -101,7 +99,7 @@ class RegisterController extends BaseController {
 
 		return Redirect::route('session.index')
 			->withInput()
-			->withErrors($s->errors());
+			->with('error', $s[1]);
 	}
 
 	/**
