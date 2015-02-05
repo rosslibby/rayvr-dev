@@ -63,6 +63,11 @@ Route::group(['before' => 'csrf'], function()
 		'as' => 'register.welcome'
 	]);
 
+	Route::get('business/welcome', [
+		'uses' => 'RegisterController@welcomeBusiness',
+		'as' => 'business.welcome'
+	]);
+
 	Route::get('resources/privacy', function()
 	{
 		return View::make('resources.privacy');

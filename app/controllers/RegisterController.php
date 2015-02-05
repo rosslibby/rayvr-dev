@@ -79,7 +79,8 @@ class RegisterController extends BaseController {
 
 		if($s[0])
 		{
-			Auth::login($s[1]);
+			// temporarily do not authorize the user upon creation
+			//Auth::login($s[1]);
 
 			/**
 			 * Determine the redirect based on
@@ -90,7 +91,9 @@ class RegisterController extends BaseController {
 
 			if(Input::get('business') == 'true')
 			{
-				$route = 'business.preferences';
+				// temporarily show just the business 'welcome' page
+				//$route = 'business.preferences';
+				$route = 'business.welcome';
 			}
 
 			return Redirect::route($route)
@@ -117,5 +120,22 @@ class RegisterController extends BaseController {
 		});
 
 		return View::make('register.welcome', array('name' => Session::pull('name')));
+	}
+
+	/**
+	 * Welcome the new business
+	 */
+	public function welcomeBusiness()
+	{
+		/**
+		 * Send the welcome email
+		 */
+		$user = $this->user->find(Session::get('new_user'));
+/**		Mail::send('emails.welcome', ['name' => Session::get('name'), 'from' => 'The RAYVR team'], function($message) use ($user)
+		{
+			$message->to($user->email)->subject('Welcome to RAYVR!');
+		});**/
+
+		return View::make('register.welcome-business');
 	}
 }
