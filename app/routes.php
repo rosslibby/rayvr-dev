@@ -13,11 +13,10 @@
 
 Route::group(['before' => 'csrf'], function()
 {
-	Route::get('/', function(){
-		return View::make('landing.home');
-	});
-
-	Route::get('/', 'LandingController@index');
+	Route::get('/', [
+		'uses' => 'LandingController@index',
+		'as' => 'index'
+	]);
 
 	/**
 	 * Preference routes

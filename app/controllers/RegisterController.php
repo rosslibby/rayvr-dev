@@ -42,7 +42,7 @@ class RegisterController extends BaseController {
 		else
 			$referral = ['referral' => ''];
 
-		return View::make('register.index')->with('referral', $referral);
+		return View::make('landing.home')->with('referral', $referral);
 	}
 
 	public function earlyStore()

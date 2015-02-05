@@ -21,7 +21,7 @@ class LandingController extends BaseController {
 	 * Direct logged in user to the
 	 * appropriate dashboard
 	 */
-	public function index()
+	public function index($referral = null)
 	{
 		/**
 		 * Return business dashboard
@@ -45,6 +45,6 @@ class LandingController extends BaseController {
 			else
 				return View::make('landing.home');
 		else
-			return View::make('landing.home');
+			return View::make('landing.home')->with('referral', $referral);
 	}
 }
