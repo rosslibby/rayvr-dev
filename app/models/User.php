@@ -101,7 +101,7 @@ class User extends Ardent implements UserInterface, RemindableInterface, Billabl
 	 */
 	public function interest()
 	{
-		return $this->belongsToMany('Category', 'interest', 'user_id', 'cat_id');
+		return $this->hasMany('Interest');
 	}
 
 	/**

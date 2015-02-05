@@ -3,6 +3,7 @@
 use RAYVR\Storage\User\UserRepository as User;
 use RAYVR\Storage\Category\CategoryRepository as Category;
 use RAYVR\Storage\Preference\PreferenceRepository as Preference;
+use RAYVR\Storage\Interest\InterestRepository as Interest;
 
 class UserController extends BaseController {
 
@@ -18,11 +19,12 @@ class UserController extends BaseController {
 	 * Inject the Category Repository
 	 * Inject the Preference Repository
 	 */
-	public function __construct(User $user, Category $category, Preference $preference)
+	public function __construct(User $user, Category $category, Preference $preference, Interest $interest)
 	{
 		$this->user = $user;
 		$this->category = $category;
 		$this->preference = $preference;
+		$this->interest = $interest;
 	}
 
 	public function index()
@@ -56,7 +58,7 @@ class UserController extends BaseController {
 		/**
 		 * Add the user_id to the input array
 		 */
-		$userid = ['user_id' => $user_id->id];
+		$userid = ['user_id' => $user_id];
 		$preferences = array_merge($userid, $preferences);
 
 		$s = $this->preference->create($preferences);
@@ -78,10 +80,13 @@ class UserController extends BaseController {
 			 */
 			$category = $this->category->find($interests[$i]);
 
+			$interestarr = array_merge($userid, ['cat_id' => $category->id]);
+
 			/**
 			 * Create new Interest (user-category relationship)
 			 */
-			$user_id->interest()->save($category);
+			$user = $this->user->find($userid['user_id']);
+			$interest = $this->interest->create($interestarr);
 		}
 
 		if($s->save())

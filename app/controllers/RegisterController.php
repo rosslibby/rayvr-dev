@@ -57,7 +57,7 @@ class RegisterController extends BaseController {
 
 		if($s)
 		{
-			Session::put('new_user', $s->email);
+			Session::put('new_user', $s->id);
 			
 			/**
 			 * Log the user in manually
@@ -110,7 +110,7 @@ class RegisterController extends BaseController {
 		/**
 		 * Send the welcome email
 		 */
-		$user = Session::get('new_user');
+		$user = $this->user->find(Session::get('new_user'));
 		Mail::send('emails.welcome', ['name' => Session::get('name'), 'from' => 'The RAYVR team'], function($message) use ($user)
 		{
 			$message->to($user->email)->subject('Welcome to RAYVR!');
