@@ -48,8 +48,7 @@ class EloquentUserRepository implements UserRepository {
 		 * Modify input array with
 		 * forged data
 		 */
-		$input['password'] = Hash::make($password);
-		$input['business'] = $business;
+		$input = array_merge($input, ['password' => Hash::make($password), 'business' => $business, 'invite_code' => $input['email']]);
 
 		$c = User::create($input);
 
