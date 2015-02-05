@@ -9,7 +9,7 @@ Manage your offers, preferences, and score in your RAYVR dashboard.
 @stop
 
 @section('content')
-<div class="col-md-4 col-sm-8 col-md-offset-4">
+<div class="col-md-4 col-sm-6 col-md-offset-4 col-sm-offset-3">
 	<div class="row">
 		<div class="col-md-10 col-md-offset-1">
 			<div class="panel" role="tabpanel">
