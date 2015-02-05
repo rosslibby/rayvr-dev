@@ -3,6 +3,6 @@
 </div>
 <ul class="nav navbar-nav navbar-right">
 	<li class="fg-scheme-dark-gray anchor {{ Request::is('/') ? 'active' : '' }}"><a href="/">HOME</a></li>
-	<li class="fg-scheme-dark-gray anchor {{ Request::is('register') ? 'active' : '' }}"><a href="/register">REGISTER</a></li>
+	<li class="fg-scheme-dark-gray anchor {{ Request::is('register') ? 'active' : '' }}"><a href="/register">BUSINESS</a></li>
 	<li class="fg-scheme-dark-gray anchor {{ Request::is('contact') ? 'active' : '' }}"><a href="/contact">CONTACT</a></li>
 </ul>

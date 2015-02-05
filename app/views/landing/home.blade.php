@@ -87,9 +87,4 @@ RAYVR connects you with offers for real products that you will love. 100% free.
 				</div>
 			</div>
 		</div>
-
-		<br>
-		<br>
-		<br>
-		<br>
 @stop

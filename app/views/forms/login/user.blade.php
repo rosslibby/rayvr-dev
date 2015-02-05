@@ -1,5 +1,5 @@
 <!-- User tab -->
-<div role="tabpanel" class="tab-pane" id="user">
+<div role="tabpanel" class="tab-pane active" id="user">
 	<div class="row">
 		<div class="col-md-10 col-md-offset-1">
 			{{ Form::open(array('route' => 'session.store')) }}

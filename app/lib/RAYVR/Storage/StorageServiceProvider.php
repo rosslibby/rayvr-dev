@@ -30,5 +30,10 @@ class StorageServiceProvider extends ServiceProvider {
 			'RAYVR\Storage\Preference\PreferenceRepository',
 			'RAYVR\Storage\Preference\EloquentPreferenceRepository'
 		);
+
+		$this->app->bind(
+			'RAYVR\Storage\Contact\ContactRepository',
+			'RAYVR\Storage\Contact\EloquentContactRepository'
+		);
 	}
 }

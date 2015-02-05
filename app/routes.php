@@ -74,6 +74,19 @@ Route::group(['before' => 'csrf'], function()
 	});
 
 	/**
+	 * Contact page
+	 */
+	Route::get('contact', [
+		'uses' => 'LandingController@contact',
+		'as' => 'landing.contact'
+	]);
+
+	Route::post('contact', [
+		'uses' => 'ContactController@primary',
+		'as' => 'contact.primary'
+	]);
+
+	/**
 	 * Session routes
 	 */
 	Route::get('login', array(

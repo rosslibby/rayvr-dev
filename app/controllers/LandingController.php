@@ -47,4 +47,13 @@ class LandingController extends BaseController {
 		else
 			return View::make('landing.home')->with('referral', $referral);
 	}
+
+	/**
+	 * Direct any user to the contact
+	 * page
+	 */
+	public function contact()
+	{
+		return View::make('landing.contact');
+	}
 }
