@@ -92,5 +92,7 @@ html, body { height: 100%; }
 /*.early-signup-header-bg { background-image: url('../img/early-signup-header-bg.jpg'); background-size: 60%; }*/
 .early-signup-header-bg { margin-top: 80px; }
 
+.header + .container { margin-top: 80px; }
+
 /** forms **/
 .hidden-input { display: none; }
