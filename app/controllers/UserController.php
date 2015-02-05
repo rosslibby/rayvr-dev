@@ -50,44 +50,13 @@ class UserController extends BaseController {
 		$interests = Input::only('interest');
 		$interests = $interests['interest'];
 
-		/**
-		 * Get the new user's id from the entered email
-		 */
-		$user_id = Session::get('new_user');
-
-		/**
-		 * Add the user_id to the input array
-		 */
-		$userid = ['user_id' => $user_id];
-		$preferences = array_merge($userid, $preferences);
-
-		$s = $this->preference->create($preferences);
+		$s = $this->preference->interests($preferences, $interests);
 
 		/**
 		 * Store first name in session variable for
 		 * access on the Welcome page
 		 */
 		Session::put('name', Input::get('first_name'));
-
-		/**
-		 * Create a user relationship with each
-		 * category they are interested in
-		 */
-		for($i = 0; $i < count($interests); $i++)
-		{
-			/**
-			 * Find category associated with user selection
-			 */
-			$category = $this->category->find($interests[$i]);
-
-			$interestarr = array_merge($userid, ['cat_id' => $category->id]);
-
-			/**
-			 * Create new Interest (user-category relationship)
-			 */
-			$user = $this->user->find($userid['user_id']);
-			$interest = $this->interest->create($interestarr);
-		}
 
 		if($s->save())
 		{

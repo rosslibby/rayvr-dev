@@ -51,11 +51,12 @@ class EloquentUserRepository implements UserRepository {
 		$input = array_merge($input, ['password' => Hash::make($password), 'business' => $business, 'invite_code' => $input['email']]);
 
 		$c = User::create($input);
-
-		if($c)
+		if($c->invite_code = $this->hashids->encode($c->id))
 		{
-			$c->invite_code = $this->hashids->encode($c->id);;
+			$c->save();
 			return $c;
+		} else {
+			return false;
 		}
 	}
 

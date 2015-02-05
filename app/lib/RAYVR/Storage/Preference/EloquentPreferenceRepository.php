@@ -1,6 +1,6 @@
 <?php namespace RAYVR\Storage\Preference;
 
-use Preference, User;
+use Preference, User, Session, Category;
 
 class EloquentPreferenceRepository implements PreferenceRepository {
 
@@ -21,20 +21,16 @@ class EloquentPreferenceRepository implements PreferenceRepository {
 
 	public function interests($preferences, $interests)
 	{
-		$interests = $interests['interest'];
-
 		/**
 		 * Get the new user's id from the entered email
 		 */
 		$user_id = Session::get('new_user');
 
 		/**
-		 * Add the user_id to the input array
+		 * Set user preferences
 		 */
-		$userid = ['user_id' => $user_id->id];
-		$preferences = array_merge($userid, $preferences);
-
-		$s = $this->preference->create($preferences);
+		$user = User::find($user_id);
+		$s = $user->fill($preferences);
 
 		/**
 		 * Store first name in a session variable for
@@ -51,13 +47,23 @@ class EloquentPreferenceRepository implements PreferenceRepository {
 			/**
 			 * Find category associated with user selection
 			 */
-			$category = $this->category->find($interests[$i]);
+			$category = Category::find($interests[$i]);
+
+			/**
+			 * Build array for interest creation
+			 */
+			$interest = array_merge(['user_id' => $user_id], ['cat_id' => $category->id]);
 
 			/**
 			 * Create new Interest (user-category relationship)
 			 */
-			$user_id->interest()->save($category);
+			$user->interest()->create($interest);
 		}
+
+		if($s->save())
+			return $s;
+		else
+			return false;
 	}
 
 	/**
