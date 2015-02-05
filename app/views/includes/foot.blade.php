@@ -5,7 +5,7 @@
 
 		<div class="container text-center">
 
-			<p class="fg-scheme-white lighter"><span>&copy; 2015 - RAYVR, LLC.</span> <span>Privacy Policy</span> <span>Terms & Conditions</span></p>
+			<p class="fg-scheme-white lighter"><span>&copy; 2015 - RAYVR, LLC.</span> <span>{{ HTML::link('/resources/privacy', 'Privacy Policy', ['class' => 'fg-scheme-white']) }}</span><!-- <span>Terms & Conditions</span>--></p>
 
 		</div>
 

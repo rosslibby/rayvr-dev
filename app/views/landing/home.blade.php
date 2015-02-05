@@ -1,5 +1,9 @@
 @extends('layouts.landing-master')
 
+@section('video')
+<iframe src="//player.vimeo.com/video/118826532" width="1000" height="562" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+@stop
+
 @section('heading')
 Free Offers. Quality Products.
 @stop

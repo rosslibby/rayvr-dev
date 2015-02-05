@@ -4,6 +4,11 @@
 <div class="early-signup-header-bg">
 	<div class="container">
 		<div class="row text-center">
+
+			<!-- Video -->
+			@section('video')
+			@show
+
 			<h3 class="h3-5 fg-scheme-dark">
 			@section('heading')
 			@show
@@ -31,14 +36,29 @@
 	</div>
 </div>
 
-
-<br>
-<br>
-<br>
-<br>
-
 <!-- Content filling the page -->
 @section('content')
 @show
-
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
 @include('includes.foot')
