@@ -1,5 +1,5 @@
 <div class="header bg-scheme-white">
-	<div class="nav navbar-primary" role="navigation">
+	<div class="nav navbar-primary navbar-fixed-top bg-scheme-white" role="navigation">
 		<div class="container">
 			<div class="container-fluid">
 				<div class="navbar-header">
