@@ -9,7 +9,7 @@ We are here to answer any questions you have about our user or business services
 @stop
 
 @section('content')
-<div class="col-md-6 col-md-offset-3">
+<div class="col-md-6 col-sm-6 col-md-offset-3 col-sm-offset-3">
 	@if(Session::has('success'))
 		<div class="row">
 			<div class="col-md-8 col-md-offset-2">
