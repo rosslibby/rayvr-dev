@@ -27,7 +27,7 @@ RAYVR connects you with offers for real products that you will love. 100% free.
 
 						{{ Form::open(array('route' => 'register.earlystore')) }}
 
-							<div class="col-md-9">
+							<div class="col-md-9 col-sm-9">
 								{{ Form::email('email', $value = null, array('class' => 'form-control', 'placeholder' => 'Enter your email')) }}
 							</div>
 
@@ -37,8 +37,8 @@ RAYVR connects you with offers for real products that you will love. 100% free.
 
 							{{ Form::text('invited_by', $value = $referral['referral'], array('class' => 'hidden-input')) }}
 
-							<div class="col-md-3">
-								{{ Form::submit('SIGN UP', array('class' => 'btn btn-primary col-md-12')) }}
+							<div class="col-md-3 col-sm-3">
+								{{ Form::submit('SIGN UP', array('class' => 'btn btn-primary col-md-12 col-sm-12')) }}
 							</div>
 
 						{{ Form::close() }}
@@ -52,9 +52,9 @@ RAYVR connects you with offers for real products that you will love. 100% free.
 
 		<div class="container">
 
-			<div class="col-lg-9 col-lg-offset-2">
-				<div class="col-md-12">
-					<div class="alert alert-success lighter col-sm-11">
+			<div class="col-lg-9 col-sm-9 col-lg-offset-2 col-sm-offset-2">
+				<div class="col-md-12 col-xs-12">
+					<div class="alert alert-success lighter col-sm-11 col-xs-11">
 						<strong>RAYVR is Anti-Spam: </strong>We won't spam you or sell your email. We will use this to notify you once RAYVR is live.
 					</div>
 				</div>
