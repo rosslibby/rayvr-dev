@@ -23,7 +23,7 @@ RAYVR connects you with offers for real products that you will love. 100% free.
 
 				<div class="container">
 
-					<div class="col-md-8 col-md-offset-2">
+					<div class="col-md-8 col-sm-8 col-md-offset-2 col-sm-offset-2">
 
 						{{ Form::open(array('route' => 'register.earlystore')) }}
 
