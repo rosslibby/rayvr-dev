@@ -79,6 +79,7 @@ class RegisterController extends BaseController {
 
 		if($s[0])
 		{
+			Session::put('new_user', $s[1]->id);
 			// temporarily do not authorize the user upon creation
 			//Auth::login($s[1]);
 
