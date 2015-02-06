@@ -22,7 +22,9 @@ class SessionController extends BaseController {
 	 */
 	public function create()
 	{
-		return View::make('session.create');
+		return View::make('session.placeholder');
+		// temporarily showing a placeholder until login is permitted
+//		return View::make('session.create');
 	}
 
 	public function register($referral = null)
