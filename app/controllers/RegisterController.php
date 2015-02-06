@@ -131,10 +131,10 @@ class RegisterController extends BaseController {
 		 * Send the welcome email
 		 */
 		$user = $this->user->find(Session::get('new_user'));
-/**		Mail::send('emails.welcome', ['name' => Session::get('name'), 'from' => 'The RAYVR team'], function($message) use ($user)
+		Mail::send('emails.business-welcome', ['name' => Session::get('name'), 'from' => 'The RAYVR team'], function($message) use ($user)
 		{
 			$message->to($user->email)->subject('Welcome to RAYVR!');
-		});**/
+		});
 
 		return View::make('register.welcome-business');
 	}
