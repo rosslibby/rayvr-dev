@@ -114,7 +114,7 @@ Before we send an offer out to our members, we have it tested for quality by our
 <hr>
 <br>
 <div class="business-registration-container row-dark-blue">
-	<div class="col-md-4 col-sm-6 col-md-offset-4 col-sm-offset-3">
+	<div class="col-lg-4 col-md-6 col-sm-8 col-lg-offset-4 col-md-offset-3 col-sm-offset-2">
 		<div class="row text-center">
 			<div class="col-md-10 col-md-offset-1">
 				<h3 class="business-registration">Register Your Business</h3>
