@@ -24,6 +24,14 @@
 	border-color: #E6E9ED;
 }
 
+/** fonts **/
+.raleway { font-family: 'Raleway', sans-serif; }
+.source-sans-pro { font-family: 'Source Sans Pro', sans-serif; }
+
+.light { font-weight: 200; }
+.normal { font-weight: 400; }
+.more-height { line-height: 1.75em; }
+
 /** nav **/
 .nav.navbar-primary { border-bottom: 1px solid #f5f5f5; }
 
@@ -96,3 +104,32 @@ html, body { height: 100%; }
 
 /** forms **/
 .hidden-input { display: none; }
+
+/** icons **/
+.icon-solid
+{
+	display: block;
+	width: 80px;
+	height: 100px;
+	margin: 0 auto;
+	background-size: 100%;
+	background-repeat: no-repeat;
+}
+
+.icon-solid.icon-checkbox { background-image: url('../img/business/icons/solid/checkbox.png'); }
+.icon-solid.icon-target { background-image: url('../img/business/icons/solid/target.png'); }
+.icon-solid.icon-bullhorn { background-image: url('../img/business/icons/solid/bullhorn.png'); }
+.icon-solid.icon-graph { background-image: url('../img/business/icons/solid/graph.png'); }
+.icon-solid.icon-mail { background-image: url('../img/business/icons/solid/mail.png'); }
+.icon-solid.icon-briefcase { background-image: url('../img/business/icons/solid/briefcase.png'); }
+.icon-solid.icon-speedometer { background-image: url('../img/business/icons/solid/speedometer.png'); }
+.icon-solid.icon-lifering { background-image: url('../img/business/icons/solid/lifering.png'); }
+
+.icon-hollow.icon-checkbox { background-image: url('../img/business/icons/hollow/checkbox.png'); }
+.icon-hollow.icon-target { background-image: url('../img/business/icons/hollow/target.png'); }
+.icon-hollow.icon-bullhorn { background-image: url('../img/business/icons/hollow/bullhorn.png'); }
+.icon-hollow.icon-graph { background-image: url('../img/business/icons/hollow/graph.png'); }
+.icon-hollow.icon-mail { background-image: url('../img/business/icons/hollow/mail.png'); }
+.icon-hollow.icon-briefcase { background-image: url('../img/business/icons/hollow/briefcase.png'); }
+.icon-hollow.icon-speedometer { background-image: url('../img/business/icons/hollow/speedometer.png'); }
+.icon-hollow.icon-lifering { background-image: url('../img/business/icons/hollow/lifering.png'); }

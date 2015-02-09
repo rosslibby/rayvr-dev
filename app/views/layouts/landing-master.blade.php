@@ -9,20 +9,28 @@
 			@section('video')
 			@show
 
-			<h3 class="h3-5 fg-scheme-dark">
+			<hr>
+			<br>
+			<br>
+
+			<p class="h6 raleway fg-scheme-dark">
+			@section('pre-heading')
+			@show
+			</p>
+
+			<p class="h3 raleway lighter" style="font-weight: 200;">
 			@section('heading')
 			@show
-			</h3>
+			</p>
 		</div>
 
-		<br>
-
 <!-- Description for page -->
+
 		<div class="row text-center">
 			<div class="col-md-6 col-md-offset-3">
 				<div class="row">
 					<div class="col-md-10 col-md-offset-1">
-						<p class="larger lighter">
+						<p class="raleway more-height">
 						@section('description')
 						@show
 						</p>
@@ -32,6 +40,19 @@
 		</div>
 
 		<br>
+		<br>
+		<br>
+
+		<div class="row source-sans-pro">
+		@section('row-one')
+		@show
+		</div>
+		<hr>
+		<br>
+		<div class="row source-sans-pro">
+		@section('row-two')
+		@show
+		</div>
 
 	</div>
 </div>
