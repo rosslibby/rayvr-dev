@@ -17,6 +17,8 @@
 {{ HTML::script( 'resources/js/icheck.min.js' ) }}
 {{ HTML::script( 'resources/js/jquery.fs.selecter.min.js' ) }}
 {{ HTML::script( 'resources/js/jquery.fs.stepper.min.js' ) }}
+{{ HTML::script( 'resources/js/jquery.validate.min.js' ) }}
+{{ HTML::script( 'resources/js/additional-methods.min.js' ) }}
 
 <script>
 $(document).ready(function(){
@@ -24,6 +26,28 @@ $(document).ready(function(){
 		checkboxClass: 'icheckbox_flat-red',
 		radioClass: 'iradio_flat-red'
 	});
+});
+jQuery.validator.setDefaults({
+	success: 'valid',
+	error: 'error'
+});
+$("#businessRegistration").validate({
+	rules: {
+		email: {
+			required: true,
+			email: true
+		}
+	},
+	rules: {
+		password_confirmation: {
+			required: true,
+			minlength: 6,
+			equalTo: password
+		}
+	},
+	errorPlacement: function(error, element){
+		return true;
+	}
 });
 </script>
 
