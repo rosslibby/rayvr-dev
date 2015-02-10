@@ -13,9 +13,15 @@
 
 Route::group(['before' => 'csrf'], function()
 {
-	Route::get('/', [
+/**	Route::get('/', [
 		'uses' => 'LandingController@index',
 		'as' => 'index'
+	]);
+*/
+	/** temporary **/
+	Route::get('/', [
+		'uses' => 'SessionController@register',
+		'as' => 'session.index'
 	]);
 
 	/**
@@ -38,9 +44,15 @@ Route::group(['before' => 'csrf'], function()
 		return View::make('business.index');
 	});
 
-	Route::get('register/{referral?}', [
+/**	Route::get('register/{referral?}', [
 		'uses' => 'SessionController@register',
 		'as' => 'session.index'
+	]);
+*/
+	/** temporary **/
+	Route::get('register/{referral?}', [
+		'uses' => 'LandingController@index',
+		'as' => 'index'
 	]);
 
 	Route::get('early/{referral?}', [
