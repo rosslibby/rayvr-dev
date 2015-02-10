@@ -68,4 +68,19 @@ class UserController extends BaseController {
 			->withInput()
 			->withErrors($s->errors());
 	}
+
+	/**
+	 * Reset a user's password
+	 */
+	public function reset()
+	{
+		$input = Input::all();
+		$user = $this->user->userByEmail($input['email']);
+		if($user->invite_code == $input['code'] && $user->confirm == $input['confirm'])
+		{
+			$user->password = Hash::make($input['password']);
+			$user->save();
+		}
+		return "Your password has been reset";
+	}
 }
