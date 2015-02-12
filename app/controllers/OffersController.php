@@ -190,4 +190,29 @@ class OffersController extends BaseController {
 		return Redirect::route('offers.index');
 	}
 
+	/**
+	 * Offer moderation
+	 */
+	public function moderate()
+	{
+		$offers = $this->offer->unmoderated();
+		$categories = $this->offer->allCategories($offers);
+		return View::make('offers.moderate')->with('offers', $categories);
+	}
+
+	/**
+	 * Approve an offer
+	 */
+	public function approve()
+	{
+		echo $this->offer->approve(Input::get('id'));
+	}
+
+	/**
+	 * Deny an offer
+	 */
+	public function deny()
+	{
+		echo $this->offer->deny(Input::get('id'));
+	}
 }

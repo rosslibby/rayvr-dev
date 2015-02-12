@@ -11,6 +11,19 @@
 |
 */
 
+/**
+ * Offer moderation by site moderators
+ */
+Route::get('offers/moderate', 'OffersController@moderate');
+Route::post('offers/approve', [
+	'uses' => 'OffersController@approve',
+	'as' => 'offers.approve'
+]);
+Route::post('offers/deny', [
+	'uses' => 'OffersController@deny',
+	'as' => 'offers.deny'
+]);
+
 Route::group(['before' => 'csrf'], function()
 {
 /**	Route::get('/', [
@@ -36,6 +49,13 @@ Route::group(['before' => 'csrf'], function()
 		'as' => 'user.store'
 	]);
 	Route::get('welcome', 'RegisterController@welcome');
+
+	/**
+	 * User pages
+	 */
+	 Route::get('offers/current', function(){
+	 	return View::make('offers.select');
+	 });
 
 	/**
 	 * Business pages

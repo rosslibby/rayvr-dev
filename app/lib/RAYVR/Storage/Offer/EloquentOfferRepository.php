@@ -18,6 +18,75 @@ class EloquentOfferRepository implements OfferRepository {
 		return Offer::all();
 	}
 
+	/**
+	 * Find all unapproved offers
+	 */
+	public function unmoderated()
+	{
+		return Offer::where('approved', false)->get();
+	}
+
+	/**
+	 * Approve an offer
+	 */
+	public function approve($id)
+	{
+		$offer = Offer::find($id);
+		$offer->approved = true;
+		if($offer->save())
+			return "<p>The offer for <em>" . $offer->title . "</em> has been approved.</p>";
+		return "The offer was not approved. Don't ask me why, I'm just the messenger.";
+	}
+
+	/**
+	 * Deny an offer
+	 */
+	public function deny($id)
+	{
+		$offer = Offer::find($id);
+		$offer->approved = false;
+		if($offer->save())
+			return "<p>The offer for <em>" . $offer->title . "</em> has been denied.</p>";
+		return "The offer was not denied. Don't ask me why, I'm just the messenger.";
+	}
+
+	/**
+	 * Find all categories associated
+	 * with each offer passed in through
+	 * the $offers array
+	 * 
+	 * Returns arrays of $offers objects
+	 * and their associated categories as
+	 * arrays
+	 */
+	public function allCategories($offers)
+	{
+		$data = [];
+		foreach($offers as $offer)
+		{
+			/**
+			 * Find associated categories
+			 */
+			$categories = $offer->category;
+
+			/**
+			 * Build array of category IDs
+			 * and their respective titles
+			 */
+			$cat = [];
+			foreach($categories as $category)
+			{
+				$title = $this->category->find($category->id)->title;
+				$arr = ['id' => $category->id, 'title' => $title];
+				array_push($cat, $arr);
+			}
+
+			$arr = ['offer' => $offer, 'categories' => $cat];
+			array_push($data, $arr);
+		}
+		return $data;
+	}
+
 	public function find($id)
 	{
 		return Offer::find($id);

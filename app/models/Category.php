@@ -64,9 +64,8 @@ class Category extends Ardent {
 	/**
 	 * Offer categories relationship
 	 */
-	public function categories()
+	public function offers()
 	{
 		return $this->belongsToMany('Offer', 'offer_categories', 'offer_id', 'category_id');
 	}
-
 }

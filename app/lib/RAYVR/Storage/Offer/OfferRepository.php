@@ -4,6 +4,10 @@ interface OfferRepository {
 
 	public function all();
 
+	public function unmoderated();
+
+	public function allCategories($offers);
+
 	public function find($id);
 
 	public function track($id);
