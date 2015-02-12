@@ -111,4 +111,12 @@ class User extends Ardent implements UserInterface, RemindableInterface, Billabl
 	{
 		return $this->hasOne('Preference');
 	}
+
+	/**
+	 * User <--> offer relationship
+	 */
+	public function matches()
+	{
+		return $this->hasMany('Matches');
+	}
 }

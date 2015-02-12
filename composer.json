@@ -13,7 +13,8 @@
 		"laravel/cashier": "~2.0",
 		"ignited/laravel-omnipay": "1.*",
 		"omnipay/paypal": "~2.0",
-		"omnipay/stripe": "~2.0"
+		"omnipay/stripe": "~2.0",
+		"indatus/dispatcher": "~1.4"
 	},
 	"require-dev": {
 		"way/generators": "~2.0",

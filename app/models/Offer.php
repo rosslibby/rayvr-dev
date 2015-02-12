@@ -13,10 +13,18 @@ class Offer extends Eloquent {
 	protected $fillable = ['title', 'photo', 'description', 'start', 'end', 'prime', 'female', 'male', 'link'];
 
 	/**
-	 * User categories relationship
+	 * Offer categories relationship
 	 */
 	public function category()
 	{
 		return $this->belongsToMany('Category', 'offer_categories', 'offer_id', 'category_id');
+	}
+
+	/**
+	 * Offer <--> user relationship
+	 */
+	public function match()
+	{
+		return $this->belongsToMany('User', 'matches', 'offer_id', 'user_id');
 	}
 }

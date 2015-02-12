@@ -35,5 +35,10 @@ class StorageServiceProvider extends ServiceProvider {
 			'RAYVR\Storage\Contact\ContactRepository',
 			'RAYVR\Storage\Contact\EloquentContactRepository'
 		);
+
+		$this->app->bind(
+			'RAYVR\Storage\Matches\MatchesRepository',
+			'RAYVR\Storage\Matches\MatchesRepository'
+		);
 	}
 }

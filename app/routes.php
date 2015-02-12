@@ -11,6 +11,15 @@
 |
 */
 
+Route::get('somethingspecial', function(){
+	$user = User::find(8);
+	$offer = Offer::find(5);
+
+	if($offer->match()->save($user))
+		return $offer->match;
+	return "mehhh";
+});
+
 /**
  * Offer moderation by site moderators
  */

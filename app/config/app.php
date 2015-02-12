@@ -127,6 +127,7 @@ return array(
 		'Mitch\Hashids\HashidsServiceProvider',
 		'Laravel\Cashier\CashierServiceProvider',
 		'Ignited\LaravelOmnipay\LaravelOmnipayServiceProvider',
+		'Indatus\Dispatcher\ServiceProvider',
 
 	),
 
