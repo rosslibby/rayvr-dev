@@ -112,4 +112,21 @@ class EloquentUserRepository implements UserRepository {
 			return [false, $validator->messages()->first()];
 		}
 	}
+
+	public function suspend($id)
+	{
+		/**
+		 * Get the user from the url parameter "id"
+		 */
+		$user = User::find($id);
+
+		/**
+		 * Set the user's "active" status to false
+		 */
+		$user->active = false;
+
+		if($user->save())
+			return "The user has been suspended.";
+		return "There was an issue; the user is still active.";
+	}
 }

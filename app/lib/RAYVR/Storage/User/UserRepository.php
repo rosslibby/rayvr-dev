@@ -11,4 +11,6 @@ interface UserRepository {
 	public function create($input);
 
 	public function createEarly($input);
+
+	public function suspend($id);
 }

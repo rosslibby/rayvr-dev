@@ -2,6 +2,18 @@
 
 use RAYVR\Storage\Category\CategoryRepository as Category;
 use RAYVR\Storage\Offer\OfferRepository as Offer;
+use User;
+
+/**
+ * Bring in the PayPal!!!
+ */
+use PayPal\Rest\ApiContext;
+use PayPal\Auth\OAuthTokenCredential;
+use PayPal\Types\AP\PayRequest;
+use PayPal\Service\AdaptivePaymentsService;
+use PayPal\Types\AP\Receiver;
+use PayPal\Types\AP\ReceiverList;
+use PayPal\Types\Common\RequestEnvelope;
 
 class OffersController extends BaseController {
 
@@ -13,13 +25,26 @@ class OffersController extends BaseController {
 	protected $offer;
 
 	/**
+	 * PayPal API context
+	 */
+	private $_api_context;
+
+	/**
 	 * Inject the Category repository
 	 * Inject the Offer repository
 	 */
-	public function __construct(Category $category, Offer $offer)
+	public function __construct(Category $category, Offer $offer, User $user)
 	{
 		$this->category = $category;
 		$this->offer = $offer;
+		$this->user = $user;
+
+		/**
+		 * Construct the PayPal stuff
+		 */
+		$paypal_conf = Config::get('paypal');
+		$this->_api_context = new ApiContext(new OAuthTokenCredential($paypal_conf['client_id'], $paypal_conf['secret']));
+		$this->_api_context->setConfig($paypal_conf['settings']);
 	}
 
 	/**
@@ -214,5 +239,18 @@ class OffersController extends BaseController {
 	public function deny()
 	{
 		echo $this->offer->deny(Input::get('id'));
+	}
+
+	/**
+	 * Place claim for shipping reimbursement
+	 */
+	public function claim()
+	{
+		/**
+		 * Get amount claimed
+		 */
+		$cost = implode(".", Input::except('_token'));
+//		echo $this->offer->claim(Auth::user(), $offer, $cost);
+		echo $this->offer->claim($this->user->find(8), $this->offer->find(5), $cost);
 	}
 }

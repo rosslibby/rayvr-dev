@@ -27,4 +27,12 @@ class Offer extends Eloquent {
 	{
 		return $this->belongsToMany('User', 'matches', 'offer_id', 'user_id');
 	}
+
+	/**
+	 * Offer <--> reimbursement relationship
+	 */
+	public function reimbursement()
+	{
+		return $this->belongsToMany('User', 'reimbursement', 'user_id', 'offer_id', 'cost', 'response');
+	}
 }

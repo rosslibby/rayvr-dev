@@ -83,4 +83,12 @@ class UserController extends BaseController {
 		}
 		return "Your password has been reset";
 	}
+
+	/**
+	 * Suspend a user
+	 */
+	public function suspend($id)
+	{
+		$this->user->suspend($id);
+	}
 }

@@ -11,14 +11,24 @@
 |
 */
 
-Route::get('somethingspecial', function(){
-	$user = User::find(8);
-	$offer = Offer::find(5);
+/**
+ * Suspend user
+ */
+Route::get('users/suspend/{id}', [
+	'uses' => 'UserController@suspend',
+	'as' => 'user.suspend'
+]);
 
-	if($offer->match()->save($user))
-		return $offer->match;
-	return "mehhh";
+/**
+ * Shipping reimbursement claims
+ */
+Route::get('offers/shipping', function(){
+	return View::make('offers.shipping');
 });
+Route::post('offers/shipping', [
+	'uses' => 'OffersController@claim',
+	'as' => 'shipping.claim'
+]);
 
 /**
  * Offer moderation by site moderators

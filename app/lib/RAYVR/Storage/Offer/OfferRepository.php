@@ -15,4 +15,6 @@ interface OfferRepository {
 	public function categories($data, $categories, $business);
 
 	public function offers($userid);
+
+	public function claim($user, $offer, $cost);
 }
