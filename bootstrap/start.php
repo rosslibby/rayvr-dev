@@ -26,8 +26,9 @@ $app = new Illuminate\Foundation\Application;
 
 $env = $app->detectEnvironment(array(
 
-	'local' => array('localhost'),
-	'production' => array('stunning-shelter')
+	'local' => ['localhost'],
+	'staging' => ['staging']
+	'production' => ['stunning-shelter']
 
 ));
 
