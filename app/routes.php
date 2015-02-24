@@ -49,7 +49,7 @@ Route::group(['before' => 'csrf'], function()
 		/**
 		 * Offer moderation by site moderators
 		 */
-		Route::get('offers/moderate', 'OffersController@moderate');
+		Route::get('offers/kvERrdjDbdhhz508wMhgmoderate', 'OffersController@moderate');
 		Route::post('offers/approve', [
 			'uses' => 'OffersController@approve',
 			'as' => 'offers.approve'
@@ -121,7 +121,7 @@ Route::group(['before' => 'csrf'], function()
 		 */
 		Route::get('payments', [
 			'use' => 'PaymentController@membership',
-			'as' = 'payments'
+			'as' => 'payments'
 		]);
 		Route::post('payments', [
 			'uses' => 'PaymentController@subscribe',
