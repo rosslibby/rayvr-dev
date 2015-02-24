@@ -91,4 +91,36 @@ class UserController extends BaseController {
 	{
 		$this->user->suspend($id);
 	}
+
+	/**
+	 * Change user account type
+	 * (user --> business)
+	 * (business --> user)
+	 * 
+	 * Does not allow to set
+	 * account to moderator as
+	 * that could be a horrible
+	 * accident
+	 */
+	public function type()
+	{
+		echo $this->user->type(Input::all());
+	}
+
+	/**
+	 * Display all user --> offer
+	 * matches
+	 */
+	public function matches()
+	{
+		return $this->user->currentOffer(Auth::user());
+	}
+
+	/**
+	 * Accept/decline an offer
+	 */
+	public function accept()
+	{
+		return $this->user->accept(Auth::user(), Input::get('match'), Input::get('accept'));
+	}
 }

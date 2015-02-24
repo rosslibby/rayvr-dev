@@ -10,6 +10,9 @@
 	{{ HTML::style( asset('resources/css/custom.business.css') ) }}
 	{{ HTML::style( asset('resources/css/jquery.fs.selecter.css') ) }}
 	{{ HTML::style( asset('resources/css/datepicker.css') ) }}
+	{{ HTML::style( asset('//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css') ) }}
+	{{ HTML::style( asset('//fonts.googleapis.com/css?family=Raleway:700,100,400,200') ) }}
+	{{ HTML::style( asset('//fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,700') ) }}
 	{{ HTML::script('https://js.stripe.com/v2/') }}
 
 	<!-- In an attempt for AJAX posting... -->
@@ -35,7 +38,7 @@
 								<span class="icon-bar"></span>
 								<span class="icon-bar"></span>
 							</button>
-							<strong><a class="navbar-brand fg-scheme-light" href="/business">{{ HTML::image( 'resources/img/logo.png', 'Get Free Stuff with RAYVR', array('width' => '30', 'class' => 'inline-img') ) }}&nbsp;&nbsp;RAYVR</a></strong>
+							<strong><a class="navbar-brand fg-scheme-light" href="/">{{ HTML::image( 'resources/img/logo.png', 'Get Free Stuff with RAYVR', array('width' => '30', 'class' => 'inline-img') ) }}&nbsp;&nbsp;RAYVR</a></strong>
 						</div>
 					</div>
 				</div>

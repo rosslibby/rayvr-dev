@@ -93,7 +93,7 @@ return array(
 	|
 	*/
 
-	'providers' => array(
+	'providers' => [
 
 		'Illuminate\Foundation\Providers\ArtisanServiceProvider',
 		'Illuminate\Auth\AuthServiceProvider',
@@ -128,8 +128,9 @@ return array(
 		'Laravel\Cashier\CashierServiceProvider',
 		'Ignited\LaravelOmnipay\LaravelOmnipayServiceProvider',
 		'Indatus\Dispatcher\ServiceProvider',
+		'Intervention\Image\ImageServiceProvider',
 
-	),
+	],
 
 	/*
 	|--------------------------------------------------------------------------
@@ -155,7 +156,7 @@ return array(
 	|
 	*/
 
-	'aliases' => array(
+	'aliases' => [
 
 		'App'               => 'Illuminate\Support\Facades\App',
 		'Artisan'           => 'Illuminate\Support\Facades\Artisan',
@@ -198,7 +199,8 @@ return array(
 		'Validator'         => 'Illuminate\Support\Facades\Validator',
 		'View'              => 'Illuminate\Support\Facades\View',
 		'Omnipay'			=> 'Ignited\LaravelOmnipay\Facades\OmnipayFacade',
+		'Image'				=> 'Intervention\Image\Facades\Image',
 
-	),
+	],
 
 );

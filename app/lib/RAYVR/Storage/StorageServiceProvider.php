@@ -38,7 +38,12 @@ class StorageServiceProvider extends ServiceProvider {
 
 		$this->app->bind(
 			'RAYVR\Storage\Matches\MatchesRepository',
-			'RAYVR\Storage\Matches\MatchesRepository'
+			'RAYVR\Storage\Matches\EloquentMatchesRepository'
+		);
+
+		$this->app->bind(
+			'RAYVR\Storage\Order\OrderRepository',
+			'RAYVR\Storage\Order\EloquentOrderRepository'
 		);
 	}
 }

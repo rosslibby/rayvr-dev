@@ -2,7 +2,8 @@
 
 use RAYVR\Storage\Category\CategoryRepository as Category;
 use RAYVR\Storage\Offer\OfferRepository as Offer;
-use User;
+use RAYVR\Storage\Order\OrderRepository as Order;
+use RAYVR\Storage\User\UserRepository as User;
 
 /**
  * Bring in the PayPal!!!
@@ -23,6 +24,8 @@ class OffersController extends BaseController {
 	 */
 	protected $category;
 	protected $offer;
+	protected $order;
+	protected $user;
 
 	/**
 	 * PayPal API context
@@ -33,10 +36,11 @@ class OffersController extends BaseController {
 	 * Inject the Category repository
 	 * Inject the Offer repository
 	 */
-	public function __construct(Category $category, Offer $offer, User $user)
+	public function __construct(Category $category, Offer $offer, User $user, Order $order)
 	{
 		$this->category = $category;
 		$this->offer = $offer;
+		$this->order = $order;
 		$this->user = $user;
 
 		/**
@@ -75,8 +79,39 @@ class OffersController extends BaseController {
 	public function track()
 	{
 		$offers = $this->offer->offers(Auth::user()->id);
+		$orders = [];
+		for($i = 0;  $i < count($offers); $i++)
+		{
+			$orderSet = $this->order->orders($offers[$i]->id);
+			array_push($orders, $orderSet);
+			$offers[$i] = ['offer' => $offers[$i], 'orders' => $orderSet];
+		}
 
-		return View::make('offers.track')->with('offers', $offers);
+		return View::make('offers.track')->with(['offers' => $offers]);
+	}
+
+	/**
+	 * Show the individual offer view
+	 */
+	public function single($id)
+	{
+		$offer = $this->offer->find($id);
+		$orders = $this->order->data($id);
+
+		$offer = [
+			'offer' => $offer,
+			'orders' => $orders
+		];
+
+		return View::make('offers.single')->with(['offer' => $offer]);
+	}
+
+	/**
+	 * Show the data view
+	 */
+	public function data($id)
+	{
+		return $this->order->data($id)['data'];
 	}
 
 	/**
@@ -249,8 +284,14 @@ class OffersController extends BaseController {
 		/**
 		 * Get amount claimed
 		 */
-		$cost = implode(".", Input::except('_token'));
-//		echo $this->offer->claim(Auth::user(), $offer, $cost);
-		echo $this->offer->claim($this->user->find(8), $this->offer->find(5), $cost);
+		$cost = implode(".", [Input::get('dollars'), Input::get('cents')]);
+
+		/**
+		 * Get the order to associate
+		 * the claim with
+		 */
+		$order = $this->order->find(Input::get('order'));
+		
+		echo $this->order->claim(Auth::user(), $order, $cost);
 	}
 }

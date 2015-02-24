@@ -16,7 +16,8 @@
 		"omnipay/stripe": "~2.0",
 		"indatus/dispatcher": "~1.4",
 		"guzzle/guzzle": "~3.9",
-		"paypal/adaptivepayments-sdk-php": "~3.8"
+		"paypal/adaptivepayments-sdk-php": "~3.8",
+		"intervention/image": "~2.1"
 	},
 	"require-dev": {
 		"way/generators": "~2.0",

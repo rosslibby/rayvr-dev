@@ -10,52 +10,217 @@
 | and give it the Closure to execute when that URI is requested.
 |
 */
-
-/**
- * Suspend user
- */
-Route::get('users/suspend/{id}', [
-	'uses' => 'UserController@suspend',
-	'as' => 'user.suspend'
+Route::get('register/welcome', [
+	'uses' => 'RegisterController@welcome',
+	'as' => 'register.welcome'
 ]);
 
 /**
- * Shipping reimbursement claims
+ * Route for testing anything
  */
-Route::get('offers/shipping', function(){
-	return View::make('offers.shipping');
+Route::get('test', function(){
+	return 'just a test';
 });
-Route::post('offers/shipping', [
-	'uses' => 'OffersController@claim',
-	'as' => 'shipping.claim'
-]);
-
-/**
- * Offer moderation by site moderators
- */
-Route::get('offers/moderate', 'OffersController@moderate');
-Route::post('offers/approve', [
-	'uses' => 'OffersController@approve',
-	'as' => 'offers.approve'
-]);
-Route::post('offers/deny', [
-	'uses' => 'OffersController@deny',
-	'as' => 'offers.deny'
-]);
 
 Route::group(['before' => 'csrf'], function()
 {
-/**	Route::get('/', [
+	/**
+	 * Administrator-specific routes
+	 */
+	Route::group(['before' => 'admin'], function(){
+
+		/**
+		 * Change user account
+		 * type (business/user)
+		 */
+		Route::get('users/{id}/type', function($id){
+			return View::make('user.account-type')->with('id', $id);
+		});
+		Route::post('users/{id}/type', 'UserController@type');
+
+		/**
+		 * Suspend user
+		 */
+		Route::get('users/suspend/{id}', [
+			'uses' => 'UserController@suspend',
+			'as' => 'user.suspend'
+		]);
+
+		/**
+		 * Offer moderation by site moderators
+		 */
+		Route::get('offers/moderate', 'OffersController@moderate');
+		Route::post('offers/approve', [
+			'uses' => 'OffersController@approve',
+			'as' => 'offers.approve'
+		]);
+		Route::post('offers/deny', [
+			'uses' => 'OffersController@deny',
+			'as' => 'offers.deny'
+		]);
+
+		/**
+		 * Shipping moderation
+		 */
+		Route::get('shipping/moderate', 'OrderController@moderateShipping');
+		Route::post('shipping/moderate', 'OrderController@approveShipping');
+	});
+
+	/**
+	 * Business-specific routes
+	 */
+	Route::group(['before' => 'business'], function(){
+		/**
+		 * Dispute shipping claim
+		 */
+		Route::get('orders/{order}/shipping', function($order){
+			$order = Order::find($order);
+			return View::make('orders.shipping-claim')->with('claim', $order->reimbursement);
+		});
+		Route::post('orders/{order}/shipping', 'OrderController@dispute');
+
+		/**
+		 * Offers ordered
+		 */
+		Route::get('offers/track/{id}', [
+			'uses' => 'OffersController@single',
+			'as' => 'offers.single'
+		]);
+
+		/**
+		 * Image uploader
+		 */
+		Route::get('offer/image', function(){
+			return View::make('offers.image-upload');
+		});
+		Route::post('offer/image', function(){
+			$file = Input::file('image');
+			$extension = ".".$file->getClientOriginalExtension();
+			$destinationPath = public_path().'/uploads/';
+			$filename = "OfferTitle-".str_random(14)."-".microtime(true).$extension;
+			Input::file('image')->move($destinationPath, $filename);
+		});
+
+		/**
+		 * Shipping document uploader
+		 */
+		Route::get('order/{order}/dispute', 'OrderController@shippingDoc');
+		Route::post('order/{order}/dispute', 'OrderController@shippingSave');
+
+		/**
+		 * Offer-pack routes
+		 */
+		Route::get('offers/purchase', 'PaymentController@offers');
+		Route::post('offers/purchase', [
+			'uses' => 'PaymentController@payForOffers',
+			'as' => 'offers/purchase'
+		]);
+
+		/**
+		 * Membership-subscription routes
+		 */
+		Route::get('payments', [
+			'use' => 'PaymentController@membership',
+			'as' = 'payments'
+		]);
+		Route::post('payments', [
+			'uses' => 'PaymentController@subscribe',
+			'as' => 'payments'
+		]);
+
+		/**
+		 * Pay shipping deposit
+		 */
+		Route::get('offers/track/{id}/deposit', 'OffersController@deposit');
+	});
+
+	/**
+	 * User-specific routes
+	 */
+	Route::group(['before' => 'user'], function(){
+
+		/**
+		 * User offer selector
+		 */
+		Route::get('offers/current', [
+			'uses' => 'UserController@matches',
+			'as' => 'offers.current'
+		]);
+		Route::post('offers/current', 'UserController@accept');
+
+		/**
+		 * Shipping reimbursement claims
+		 */
+		Route::get('offers/{offer}/shipping/{order?}', function($offer, $order = null){
+			return View::make('offers.shipping')->with('order', $order);
+		});
+		Route::post('offers/shipping', [
+			'uses' => 'OffersController@claim',
+			'as' => 'shipping.claim'
+		]);
+
+		/**
+		 * Confirm order with
+		 * confirmation code
+		 */
+		Route::get('order/confirm', function(){
+			return View::make('orders.confirm');
+		});
+		Route::post('order/confirm', 'OrderController@confirm');
+
+		/**
+		 * Confirm whether user
+		 * paid for shipping
+		 */
+		Route::get('order/shipping', function(){
+			return View::make('orders.shipping');
+		});
+		Route::post('order/shipping', 'OrderController@shipping');
+
+		/**
+		 * Confirm review with
+		 * review URL
+		 */
+		Route::get('order/review', function(){
+			return View::make('orders.review');
+		});
+		Route::post('order/review', 'OrderController@review');
+
+		/**
+		 * User preferences
+		 */
+		Route::get('preferences', [
+			'uses' => 'PreferencesController@user',
+			'as' => 'user.preferences'
+		]);
+		Route::post('preferences', [
+			'uses' => 'PreferencesController@storeUser',
+			'as' => 'user.storePreferences'
+		]);
+	});
+
+	/**
+	 * Home page without invite code
+	 */
+	Route::get('/', [
 		'uses' => 'LandingController@index',
 		'as' => 'index'
 	]);
-*/
+
+	/**
+	 * Home page with invite code
+	 */
+	Route::get('register/{referral?}', [
+		'uses' => 'LandingController@index',
+		'as' => 'index'
+	]);
+
 	/** temporary **/
-	Route::get('/', [
+/**	Route::get('/', [
 		'uses' => 'SessionController@register',
 		'as' => 'session.index'
 	]);
-
+*/
 	/**
 	 * Preference routes
 	 */
@@ -63,37 +228,27 @@ Route::group(['before' => 'csrf'], function()
 		'uses' => 'PreferencesController@index',
 		'as' => 'user.preferences'
 	]);
-	Route::post('preferences', [
+	// used to be preferences instead of user/preferences
+	Route::post('user/preferences', [
 		'uses' => 'UserController@store',
 		'as' => 'user.store'
 	]);
-	Route::get('welcome', 'RegisterController@welcome');
-
-	/**
-	 * User pages
-	 */
-	 Route::get('offers/current', function(){
-	 	return View::make('offers.select');
-	 });
 
 	/**
 	 * Business pages
 	 */
-	Route::get('business', function(){
-		return View::make('business.index');
-	});
 
-/**	Route::get('register/{referral?}', [
+	Route::get('business/{referral?}', [
 		'uses' => 'SessionController@register',
 		'as' => 'session.index'
 	]);
-*/
+
 	/** temporary **/
-	Route::get('register/{referral?}', [
+/**	Route::get('register/{referral?}', [
 		'uses' => 'LandingController@index',
 		'as' => 'index'
 	]);
-
+*/
 	Route::get('early/{referral?}', [
 		'uses' => 'RegisterController@early',
 		'as' => 'register.early'
@@ -107,11 +262,6 @@ Route::group(['before' => 'csrf'], function()
 	Route::post('register', [
 		'uses' => 'RegisterController@store',
 		'as' => 'register.store'
-	]);
-
-	Route::get('welcome', [
-		'uses' => 'RegisterController@welcome',
-		'as' => 'register.welcome'
 	]);
 
 	Route::get('business/welcome', [

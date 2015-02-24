@@ -20,6 +20,11 @@ class User extends Ardent implements UserInterface, RemindableInterface, Billabl
 	protected $table = 'users';
 
 	/**
+	 * Setting up Cashier
+	 */
+	protected $dates = ['trial_ends_at', 'subscription_ends_at'];
+
+	/**
 	 * The attributes excluded from the model's JSON form.
 	 *
 	 * @var array
@@ -118,5 +123,29 @@ class User extends Ardent implements UserInterface, RemindableInterface, Billabl
 	public function matches()
 	{
 		return $this->hasMany('Matches');
+	}
+
+	/**
+	 * User <--> offer-pack relationship
+	 */
+	public function offerPack()
+	{
+		return $this->hasMany('OfferPack');
+	}
+
+	/**
+	 * User <--> order relationship
+	 */
+	public function order()
+	{
+		return $this->hasMany('Order');
+	}
+
+	/**
+	 * User <--> blacklist relationship
+	 */
+	public function blacklist()
+	{
+		return $this->hasMany('Blacklist');
 	}
 }

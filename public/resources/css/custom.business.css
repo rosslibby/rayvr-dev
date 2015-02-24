@@ -60,6 +60,7 @@ body
 .bg-scheme-light { background-color: #FC6E51; }
 .bg-scheme-gray { background-color: #2B2B2B; }
 .bg-scheme-white { background-color: #FFF; }
+.bg-scheme-blue { background-color: #269ECB; }
 .bg-scheme-transparent-gray
 {
 	/** For browsers that don't support the alpha channel **/
@@ -156,3 +157,21 @@ iframe#product-description
 	background-color: #E6E9ED;
 	border-color: #E6E9ED;
 }
+
+.list-group-veritcal-separator
+{
+	display: inline-block;
+	float: left;
+	width:  1px;
+	height: 20px;
+	background: #EFEFEF;
+	margin-left: -1px;
+}
+
+/** fonts **/
+.raleway { font-family: 'Raleway', sans-serif; }
+.source-sans-pro { font-family: 'Source Sans Pro', sans-serif; }
+
+.light { font-weight: 200; }
+.normal { font-weight: 400; }
+.more-height { line-height: 1.75em; }

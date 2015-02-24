@@ -37,15 +37,30 @@ class LandingController extends BaseController {
 		 * preferences page
 		 */
 		if(Auth::user())
+		{
 			if(Auth::user()->business)
-				if(Auth::user()->address)
+			{
+				if(Auth::user()->address && Auth::user()->email && Auth::user()->first_name && Auth::user()->last_name && Auth::user()->zip && Auth::user()->phone)
+				{
 					return Redirect::to('offers/track');
+				}
 				else
-					return Redirect::to('settings');
+				{
+					if(Auth::user()->stripe_plan == NULL)
+						return Redirect::to('payments');
+					else
+						return Redirect::to('settings');
+				}
+			}
 			else
-				return View::make('landing.home');
+			{
+				return Redirect::to('offers/current');
+			}
+		}
 		else
+		{
 			return View::make('landing.home')->with('referral', $referral);
+		}
 	}
 
 	/**

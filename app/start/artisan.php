@@ -10,4 +10,7 @@
 | the console gets access to each of the command object instances.
 |
 */
+$offer = App::make('RAYVR\Storage\Offer\OfferRepository');
 
+Artisan::add(new OfferStarterCommand($offer));
+Artisan::add(new OfferDistribution($offer));

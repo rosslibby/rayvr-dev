@@ -41,10 +41,15 @@ class SessionController extends BaseController {
 	{
 		$input = Input::all();
 
+		/**
+		 * Remember me
+		 */
+		$remember = (Input::has('remember')) ? true : false;
+
 		$attempt = Auth::attempt([
 			'email' => $input['email'],
 			'password' => $input['password']
-		]);
+		], $remember);
 
 		if($attempt)
 			return Redirect::intended('/');

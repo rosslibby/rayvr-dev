@@ -10,7 +10,23 @@ class Offer extends Eloquent {
 	];
 
 	// Don't forget to fill this array
-	protected $fillable = ['title', 'photo', 'description', 'start', 'end', 'prime', 'female', 'male', 'link'];
+	protected $fillable = [
+		'business_id',
+		'photo',
+		'title',
+		'description',
+		'start',
+		'end',
+		'code',
+		'quota',
+		'prime',
+		'link',
+		'male',
+		'female',
+		'approved',
+		'created_at',
+		'updated_at',
+	];
 
 	/**
 	 * Offer categories relationship
@@ -25,14 +41,39 @@ class Offer extends Eloquent {
 	 */
 	public function match()
 	{
-		return $this->belongsToMany('User', 'matches', 'offer_id', 'user_id');
+		return $this->hasMany('Matches');
 	}
 
 	/**
-	 * Offer <--> reimbursement relationship
+	 * Offer <--> order relationship
 	 */
-	public function reimbursement()
+/* not sure what this is for so I'm commenting it out
+	public function order()
 	{
-		return $this->belongsToMany('User', 'reimbursement', 'user_id', 'offer_id', 'cost', 'response');
+		return $this->belongsToMany('Offer', 'orders', 'offer_id', 'user_id');
+	}*/
+
+	/**
+	 * Order <--> offer relationship
+	 */
+	public function orders()
+	{
+		return $this->hasMany('Order');
+	}
+
+	/**
+	 * Offer <--> business relationship
+	 */
+	public function business()
+	{
+		return $this->belongsTo('User');
+	}
+
+	/**
+	 * Offer <--> deposit relationship
+	 */
+	public function deposit()
+	{
+		return $this->hasOne('Deposit');
 	}
 }

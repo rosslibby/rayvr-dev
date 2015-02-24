@@ -30,7 +30,10 @@
 
 .light { font-weight: 200; }
 .normal { font-weight: 400; }
+.heavy { font-weight: 900; }
 .more-height { line-height: 1.75em; }
+
+.taller-input { height: 40px; }
 
 /** nav **/
 .nav.navbar-primary { border-bottom: 1px solid #f5f5f5; }
@@ -146,7 +149,7 @@ html, body { height: 100%; }
 .icon-hollow.icon-lifering { background-image: url('../img/business/icons/hollow/lifering.png'); }
 
 /** landing-page registration **/
-.business-registration-container.row-dark-blue
+.inset-form-container.row-dark-blue
 {
 	float: left;
 	padding: 30px 0;
@@ -159,7 +162,7 @@ html, body { height: 100%; }
 				inset 0 -15px 15px -15px #181818;
 }
 
-.business-registration-container.row-white
+.inset-form-container.row-white
 {
 	float: left;
 	padding: 30px 0;
@@ -172,7 +175,7 @@ html, body { height: 100%; }
 				inset 0 -15px 15px -15px #CCC;
 }
 
-h3.business-registration
+h3.inset-form-heading
 {
 	font-family: 'Raleway', sans-serif;
 	font-size: 260%;
@@ -181,7 +184,7 @@ h3.business-registration
 	text-shadow: 1px 1px #000;
 }
 
-.business-registration-container .business-registration-input
+.inset-form-container .inset-form-input
 {
 	background: none;
 	border: none;
@@ -191,38 +194,38 @@ h3.business-registration
 	color: #fff;
 }
 
-.business-registration-container .business-registration-input.error { border-color: #DA4453 !important; }
+.inset-form-container .inset-form-input.error { border-color: #DA4453 !important; }
 
-.business-registration-container .business-registration-input.valid { border-color: #8CC152; }
+.inset-form-container .inset-form-input.valid { border-color: #8CC152; }
 
-.business-registration-container .business-registration-input.error + .input-group-addon { color: #DA4453; }
+.inset-form-container .inset-form-input.error + .input-group-addon { color: #DA4453; }
 
-.business-registration-container .business-registration-input.valid + .input-group-addon { color: #8CC152; }
+.inset-form-container .inset-form-input.valid + .input-group-addon { color: #8CC152; }
 
-.business-registration-container .business-registration-input:focus,
-.business-registration-container .business-registration-input:focus + .input-group-addon
+.inset-form-container .inset-form-input:focus,
+.inset-form-container .inset-form-input:focus + .input-group-addon
 {
 	background-color: #293139;
 	padding-left: 12px;
 }
 
-.business-registration-container .business-registration-input::-webkit-input-placeholder { color: #68778A !important; }
-.business-registration-container .business-registration-input:-moz-placeholder
+.inset-form-container .inset-form-input::-webkit-input-placeholder { color: #68778A !important; }
+.inset-form-container .inset-form-input:-moz-placeholder
 {
 	color: #68778A !important;
 	opacity: 1 !important;
 }
-.business-registration-container .business-registration-input::-moz-placeholder
+.inset-form-container .inset-form-input::-moz-placeholder
 {
 	color: #68778A !important;
 	opacity: 1 !important;
 }
-.business-registration-container .business-registration-input::-ms-input-placeholder
+.inset-form-container .inset-form-input::-ms-input-placeholder
 {
 	color: #68778A !important;
 }
 
-.business-registration-container .input-group-addon
+.inset-form-container .input-group-addon
 {
 	background: none;
 	color: #D85D5F;
@@ -231,14 +234,14 @@ h3.business-registration
 	border-radius: 0;
 }
 
-.business-registration-container .checkbox label { color: #68778A !important; }
-.business-registration-container .checkbox label a
+.inset-form-container .checkbox label { color: #68778A !important; }
+.inset-form-container .checkbox label a
 {
 	color: #68778A;
 	border-bottom: 1px dashed #68778A;
 }
 
-.business-registration-container .checkbox label a:hover
+.inset-form-container .checkbox label a:hover
 {
 	color: #FC6E51;
 	border-color: #FC6E51;
@@ -247,8 +250,6 @@ h3.business-registration
 /** offer cards **/
 .card-outer
 {
-	width: 440px;
-	float: left;
 	text-align: center;
 	padding: 17px;
 	border: 1px solid #EBEBEB;

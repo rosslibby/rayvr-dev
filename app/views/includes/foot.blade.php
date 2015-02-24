@@ -49,6 +49,23 @@ $("#businessRegistration").validate({
 		return true;
 	}
 });
+$("#userLogin").validate({
+	rules: {
+		email: {
+			required: true,
+			email: true
+		}
+	},
+	rules: {
+		password: {
+			required: true,
+			minlength: 6
+		}
+	},
+	errorPlacement: function(error, element){
+		return true;
+	}
+});
 </script>
 
 </body>

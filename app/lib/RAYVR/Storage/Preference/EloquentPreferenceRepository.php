@@ -66,6 +66,35 @@ class EloquentPreferenceRepository implements PreferenceRepository {
 			return false;
 	}
 
+	public function setInterests($user, $interests)
+	{
+		/**
+		 * Delete old user interests
+		 */
+		$user->interest()->delete();
+		/**
+		 * Create a user relationship with each
+		 * category they are interested in
+		 */
+		for($i = 0; $i < count($interests['interest']); $i++)
+		{
+			/**
+			 * Find category associated with user selection
+			 */
+			$category = Category::find((int)($interests['interest'][$i]));
+
+			/**
+			 * Build array for interest creation
+			 */
+			$interest = array_merge(['user_id' => $user->id], ['cat_id' => $category->id]);
+
+			/**
+			 * Create new Interest (user-category relationship)
+			 */
+			$user->interest()->create($interest);
+		}
+	}
+
 	/**
 	 * This sets up preferences without
 	 * associating any user <--> category
@@ -83,5 +112,57 @@ class EloquentPreferenceRepository implements PreferenceRepository {
 		$s = $pref->save();
 
 		return $s;
+	}
+
+	public function interestCategories($user)
+	{
+		/**
+		 * Select all the categories
+		 */
+		$categories = Category::all();
+
+		/**
+		 * Select all the user's interests
+		 */
+		$interests = $user->interest;
+
+		/**
+		 * Build an array of the
+		 * categories, assigning a value
+		 * of true to those that are
+		 * interests and false to those
+		 * that are not
+		 */
+		$cats = [];
+
+		foreach($categories as $category)
+		{
+			$isInterest = false;
+
+			/**
+			 * Iterate through the $interests
+			 * array to find a match for the
+			 * category ID
+			 */
+			foreach($interests as $interest)
+			{
+				if($interest->cat_id == $category->id)
+				{
+					$isInterest = true;
+					break;
+				}
+			}
+
+			$cat = [
+				'id'		=> $category->id,
+				'title'		=> $category->title,
+				'interest'	=> $isInterest
+			];
+			array_push($cats, $cat);
+		}
+
+		$categories = $cats;
+
+		return $categories;
 	}
 }

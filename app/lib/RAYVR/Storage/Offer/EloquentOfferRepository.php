@@ -2,16 +2,22 @@
 
 use RAYVR\Storage\Category\CategoryRepository as Category;
 
-use Offer, Interest, User, Omnipay\Omnipay, Auth, Reimbursement, Mail;
+use Offer, Interest, User, Omnipay\Omnipay, Auth, Reimbursement, Mail, Matches, OfferPack, Blacklist;
 
 class EloquentOfferRepository implements OfferRepository {
 
 	protected $category;
 
-	public function __construct(Category $category, Reimbursement $reimbursement)
+	public function __construct(Category $category)
 	{
 		$this->category = $category;
-		$this->reimbursement = $reimbursement;
+
+		/**
+		 * Set up Omnipay
+		 */
+		$gateway = Omnipay::create('Stripe');
+		$gateway->setApiKey('sk_test_3YmCSPqFkZCBhSroMCu4QAC0');
+		$this->gateway = $gateway;
 	}
 
 	public function all()
@@ -19,12 +25,32 @@ class EloquentOfferRepository implements OfferRepository {
 		return Offer::all();
 	}
 
-	/**
-	 * Find all unapproved offers
-	 */
 	public function unmoderated()
 	{
 		return Offer::where('approved', false)->get();
+	}
+
+	public function approved()
+	{
+		return Offer::where('approved', true)->get();
+	}
+
+	public function offerStart($date)
+	{
+		/**
+		 * Build an array of conditions
+		 * for selecting the offers
+		 * 
+		 * These conditions will be as
+		 * follow:
+		 * approved		= true
+		 * start		= $date
+		 */
+		$conditions = [
+			'approved'	=> true,
+			'start'		=> $date
+		];
+		return Offer::where($conditions)->get();
 	}
 
 	/**
@@ -32,10 +58,34 @@ class EloquentOfferRepository implements OfferRepository {
 	 */
 	public function approve($id)
 	{
+		/**
+		 * Retrieve the offer
+		 */
 		$offer = Offer::find($id);
+
+		/**
+		 * Approve the offer
+		 */
 		$offer->approved = true;
+
+		/**
+		 * Save the offer
+		 */
 		if($offer->save())
 		{
+			/**
+			 * Email the business, notifying that
+			 * the offer has been approved
+			 * 
+			 * Start by setting the business from
+			 * which we retrieve the email address
+			 */
+			$business = User::find($offer->business_id);
+			Mail::send('emails.offer-approved', ['name' => $business->first_name.' '.$business->last_name, 'from' => 'The RAYVR team'], function($message) use ($business)
+			{
+				$message->to($business->email)->subject('Your Offer Has Been Approved');
+			});
+
 			/**
 			 * Match users with the offer
 			 */
@@ -53,7 +103,22 @@ class EloquentOfferRepository implements OfferRepository {
 		$offer = Offer::find($id);
 		$offer->approved = false;
 		if($offer->save())
+		{
+			/**
+			 * Email the business, notifying that
+			 * the offer has been denied
+			 * 
+			 * Start by setting the business from
+			 * which we retrieve the email address
+			 */
+			$business = User::find($offer->business_id);
+			Mail::send('emails.offer-denied', ['name' => $business->first_name.' '.$business->last_name, 'from' => 'The RAYVR team'], function($message) use ($business)
+			{
+				$message->to($business->email)->subject('Your Offer Has Been Denied');
+			});
+
 			return "<p>The offer for <em>" . $offer->title . "</em> has been denied.</p>";
+		}
 		return "The offer was not denied. Don't ask me why, I'm just the messenger.";
 	}
 
@@ -85,10 +150,47 @@ class EloquentOfferRepository implements OfferRepository {
 		 * an array $categories
 		 */
 
+		/**
+		 * Find all users that have been
+		 * blacklisted from working with
+		 * this business for receiving
+		 * 2 offers in the past
+		 */
+		$blacklisted = json_decode(Blacklist::where('business_id', $offer->business_id)
+						->where('times',2)->get(['user_id']), true);
+
+		/**
+		 * Set up an empty array to store
+		 * the blacklisted users' IDs
+		 */
+		$blacklistArr = [];
+
+		/**
+		 * Iterate through $blacklisted
+		 * and fetch the ID of each user
+		 * to store in the $blacklistArr
+		 */
+		foreach($blacklisted as $blacklist)
+		{
+			$userid = $blacklist['user_id'];
+			array_push($blacklistArr, $userid);
+		}
+
+		/**
+		 * Implode $blacklistArr so that
+		 * it can be checked against in
+		 * the database query
+		 */
+		$blacklistArr = implode(',', $blacklistArr);
+
 		$users = [];
 
-		$categories = $offer->category;
+		$categories = json_decode($offer->category, true);
 
+		/**
+		 * Set a user index to help
+		 * build the array of user IDs
+		 */
 		foreach($categories as $category)
 		{
 			/**
@@ -96,11 +198,29 @@ class EloquentOfferRepository implements OfferRepository {
 			 * from the
 			 * "interests" table where
 			 * category matches exist.
+			 * If a user has been
+			 * blacklisted for the
+			 * business (owner of the
+			 * offer), remove the user
+			 * from the list
+			 * 
 			 * Store these IDs in an
 			 * array $userArr
 			 */
-			$userArr = Interest::where('cat_id', $category->id)->whereNotIn('user_id', [implode(",", $users)])->get(['user_id']);
-			array_push($users, $userArr);
+
+			$imploded_users = implode(',', $users);
+			$userArr = json_decode(Interest::where('cat_id', $category['id'])
+									->whereNotIn('user_id', [$imploded_users])
+									->whereNotIn('user_id', [$blacklistArr])
+									->get(['user_id']), true);
+			if(!empty($userArr))
+			{
+				foreach($userArr as $newUser)
+				{
+					$userid = $newUser['user_id'];
+					array_push($users, $userid);
+				}
+			}
 		}
 
 		/**
@@ -166,20 +286,13 @@ class EloquentOfferRepository implements OfferRepository {
 		 * emails
 		 */
 		$quota = 0;
-
 		foreach($users as $id)
 		{
-			/**
-			 * Extract the integer ID from
-			 * the $id array-object
-			 */
-			$user_id = $id[0]->user_id;
-
 			/**
 			 * Fetch the user object
 			 * associated with the ID
 			 */
-			$user = User::find($user_id);
+			$user = User::find($id);
 
 			/**
 			 * Check if the gender of $user
@@ -227,26 +340,11 @@ class EloquentOfferRepository implements OfferRepository {
 			/**
 			 * Create the match
 			 */
-			$offer->match()->save($user);
-
-			/**
-			 * Check if user is currently
-			 * in offer
-			 */
-			if(!$user->current && $quota < $daily_quota)
-			{
-				Mail::send('emails.offer-match', ['name' => $user['first_name'], 'from' => 'The RAYVR team', 'send_at' => $offer->start], function($message) use ($user)
-				{
-					$message->to($user->email)->subject('You have new offers waiting for you!');
-				});
-
-				/**
-				 * Increment $quota so that we
-				 * schedule the appropriate
-				 * number of emails for day 1
-				 */
-				$quota++;
-			}
+			$match = new Matches();
+			$match->offer_id = $offer->id;
+			$match->user_id = $user['id'];
+			$match->business_id = $offer->business_id;
+			$match->save();
 		}
 
 		return $users;
@@ -343,83 +441,349 @@ class EloquentOfferRepository implements OfferRepository {
 		return Offer::where('business_id', '=', $userid)->get();
 	}
 
-	public function claim($user, $offer, $cost)
+	public function kickoff()
 	{
 		/**
-		 * Send reimbursement to user's email
+		 * Step 1:
+		 * Fetch offers that meet the following criteria:
+		 * approved = true
+		 * start = today
 		 */
-		if($user)
-			$email = $user['email'];
-		else
-			return "User is not logged in; we can't send a refund to a person that doesn't exist. smh.";
+		$date = date('Y-m-d');
+
+		$offers = $this->offerStart($date);
 
 		/**
-		 * Step 1: Fetch the access token
+		 * Iterate through $offers to make them active
+		 * and schedule their first matches
 		 */
-		$url = 'https://api.sandbox.paypal.com/v1/oauth2/token';
-		$client_id = 'AYlbChCk7mTzAcQD1u_rxLr4KB0PNE9QhmJU6Gmfh_9scFyzoeGiCckcfQsy';
-		$secret = 'EGmHiRAE1KdRZqBIkphWz5NfNkPKwgHu6nHz_MQkTuEcaQ-Kmf-AqhmImrUr';
+		foreach($offers as $offer)
+		{
+			/**
+			 * Determine the offer's overall time-span
+			 */
+			$timespan = abs(strtotime($offer->end) - strtotime($date)) / 86400;
 
-		$curl = curl_init();
+			/**
+			 * Determine the number of offers that must
+			 * be accepted daily in order to reach the
+			 * offer's quota
+			 */
+			$daily = (int)($offer->quota / $timespan);
 
-		curl_setopt($curl, CURLOPT_URL, $url);
-		curl_setopt($curl, CURLOPT_HTTPHEADER, ['Accept: application/json', 'Accept-Language: en_US']);
-		curl_setopt($curl, CURLOPT_USERPWD, $client_id.':'.$secret);
-		curl_setopt($curl, CURLOPT_POSTFIELDS, 'grant_type=client_credentials');
-		curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+			/**
+			 * Make the $daily quota of matches live
+			 * where the user is not currently in an
+			 * offer
+			 * 
+			 * Schedule emails to these users
+			 */
 
-		$result = curl_exec($curl);
-		curl_close($curl);
+			 /**
+			 * Fetch the matches associated with
+			 * the offer
+			 *
+			 * Don't do more matches than exist
+			 */
+			$matches = $offer->match;
+			$count = $daily;
 
-		/**
-		 * Set the access token
-		 */
-		$access_token = json_decode($result, true)['access_token'];
-		echo $access_token;
+			if(count($matches) < $daily)
+			{
+				$count = count($matches);
+			}
 
-		/**
-		 * Send payment request
-		 */
-		$url = 'https://api.sandbox.paypal.com/v1/payments/payouts/?sync_mode=true';
-		$body = '{
-			"sender_batch_header": {
-				"email_subject": "You have a payment"
-			},
-			"items": [
+			for($i = 0; $i < $count; $i++)
+			{
+				/**
+				 * Make the match live
+				 */
+				$matches[$i]->live = true;
+
+				/**
+				 * Save the match
+				 */
+				$matches[$i]->save();
+
+				/**
+				 * Get the user that the match belongs to
+				 */
+				$user = $matches[$i]->user;
+
+				Mail::send('emails.new-offer', ['name' => $user->first_name.' '.$user->last_name, 'from' => 'The RAYVR team'], function($message) use ($user)
 				{
-					"recipient_type": "EMAIL",
-					"amount": {
-						"value": '.$cost.',
-						"currency": "USD"
-					},
-					"receiver": "'.$email.'",
-					"note": "Reimbursement for shipping",
-					"sender_item_id": '.$offer['id'].'
-				}
-			]
-		}';
+					$message->to($user->email)->subject('You have new offers waiting for you!');
+				});
+			}
 
-		$pay = curl_init();
-		curl_setopt($pay, CURLOPT_URL, $url);
-		curl_setopt($pay, CURLOPT_HTTPHEADER, [
-			'Content-Type:application/json',
-			'Authorization: Bearer '.$access_token
-		]);
-		curl_setopt($pay, CURLOPT_POSTFIELDS, $body);
-		curl_setopt($pay, CURLOPT_RETURNTRANSFER, true);
+			/**
+			 * Notify the business that their offer
+			 * is now live
+			 */
 
-		$result = curl_exec($pay);
-		curl_close($pay);
+			$user = $offer->business;
+			Mail::send('emails.new-offer', ['name' => $user->first_name.' '.$user->last_name, 'from' => 'The RAYVR team'], function($message) use ($user)
+			{
+				$message->to($user->email)->subject('Your Offer Has Started');
+			});
+		}
+	}
 
-		var_dump($body);
-		echo "<hr>";
-		var_dump($result);
+	public function distribute()
+	{
+		$date = date('Y-m-d');
+		/**
+		 * Step 1:
+		 * Fetch all offers that
+		 * 
+		 *   a) have already started
+		 *   b) have not yet ended
+		 */
+		$offers = Offer::where('end', '>=', $date)
+					->where('start', '<', $date)
+					->where('approved', true)
+					->get();
 
 		/**
-		 * Store the reimbursement
+		 * If the $offers array returned
+		 * anything, proceed
 		 */
-		$reimburse = $offer->reimbursement()->save($user, ['cost' => 2.18, 'response' => $result]);
+		if(!empty($offers))
+		{
+			/**
+			 * Iterate through each retrieved offer,
+			 * redistributing matches as necessary
+			 */
+			foreach($offers as $offer)
+			{
+				/**
+				 * Determine the offer's overall time-span
+				 */
+				$timespan = abs(strtotime($offer->end) - strtotime($offer->start)) / 86400;
 
-		return "The claim for $" . $cost . " has been placed.";
+				/**
+				 * Determine the number of offers that must
+				 * be accepted daily in order to reach the
+				 * offer's quota
+				 */
+				$daily = (int)($offer->quota / $timespan);
+
+				/**
+				 * Determine how many days have elapsed
+				 * since the offer's start
+				 */
+				$elapsed = abs(strtotime($date) - strtotime($offer->start)) / 86400;
+
+				/**
+				 * Determine how many offers __should__ have
+				 * been accepted by now
+				 */
+				$projected = $daily * $elapsed;
+
+				/**
+				 * Discover how many offers really have been
+				 * accepted
+				 */
+				$accepted = Matches::where('offer_id', $offer->id)
+								->where('live', true)
+								->where('accept', true)->get();
+
+				/**
+				 * Rebuild $daily using the current day 
+				 * ($date) as the starting date and
+				 * redistribute as necessary
+				 */
+
+				/**
+				 * Re-determine $daily
+				 */
+				$daily = (int)(($offer->quota - count($accepted)) / ($timespan - $elapsed));
+
+				/**
+				 * Fetch the offer's matches
+				 */
+				$matches = Matches::where('offer_id', $offer->id)
+								->where('live', false);
+
+				/**
+				 * Iterate through the matches. Find
+				 * users not currently in offers and
+				 * store these in an array.
+				 * 
+				 * Set the matches of these users to live,
+				 * and send emails to those users. Do so
+				 * until the $daily quota is met
+				 */
+				$counter = 0;
+				foreach($matches as $match)
+				{
+					/**
+					 * Find the user associated with the match
+					 */
+					$user = $match->user;
+
+					/**
+					 * Check if the user is currently in an
+					 * offer
+					 */
+					if($user->current == NULL && $counter < $daily)
+					{
+						/**
+						 * Set the match to live
+						 */
+						$match->live = true;
+
+						/**
+						 * Save changes to the match
+						 */
+						$match->save();
+
+						/**
+						 * Email the user to notify him or her
+						 * of a new offer
+						 */
+						Mail::send('emails.new-offer', ['name' => $user->first_name.' '.$user->last_name, 'from' => 'The RAYVR team'], function($message) use ($user)
+						{
+							$message->to($user->email)->subject('You have new offers waiting for you!');
+						});
+
+						/**
+						 * Increment $counter
+						 */
+						$counter++;
+					}
+				}
+			}
+		}
+	}
+
+	public function offerPurchase($input)
+	{
+		$token = $input['stripeToken'];
+		$pack = (int)($input['pack']);
+		switch($pack)
+		{
+			case 1:
+				$amount = '250.00';
+				$count = 50;
+				$prime = false;
+				break;
+			case 2:
+				$amount = '450.00';
+				$count = 100;
+				$prime = false;
+				break;
+			case 3:
+				$amount = '800.00';
+				$count = 200;
+				$prime = false;
+				break;
+			case 4:
+				$amount = '300.00';
+				$count = 50;
+				$prime = true;
+				break;
+			case 5:
+				$amount = '530.00';
+				$count = 100;
+				$prime = true;
+				break;
+			case 6:
+				$amount = '900.00';
+				$count = 200;
+				$prime = true;
+				break;
+			default:
+				return 'You selected an option that does not exist.';
+		}
+
+		$response = $this->gateway->purchase(['amount' => $amount, 'currency' => 'USD', 'token' => $token])->send();
+
+		/**
+		 * Creat a new OfferPack
+		 */
+		$offerPack = new OfferPack();
+		$offerPack->prime		= $prime;
+		$offerPack->total		= $count;
+		$offerPack->used		= 0;
+		$offerPack->remaining	= $count;
+		$offerPack->cost		= (float)($amount);
+
+		/**
+		 * Save the OfferPack
+		 */
+		$offerPack->save();
+
+		/**
+		 * Get the logged in user to assign the
+		 * OfferPack to
+		 */
+		$user = Auth::user();
+
+		/**
+		 * Assign the OfferPack to $user
+		 */
+		$user->offerPack()->save($offerPack);
+
+		return $response;
+	}
+
+	public function offerPacks($user)
+	{
+		/**
+		 * Get all offer packs the user has
+		 * purchased
+		 */
+		$packs = $user->offerPack;
+
+		/**
+		 * Get number of packs user owns
+		 */
+		$packTotal = count($packs);
+
+		/**
+		 * Discover how many offers total
+		 * the user has not used
+		 * 
+		 * Discover how many unused Prime
+		 * offers the user has
+		 */
+		$offerTotal	= 0;
+		$primeTotal = 0;
+
+		/**
+		 * Iterate through the offer packs
+		 */
+		foreach($packs as $pack)
+		{
+			/**
+			 * Add the remaining (unused) offers
+			 * from each pack to the $offerTotal
+			 */
+			$offerTotal += $pack->remaining;
+
+			/**
+			 * Determine if the OfferPack is for
+			 * Prime or regular
+			 * 
+			 * If the pack is for Prime, add the
+			 * remaining (unused) offers to the
+			 * primeTotal
+			 */
+			if($pack->prime)
+				$primeTotal += $pack->remaining;
+		}
+
+		/**
+		 * Build an array of the OfferPack data
+		 */
+		$data = [
+			'packs'		=> $packs,
+			'total'		=> $packTotal,
+			'offers'	=> $offerTotal,
+			'prime'		=> $primeTotal,
+		];
+
+		return $data;
 	}
 }
