@@ -362,6 +362,11 @@ Route::group(['before' => 'csrf'], function()
 			'uses' => 'PreferencesController@storeBusiness',
 			'as' => 'preferences.storeBusiness'
 		]);
+		Route::get('offers/purchase', 'PaymentController@offers');
+		Route::post('offers/purchase', [
+			'uses' => 'PaymentController@payForOffers',
+			'as' => 'offers/purchase'
+		]);
 	});
 
 	/**
