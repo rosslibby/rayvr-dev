@@ -40,18 +40,18 @@ class LandingController extends BaseController {
 		{
 			if(Auth::user()->business)
 			{
-				if(Auth::user()->address && Auth::user()->email && Auth::user()->first_name && Auth::user()->last_name && Auth::user()->zip && Auth::user()->phone && Auth::user()->stripe_plan)
+				if(Auth::user()->address && Auth::user()->email && Auth::user()->first_name && Auth::user()->last_name && Auth::user()->zip && Auth::user()->country && Auth::user()->phone && Auth::user()->stripe_plan)
 				{
 					return Redirect::to('offers/track');
 				}
 				else
 				{
-					if(!Auth::user()->address || !Auth::user()->email || !Auth::user()->first_name || !Auth::user()->last_name || !Auth::user()->zip || !Auth::user()->phone)
+					if(!Auth::user()->address || !Auth::user()->email || !Auth::user()->first_name || !Auth::user()->last_name || !Auth::user()->zip || !Auth::user()->country || !Auth::user()->phone)
 						return Redirect::to('settings');
-					else if(Auth::user()->stripe_plan)
+					else if(!Auth::user()->stripe_plan)
 						return Redirect::to('payments');
 					else
-						return Redirect::to('settings');
+						return Redirect::to('offers/track');
 				}
 			}
 			else
