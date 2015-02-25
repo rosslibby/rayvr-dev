@@ -87,7 +87,7 @@
 						</div>
 					</div>
 					<div class="form-group">
-						{{ Form::label('country', 'Country', ['class' => 'control-label col-md-1']) }}
+						{{ Form::label('country', 'Country', ['class' => 'control-label col-md-2']) }}
 						<div class="col-md-4">
 							@include('forms.lists.countries')
 						</div>
