@@ -7,11 +7,11 @@
 @section('contentarea')
 	<div class="header-wrapper">
 		<div class="text-center">
-			<h2 class="fg-scheme-dark"><span class="glyphicon glyphicon-link"></span>&nbsp;Enter the product link</h2>
+			<h2 class="fg-scheme-white"><i class="glyphicon glyphicon-link"></i>&nbsp;Enter the product link</h2>
 
 			{{ Form::open(['', 'id' => 'fetch']) }}
 
-				<div class="col-md-6 col-md-offset-3">
+				<div class="col-md-10 col-md-offset-1">
 					<div class="row">
 						<div class="col-md-9 col-md-offset-1">
 							{{ Form::text('url', null, ['class' => 'form-control bg-scheme-transparent-gray', 'id' => 'url']) }}
