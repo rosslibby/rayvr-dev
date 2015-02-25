@@ -11,7 +11,7 @@
 		</div>
 		<br>
 		<br>
-		<div class="col-md-6 col-md-offset-3 text-center">
+		<div class="col-md-10 col-md-offset-1 text-center">
 			<div class="row">
 				@if(isset($confirm))
 					<div class="alert alert-success alert-dismissable col-md-8 col-md-offset-2">
