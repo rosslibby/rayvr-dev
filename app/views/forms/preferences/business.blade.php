@@ -78,21 +78,21 @@
 				
 					<div class="form-group">
 						{{ Form::label('city', 'City', ['class' => 'control-label col-md-2']) }}
-						<div class="col-md-3">
+						<div class="col-md-4">
 							{{ Form::text('city', $model['city'], ['class' => 'form-control subtle-input']) }}
 						</div>
 						{{ Form::label('state', 'State', ['class' => 'control-label col-md-1']) }}
-						<div class="col-md-2">
+						<div class="col-md-4">
 							@include('forms.lists.states')
-						</div>
-						{{ Form::label('country', 'Country', ['class' => 'control-label col-md-1']) }}
-						<div class="col-md-2">
-							@include('forms.lists.countries')
 						</div>
 					</div>
 					<div class="form-group">
+						{{ Form::label('country', 'Country', ['class' => 'control-label col-md-1']) }}
+						<div class="col-md-4">
+							@include('forms.lists.countries')
+						</div>
 						{{ Form::label('zip', 'Zip', ['class' => 'control-label col-md-2']) }}
-						<div class="col-md-2">
+						<div class="col-md-3">
 							{{ Form::text('zip', $model['zip'], ['class' => 'form-control subtle-input']) }}
 						</div>
 					</div>
