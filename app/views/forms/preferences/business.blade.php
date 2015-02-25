@@ -18,13 +18,13 @@
 		<br>
 		<br>
 		<div class="row">
-			<div class="col-md-8 col-md-offset-2 well">
+			<div class="col-md-10 col-md-offset-1">
 				<br>
 				{{ Form::open(['post' => 'preferences.storeBusiness', 'class' => 'form-horizontal']) }}
 
 					<div class="form-group">
 						{{ Form::label('first_name', 'First name', ['class' => 'control-label col-md-2']) }}
-						<div class="col-md-7">
+						<div class="col-md-9">
 							{{ Form::text('first_name', $model['first_name'], ['class' => 'form-control required subtle-input']) }}
 						</div>
 					</div>
@@ -33,7 +33,7 @@
 				
 					<div class="form-group">
 						{{ Form::label('last_name', 'Last name', ['class' => 'control-label col-md-2']) }}
-						<div class="col-md-7">
+						<div class="col-md-9">
 							{{ Form::text('last_name', $model['last_name'], ['class' => 'form-control required subtle-input']) }}
 						</div>
 					</div>
@@ -42,7 +42,7 @@
 				
 					<div class="form-group">
 						{{ Form::label('email', 'Email address', ['class' => 'control-label col-md-2']) }}
-						<div class="col-md-7">
+						<div class="col-md-9">
 							{{ Form::text('email', $model['email'], ['class' => 'form-control required subtle-input']) }}
 						</div>
 					</div>
@@ -51,7 +51,7 @@
 				
 					<div class="form-group">
 						{{ Form::label('business_name', 'Business name', ['class' => 'control-label col-md-2']) }}
-						<div class="col-md-7">
+						<div class="col-md-9">
 							{{ Form::text('business_name', $model['business_name'], ['class' => 'form-control required subtle-input']) }}
 						</div>
 					</div>
@@ -60,7 +60,7 @@
 				
 					<div class="form-group">
 						{{ Form::label('address', 'Business address', ['class' => 'control-label col-md-2']) }}
-						<div class="col-md-7">
+						<div class="col-md-9">
 							{{ Form::text('address', $model['address'], ['class' => 'form-control required subtle-input']) }}
 						</div>
 					</div>
@@ -69,7 +69,7 @@
 				
 					<div class="form-group">
 						{{ Form::label('address_2', 'Address line 2', ['class' => 'control-label col-md-2']) }}
-						<div class="col-md-7">
+						<div class="col-md-9">
 							{{ Form::text('address_2', $model['address_2'], ['class' => 'form-control subtle-input']) }}
 						</div>
 					</div>
@@ -84,6 +84,10 @@
 						{{ Form::label('state', 'State', ['class' => 'control-label col-md-1']) }}
 						<div class="col-md-2">
 							@include('forms.lists.states')
+						</div>
+						{{ Form::label('country', 'Country', ['class' => 'control-label col-md-1']) }}
+						<div class="col-md-2">
+							@include('forms.lists.countries')
 						</div>
 					</div>
 					<div class="form-group">
