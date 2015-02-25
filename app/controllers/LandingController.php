@@ -38,7 +38,7 @@ class LandingController extends BaseController {
 		 */
 		if(Auth::user())
 		{
-			if(Auth::user()->business)
+			if(Auth::user()->business && Auth::user()->active == 2)
 			{
 				if(Auth::user()->address && Auth::user()->email && Auth::user()->first_name && Auth::user()->last_name && Auth::user()->zip && Auth::user()->country && Auth::user()->phone && Auth::user()->stripe_plan)
 				{
@@ -53,6 +53,10 @@ class LandingController extends BaseController {
 					else
 						return Redirect::to('offers/track');
 				}
+			}
+			else if(Auth::user()->business && Auth::user()->active == 3)
+			{
+				return Redirect::to('admin/control');
 			}
 			else
 			{

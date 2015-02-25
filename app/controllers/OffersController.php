@@ -257,7 +257,7 @@ class OffersController extends BaseController {
 	{
 		$offers = $this->offer->unmoderated();
 		$categories = $this->offer->allCategories($offers);
-		return View::make('offers.moderate')->with('offers', $categories);
+		return View::make('admin.offers.moderate')->with('offers', $categories);
 	}
 
 	/**
@@ -266,6 +266,7 @@ class OffersController extends BaseController {
 	public function approve()
 	{
 		echo $this->offer->approve(Input::get('id'));
+		return Redirect::to('offers/moderate')->with('approve', 'Offer #'.Input::get('id').' has been approved.');
 	}
 
 	/**
@@ -274,6 +275,7 @@ class OffersController extends BaseController {
 	public function deny()
 	{
 		echo $this->offer->deny(Input::get('id'));
+		return Redirect::to('offers/moderate')->with('deny', 'Offer #'.Input::get('id').' has been denied.');
 	}
 
 	/**

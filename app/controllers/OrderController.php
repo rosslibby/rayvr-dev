@@ -54,7 +54,7 @@ class OrderController extends BaseController {
 	 */
 	public function moderateShipping()
 	{
-		return View::make('orders.moderate-shipping')
+		return View::make('admin.orders.moderate-shipping')
 				->with('claims', $this->order->moderateClaim());
 	}
 
@@ -63,7 +63,8 @@ class OrderController extends BaseController {
 	 */
 	public function approveShipping()
 	{
-		return $this->order->approveClaim(Input::all());
+		$this->order->approveClaim(Input::all());
+		return Redirect::to('shipping/moderate')->with('success', 'Shipping reimbursement has been processed.');
 	}
 
 	/**

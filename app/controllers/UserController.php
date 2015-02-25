@@ -90,6 +90,7 @@ class UserController extends BaseController {
 	public function suspend($id)
 	{
 		$this->user->suspend($id);
+		return Redirect::to('admin/control');
 	}
 
 	/**
@@ -105,6 +106,7 @@ class UserController extends BaseController {
 	public function type()
 	{
 		echo $this->user->type(Input::all());
+		return Redirect::to('admin/control');
 	}
 
 	/**

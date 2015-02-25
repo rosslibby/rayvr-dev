@@ -30,6 +30,21 @@ Route::group(['before' => 'csrf'], function()
 	Route::group(['before' => 'admin'], function(){
 
 		/**
+		 * Administrator control page
+		 */
+		Route::get('admin/control', 'AdminController@index');
+
+		/**
+		 * View users
+		 */
+		Route::get('users', 'AdminController@users');
+
+		/**
+		 * View individual user
+		 */
+		Route::get('users/{id}', 'AdminController@user');
+
+		/**
 		 * Change user account
 		 * type (business/user)
 		 */
@@ -49,7 +64,7 @@ Route::group(['before' => 'csrf'], function()
 		/**
 		 * Offer moderation by site moderators
 		 */
-		Route::get('offers/kvERrdjDbdhhz508wMhgmoderate', 'OffersController@moderate');
+		Route::get('offers/moderate', 'OffersController@moderate');
 		Route::post('offers/approve', [
 			'uses' => 'OffersController@approve',
 			'as' => 'offers.approve'
