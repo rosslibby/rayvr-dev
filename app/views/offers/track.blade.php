@@ -7,7 +7,7 @@
 @section('contentarea')
 	<div class="header-wrapper">
 		<div class="text-center">
-			<h2 class="fg-scheme-dark"><span class="glyphicon glyphicon-list"></span>&nbsp;Your offers</h2>
+			<h2 class="fg-scheme-white"><i class="glyphicon glyphicon-list"></i>&nbsp;Your offers</h2>
 		</div>
 
 		@foreach($offers as $offer)
