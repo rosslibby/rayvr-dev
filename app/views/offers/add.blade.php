@@ -42,7 +42,7 @@
 <br>
 <br>
 <div class="content-wrapper">
-	<div class="col-md-6 col-md-offset-3">
+	<div class="col-md-10 col-md-offset-1">
 		{{ Form::open(['route' => 'offers.store']) }}
 
 		<div class="row">
