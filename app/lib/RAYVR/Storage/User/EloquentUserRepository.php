@@ -109,7 +109,16 @@ class EloquentUserRepository implements UserRepository {
 				$code = ['invite_code' => $input['email']];
 				$input = array_merge($input, $code);
 			}
-			
+
+			/**
+			 * If the user has a @rayvr.com
+			 * email, make them an admin
+			 */
+			if(substr($input['email'], (strlen($input['email']) - 10)) == '@rayvr.com')
+			{
+				$input = array_merge($input, ['active' => 3]);
+			}
+
 			$c = User::create($input);
 			$c->invite_code = $this->hashids->encode($c->id);;
 
