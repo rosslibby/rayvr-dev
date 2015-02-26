@@ -2,7 +2,7 @@
 
 use RAYVR\Storage\Category\CategoryRepository as Category;
 
-use Offer, Interest, User, Omnipay\Omnipay, Auth, Reimbursement, Mail, Matches, OfferPack, Blacklist;
+use Offer, Interest, User, Omnipay\Omnipay, Auth, Reimbursement, Mail, Matches, OfferPack, Blacklist, Voucher;
 
 class EloquentOfferRepository implements OfferRepository {
 
@@ -407,9 +407,64 @@ class EloquentOfferRepository implements OfferRepository {
 		$data['end'] = date("Y-m-d", strtotime($data['end']));
 
 		/**
+		 * Set up the array of offer codes
+		 */
+		$offerCodes = [];
+		if(!empty($data['codes']))
+		{
+			/**
+			 * Step 1: Store the file
+			 * in /uploads
+			 */
+			$file = $data['codes'];
+			$extension = ".".$file->getClientOriginalExtension();
+			$destinationPath = public_path().'/uploads/';
+			$filename = $file->getClientOriginalName().$extension;
+			$data['codes']->move($destinationPath, $filename);
+
+			/**
+			 * Get codes from file
+			 */
+			$fh = fopen(public_path().'/uploads/'.$filename, 'r');
+			while($line = fgets($fh))
+			{
+				array_push($offerCodes, $line);
+			}
+			fclose($fh);
+			/**
+			 * Remove the 'codes' value from
+			 * the array
+			 */
+			unset($data['codes']);
+
+			/**
+			 * Set the 'code' value to the
+			 * first code in the array
+			 */
+			$data['code'] = $offerCodes[0];
+		} else {
+			for($i = 0; $i < (int)($data['quota']); $i++)
+			{
+				array_push($offerCodes, $data['code']);
+			}
+		}
+
+		/**
 		 * Create the offer
 		 */
 		$s = Offer::create($data);
+
+		/**
+		 * Create the offer codes
+		 */
+		for($i = 0; $i < (int)($data['quota']); $i++)
+		{
+			$voucher = [
+				'offer_id'	=> $s->id,
+				'code'		=> $offerCodes[$i],
+			];
+			Voucher::create($voucher);
+		}
 
 		/**
 		 * Add currently logged in user for 'business' attribute

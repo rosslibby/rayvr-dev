@@ -43,7 +43,41 @@
 <br>
 <div class="content-wrapper">
 	<div class="col-md-10 col-md-offset-1">
-		{{ Form::open(['route' => 'offers.store']) }}
+		{{ Form::open(['route' => 'offers.store', 'files' => true]) }}
+
+		<div class="row">
+			<div class="col-md-4">
+				<p class="h5"><strong>You can use a multi-use voucher code</strong></p>
+				<div class="row">
+					<div class="col-md-4">
+						{{ Form::label('code', 'Discount Code', ['class' => 'label bg-scheme-dark fg-scheme-white h6']) }}
+					</div>
+				</div>
+				<br>
+				<div class="row">
+					<div class="col-md-8">
+						{{ Form::text('code', null, ['id' => 'code', 'class' => 'form-control']) }}
+					</div>
+				</div>
+			</div>
+			<div class="col-md-1 text-left">
+				<h2><i class="fa fa-arrow-circle-o-right"></i></h2>
+			</div>
+			<div class="col-md-4">
+				<p class="h5"><strong>OR a list of single-user voucher codes</strong></p>
+				<div class="row">
+					<div class="col-md-4">
+						{{ Form::label('codes', 'Discount Codes', ['class' => 'label bg-scheme-dark fg-scheme-white h6']) }}
+					</div>
+				</div>
+				<br>
+				<div class="row">
+					<div class="col-md-8">
+						{{ Form::file('codes', null, ['id' => 'codes', 'class' => 'form-control']) }}
+					</div>
+				</div>
+			</div>
+		</div>
 
 		<div class="row">
 			<br>
@@ -95,19 +129,6 @@
 							{{ Form::radio('prime', '0', true) }}
 							{{ Form::label('prime', 'No') }}
 						</div>
-					</div>
-				</div>
-			</div>
-			<div class="col-md-4">
-				<div class="row">
-					<div class="col-md-6">
-						{{ Form::label('code', 'Discount Code', ['class' => 'label bg-scheme-dark fg-scheme-white h6']) }}
-					</div>
-				</div>
-				<br>
-				<div class="row">
-					<div class="col-md-12">
-						{{ Form::text('code', null, ['id' => 'code', 'class' => 'form-control']) }}
 					</div>
 				</div>
 			</div>

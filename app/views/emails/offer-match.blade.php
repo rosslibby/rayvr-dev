@@ -576,7 +576,7 @@
 														
 															<!--[if !mso]><!--><span style="font-family: 'proxima_nova_rgbold', Helvetica; font-weight:normal; word-break: break-word;"><!--<![endif]-->
 																
-																NEW OFFER
+																new offer!
 																
 															<!--[if !mso]><!--></span><!--<![endif]--> 
 														</span>
@@ -610,7 +610,7 @@
 																			<tbody><tr>
 																				<td width="auto" align="center" height="34" style="font-weight: bold; font-family: Helvetica, Arial, sans-serif; text-transform: uppercase; color: rgb(255, 255, 255);" mc:edit="7">
 																					<!--[if !mso]><!--><span style="font-family: 'proxima_nova_rgbold', Helvetica; font-weight: normal;"><!--<![endif]-->
-																						<a href="http://rayvr.com/register" style="color: rgb(255, 255, 255); font-size: 12px; text-decoration: none; line-height: 30px; width: 100%;" class="underline">Learn More</a>
+																						<a href="http://rayvr.com/login" style="color: rgb(255, 255, 255); font-size: 12px; text-decoration: none; line-height: 30px; width: 100%;" class="underline">Login</a>
 																					<!--[if !mso]><!--></span><!--<![endif]-->
 																				</td>
 																			</tr>
@@ -687,7 +687,7 @@
 										<tbody><tr>
 											<td valign="top" width="100%" style="text-align: left; font-family: Helvetica, Arial, sans-serif; font-size: 22px; color: rgb(1, 1, 1); line-height: 28px; font-weight: bold;" class="fullCenter" mc:edit="32">
 												<!--[if !mso]><!--><span style="font-family: 'proxima_novasemibold', Helvetica; font-weight: normal;"><!--<![endif]-->
-													Welcome to RAYVR!
+													Hello {{ $name }},
 												<!--[if !mso]><!--></span><!--<![endif]-->
 											</td>
 										</tr>
@@ -698,24 +698,19 @@
 											<td width="100%" valign="top" style="text-align: left; font-family: Helvetica, Arial, sans-serif; font-size: 14px; color: rgb(135, 135, 135); line-height: 24px; font-weight: normal;" class="fullCenter" mc:edit="33">
 																									
 													<!--[if !mso]><!--><span style="font-family: 'proxima_nova_rgregular', Helvetica; font-weight: normal;"><!--<![endif]-->
-														Log in to choose your new offer. Better hurry, this won't stay around long!
+														You have a new offer!
 														<br>
-														See you soon!
+														Log in to <a href="http://rayvr.com/login">rayvr.com</a> to check it out!
 														<br>
 														<br> 
-														Cheers,
+														Best,
 														<br>
 														<br>
-														<em>Ben Katzaman</em>
+														<em>RAYVR Team</em>
 														<br>
+														<a href="mailto:info@rayvr.com">info@rayvr.com</a>
 														<br>
-														Founder, Business Marketing
-														<br>
-														<a href="mailto:stu@rayvr.com">ben@rayvr.com</a>
-														<br>
-														RAYVR
-														<br>
-														<a href="http://rayvr.com">www.rayvr.com</a>
+														<a href="http://rayvr.com">rayvr.com</a>
 													<!--[if !mso]><!--></span><!--<![endif]-->
 												<p>
 											</p></td>
@@ -732,7 +727,7 @@
 														<td width="auto" align="center" height="37" bgcolor="#f96145" style="border-top-left-radius: 3px; border-top-right-radius: 3px; border-bottom-right-radius: 3px; border-bottom-left-radius: 3px; padding-left: 20px; padding-right: 20px; font-weight: bold; font-family: Helvetica, Arial, sans-serif; color: rgb(255, 255, 255); text-transform: uppercase; background-color: rgb(249, 97, 69);" mc:edit="34">
 				
 															<!--[if !mso]><!--><span style="font-family: 'proxima_nova_rgbold', Helvetica; font-weight: normal;"><!--<![endif]--> 
-																<a href="http://rayvr.com/register" style="color: rgb(255, 255, 255); font-size: 12px; text-decoration: none; line-height: 30px; width: 100%;" class="underline">LEARN MORE</a>
+																<a href="http://rayvr.com/login" style="color: rgb(255, 255, 255); font-size: 12px; text-decoration: none; line-height: 30px; width: 100%;" class="underline">LOGIN</a>
 															<!--[if !mso]><!--></span><!--<![endif]-->
 														</td>
 													</tr>

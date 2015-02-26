@@ -7,7 +7,7 @@
 		<!-- Heading -->
 		<div class="row">
 			<div class="text-center">
-				@if($matches)
+				@if(!is_object($matches))
 					<h2 class="raleway">You have no offers at this time. Check back soon!</h2>
 				@else
 					<h2 class="raleway">Select an offer</h2>

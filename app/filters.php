@@ -73,7 +73,7 @@ Route::filter('admin', function(){
 	}
 });
 Route::filter('business', function(){
-	if(Auth::user()->active != 2 || !Auth::user()->business)
+	if(!Auth::user()->active || !Auth::user()->business)
 		return Redirect::to('/');
 });
 Route::filter('user', function(){

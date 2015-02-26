@@ -569,16 +569,8 @@
 														<span style="color: rgb(96, 96, 96); font-weight: 100;" class="font36">	
 															<!--[if !mso]><!--><span style="font-family: 'proxima_novalight', Helvetica; font-weight:normal; word-break: break-word;"><!--<![endif]-->
 																
-																Welcome to 
+																You're missing out!
 															<!--[if !mso]><!--></span><!--<![endif]-->
-														</span>
-														<span style="color: rgb(249, 97, 69); font-weight: bold;" class="font36">
-														
-															<!--[if !mso]><!--><span style="font-family: 'proxima_nova_rgbold', Helvetica; font-weight:normal; word-break: break-word;"><!--<![endif]-->
-																
-																RAYVR
-																
-															<!--[if !mso]><!--></span><!--<![endif]--> 
 														</span>
 													
 												
@@ -610,7 +602,7 @@
 																			<tbody><tr>
 																				<td width="auto" align="center" height="34" style="font-weight: bold; font-family: Helvetica, Arial, sans-serif; text-transform: uppercase; color: rgb(255, 255, 255);" mc:edit="7">
 																					<!--[if !mso]><!--><span style="font-family: 'proxima_nova_rgbold', Helvetica; font-weight: normal;"><!--<![endif]-->
-																						<a href="http://rayvr.com/register" style="color: rgb(255, 255, 255); font-size: 12px; text-decoration: none; line-height: 30px; width: 100%;" class="underline">Learn More</a>
+																						<a href="http://rayvr.com/login" style="color: rgb(255, 255, 255); font-size: 12px; text-decoration: none; line-height: 30px; width: 100%;" class="underline">Login</a>
 																					<!--[if !mso]><!--></span><!--<![endif]-->
 																				</td>
 																			</tr>
@@ -687,7 +679,7 @@
 										<tbody><tr>
 											<td valign="top" width="100%" style="text-align: left; font-family: Helvetica, Arial, sans-serif; font-size: 22px; color: rgb(1, 1, 1); line-height: 28px; font-weight: bold;" class="fullCenter" mc:edit="32">
 												<!--[if !mso]><!--><span style="font-family: 'proxima_novasemibold', Helvetica; font-weight: normal;"><!--<![endif]-->
-													Hello {{ $name }}
+													Hello {{ $name }},
 												<!--[if !mso]><!--></span><!--<![endif]-->
 											</td>
 										</tr>
@@ -698,29 +690,19 @@
 											<td width="100%" valign="top" style="text-align: left; font-family: Helvetica, Arial, sans-serif; font-size: 14px; color: rgb(135, 135, 135); line-height: 24px; font-weight: normal;" class="fullCenter" mc:edit="33">
 																									
 													<!--[if !mso]><!--><span style="font-family: 'proxima_nova_rgregular', Helvetica; font-weight: normal;"><!--<![endif]-->
-														Congratulations on joining RAYVR.
+														Don't miss out on your first offer- it's totally free!
 														<br>
-														We're working away to ensure we have top-notch products ready to go for our launch.
+														Log in to <a href="http://rayvr.com/login">RAYVR</a> to check it out!
 														<br>
-														Stayt tuned - you'll be receiving an email about your first offer in the next few weeks.
-														<br>
-														<br>
-														Want to share the love?
-														<br>
-														<br>
+														<br> 
 														Best,
 														<br>
 														<br>
-														<em>Ben Katzaman</em>
+														<em>RAYVR Team</em>
 														<br>
+														<a href="mailto:info@rayvr.com">info@rayvr.com</a>
 														<br>
-														Cofounder, Community Development
-														<br>
-														<a href="mailto:ben@rayvr.com">ben@rayvr.com</a>
-														<br>
-														RAYVR
-														<br>
-														<a href="http://rayvr.com">www.rayvr.com</a>
+														<a href="http://rayvr.com">rayvr.com</a>
 													<!--[if !mso]><!--></span><!--<![endif]-->
 												<p>
 											</p></td>
@@ -737,7 +719,7 @@
 														<td width="auto" align="center" height="37" bgcolor="#f96145" style="border-top-left-radius: 3px; border-top-right-radius: 3px; border-bottom-right-radius: 3px; border-bottom-left-radius: 3px; padding-left: 20px; padding-right: 20px; font-weight: bold; font-family: Helvetica, Arial, sans-serif; color: rgb(255, 255, 255); text-transform: uppercase; background-color: rgb(249, 97, 69);" mc:edit="34">
 				
 															<!--[if !mso]><!--><span style="font-family: 'proxima_nova_rgbold', Helvetica; font-weight: normal;"><!--<![endif]--> 
-																<a href="http://rayvr.com/register" style="color: rgb(255, 255, 255); font-size: 12px; text-decoration: none; line-height: 30px; width: 100%;" class="underline">LEARN MORE</a>
+																<a href="http://rayvr.com/login" style="color: rgb(255, 255, 255); font-size: 12px; text-decoration: none; line-height: 30px; width: 100%;" class="underline">LOGIN</a>
 															<!--[if !mso]><!--></span><!--<![endif]-->
 														</td>
 													</tr>

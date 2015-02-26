@@ -1,6 +1,6 @@
 <?php namespace RAYVR\Storage\User;
 
-use User, Matches, Mail, Blacklist, Validator, View, Offer, Order, Omnipay\Omnipay;
+use User, Matches, Mail, Blacklist, Validator, View, Offer, Order, Omnipay\Omnipay, Voucher;
 use Hashids\Hashids as Hashids;
 use Illuminate\Support\Facades\Hash;
 
@@ -181,14 +181,13 @@ class EloquentUserRepository implements UserRepository {
 		{
 			/**
 			 * Check if offer has been
-			 * declined (3),
-			 * accepted (1), or
-			 * neither (0)
+			 * declined, accepted, or
+			 * neither
 			 * 
-			 * If neither (0), add
+			 * If neither, add
 			 * to array
 			 */
-			if($match->accept != 3 && $match->accept != 1)
+			if(!$match->accept && !$match->decline)
 				array_push($eligible, $match);
 		}
 
@@ -220,7 +219,7 @@ class EloquentUserRepository implements UserRepository {
 		 * by default and does not
 		 * need to be changed
 		 */
-		if($accept == 0)
+		if($accept == 3)
 		{
 			$match->decline = true;
 			$match->save();
@@ -261,12 +260,28 @@ class EloquentUserRepository implements UserRepository {
 			}
 
 			/**
+			 * Fetch a voucher code
+			 * for the order
+			 */
+			$voucher = Voucher::where('offer_id', $match->offer_id)
+											->where('used', false)
+											->first();
+
+			/**
 			 * Create the order
 			 */
 			$order				= new Order();
 			$order->offer_id	= $match->offer_id;
 			$order->user_id		= $user->id;
+			$order->code		= $voucher->code;
 			$order->save();
+
+			/**
+			 * Set the voucher code usage
+			 * status to true
+			 */
+			$voucher->used = true;
+			$voucher->save();
 
 			/**
 			 * Decrement the number of
@@ -322,7 +337,7 @@ class EloquentUserRepository implements UserRepository {
 		$current = NULL;
 		if($user->current)
 		{
-			$current = $this->current($user);
+			$current = $this->current($user)[0];
 
 			/**
 			 * $code will be fetched from $order
@@ -330,21 +345,21 @@ class EloquentUserRepository implements UserRepository {
 			 */
 			$code = 'FILLER09';
 
-			$step_1 = "Step 1. <span class=\"normal\">Order your offer using the code </span><span class=\"label\">" . $code . "</span>";
+			$step_1 = "Step 1. <span class=\"normal\">Order your offer using the code </span><span class=\"label\">" . $current->code . "</span>";
 			$step_2 = "Step 2. <span class=\"normal\">Did you pay anything for shipping? If <strong>no</strong>, just click \"I didn't pay for shipping.\"; otherwise, enter your shipping cost below.";
 			$step_3 = "Step 3. <span class=\"normal\">Try out your offer as soon as you receive it, and leave a review <a href=\"#\" target=\"_blank\">here</a>.</span>";
 
-			if(!$current[0]->confirmation_number)
+			if(!$current->confirmation_number)
 				$step = [
 					'step'		=> 1,
 					'message'	=> $step_1
 				];
-			elseif(!$current[0]->paid_shipping)
+			elseif(!$current->paid_shipping)
 				$step = [
 					'step'		=> 2,
 					'message'	=> $step_2
 				];
-			elseif(!$current[0]->review)
+			elseif(!$current->review)
 				$step = [
 					'step'		=> 3,
 					'message'	=> $step_3

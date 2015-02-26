@@ -17,6 +17,7 @@ class CreateOrdersTable extends Migration {
 			$table->increments('id');
 			$table->integer('offer_id');
 			$table->integer('user_id');
+			$table->string('code');
 			$table->timestamp('mail_date');
 			$table->string('confirmation_number');
 			$table->integer('shipping_claim');

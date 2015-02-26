@@ -19,6 +19,7 @@ class Order extends Ardent {
 	protected $fillable = [
 		'offer_id',
 		'user_id',
+		'code',
 		'mail_date',
 		'confirmation_number',
 		'shipping_claim',
