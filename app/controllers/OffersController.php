@@ -274,7 +274,7 @@ class OffersController extends BaseController {
 	 */
 	public function approve()
 	{
-		echo $this->offer->approve(Input::get('id'));
+		$this->offer->approve(Input::get('id'));
 		return Redirect::to('offers/moderate')->with('approve', 'Offer #'.Input::get('id').' has been approved.');
 	}
 

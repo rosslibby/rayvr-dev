@@ -1,14 +1,16 @@
 <?php namespace RAYVR\Storage\User;
 
 use User, Matches, Mail, Blacklist, Validator, View, Offer, Order, Omnipay\Omnipay, Voucher, Deposit;
+use RAYVR\Storage\Offer\OfferRepository as OfferRepo;
 use Hashids\Hashids as Hashids;
 use Illuminate\Support\Facades\Hash;
 
 class EloquentUserRepository implements UserRepository {
 
 	protected $hashids;
+	protected $offer;
 
-	public function __construct(Hashids $hashids)
+	public function __construct(Hashids $hashids, OfferRepo $offer)
 	{
 		$this->hashids = $hashids;
 
@@ -18,6 +20,11 @@ class EloquentUserRepository implements UserRepository {
 		$gateway = Omnipay::create('Stripe');
 		$gateway->setApiKey('sk_test_3YmCSPqFkZCBhSroMCu4QAC0');
 		$this->gateway = $gateway;
+
+		/**
+		 * Offers
+		 */
+		$this->offer = $offer;
 	}
 
 	public function all()

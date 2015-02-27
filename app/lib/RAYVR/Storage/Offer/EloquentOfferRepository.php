@@ -89,7 +89,7 @@ class EloquentOfferRepository implements OfferRepository {
 			/**
 			 * Match users with the offer
 			 */
-			$this->match($offer);
+			return $this->match($offer);
 			return "<p>The offer for <em>" . $offer->title . "</em> has been approved.</p>";
 		}
 		return "The offer was not approved. Don't ask me why, I'm just the messenger.";
@@ -120,6 +120,132 @@ class EloquentOfferRepository implements OfferRepository {
 			return "<p>The offer for <em>" . $offer->title . "</em> has been denied.</p>";
 		}
 		return "The offer was not denied. Don't ask me why, I'm just the messenger.";
+	}
+
+	public function matchUser($user, $offer)
+	{
+		/**
+		 * Make sure the user's gender
+		 * does not conflict with the
+		 * offer's parameters
+		 */
+
+		/**
+		 * If the offer requires males
+		 * and excludes females, exclude
+		 * females
+		 * 
+		 * Conversely, if the offer
+		 *  excludes males and requires
+		 * females, exclude males
+		 */
+
+		if($offer->male && !$offer->female)
+		{
+			if($user->gender)
+				return;
+		}
+		else if(!$offer->male && $offer->female)
+		{
+			if(!$user->gender)
+				return;
+		}
+
+		/**
+		 * Check if the offer requires
+		 * Prime shipping. If true,
+		 * check if the user has Prime.
+		 * 
+		 * If false, continue to next
+		 * $user
+		 */
+
+		if($offer->prime)
+			if(!$user->prime)
+				return;
+
+		/**
+		 * Find any categories the $user
+		 * has in common with the $offer
+		 */
+		$common = false;
+		foreach($user->interest as $interest)
+		{
+			if(json_decode($offer->category()->where('category_id', $interest->cat_id)->get(), true))
+			{
+				/**
+				 * If the user shares a category
+				 * with the offer, they have
+				 * something in common and can
+				 * exit this loop
+				 */
+				$common = true;
+				break;
+			}
+		}
+
+		/**
+		 * Check for conflicting addresses
+		 */
+		$conflict = false;
+		if($common)
+		{
+			$address = [
+				'address'	=> $user->address,
+				'address_2'	=> $user->address_2,
+				'city'		=> $user->city,
+				'state'		=> $user->state,
+				'zip'		=> $user->zip,
+				'country'	=> $user->country,
+			];
+
+			$orders = $offer->orders;
+			foreach($orders as $order)
+			{
+				if($order->user()->where($address)->get())
+				{
+					$conflict = true;
+				}
+			}
+		}
+
+		if(!$conflict)
+		{
+			/**
+			 * Determine whether the user has
+			 * been matched with this offer
+			 * in the past
+			 */
+			$criteria = [
+				'user_id' => $user->id,
+				'offer_id' => $offer->id,
+			];
+			$match = json_decode(Matches::where($criteria)->get(), true);
+			$foundMatch = false;
+			foreach($match as $conflictingMatch)
+			{
+				if($conflictingMatch)
+					$foundMatch = true;
+			}
+			if(!$foundMatch)
+			{
+				$match = new Matches();
+				$match->offer_id = $offer->id;
+				$match->user_id = $user->id;
+				$match->business_id = $offer->business_id;
+				$match->save();
+			}
+			else
+			{
+				return false;
+			}
+		}
+		else
+		{
+			return false;
+		}
+
+		return $user;
 	}
 
 	/**
@@ -187,164 +313,17 @@ class EloquentOfferRepository implements OfferRepository {
 
 		$categories = json_decode($offer->category, true);
 
-		/**
-		 * Set a user index to help
-		 * build the array of user IDs
-		 */
-		foreach($categories as $category)
+		$userArr = User::whereNotIn('id', [$blacklistArr])->get();
+		if(!empty($userArr))
 		{
-			/**
-			 * Select all the user IDs
-			 * from the
-			 * "interests" table where
-			 * category matches exist.
-			 * If a user has been
-			 * blacklisted for the
-			 * business (owner of the
-			 * offer), remove the user
-			 * from the list
-			 * 
-			 * Store these IDs in an
-			 * array $userArr
-			 */
-
-			$imploded_users = implode(',', $users);
-			$userArr = json_decode(Interest::where('cat_id', $category['id'])
-									->whereNotIn('user_id', [$imploded_users])
-									->whereNotIn('user_id', [$blacklistArr])
-									->get(['user_id']), true);
-			if(!empty($userArr))
+			foreach($userArr as $newUser)
 			{
-				foreach($userArr as $newUser)
+				$matched = $this->matchUser($newUser, $offer);
+				if($matched)
 				{
-					$userid = $newUser['user_id'];
-					array_push($users, $userid);
+					array_push($users, $matched);
 				}
 			}
-		}
-
-		/**
-		 * Step 2:
-		 * 
-		 * Remove all users whose
-		 * gender preferences do
-		 * not match those of the
-		 * offer
-		 * 
-		 * **********************
-		 * 
-		 * Step 3:
-		 * 
-		 * Create the matches
-		 * and add them to the
-		 * "matches" table
-		 * 
-		 * Final step:
-		 * Take all the matched users 
-		 * are not currently in
-		 * offers and schedule emails
-		 * to them the day the offer
-		 * launches
-		 * 
-		 * If an email is scheduled to
-		 * go out before the new offer
-		 * begins, do not schedule the
-		 * new one
-		 * 
-		 * If an email is scheduled to
-		 * send after the new offer
-		 * begins, delete it
-		 * 
-		 * If user is not currently in
-		 * offer, schedule an email to
-		 * send on the offer's start
-		 * date
-		 * 
-		 * Make sure to schedule only
-		 * enough for the first day of
-		 * the offer
-		 * 
-		 * Find number of days offer
-		 * must run for
-		 */
-		$start_date = strtotime($offer->start);
-		$end_date = strtotime($offer->end);
-
-		$days = abs($end_date - $start_date);
-
-		/**
-		 * Divide the quota by the
-		 * result. This gives us the
-		 * number of offers we want to
-		 * be claimed on a daily basis
-		 */
-		$daily_quota = (int)($offer->quota / $days);
-
-		/**
-		 * Set a counter to moderate
-		 * the number of scheduled
-		 * emails
-		 */
-		$quota = 0;
-		foreach($users as $id)
-		{
-			/**
-			 * Fetch the user object
-			 * associated with the ID
-			 */
-			$user = User::find($id);
-
-			/**
-			 * Check if the gender of $user
-			 * matches the preferred gender
-			 * for the offer
-			 * 
-			 * If false, continue to next
-			 * $user
-			 */
-
-			/**
-			 * If the offer requires males
-			 * and excludes females, exclude
-			 * females
-			 * 
-			 * Conversely, if the offer
-			 *  excludes males and requires
-			 * females, exclude males
-			 */
-
-			if($offer->male && !$offer->female)
-			{
-				if($user['gender'])
-					continue;
-			}
-			else if(!$offer->male && $offer->female)
-			{
-				if(!$user['gender'])
-					continue;
-			}
-
-			/**
-			 * Check if the offer requires
-			 * Prime shipping. If true,
-			 * check if the user has Prime.
-			 * 
-			 * If false, continue to next
-			 * $user
-			 */
-
-			if($offer->prime)
-				if(!$user['prime'])
-					continue;
-
-			/**
-			 * Create the match
-			 */
-			$match = new Matches();
-			$match->offer_id = $offer->id;
-			$match->user_id = $user['id'];
-			$match->business_id = $offer->business_id;
-			$match->save();
 		}
 
 		return $users;
@@ -721,6 +700,19 @@ class EloquentOfferRepository implements OfferRepository {
 				 */
 				$matches = Matches::where('offer_id', $offer->id)
 								->where('live', false);
+
+				/**
+				 * If the matching breaks, this is why
+				 * 
+				 * This is supposed to ensure that every
+				 * new user has the opportunity to be
+				 * matched with an offer
+				 */
+				$newMatches = $this->match($offer);
+				$matches = array_merge($matches, $newMatches);
+				/**
+				 * End the new code breaking
+				 */
 
 				/**
 				 * Iterate through the matches. Find

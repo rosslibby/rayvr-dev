@@ -19,7 +19,13 @@ Route::get('register/welcome', [
  * Route for testing anything
  */
 Route::get('test', function(){
-	return 'just a test';
+	$user = User::find(8);
+	$offer = Offer::find(2);
+	foreach($user->interest as $interest)
+	{
+		if(json_decode($offer->category()->where('category_id', $interest->cat_id)->get(), true))
+			echo "Has something in common.<br>";
+	}
 });
 
 Route::group(['before' => 'csrf'], function()

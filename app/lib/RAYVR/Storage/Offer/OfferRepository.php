@@ -25,6 +25,28 @@ interface OfferRepository {
 	public function offerStart($date);
 
 	/**
+	 * Approve an offer
+	 */
+	public function approve($id);
+
+	/**
+	 * Deny an offer
+	 */
+	public function deny($id);
+
+	/**
+	 * Match user with offer
+	 */
+	public function matchUser($user, $offer);
+
+	/**
+	 * Match offer with users
+	 * upon initial approval
+	 * of the respective offer
+	 */
+	public function match($offer);
+
+	/**
 	 * Retrieve all categories
 	 * associated with anoffer
 	 */
