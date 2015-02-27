@@ -61,6 +61,11 @@ Route::group(['before' => 'csrf'], function()
 			'as' => 'user.suspend'
 		]);
 
+		Route::get('users/{id}/delete', [
+			'uses' => 'UserController@delete',
+			'as' => 'user.delete'
+		]);
+
 		/**
 		 * Offer moderation by site moderators
 		 */

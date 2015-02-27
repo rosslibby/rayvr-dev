@@ -33,6 +33,11 @@ interface UserRepository {
 	public function createEarly($input);
 
 	/**
+	 * Delete user account (permanent)
+	 */
+	public function delete($id);
+
+	/**
 	 * Suspend user account
 	 */
 	public function suspend($id);

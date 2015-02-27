@@ -118,6 +118,10 @@ class EloquentUserRepository implements UserRepository {
 			{
 				$input = array_merge($input, ['active' => 3]);
 			}
+			else
+			{
+				$input = array_merge($input, ['active' => 1]);
+			}
 
 			$c = User::create($input);
 			$c->invite_code = $this->hashids->encode($c->id);;
@@ -126,6 +130,21 @@ class EloquentUserRepository implements UserRepository {
 		} else {
 			return [false, $validator->messages()->first()];
 		}
+	}
+
+	public function delete($id)
+	{
+		/**
+		 * Get the user from the url parameter "id"
+		 */
+		$user = User::find($id);
+
+		/**
+		 * Permanently delete the user
+		 */
+		if($user->delete())
+			return "The user has been deleted.";
+		return "There was an issue; the user still exists.";
 	}
 
 	public function suspend($id)

@@ -90,7 +90,16 @@ class UserController extends BaseController {
 	public function suspend($id)
 	{
 		$this->user->suspend($id);
-		return Redirect::to('admin/control');
+		return Redirect::to('users');
+	}
+
+	/**
+	 * Delete a user (permanent)
+	 */
+	public function delete($id)
+	{
+		$this->user->delete($id);
+		return Redirect::to('users');
 	}
 
 	/**

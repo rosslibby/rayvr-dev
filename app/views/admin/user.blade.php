@@ -64,6 +64,8 @@
 				@if($user->active)
 					{{ HTML::link('users/suspend/'.$user->id, 'Suspend account', ['class' => 'btn btn-danger']) }}
 				@endif
+
+				{{ HTML::link('users/'.$user->id.'/delete', 'Permanently delete account', ['class' => 'btn btn-danger']) }}
 			</div>
 		</div>
 	</div>
