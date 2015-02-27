@@ -10,7 +10,7 @@
 					<span class="col-md-2"><strong>ID: </strong>{{ $user->id }} <i class="fa fa-arrow-circle-o-right"></i></span>
 					{{ $user->email }}
 					{{ HTML::link('users/'.$user->id, '[Manage user]') }}
-					@if($user->active == 1 && $user->business)
+					@if(($user->active == 1 && $user->business) || $user->active == 2)
 						<span class="badge badge-success">Business</span>
 						@if($user->stripe_plan)
 							@if($user->trial_ends_at > date('Y-m-d H:i:s'))
@@ -28,7 +28,7 @@
 					@elseif($user->active == 1)
 						<span class="badge badge-info">User</span>
 					@else
-						<span class="badge badge-default">Inactive</span>
+						<span class="badge badge-default">{{ $user->active }}</span>
 					@endif
 				</div>
 			@endforeach
