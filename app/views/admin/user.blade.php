@@ -22,7 +22,7 @@
 				<p class="list-group-item"><strong>Phone #: </strong>{{ $user->phone }}</p>
 				<p class="list-group-item"><strong>Current offer #: </strong>{{ $user->current }}</p>
 				<p class="list-group-item"><strong>Account type: </strong>
-					@if($user->active == 2)
+					@if($user->active == 1 && $user->business)
 						Business
 						</p>
 						<p class="list-group-item"><strong>Membership plan: </strong>{{ $user->stripe_plan }}</p>
