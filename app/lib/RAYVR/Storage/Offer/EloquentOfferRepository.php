@@ -487,7 +487,69 @@ class EloquentOfferRepository implements OfferRepository {
 				$s->category()->save($cat);
 			}
 
-			return true;
+			/**
+			 * Check if user selected Prime exclusivity
+			 * 
+			 * If false, notify the user that they will
+			 * have to pay a shipping deposit of
+			 * $quota * rate
+			 * 
+			 * Check if user has enough available offers
+			 * to cover the $quota; if not, prompt the
+			 * user to purchase more offers
+			 */
+			$packs = $s->business->offerPack()
+						->where('prime', $s->prime)
+						->where('remaining', '!=', 0)
+						->get();
+			$offerCount = 0;
+			$packIter = 0;
+			while($offerCount < $s->quota || $packIter == (count($packs) - 1))
+			{
+				$offerCount += $packs[$packIter]->remaining;
+				$packIter++;
+			}
+
+			if($offerCount >= $s->quota && $s->prime)
+			{
+				$response = [
+					'success' => 1,
+					'message' => 'Your offer has been successfully submitted for review. No further action is required at this point.',
+					'prime' => $s->prime,
+					'id' => $s->id
+				];
+				return $response;
+			}
+			elseif($s->prime)
+			{
+				$response = [
+					'success' => 2,
+					'message' => 'You do not have enough offers to send out to '.$s->quota.' users. Please purchase a <strong>Prime<sup>&reg;</sup> offer pack.',
+					'prime' => $s->prime,
+					'id' => $s->id
+				];
+				return $response;
+			}
+			elseif($offerCount >= $s->quota && !$s->prime)
+			{
+				$response = [
+					'success' => 3,
+					'message' => 'You will need to leave a deposit of $'.($s->quota * 8).' for shipping costs upon approval of your offer.',
+					'prime' => $s->prime,
+					'id' => $s->id
+				];
+				return $response;
+			}
+			else
+			{
+				$response = [
+					'success' => 4,
+					'message' => 'You will need to purchase more <strong>regular (non-Prime<sup>&reg;</sup>)</strong>  offers to send to '.$s->quota.' users. Once your offer has been approved, you will need to leave a deposit of $'.($s->quota * 8).' for shipping costs.',
+					'prime' => $s->prime,
+					'id' => $s->id
+				];
+				return $response;
+			}
 		}
 	}
 

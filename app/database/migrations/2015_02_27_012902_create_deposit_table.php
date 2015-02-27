@@ -15,10 +15,14 @@ class CreateDepositTable extends Migration {
 		Schema::create('deposit', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->integer('offer_id');
+			$table->integer('user_id');
 			$table->float('sum');
-			$table->float('used');
+			$table->float('used')->default(0.0);
 			$table->float('remaining');
+			$table->string('currency');
+			$table->string('signature');
+			$table->string('status');
+			$table->string('tx');
 			$table->timestamps();
 		});
 	}

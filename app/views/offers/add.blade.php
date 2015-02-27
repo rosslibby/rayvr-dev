@@ -113,14 +113,14 @@
 			<div class="col-md-4">
 				<div class="row">
 					<div class="col-md-6">
-						{{ Form::label('prime', 'Prime Exclusive', ['class' => 'label bg-scheme-dark fg-scheme-white h6']) }}
+						{{ Form::label('prime', 'Prime&reg; Exclusive', ['class' => 'label bg-scheme-dark fg-scheme-white h6']) }}
 					</div>
 				</div>
 				<br>
 				<div class="row">
 					<div class="col-md-4">
-						<div class="radio" data-toggle="tooltip" data-placement="bottom" title data-original-title="This option is reserved for premium members">
-							{{ Form::radio('prime', '1', false, ['disabled']) }}
+						<div class="radio" data-toggle="tooltip" data-placement="bottom" title data-original-title="This option requires the Prime offer pack">
+							{{ Form::radio('prime', '1', false) }}
 							{{ Form::label('prime', 'Yes') }}
 						</div>
 					</div>

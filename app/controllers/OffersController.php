@@ -185,8 +185,17 @@ class OffersController extends BaseController {
 		$categories = Input::get('interest');
 		$s = $this->offer->categories($data, $categories, Auth::user()->id);
 
-		if($s)
-			return Redirect::route('offers.track');
+		/**
+		 * Redirect based on the offer's success code:
+		 * 1: No action required
+		 * 2: Purchase Prime offers
+		 * 3: Leave shipping deposit
+		 * 4: Purchase non-prime offers & leave shipping deposit
+		 */
+		if($s['success'] == 1 || $s['success'] == 3)
+			return Redirect::route('offers.track')->with('success', $s['message']);
+		elseif($s['success'] == 2 || $s['success'] == 4)
+			return Redirect::route('offers.purchase')->with('success', $s['message']);
 	}
 
 	/**
@@ -295,5 +304,29 @@ class OffersController extends BaseController {
 		$order = $this->order->find(Input::get('order'));
 		
 		echo $this->order->claim(Auth::user(), $order, $cost);
+	}
+
+	/**
+	 * Get shipping deposit
+	 */
+	public function deposit()
+	{
+		return View::make('payments.deposit');
+	}
+
+	/**
+	 * Process shipping deposit
+	 */
+	public function processDeposit()
+	{
+		/**
+		 * Save the deposit
+		 */
+		$this->user->deposit(Auth::user(), Input::all());
+
+		/**
+		 * Redirect to offers/track
+		 */
+		return Redirect::to('offers/track');
 	}
 }

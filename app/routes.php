@@ -147,6 +147,11 @@ Route::group(['before' => 'csrf'], function()
 		 * Pay shipping deposit
 		 */
 		Route::get('offers/track/{id}/deposit', 'OffersController@deposit');
+
+		/**
+		 * Process shipping deposit
+		 */
+		Route::get('offers/shipping/deposit', 'OffersController@processDeposit');
 	});
 
 	/**

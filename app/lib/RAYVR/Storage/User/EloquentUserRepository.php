@@ -1,6 +1,6 @@
 <?php namespace RAYVR\Storage\User;
 
-use User, Matches, Mail, Blacklist, Validator, View, Offer, Order, Omnipay\Omnipay, Voucher;
+use User, Matches, Mail, Blacklist, Validator, View, Offer, Order, Omnipay\Omnipay, Voucher, Deposit;
 use Hashids\Hashids as Hashids;
 use Illuminate\Support\Facades\Hash;
 
@@ -412,5 +412,24 @@ class EloquentUserRepository implements UserRepository {
 	public function cancelMembership($user)
 	{
 		$user->subscription()->cancel();
+	}
+
+	public function deposit($user, $data)
+	{
+		$sum = $data['amt'];
+		$currency = $data['cc'];
+		$signature = $data['sig'];
+		$status = $data['st'];
+		$tx = $data['tx'];
+
+		$deposit = new Deposit();
+		$deposit->user_id = $user->id;
+		$deposit->sum = $sum;
+		$deposit->remaining = $sum;
+		$deposit->currency = $currency;
+		$deposit->signature = $signature;
+		$deposit->status = $status;
+		$deposit->tx = $tx;
+		$deposit->save();
 	}
 }

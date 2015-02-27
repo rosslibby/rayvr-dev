@@ -17,10 +17,14 @@ class Deposit extends Ardent {
 	 * @var array
 	 */
 	protected $fillable = [
-		'offer_id',
+		'user_id',
 		'sum',
 		'used',
 		'remaining',
+		'currency',
+		'signature',
+		'status',
+		'tx',
 		'created_at',
 		'updated_at'
 	];
@@ -36,13 +40,13 @@ class Deposit extends Ardent {
 	}
 
 	/**
-	 * Get the offer that the deposit applies to
+	 * Get the user that the deposit applies to
 	 * 
 	 * @var integer
 	 */
-	public function offer()
+	public function user()
 	{
-		return $this->belongsTo('Offer');
+		return $this->belongsTo('User');
 	}
 
 	/**

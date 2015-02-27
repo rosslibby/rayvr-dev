@@ -6,6 +6,15 @@
 
 @section('contentarea')
 	<div class="header-wrapper">
+		@if(Session::has('success'))
+		<div class="row">
+			<div class="alert alert-warning alert-dismissable col-md-8 col-md-offset-2">
+				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&#10005;</button>
+				<strong>IMPORTANT: </strong>
+				{{ Session::get('success') }}
+			</div>
+		</div>
+		@endif
 		<div class="text-center">
 			<h3 class="fg-scheme-white raleway">Membership &amp; Payments</h3>
 		</div>

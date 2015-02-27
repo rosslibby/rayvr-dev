@@ -79,4 +79,9 @@ interface UserRepository {
 	 * Cancel membership subscription
 	 */
 	public function cancelMembership($user);
+
+	/**
+	 * Process shipping deposit
+	 */
+	public function deposit($user, $data);
 }
