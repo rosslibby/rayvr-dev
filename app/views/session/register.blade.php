@@ -9,11 +9,11 @@ SAVE TIME. INCREASE SALES.
 @stop
 
 @section('heading')
-Why choose RAYVR for your products?
+Why join RAYVR?
 @stop
 
 @section('description')
-Before we send an offer out to our members, we have it tested for quality by our top members to ensure that it is top-notch. This helps us garner the best reviews for your products.
+Every day our program conncets people just like you with quality free offers based on your interests. We help businesses by connecting you with free offers and getting your feedback.
 @stop
 
 <!-- Column 1 -->
@@ -37,7 +37,7 @@ Before we send an offer out to our members, we have it tested for quality by our
 		@stop
 
 		@section('headline-2')
-		TARGETED PROMOTION
+		MATCHED TO YOU
 
 		@section('paragraph-2')
 		Your product offer is matched with our members based on their selected categories of interest.

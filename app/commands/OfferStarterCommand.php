@@ -42,7 +42,7 @@ class OfferStarterCommand extends ScheduledCommand {
 	 */
 	public function schedule(Schedulable $scheduler)
 	{
-		return $scheduler->daily()->hours(12);
+		return $scheduler->daily()->hours(15);
 	}
 
 	/**
