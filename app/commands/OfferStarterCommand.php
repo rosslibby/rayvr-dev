@@ -42,7 +42,7 @@ class OfferStarterCommand extends ScheduledCommand {
 	 */
 	public function schedule(Schedulable $scheduler)
 	{
-		return $scheduler->daily()->hours(23);
+		return $scheduler->daily()->hours(12);
 	}
 
 	/**
@@ -55,6 +55,7 @@ class OfferStarterCommand extends ScheduledCommand {
 		$this->line('Kicking off today\'s offers.');
 		$this->offer->kickoff();
 		$this->line('The offers have been started.');
+		Log::info('Offer kickoff completed.');
 	}
 
 	/**
