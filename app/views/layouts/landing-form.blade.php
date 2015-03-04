@@ -1,7 +1,3 @@
-
-
-
----------------------------------------------------------------------
 @include('includes.head')
 
 <!-- Page heading -->
@@ -13,6 +9,19 @@
 			@section('video')
 			@show
 
+
+			<div class="col-md-12">
+				@section('use-inline-form')
+				@show
+				@if(Session::has('error'))
+					<br>
+					<div class="alert alert-warning alert-dismissable">
+						<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+						{{ Session::get('error') }}
+						<strong>Try again</strong> or <strong>{{ HTML::link('register', 'Sign up') }}</strong>
+					</div>
+				@endif
+			</div>
 			<hr>
 			<br>
 			<br>
