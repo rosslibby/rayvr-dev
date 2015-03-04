@@ -12,6 +12,33 @@
 		<br>
 		<br>
 		<div class="col-md-10 col-md-offset-1 text-center">
+			<div class="row">
+				@if(Session::has('confirm'))
+					<div class="alert alert-success alert-dismissable col-md-8 col-md-offset-2">
+						{{ Form::button('×', ['class' => 'close', 'data-dismiss' => 'alert', 'aria-hidden' => true]) }}
+						<strong>Thank you! </strong>{{ Session::get('confirm') }}
+					</div>
+				@endif
+				<div class="col-md-6 col-md-offset-3">
+					@if($membership['member'])
+						<ul class="list-group">
+
+							@if($membership['trial'] > date('Y-m-d'))
+								<li class="list-group-item list-group-item-success fg-scheme-white raleway">Current plan: <strong>{{ $membership['plan'] }} (30 day trial)</strong></li>
+							<li class="list-group-item list-group-item-warning fg-scheme-white raleway">Trial ends: <strong>{{ date('M. d, Y', strtotime($membership['trial'])) }}</strong></li>
+							@else
+								<li class="list-group-item list-group-item-success fg-scheme-white raleway">Current subscription: <strong>{{ $membership['plan'] }}</strong></li>
+								<li class="list-group-item list-group-item-warning fg-scheme-white raleway">Subscription expires: <strong>{{ date('M. d, Y', strtotime($membership['expiration'])) }}</strong></li>
+							@endif
+						</ul>
+					@else
+						<ul class="list-group">
+							<li class="list-group-item list-group-item-info fg-scheme-white raleway text-center">Subscribe to a plan below to start your <strong>free 30-day trial</strong></li>
+						</ul>
+					@endif
+				</div>
+			</div>
+			<br>
 			<div class="pricing">
 				<ul>
 					<li class="unit price-primary">

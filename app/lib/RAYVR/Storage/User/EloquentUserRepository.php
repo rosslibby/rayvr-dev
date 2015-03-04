@@ -435,6 +435,42 @@ class EloquentUserRepository implements UserRepository {
 		return $user->subscription($plan)->create($token);
 	}
 
+	public function membership($user)
+	{
+		/**
+		 * Create an array of the user's
+		 * current membership data
+		 * 
+		 * Determine the name of the
+		 * user's subscription
+		 */
+
+		$subscription = null;
+		if($user->stripe_plan == 'monthlyMembership')
+		{
+			$subscription = 'Monthly member';
+		}
+		elseif($user->stripe_plan == '6monthlyMembership')
+		{
+			$subscription = '6-month member';
+		}
+		elseif($user->stripe_plan == 'yearlyMembership')
+		{
+			$subscription = 'Annual member';
+		}
+		$membership = [
+			'member'		=> $user->stripe_active,
+			'id'			=> $user->stripe_id,
+			'subscription'	=> $user->stripe_subscription,
+			'plan'			=> $subscription,
+			'card'			=> $user->last_four,
+			'trial'			=> $user->trial_ends_at,
+			'expiration'	=> $user->subscription_ends_at,
+		];
+
+		return $membership;
+	}
+
 	public function cancelMembership($user)
 	{
 		$user->subscription()->cancel();

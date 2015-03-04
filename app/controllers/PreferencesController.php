@@ -125,10 +125,10 @@ class PreferencesController extends BaseController {
 		{
 			if($validator)
 				return Redirect::route('business.preferences')
-					->with('flash', 'The user registration is complete');
+					->with('success', 'Your settings have been saved');
 			else
 				return Redirect::route('business.preferences')
-					->with('flash', 'The user registration is not complete');
+					->with('fail', 'There was an issue saving your preferences - please try again');
 		}
 
 		return Redirect::route('user.preferences')

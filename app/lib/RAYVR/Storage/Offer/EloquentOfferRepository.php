@@ -81,6 +81,12 @@ class EloquentOfferRepository implements OfferRepository {
 			 * which we retrieve the email address
 			 */
 			$business = User::find($offer->business_id);
+
+			/**
+			 * Until we set up a category exclusivity
+			 * specification system...
+			 */
+			$category = "category unspecified";
 			Mail::send('emails.offer-approved', ['name' => $business->first_name.' '.$business->last_name, 'from' => 'The RAYVR team'], function($message) use ($business)
 			{
 				$message->to($business->email)->subject('Your Offer Has Been Approved');
@@ -483,11 +489,31 @@ class EloquentOfferRepository implements OfferRepository {
 						->get();
 			$offerCount = 0;
 			$packIter = 0;
-			while($offerCount < $s->quota || $packIter == (count($packs) - 1))
+
+			/**
+			 * Check if the user has any offer packs
+			 * whatsoever
+			 */
+			if(!empty(json_decode($packs)))
 			{
-				$offerCount += $packs[$packIter]->remaining;
-				$packIter++;
+				while($offerCount < $s->quota || $packIter == (count($packs) - 1))
+				{
+					$offerCount += $packs[$packIter]->remaining;
+					$packIter++;
+				}
 			}
+
+			/**
+			 * Email the business informing them of
+			 * the approval process
+			 */
+
+			$user = User::find($business);
+
+			Mail::send('emails.offer-submitted', ['name' => $user->first_name.' '.$user->last_name, 'from' => 'The RAYVR team'], function($message) use ($user)
+			{
+				$message->to($user->email)->subject('Your offer has been submitted!');
+			});
 
 			if($offerCount >= $s->quota && $s->prime)
 			{

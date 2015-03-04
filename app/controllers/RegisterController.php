@@ -80,8 +80,7 @@ class RegisterController extends BaseController {
 		if($s[0])
 		{
 			Session::put('new_user', $s[1]->id);
-			// temporarily do not authorize the user upon creation
-			//Auth::login($s[1]);
+			Auth::login($s[1]);
 
 			/**
 			 * Determine the redirect based on
@@ -94,10 +93,10 @@ class RegisterController extends BaseController {
 			{
 				// temporarily show just the business 'welcome' page
 				//$route = 'business.preferences';
-				$route = 'business.welcome';
+				$route = '/';
 			}
 
-			return Redirect::route($route)
+			return Redirect::to($route)
 				->with('flash', 'The new user has been created');
 		}
 

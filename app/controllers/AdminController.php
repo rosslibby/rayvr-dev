@@ -1,7 +1,7 @@
 <?php
 
 use RAYVR\Storage\User\UserRepository as User;
-use Offer;
+use \Offer;
 
 class AdminController extends BaseController {
 

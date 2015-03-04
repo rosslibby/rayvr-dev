@@ -569,16 +569,8 @@
 														<span style="color: rgb(96, 96, 96); font-weight: 100;" class="font36">	
 															<!--[if !mso]><!--><span style="font-family: 'proxima_novalight', Helvetica; font-weight:normal; word-break: break-word;"><!--<![endif]-->
 																
-																Welcome to 
-															<!--[if !mso]><!--></span><!--<![endif]-->
-														</span>
-														<span style="color: rgb(249, 97, 69); font-weight: bold;" class="font36">
-														
-															<!--[if !mso]><!--><span style="font-family: 'proxima_nova_rgbold', Helvetica; font-weight:normal; word-break: break-word;"><!--<![endif]-->
-																
-																RAYVR
-																
-															<!--[if !mso]><!--></span><!--<![endif]--> 
+																Your offer has been approved!															
+																<!--[if !mso]><!--></span><!--<![endif]--> 
 														</span>
 													
 												
@@ -687,7 +679,7 @@
 										<tbody><tr>
 											<td valign="top" width="100%" style="text-align: left; font-family: Helvetica, Arial, sans-serif; font-size: 22px; color: rgb(1, 1, 1); line-height: 28px; font-weight: bold;" class="fullCenter" mc:edit="32">
 												<!--[if !mso]><!--><span style="font-family: 'proxima_novasemibold', Helvetica; font-weight: normal;"><!--<![endif]-->
-													Welcome to RAYVR!
+												Hello {{ $name }},
 												<!--[if !mso]><!--></span><!--<![endif]-->
 											</td>
 										</tr>
@@ -698,20 +690,21 @@
 											<td width="100%" valign="top" style="text-align: left; font-family: Helvetica, Arial, sans-serif; font-size: 14px; color: rgb(135, 135, 135); line-height: 24px; font-weight: normal;" class="fullCenter" mc:edit="33">
 																									
 													<!--[if !mso]><!--><span style="font-family: 'proxima_nova_rgregular', Helvetica; font-weight: normal;"><!--<![endif]-->
-														We will contact you in the next few days to collect further information about your product offer.
+														Your product has passed our initial screening and will be able to hold product exclusivity for category: {{ $category }}
 														<br>
-														Looking forward to working with you!
+														At this point we will use the voucher code you provided to order 3 of your products for quality testing before final approval.
 														<br>
-														<br> 
-														Cheers,
+														<strong>Questions?</strong>
 														<br>
-														<br>
-														<em>Stuart Carter</em>
+														The RAYVR Support Team is here for you! If you have any questions please get in touch and we’ll help you out any way we can.
 														<br>
 														<br>
-														Cofounder, Business Development
+														Best,
 														<br>
-														<a href="mailto:stu@rayvr.com">stu@rayvr.com</a>
+														<br>
+														RAYVR Business Team
+														<br>
+														<a href="mailto:support@rayvr.com">support@rayvr.com</a>
 														<br>
 														RAYVR
 														<br>

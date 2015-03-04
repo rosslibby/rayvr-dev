@@ -22,8 +22,6 @@ class SessionController extends BaseController {
 	 */
 	public function create()
 	{
-		// temporarily showing a placeholder until login is permitted
-//		return View::make('session.placeholder');
 		return View::make('session.create');
 	}
 

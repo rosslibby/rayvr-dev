@@ -81,6 +81,11 @@ interface UserRepository {
 	public function subscribe($input, $user);
 
 	/**
+	 * View user subscription data
+	 */
+	public function membership($user);
+
+	/**
 	 * Cancel membership subscription
 	 */
 	public function cancelMembership($user);

@@ -1,6 +1,6 @@
 <?php
 
-use User;
+use \User;
 use RAYVR\Storage\User\UserRepository as UserRepo;
 use RAYVR\Storage\Offer\OfferRepository as Offer;
 
@@ -17,7 +17,8 @@ class PaymentController extends BaseController {
 
 	public function payments()
 	{
-		return View::make('payments.index');
+		return View::make('payments.index')
+				->with('membership', $this->user->membership(Auth::user()));
 	}
 
 	public function membership()

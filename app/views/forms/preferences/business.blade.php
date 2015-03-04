@@ -19,6 +19,12 @@
 		<br>
 		<div class="row">
 			<div class="col-md-10 col-md-offset-1">
+				@if(Session::has('success'))
+				<div class="alert alert-success alert-dismissable">
+					<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&#10005;</button>
+					<strong>Your settings have been saved</strong>
+				</div>
+				@endif
 				<br>
 				{{ Form::open(['post' => 'preferences.storeBusiness', 'class' => 'form-horizontal']) }}
 
@@ -109,7 +115,12 @@
 					<hr>
 
 					<div class="form-group">
-						<div class="col-md-9 text-right">
+						<div class="col-md-7 text-left source-sans-pro light">
+							@if(Session::has('success'))
+								<p><em>{{ Session::get('success') }}</em></p>
+							@endif
+						</div>
+						<div class="col-md-2 text-right">
 							{{ Form::submit('Save settings', ['class' => 'btn btn-success']) }}
 						</div>
 					</div>

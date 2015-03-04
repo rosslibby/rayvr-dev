@@ -16,16 +16,16 @@
 		</div>
 		@endif
 		<div class="text-center">
-			<h3 class="fg-scheme-white raleway">Membership &amp; Payments</h3>
+			<h3 class="fg-scheme-white raleway">Offer Exposure Packs</h3>
 		</div>
 		<br>
 		<br>
 		<div class="col-md-10 col-md-offset-1 text-center">
 			<div class="row">
-				@if(isset($confirm))
+				@if(Session::has('confirm'))
 					<div class="alert alert-success alert-dismissable col-md-8 col-md-offset-2">
 						{{ Form::button('×', ['class' => 'close', 'data-dismiss' => 'alert', 'aria-hidden' => true]) }}
-						<strong>Thank you! </strong>{{ $confirm }}
+						<strong>Thank you! </strong>{{ Session::get('confirm') }}
 					</div>
 				@endif
 				<div class="col-md-6 col-md-offset-3">
