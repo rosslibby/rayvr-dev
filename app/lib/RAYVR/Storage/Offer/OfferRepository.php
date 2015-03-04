@@ -27,12 +27,12 @@ interface OfferRepository {
 	/**
 	 * Approve an offer
 	 */
-	public function approve($id);
+	public function approve($id, $exclusivity);
 
 	/**
 	 * Deny an offer
 	 */
-	public function deny($id);
+	public function deny($id, $reason);
 
 	/**
 	 * Match user with offer

@@ -23,11 +23,14 @@ class CreateOffersTable extends Migration {
 			$table->date('end');
 			$table->string('code');
 			$table->integer('quota');
-			$table->boolean('prime');
+			$table->boolean('prime')->default(false);
 			$table->string('link');
+			$table->string('review_link');
 			$table->boolean('male');
 			$table->boolean('female');
-			$table->boolean('approved');
+			$table->boolean('approved')->default(false);
+			$table->string('exclusivity');
+			$table->text('reason');
 			$table->timestamps();
 		});
 	}

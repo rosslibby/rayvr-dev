@@ -56,7 +56,7 @@ class EloquentOfferRepository implements OfferRepository {
 	/**
 	 * Approve an offer
 	 */
-	public function approve($id)
+	public function approve($id, $exclusivity)
 	{
 		/**
 		 * Retrieve the offer
@@ -67,6 +67,11 @@ class EloquentOfferRepository implements OfferRepository {
 		 * Approve the offer
 		 */
 		$offer->approved = true;
+
+		/**
+		 * Grant exclusivity to the offer
+		 */
+		$offer->exclusivity = $exclusivity;
 
 		/**
 		 * Save the offer
@@ -86,8 +91,8 @@ class EloquentOfferRepository implements OfferRepository {
 			 * Until we set up a category exclusivity
 			 * specification system...
 			 */
-			$category = "category unspecified";
-			Mail::send('emails.offer-approved', ['name' => $business->first_name.' '.$business->last_name, 'from' => 'The RAYVR team'], function($message) use ($business)
+			$category = $exclusivity;
+			Mail::send('emails.offer-approved', ['name' => $business->first_name.' '.$business->last_name, 'from' => 'The RAYVR team', 'category' => $category], function($message) use ($business)
 			{
 				$message->to($business->email)->subject('Your Offer Has Been Approved');
 			});
@@ -104,10 +109,11 @@ class EloquentOfferRepository implements OfferRepository {
 	/**
 	 * Deny an offer
 	 */
-	public function deny($id)
+	public function deny($id, $reason)
 	{
 		$offer = Offer::find($id);
 		$offer->approved = false;
+		$offer->reason = $reason;
 		if($offer->save())
 		{
 			/**
@@ -118,7 +124,7 @@ class EloquentOfferRepository implements OfferRepository {
 			 * which we retrieve the email address
 			 */
 			$business = User::find($offer->business_id);
-			Mail::send('emails.offer-denied', ['name' => $business->first_name.' '.$business->last_name, 'from' => 'The RAYVR team'], function($message) use ($business)
+			Mail::send('emails.offer-denied', ['name' => $business->first_name.' '.$business->last_name, 'from' => 'The RAYVR team', 'reason' => $reason], function($message) use ($business)
 			{
 				$message->to($business->email)->subject('Your Offer Has Been Denied');
 			});

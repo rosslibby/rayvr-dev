@@ -35,15 +35,17 @@
 			</div>
 			<div class="row">
 				<div class="col-md-1">
-				{{ Form::open(['route' => 'offers.approve']) }}
+					{{ HTML::link('offers/approve/'.$offer['offer']->id, 'Approve', ['class' => 'btn btn-success']) }}
+{{--				{{ Form::open(['route' => 'offers.approve']) }}
 					{{ Form::hidden('id', $offer['offer']->id) }}
 					{{ Form::submit('Approve', ['class' => 'btn btn-success']) }}
-				{{ Form::close() }}
+				{{ Form::close() }} --}}
 				</div>
 				<div class="col-md-1">
-				{{ Form::open(['route' => 'offers.deny']) }}
+					{{ HTML::link('offers/deny/'.$offer['offer']->id, 'Deny', ['class' => 'btn btn-danger']) }}
+{{--				{{ Form::open(['route' => 'offers.deny']) }}
 					{{ Form::hidden('id', $offer['offer']->id) }}
-					{{ Form::submit('Deny', ['class' => 'btn btn-danger']) }}
+					{{ Form::submit('Deny', ['class' => 'btn btn-danger']) }} --}}
 				{{ Form::close() }}
 				</div>
 			</div>

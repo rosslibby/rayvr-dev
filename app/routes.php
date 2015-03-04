@@ -76,10 +76,13 @@ Route::group(['before' => 'csrf'], function()
 		 * Offer moderation by site moderators
 		 */
 		Route::get('offers/moderate', 'OffersController@moderate');
+		Route::get('offers/approve/{id?}', 'OffersController@approveConfirm');
 		Route::post('offers/approve', [
 			'uses' => 'OffersController@approve',
 			'as' => 'offers.approve'
 		]);
+
+		Route::get('offers/deny/{id?}', 'OffersController@denyConfirm');
 		Route::post('offers/deny', [
 			'uses' => 'OffersController@deny',
 			'as' => 'offers.deny'

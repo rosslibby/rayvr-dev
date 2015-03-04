@@ -270,12 +270,28 @@ class OffersController extends BaseController {
 	}
 
 	/**
+	 * Confirm offer approval
+	 */
+	public function approveConfirm($id)
+	{
+		return View::make('admin.offers.exclusive')->with('id', $id);
+	}
+
+	/**
 	 * Approve an offer
 	 */
 	public function approve()
 	{
-		$this->offer->approve(Input::get('id'));
+		$this->offer->approve(Input::get('id'), Input::get('exclusivity'));
 		return Redirect::to('offers/moderate')->with('approve', 'Offer #'.Input::get('id').' has been approved.');
+	}
+
+	/**
+	 * Confirm offer denial
+	 */
+	public function denyConfirm($id)
+	{
+		return View::make('admin.offers.reason')->with('id', $id);
 	}
 
 	/**
@@ -283,7 +299,7 @@ class OffersController extends BaseController {
 	 */
 	public function deny()
 	{
-		echo $this->offer->deny(Input::get('id'));
+		echo $this->offer->deny(Input::get('id'), Input::get('reason'));
 		return Redirect::to('offers/moderate')->with('deny', 'Offer #'.Input::get('id').' has been denied.');
 	}
 
