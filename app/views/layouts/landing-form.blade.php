@@ -11,22 +11,21 @@
 				@show
 			</div>
 		</div>
-		<hr>
-		<div class="row text-center">
-
-
-			<div class="col-md-12">
-				@section('use-inline-form')
-				@show
-				@if(Session::has('error'))
-					<br>
-					<div class="alert alert-warning alert-dismissable">
-						<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-						{{ Session::get('error') }}
-						<strong>Try again</strong> or <strong>{{ HTML::link('register', 'Sign up') }}</strong>
-					</div>
-				@endif
+	</div>
+	<div class="col-md-12">
+		@section('use-inline-form')
+		@show
+		@if(Session::has('error'))
+			<br>
+			<div class="alert alert-warning alert-dismissable">
+				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+				{{ Session::get('error') }}
+				<strong>Try again</strong> or <strong>{{ HTML::link('register', 'Sign up') }}</strong>
 			</div>
+		@endif
+	</div>
+	<div class="container">
+		<div class="row text-center">
 
 			<p class="h6 raleway fg-scheme-dark">
 			@section('pre-heading')

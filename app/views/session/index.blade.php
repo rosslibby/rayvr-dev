@@ -5,7 +5,7 @@
 @stop
 
 @section('use-inline-form')
-@include('forms.register.inline-business')
+	@include('forms.register.inline-business')
 @stop
 
 @section('pre-heading')

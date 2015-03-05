@@ -7,7 +7,7 @@
 @section('contentarea')
 	<div class="header-wrapper">
 		<div class="text-center">
-			<h2 class="fg-scheme-white"><span class="glyphicon glyphicon-wrench"></span>&nbsp;Preferences</h2>
+			<h2 class="fg-scheme-white"><span class="glyphicon glyphicon-wrench"></span>&nbsp;Settings</h2>
 		</div>
 	</div>
 @stop
@@ -22,7 +22,11 @@
 				@if(Session::has('success'))
 				<div class="alert alert-success alert-dismissable">
 					<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&#10005;</button>
-					<strong>Your settings have been saved</strong>
+					<strong>Your settings have been saved</strong>.
+					{{-- If the business has no offers yet, prompt the business to submit a new offer --}}
+					@if(!empty(json_decode(Offer::where('business_id',Auth::user()->id)->where('approved',true)->get())))
+						Visit the {{ HTML::link('offers/add', 'New Offer') }} page to submit your first offer for review! {{ HTML::link('offers/add', '(click here)') }}
+					@endif
 				</div>
 				@endif
 				<br>

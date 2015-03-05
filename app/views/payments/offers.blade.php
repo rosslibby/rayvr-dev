@@ -21,22 +21,6 @@
 		<br>
 		<br>
 		<div class="col-md-10 col-md-offset-1 text-center">
-			<div class="row">
-				@if(Session::has('confirm'))
-					<div class="alert alert-success alert-dismissable col-md-8 col-md-offset-2">
-						{{ Form::button('×', ['class' => 'close', 'data-dismiss' => 'alert', 'aria-hidden' => true]) }}
-						<strong>Thank you! </strong>{{ Session::get('confirm') }}
-					</div>
-				@endif
-				<div class="col-md-6 col-md-offset-3">
-					<ul class="list-group">
-						<li class="list-group-item list-group-item-success fg-scheme-white raleway">Total offers: <strong>{{ $packs['offers'] }}</strong></li>
-						<li class="list-group-item list-group-item-warning fg-scheme-white raleway">Prime offers: <strong>{{ $packs['prime'] }}</strong></li>
-						<li class="list-group-item list-group-item-danger fg-scheme-white raleway">Packs purchased: <strong>{{ count($packs['packs']) }}</strong></li>
-					</ul>
-				</div>
-			</div>
-			<br>
 			<div class="pricing">
 				<ul>
 					<li class="unit price-primary">
@@ -226,6 +210,24 @@
 					</li>
 				</ul>
 			</div>
+			<br>
+			<br>
+			<div class="row">
+				@if(Session::has('confirm'))
+					<div class="alert alert-success alert-dismissable col-md-8 col-md-offset-2">
+						{{ Form::button('×', ['class' => 'close', 'data-dismiss' => 'alert', 'aria-hidden' => true]) }}
+						<strong>Thank you! </strong>{{ Session::get('confirm') }}
+					</div>
+				@endif
+				<div class="col-md-6 col-md-offset-3">
+					<ul class="list-group">
+						<li class="list-group-item list-group-item-success fg-scheme-white raleway">Total offers: <strong>{{ $packs['offers'] }}</strong></li>
+						<li class="list-group-item list-group-item-warning fg-scheme-white raleway">Prime offers: <strong>{{ $packs['prime'] }}</strong></li>
+						<li class="list-group-item list-group-item-danger fg-scheme-white raleway">Packs purchased: <strong>{{ count($packs['packs']) }}</strong></li>
+					</ul>
+				</div>
+			</div>
+			<br>
 		</div>
 	</div>
 @stop
