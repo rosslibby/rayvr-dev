@@ -494,4 +494,46 @@ class EloquentUserRepository implements UserRepository {
 		$deposit->tx = $tx;
 		$deposit->save();
 	}
+
+	public function reset($user)
+	{
+		/**
+		 * Get $user from the email
+		 * that was passed through
+		 */
+		$user = $this->userByEmail($user);
+
+		/**
+		 * Generate a confirmation code for
+		 * the user
+		 */
+		$confirm = md5(uniqid(mt_rand(), true));
+
+		/**
+		 * Set the user's 'confirm' record
+		 * to the new code
+		 */
+		$user->confirm = $confirm;
+
+		/**
+		 * Save the user
+		 */
+		$user->save();
+
+		/**
+		 * Send the user an email to
+		 * reset their password
+		 * 
+		 * First, build a link for the
+		 * user to reset their
+		 * password
+		 */
+		$invite = $user->invite_code;
+		$link = 'http://rayvr.com/reset/'.$user->email.'/'.$invite.'/'.$confirm;
+
+		Mail::send('emails.forgot-password', ['name' => $user->first_name, 'from' => 'RAYVR Support', 'link' => $link], function($message) use ($user)
+		{
+			$message->to($user->email)->subject('Password Reset Request');
+		});
+	}
 }

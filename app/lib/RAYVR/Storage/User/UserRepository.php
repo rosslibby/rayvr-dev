@@ -94,4 +94,9 @@ interface UserRepository {
 	 * Process shipping deposit
 	 */
 	public function deposit($user, $data);
+
+	/**
+	 * Send password reset request
+	 */
+	public function reset($user);
 }

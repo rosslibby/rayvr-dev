@@ -329,6 +329,11 @@ Route::group(['before' => 'csrf'], function()
 	/**
 	 * Password reset
 	 */
+	Route::get('account/reset', 'UserController@requestReset');
+	Route::post('account/reset', [
+		'uses' => 'UserController@sendResetRequest',
+		'as' => 'account/reset'
+	]);
 	Route::get('reset/{email}/{invite_code}/{confirm}', function($email, $code, $confirm){
 		$vars = ['email' => $email, 'code' => $code, 'confirm' => $confirm];
 		return View::make('user.reset')->with('vars', $vars);

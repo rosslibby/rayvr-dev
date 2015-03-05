@@ -70,6 +70,24 @@ class UserController extends BaseController {
 	}
 
 	/**
+	 * Request a password reset
+	 */
+	public function requestReset()
+	{
+		return View::make('user.request-reset');
+	}
+
+	/**
+	 * Send password reset request
+	 */
+	public function sendResetRequest()
+	{
+		$email = Input::get('email');
+		$this->user->reset($email);
+		return "We have sent you an email containing instructions for resetting your password.<br><a href=\"/\">Return home</a>";
+	}
+
+	/**
 	 * Reset a user's password
 	 */
 	public function reset()

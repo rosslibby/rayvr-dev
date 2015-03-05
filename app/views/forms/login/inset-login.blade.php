@@ -29,6 +29,10 @@
 				</div>
 			</div>
 
+			<div class="row">
+				<label><a href="/account/reset" target="_blank">Forgot your password?</a></label>
+			</div>
+
 		{{ Form::close() }}
 	</div>
 </div>
