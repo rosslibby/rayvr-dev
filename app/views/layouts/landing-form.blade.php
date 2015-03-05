@@ -5,9 +5,14 @@
 	<div class="container">
 		<div class="row text-center">
 
-			<!-- Video -->
-			@section('video')
-			@show
+			<div class="col-md-10 col-md-offset-1">
+				<!-- Video -->
+				@section('video')
+				@show
+			</div>
+		</div>
+		<hr>
+		<div class="row text-center">
 
 
 			<div class="col-md-12">
@@ -22,9 +27,6 @@
 					</div>
 				@endif
 			</div>
-			<hr>
-			<br>
-			<br>
 
 			<p class="h6 raleway fg-scheme-dark">
 			@section('pre-heading')

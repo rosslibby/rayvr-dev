@@ -131,7 +131,7 @@ class PreferencesController extends BaseController {
 					->with('fail', 'There was an issue saving your preferences - please try again');
 		}
 
-		return Redirect::route('user.preferences')
+		return Redirect::route('user/preferences')
 			->withInput()
 			->withErrors($s->errors());
 	}
@@ -179,11 +179,11 @@ class PreferencesController extends BaseController {
 				return Redirect::route('offers.current')
 					->with('flash', 'The user registration is complete');
 			else
-				return Redirect::route('user.preferences')
+				return Redirect::to('user/preferences')
 					->with('flash', 'The user registration is not complete');
 		}
 
-		return Redirect::route('user.preferences')
+		return Redirect::to('user/preferences')
 			->withInput()
 			->withErrors($s->errors());
 	}

@@ -19,13 +19,10 @@ Route::get('register/welcome', [
  * Route for testing anything
  */
 Route::get('test', function(){
-	$user = User::find(8);
-	$offer = Offer::find(2);
-	foreach($user->interest as $interest)
-	{
-		if(json_decode($offer->category()->where('category_id', $interest->cat_id)->get(), true))
-			echo "Has something in common.<br>";
-	}
+	if(!empty(json_decode(Offer::where('business_id',Auth::user()->id)->where('approved',false)->get())))
+		return json_encode(Offer::where('business_id',19)->get());
+	else
+		return "No";
 });
 
 Route::group(['before' => 'csrf'], function()
@@ -255,18 +252,6 @@ Route::group(['before' => 'csrf'], function()
 		'as' => 'session.index'
 	]);
 */
-	/**
-	 * Preference routes
-	 */
-	Route::get('user/preferences', [
-		'uses' => 'PreferencesController@index',
-		'as' => 'user.preferences'
-	]);
-	// used to be preferences instead of user/preferences
-	Route::post('user/preferences', [
-		'uses' => 'UserController@store',
-		'as' => 'user.store'
-	]);
 
 	/**
 	 * Business pages
@@ -378,6 +363,13 @@ Route::group(['before' => 'csrf'], function()
 			'uses' => 'OffersController@track',
 			'as' => 'offers.track'
 		]);
+
+		/**
+		 * "We are reviewing your offer" landing page
+		 */
+		Route::get('offers/review', function(){
+			return View::make('offers.review');
+		});
 
 		Route::resource('offers', 'OffersController');
 

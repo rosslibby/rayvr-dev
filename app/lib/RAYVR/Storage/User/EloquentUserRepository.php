@@ -1,6 +1,6 @@
 <?php namespace RAYVR\Storage\User;
 
-use User, Matches, Mail, Blacklist, Validator, View, Offer, Order, Omnipay\Omnipay, Voucher, Deposit;
+use User, Matches, Mail, Blacklist, Validator, View, Offer, Order, Omnipay\Omnipay, Voucher, Deposit, OfferPack;
 use RAYVR\Storage\Offer\OfferRepository as OfferRepo;
 use Hashids\Hashids as Hashids;
 use Illuminate\Support\Facades\Hash;
@@ -132,6 +132,20 @@ class EloquentUserRepository implements UserRepository {
 
 			$c = User::create($input);
 			$c->invite_code = $this->hashids->encode($c->id);;
+
+			/**
+			 * If the user is a business, give
+			 * the user 15 offers
+			 */
+			if($c->business)
+			{
+				$offerPack = new OfferPack();
+				$offerPack->user_id = $c->id;
+				$offerPack->total = 15;
+				$offerPack->remaining = 15;
+				$offerPack->cost = 0.0;
+				$offerPack->save();
+			}
 
 			return [true, $c];
 		} else {
@@ -529,7 +543,7 @@ class EloquentUserRepository implements UserRepository {
 		 * password
 		 */
 		$invite = $user->invite_code;
-		$link = 'http://rayvr.com/reset/'.$user->email.'/'.$invite.'/'.$confirm;
+		$link = url().$user->email.'/'.$invite.'/'.$confirm;
 
 		Mail::send('emails.forgot-password', ['name' => $user->first_name, 'from' => 'RAYVR Support', 'link' => $link], function($message) use ($user)
 		{

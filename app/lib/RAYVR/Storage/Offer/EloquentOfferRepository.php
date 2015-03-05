@@ -502,7 +502,7 @@ class EloquentOfferRepository implements OfferRepository {
 			 */
 			if(!empty(json_decode($packs)))
 			{
-				while($offerCount < $s->quota || $packIter == (count($packs) - 1))
+				while($packIter < (count($packs) - 1))
 				{
 					$offerCount += $packs[$packIter]->remaining;
 					$packIter++;
@@ -543,22 +543,48 @@ class EloquentOfferRepository implements OfferRepository {
 			}
 			elseif($offerCount >= $s->quota && !$s->prime)
 			{
-				$response = [
-					'success' => 3,
-					'message' => 'You will need to leave a deposit of $'.($s->quota * 8).' for shipping costs upon approval of your offer.',
-					'prime' => $s->prime,
-					'id' => $s->id
-				];
+				$shipping_cost = $s->shipping_cost;
+				if($shipping_cost)
+				{
+					$response = [
+						'success' => 3,
+						'message' => 'You will need to leave a deposit of $'.($s->quota * $shipping_cost).' for shipping costs upon approval of your offer.',
+						'prime' => $s->prime,
+						'id' => $s->id
+					];
+				}
+				else
+				{
+					$response = [
+						'success' => 3,
+						'message' => 'You have indicated that your offer is eligible for free shipping. No further action is required at this time.',
+						'prime' => $s->prime,
+						'id' => $s->id
+					];
+				}
 				return $response;
 			}
 			else
 			{
-				$response = [
-					'success' => 4,
-					'message' => 'You will need to purchase more <strong>regular (non-Prime<sup>&reg;</sup>)</strong>  offers to send to '.$s->quota.' users. Once your offer has been approved, you will need to leave a deposit of $'.($s->quota * 8).' for shipping costs.',
-					'prime' => $s->prime,
-					'id' => $s->id
-				];
+				$shipping_cost = $s->shipping_cost;
+				if($shipping_cost)
+				{
+					$response = [
+						'success' => 4,
+						'message' => 'You will need to purchase more <strong>regular (non-Prime<sup>&reg;</sup>)</strong>  offers to send to '.$s->quota.' users. Once your offer has been approved, you will need to leave a deposit of $'.($s->quota * $s->shipping_cost).' for shipping costs.',
+						'prime' => $s->prime,
+						'id' => $s->id
+					];
+				}
+				else
+				{
+					$response = [
+						'success' => 4,
+						'message' => 'You will need to purchase more <strong>regular (non-Prime<sup>&reg;</sup>)</strong>  offers to send to '.$s->quota.' users. You have indicated that your offer is eligible for free shipping. No further action is required at this time.',
+						'prime' => $s->prime,
+						'id' => $s->id
+					];
+				}
 				return $response;
 			}
 		}

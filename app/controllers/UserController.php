@@ -45,7 +45,7 @@ class UserController extends BaseController {
 	 */
 	public function store()
 	{
-		$preferences = Input::only('first_name', 'last_name'/** Disabled until site is live:, 'prime', 'address_1', 'address_2', 'city', 'state_id', 'zip', 'country_id'*/);
+		$preferences = Input::only('first_name', 'last_name', 'prime', 'address', 'address_2', 'city', 'state', 'zip', 'country');
 		
 		$interests = Input::only('interest');
 		$interests = $interests['interest'];

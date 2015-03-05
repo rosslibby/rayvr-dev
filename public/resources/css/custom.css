@@ -138,6 +138,8 @@ html, body { height: 100%; }
 .icon-solid.icon-briefcase { background-image: url('../img/business/icons/solid/briefcase.png'); }
 .icon-solid.icon-speedometer { background-image: url('../img/business/icons/solid/speedometer.png'); }
 .icon-solid.icon-lifering { background-image: url('../img/business/icons/solid/lifering.png'); }
+.icon-solid.icon-tortoise-and-hare { background-image: url('../img/user/icons/solid/tortoise-and-hare.png'); }
+.icon-solid.icon-chatbox { background-image: url('../img/user/icons/solid/chatbox.png'); }
 
 .icon-hollow.icon-checkbox { background-image: url('../img/business/icons/hollow/checkbox.png'); }
 .icon-hollow.icon-target { background-image: url('../img/business/icons/hollow/target.png'); }
@@ -288,4 +290,39 @@ img.calm
 	box-shadow: 0 0 1px #BBB;
 	-webkit-box-shadow: 0 0 1px #BBB;
 	-moz-box-shadow: 0 0 1px #BBB;
+}
+
+/**
+ * Inline sign-up form
+ */
+.inline-sign-up
+{
+	padding: 15px 0;
+	background-color: #2E3740;
+}
+
+.inline-sign-up .inset-form-input
+{
+	background: none;
+	border: none;
+	border-bottom: 1px solid #4D5F6D;
+	border-radius: 0;
+	padding-left: 0;
+	color: #fff;
+}
+
+.inline-sign-up .inset-form-input::-webkit-input-placeholder { color: #68778A !important; }
+.inline-sign-up .inset-form-input:-moz-placeholder
+{
+	color: #68778A !important;
+	opacity: 1 !important;
+}
+.inline-sign-up .inset-form-input::-moz-placeholder
+{
+	color: #68778A !important;
+	opacity: 1 !important;
+}
+.inline-sign-up .inset-form-input::-ms-input-placeholder
+{
+	color: #68778A !important;
 }

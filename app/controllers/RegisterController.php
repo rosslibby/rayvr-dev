@@ -87,7 +87,7 @@ class RegisterController extends BaseController {
 			 * whether this is a user or
 			 * business registration
 			 */
-			$route = 'user.preferences';
+			$route = 'preferences';
 
 			if(Input::get('business') == 'true')
 			{

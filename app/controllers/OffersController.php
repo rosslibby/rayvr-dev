@@ -193,9 +193,9 @@ class OffersController extends BaseController {
 		 * 4: Purchase non-prime offers & leave shipping deposit
 		 */
 		if($s['success'] == 1 || $s['success'] == 3)
-			return Redirect::route('offers.track')->with('success', $s['message']);
+			return Redirect::to('offers/review')->with('success', $s['message']);
 		elseif($s['success'] == 2 || $s['success'] == 4)
-			return Redirect::route('offers.purchase')->with('success', $s['message']);
+			return Redirect::to('offers/review')->with('success', $s['message']);
 	}
 
 	/**

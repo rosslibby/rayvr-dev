@@ -44,7 +44,7 @@
 					<hr>
 				
 					<div class="form-group">
-						{{ Form::label('address', 'Business address', ['class' => 'control-label col-md-2']) }}
+						{{ Form::label('address', 'Address', ['class' => 'control-label col-md-2']) }}
 						<div class="col-md-7">
 							{{ Form::text('address', $model['address'], ['class' => 'form-control required subtle-input']) }}
 						</div>
@@ -72,8 +72,12 @@
 						</div>
 					</div>
 					<div class="form-group">
+						{{ Form::label('country', 'Country', ['class' => 'control-label col-md-2']) }}
+						<div class="col-md-4">
+							@include('forms.lists.countries')
+						</div>
 						{{ Form::label('zip', 'Zip', ['class' => 'control-label col-md-2']) }}
-						<div class="col-md-2">
+						<div class="col-md-3">
 							{{ Form::text('zip', $model['zip'], ['class' => 'form-control subtle-input']) }}
 						</div>
 					</div>

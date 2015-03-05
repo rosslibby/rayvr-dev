@@ -5,7 +5,7 @@
 @stop
 
 @section('pre-heading')
-SAVE TIME. INCREASE SALES.
+QUALITY PRODUCTS. 100% FREE.
 @stop
 
 @section('heading')
@@ -13,7 +13,7 @@ Why join RAYVR?
 @stop
 
 @section('description')
-Every day our program conncets people just like you with quality free offers based on your interests. We help businesses by connecting you with free offers and getting your feedback.
+Every day our program connects people just like you with quality <strong>free offers</strong> based on your interests. We help businesses by connecting you with free offers and <strong>getting your feedback</strong>.
 @stop
 
 <!-- Column 1 -->
@@ -26,112 +26,56 @@ Every day our program conncets people just like you with quality free offers bas
 		ONLY QUALITY PRODUCTS
 
 		@section('paragraph-1')
-		We accept only high-quality product offers and test each before sending them out to our members.
+		We send our members high-quality products to test, 100% free. All you have to do is sign up.
 		@stop
 	@stop
 
 <!-- Column 2 -->
 	@section('column-2')
 		@section('icon-2')
-		<i class="icon-solid icon-target"></i>
+		<i class="icon-solid icon-tortoise-and-hare"></i>
 		@stop
 
 		@section('headline-2')
-		MATCHED TO YOU
+		BE QUICK
 
 		@section('paragraph-2')
-		Your product offer is matched with our members based on their selected categories of interest.
+		We reward our RAYVRs that quickly complete offers by giving them first choice on great new offers.
 		@stop
 	@stop
 
 <!-- Column 3 -->
 	@section('column-3')
 		@section('icon-3')
-		<i class="icon-solid icon-bullhorn"></i>
+		<i class="icon-solid icon-mail"></i>
 		@stop
 
 		@section('headline-3')
 		OUR MEMBERS SHARE
 
 		@section('paragraph-3')
-		Our members are happy to get quality products that they have interest in, and are willing to share their experiences.
+		Within 48 hours of confirming an order of a RAYVR offer, you will be reimbursed in full for shipping.
 		@stop
 	@stop
 
 <!-- Column 4 -->
 	@section('column-4')
 		@section('icon-4')
-		<i class="icon-solid icon-graph"></i>
+		<i class="icon-solid icon-chatbox"></i>
 		@stop
 
 		@section('headline-4')
-		WE TRACK FEEDBACK
+		WHY SHARE EXPERIENCES?
 
 		@section('paragraph-4')
-		From your dashboard you can see how many offers have been sent out, and track feedback as it comes in.
-		@stop
-	@stop
-
-<!-- Column 1 -->
-	@section('column-5')
-		@section('icon-5')
-		<i class="icon-solid icon-mail"></i>
-		@stop
-
-		@section('headline-5')
-		SHIPPING REIMBURSEMENT
-
-		@section('paragraph-5')
-		No more spending hours reimbursing individuals for shipping: our automated system handles the entire process for you.
-		@stop
-	@stop
-
-<!-- Column 2 -->
-	@section('column-6')
-		@section('icon-6')
-		<i class="icon-solid icon-briefcase"></i>
-		@stop
-
-		@section('headline-6')
-		DESIGNED FOR YOU
-
-		@section('paragraph-6')
-		We collaborated with industry-leading product developers to design and implement our program.
-		@stop
-	@stop
-
-<!-- Column 3 -->
-	@section('column-7')
-		@section('icon-7')
-		<i class="icon-solid icon-speedometer"></i>
-		@stop
-
-		@section('headline-7')
-		GET ON THE FAST TRACK
-
-		@section('paragraph-7')
-		What better way to kickstart a product launch than receiving great feedback for your awesome product?
-		@stop
-	@stop
-
-<!-- Column 4 -->
-	@section('column-8')
-		@section('icon-8')
-		<i class="icon-solid icon-lifering"></i>
-		@stop
-
-		@section('headline-8')
-		TOP CUSTOMER CARE
-
-		@section('paragraph-8')
-		Our business support team is here to help. With dedicated support, your questions will be answered in no time.
+		Your experience is valuable. Sharing a great experience with a product helps a business increase sales.
 		@stop
 	@stop
 
 @section('inset-form-heading')
-Register Your Business
+Sign Up Today
 @stop
 
 @section('use-form')
-@include('forms.register.inset-business')
+@include('forms.register.inset-user')
 @stop

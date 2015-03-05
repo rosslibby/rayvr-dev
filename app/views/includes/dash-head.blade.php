@@ -24,7 +24,6 @@
 	</script>
 </head>
 <body>
-
 <nav class="navbar navbar-primary navbar-fixed-top bg-scheme-white">
 	<div class="container-fluid">
 		<div class="row">
@@ -44,10 +43,11 @@
 				</div>
 			</div>
 			<div id="top-nav" class="navbar-collapse collapse">
-				<ul class="nav navbar-nav navbar-left fg-scheme-black anchor lighter">
+				
+{{--<ul class="nav navbar-nav navbar-left fg-scheme-black anchor lighter">
 					@section('topnav')
 					@show
-				</ul>
+				</ul>--}}
 				<div class="col-md-2 navbar-right">
 					<div class="col-md-8 col-md-offset-4">
 						<a href="/logout" class="navbar-btn btn btn-primary text-right">SIGN OUT</a>

@@ -42,7 +42,27 @@ class LandingController extends BaseController {
 			{
 				if(Auth::user()->address && Auth::user()->email && Auth::user()->first_name && Auth::user()->last_name && Auth::user()->zip && Auth::user()->country && Auth::user()->phone && Auth::user()->stripe_plan)
 				{
-					return Redirect::to('offers/track');
+					/**
+					 * If the user has no approved offers,
+					 * redirect the user to the holding
+					 * page
+					 */
+					if(!empty(json_decode(Offer::where('business_id',Auth::user()->id)->where('approved',true)->get())))
+					{
+						/**
+						 * If the user has not subscribed to
+						 * a membership, direct the user to
+						 * the membership page
+						 */
+						if((Auth::user()->trial_ends_at < date('Y-m-d') && Auth::user()->subscription_ends_at < ('Y-m-d')) || !Auth::user()->stripe_plan)
+							return Redirect::to('payments');
+						else
+							return Redirect::to('offers/track');
+					}
+					else
+					{
+						return Redirect::to('offers/review');
+					}
 				}
 				else
 				{
@@ -65,7 +85,7 @@ class LandingController extends BaseController {
 		}
 		else
 		{
-			return View::make('landing.home')->with('referral', $referral);
+			return View::make('session.register')->with('referral', $referral);
 		}
 	}
 

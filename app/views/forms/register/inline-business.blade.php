@@ -1,6 +1,5 @@
 <!-- Inline business registration -->
-<hr>
-<div class="row">
+<div class="row inline-sign-up">
 	{{ Form::open(['route' => 'register.store', 'id' => 'businessRegistration', 'class' => 'form-inline text-left']) }}
 
 		<div class="form-group required col-md-5">
