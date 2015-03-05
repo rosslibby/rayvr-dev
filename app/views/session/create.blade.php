@@ -9,7 +9,7 @@ Manage your offers, preferences, and score in your RAYVR dashboard.
 @stop
 
 @section('inset-form-heading')
-Sign in to your User or Business cccount
+Sign in to your User or Business account
 @stop
 
 @section('use-form')
