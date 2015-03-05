@@ -21,6 +21,7 @@ class CreateOffersTable extends Migration {
 			$table->text('description');
 			$table->date('start');
 			$table->date('end');
+			$table->integer('timeframe');
 			$table->string('code');
 			$table->integer('quota');
 			$table->boolean('prime')->default(false);
@@ -28,6 +29,8 @@ class CreateOffersTable extends Migration {
 			$table->string('review_link');
 			$table->boolean('male');
 			$table->boolean('female');
+			$table->boolean('free_shipping')->default(false);
+			$table->float('shipping_cost');
 			$table->boolean('approved')->default(false);
 			$table->string('exclusivity');
 			$table->text('reason');

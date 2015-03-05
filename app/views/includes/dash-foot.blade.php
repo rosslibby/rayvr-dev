@@ -8,6 +8,14 @@
 {{ HTML::script( 'resources/js/bootstrap-datepicker.js' ) }}
 
 <script>
+
+
+/**
+ * Show file upload data to user
+ */
+$(document).on('change', '.btn-file :file', function() {
+	$('#codeFileName').html(": <em>" + $(this).val().split("\\")[$(this).val().split("\\").length - 1] + "</em>");
+});
 $(document).ready(function(){
 	$('#payment-form').submit(function(event) {
 		var $form = $(this);
