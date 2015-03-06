@@ -332,3 +332,17 @@ img.calm
 {
 	color: #68778A !important;
 }
+
+/**
+ * Chrome autofill fix
+ */
+input:-webkit-autofill:focus
+{
+	-webkit-box-shadow: 0 0 0px 1000px #293139 inset;
+	-webkit-text-fill-color: #FFF !important;
+}
+input:-webkit-autofill
+{
+	-webkit-box-shadow: 0 0 0px 1000px #2E3740 inset;
+	-webkit-text-fill-color: #FFF !important;
+}
