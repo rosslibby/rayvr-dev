@@ -395,7 +395,7 @@ class EloquentOfferRepository implements OfferRepository {
 		 * appropriate date format
 		 */
 		$data['start'] = date("Y-m-d", strtotime($data['start']));
-		$data['end'] = date("Y-m-d", strtotime($data['end']));
+		$data['end'] = date("Y-m-d", strtotime($data['start']. '+ '.$data['timeframe'].' days'));
 
 		/**
 		 * Set up the array of offer codes

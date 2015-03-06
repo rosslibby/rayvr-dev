@@ -107,12 +107,25 @@
 			</div>
 			<!-- Date range -->
 			<div class="col-md-6">
-				<p class="h4">{{ Form::label('date', 'Start &amp; End', ['class' => 'control-label raleway h4 light']) }}&nbsp;<i class="fa fa-calendar"></i></p>
+				<p class="h4">{{ Form::label('date', 'Preferred Start Date', ['class' => 'control-label raleway h4 light']) }}&nbsp;<i class="fa fa-calendar"></i></p>
 				<div class="sandbox-container">
-					<div class="input-daterange input-group" id="datepicker">
-						{{ Form::text('start', null, ['class' => 'form-control subtle-input']) }}
-						<span class="input-group-addon">to</span>
-						{{ Form::text('end', null, ['class' => 'form-control subtle-input']) }}
+					<div class="input-daterange input-group col-md-8" id="datepicker">
+						{{--*/
+							$date = date('m/d/Y');
+							$futureDate = null;
+							if(date('d') == 1)
+								$futureDate = date('m/d/Y', strtotime($date. ' + 4 days'));
+							else
+								$futureDate = date('m/d/Y', strtotime($date. ' + 6 days'));
+						/*--}}
+						<span class="input-group-addon">Start</span>
+						{{ Form::text('start', $futureDate, ['class' => 'form-control subtle-input']) }}
+					</div>
+					<br>
+					<div class="input-group col-md-8">
+						<span class="input-group-addon">for</span>
+						{{ Form::text('timeframe', 5, ['class' => 'form-control subtle-input']) }}
+						<span class="input-group-addon">days</span>
 					</div>
 				</div>
 			</div>
