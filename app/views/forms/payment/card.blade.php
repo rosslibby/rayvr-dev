@@ -8,7 +8,7 @@
 @section('contentarea')
 	<div class="header-wrapper">
 		<div class="text-center">
-			<h2 class="fg-scheme-white"><span class="glyphicon glyphicon-wrench"></span>&nbsp;Settings</h2>
+			<h2 class="fg-scheme-white"><span class="glyphicon glyphicon-credit-card"></span>&nbsp;Billing</h2>
 		</div>
 	</div>
 @stop
