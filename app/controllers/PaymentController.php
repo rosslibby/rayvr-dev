@@ -1,6 +1,7 @@
 <?php
 
 use \User;
+use \Order;
 use RAYVR\Storage\User\UserRepository as UserRepo;
 use RAYVR\Storage\Offer\OfferRepository as Offer;
 
@@ -23,7 +24,12 @@ class PaymentController extends BaseController {
 
 	public function membership()
 	{
-		return View::make('payments.membership');
+		return View::make('forms.payment.card');
+	}
+
+	public function billing()
+	{
+		return $this->user->postpay($this->offer->find(5));
 	}
 
 	public function subscribe()
@@ -31,12 +37,12 @@ class PaymentController extends BaseController {
 		/**
 		 * Subscribe to the membership
 		 */
-		$this->user->subscribe(Input::all(), Auth::user());
+		$customer = $this->user->createCustomer(Input::all(), Auth::user());
 
 		/**
 		 * Show a thank-you message
 		 */
-		return Redirect::to('payments');
+		return Redirect::to('payments')->with('success', 'Your payment information has been saved successfully.');
 	}
 
 	public function offers()

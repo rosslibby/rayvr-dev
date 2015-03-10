@@ -4,8 +4,7 @@
 {{-- If the business has any approved offers, show the entire menu --}}
 @if(!empty(json_decode($offers)))
 <li class="{{ Request::is('offers/track*') ? 'active' : '' }}"><a href="/offers/track"><span class="glyphicon glyphicon-stats"></span>&nbsp;&nbsp;&nbsp;&nbsp;Track Offers</a></li>
-<li class="{{ Request::is('offers/purchase') ? 'active' : '' }}"><a href="/offers/purchase"><span class="glyphicon glyphicon-tags"></span>&nbsp;&nbsp;&nbsp;&nbsp;Offer Packs</a></li>
-<li class="{{ Request::is('payments') ? 'active' : '' }}"><a href="/payments"><span class="glyphicon glyphicon-credit-card"></span>&nbsp;&nbsp;&nbsp;&nbsp;Payments</a></li>
+<li class="{{ Request::is('billing') ? 'active' : '' }}"><a href="/billing"><span class="glyphicon glyphicon-credit-card"></span>&nbsp;&nbsp;&nbsp;&nbsp;Billing</a></li>
 @endif
 
 {{-- If the preferences have been completed, show the "add offer" form --}}

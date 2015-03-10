@@ -22,7 +22,10 @@ class OfferPack extends Ardent {
 		'total',
 		'used',
 		'remaining',
-		'cost',
+		'included',
+		'active',
+		'inactive',
+		'stripe_subscription',
 		'created_at',
 		'updated_at'
 	];

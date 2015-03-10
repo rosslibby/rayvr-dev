@@ -16,7 +16,16 @@ class Matches extends Ardent {
 	 * 
 	 * @var array
 	 */
-	protected $fillable = array('user_id', 'business_id', 'offer_id', 'category_id', 'live', 'accept');
+	protected $fillable = [
+		'user_id',
+		'business_id',
+		'offer_id',
+		'category_id',
+		'live',
+		'accept',
+		'created_at',
+		'updated_at'
+	];
 
 	/**
 	 * Get the unique identifier for the interest

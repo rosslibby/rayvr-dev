@@ -16,7 +16,13 @@ class Contact extends Ardent {
 	 * 
 	 * @var array
 	 */
-	protected $fillable = array('email', 'name', 'message');
+	protected $fillable = [
+		'email',
+		'name',
+		'message',
+		'created_at',
+		'updated_at'
+	];
 
 	/**
 	 * Get the unique identifier for the preference record

@@ -229,3 +229,120 @@ iframe#product-description
 	cursor: inherit;
 	display: block;
 }
+
+/** payment-page form **/
+
+.inset-form-container.row-dark-blue
+{
+	float: left;
+	padding: 30px 0;
+	background-color: #2E3740;
+	box-shadow: inset 0 15px 15px -15px #181818,
+				inset 0 -15px 15px -15px #181818;
+	-webkit-box-shadow: inset 0 15px 15px -15px #181818,
+				inset 0 -15px 15px -15px #181818;
+	-moz-box-shadow: inset 0 15px 15px -15px #181818,
+				inset 0 -15px 15px -15px #181818;
+}
+
+.inset-form-container.row-white
+{
+	float: left;
+	padding: 30px 0;
+	background-color: #FFF;
+	box-shadow: inset 0 15px 15px -15px #CCC,
+				inset 0 -15px 15px -15px #CCC;
+	-webkit-box-shadow: inset 0 15px 15px -15px #CCC,
+				inset 0 -15px 15px -15px #CCC;
+	-moz-box-shadow: inset 0 15px 15px -15px #CCC,
+				inset 0 -15px 15px -15px #CCC;
+}
+
+h3.inset-form-heading
+{
+	font-family: 'Raleway', sans-serif;
+	font-size: 260%;
+	font-weight: 700;
+	color: #FFF;
+	text-shadow: 1px 1px #000;
+}
+
+.inset-form-container .inset-form-input
+{
+	background: none;
+	border: none;
+	border-bottom: 1px solid #4D5F6D;
+	border-radius: 0;
+	padding-left: 0;
+	color: #fff;
+}
+
+.inset-form-container .inset-form-input.error { border-color: #DA4453 !important; }
+
+.inset-form-container .inset-form-input.valid { border-color: #8CC152; }
+
+.inset-form-container .inset-form-input.error + .input-group-addon { color: #DA4453; }
+
+.inset-form-container .inset-form-input.valid + .input-group-addon { color: #8CC152; }
+
+.inset-form-container .inset-form-input:focus,
+.inset-form-container .inset-form-input:focus + .input-group-addon
+{
+	background-color: #293139;
+	padding-left: 12px;
+}
+
+.inset-form-container .inset-form-input::-webkit-input-placeholder { color: #68778A !important; }
+.inset-form-container .inset-form-input:-moz-placeholder
+{
+	color: #68778A !important;
+	opacity: 1 !important;
+}
+.inset-form-container .inset-form-input::-moz-placeholder
+{
+	color: #68778A !important;
+	opacity: 1 !important;
+}
+.inset-form-container .inset-form-input::-ms-input-placeholder
+{
+	color: #68778A !important;
+}
+
+.inset-form-container .input-group-addon
+{
+	background: none;
+	color: #D85D5F;
+	border: none;
+	border-bottom: 1px solid #4D5F6D;
+	border-radius: 0;
+}
+
+.inset-form-container .checkbox label { color: #68778A !important; }
+.inset-form-container .checkbox label a
+{
+	color: #68778A;
+	border-bottom: 1px dashed #68778A;
+}
+
+.inset-form-container .checkbox label a:hover
+{
+	color: #FC6E51;
+	border-color: #FC6E51;
+}
+
+/**
+ * Chrome autofill fix
+ */
+input:-webkit-autofill:focus
+{
+	-webkit-box-shadow: 0 0 0px 1000px #293139 inset;
+	-webkit-text-fill-color: #FFF !important;
+}
+input:-webkit-autofill
+{
+	-webkit-box-shadow: 0 0 0px 1000px #2E3740 inset;
+	-webkit-text-fill-color: #FFF !important;
+}
+
+/** hr break **/
+hr.dashed { border-top: 3px dashed; }

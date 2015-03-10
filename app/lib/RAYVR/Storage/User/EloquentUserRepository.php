@@ -1,6 +1,6 @@
 <?php namespace RAYVR\Storage\User;
 
-use User, Matches, Mail, Blacklist, Validator, View, Offer, Order, Omnipay\Omnipay, Voucher, Deposit, OfferPack;
+use User, Matches, Mail, Blacklist, Validator, View, Offer, Order, Omnipay\Omnipay, Voucher, Deposit, OfferPack, Stripe;
 use RAYVR\Storage\Offer\OfferRepository as OfferRepo;
 use Hashids\Hashids as Hashids;
 use Illuminate\Support\Facades\Hash;
@@ -19,6 +19,7 @@ class EloquentUserRepository implements UserRepository {
 		 */
 		$gateway = Omnipay::create('Stripe');
 		$gateway->setApiKey('sk_test_3YmCSPqFkZCBhSroMCu4QAC0');
+		Stripe::setApiKey($_ENV['stripe_api_key']);
 		$this->gateway = $gateway;
 
 		/**
@@ -288,7 +289,7 @@ class EloquentUserRepository implements UserRepository {
 			if(!empty(json_decode($user->blacklist()->where('business_id', $match->business_id)->get(), true)))
 			{
 				$blacklist = $user->blacklist()->where('business_id', $match->business_id)->get()[0];
-				$blacklist->times = 2;
+				$blacklist->times = (int)($blacklist->times) + 1;
 				$blacklist->save();
 			}
 			else
@@ -419,6 +420,96 @@ class EloquentUserRepository implements UserRepository {
 		return $user->order()
 				->where('offer_id', $user->current)
 				->get();
+	}
+
+	public function createCustomer($input, $user)
+	{
+		/**
+		 * Retrieve the Stripe token
+		 */
+		$token = $input['stripeToken'];
+
+		/**
+		 * Retrieve the user ID
+		 */
+		$user_id = $user->id;
+
+		/**
+		 * Retrieve the user email
+		 */
+		$email = $user->email;
+
+		/**
+		 * Create a new Stripe customer
+		 */
+
+		$customer = \Stripe_Customer::create([
+			'card' => $token,
+			'description' => 'Lifetime free membership for user #'.$user_id,
+			'email' => $email
+		]);
+
+		/**
+		 * Save the customer ID with its associated user
+		 */
+		$user->stripe_customer = $customer->id;
+		$user->save();
+
+		return $customer;
+	}
+
+	public function postpay($offer)
+	{
+		/**
+		 * Set the Rate Per Offer (RPO)
+		 */
+		$RPO = 5;
+
+		/**
+		 * Retrieve all completed orders
+		 * associated with $offer
+		 */
+		$orders = $offer->orders()->where('completed', true)->get();
+
+		/**
+		 * Calculate total cost of
+		 * shipping
+		 */
+		$shipping = 0;
+		foreach($orders as $order)
+		{
+			$shipping += $order->cost;
+		}
+
+		/**
+		 * Set a description for the charge
+		 */
+		$description = "Payment for promotion #".$offer->id;
+
+		/**
+		 * Calculate total cost of the
+		 * promotion using the following
+		 * algorithm:
+		 * 
+		 * (number of orders x $RPO)
+		 * + total cost of shipping ($shipping)
+		 * x 100
+		 * = $sum
+		 */
+		$sum = ((count($orders) * $RPO) + $shipping) * 100;
+
+		/**
+		 * Retrieve the Stripe customer
+		 * associated with the business
+		 */
+		$customer = \Stripe_Customer::retrieve($offer->business->stripe_customer);
+
+		$response = \Stripe_Charge::create([
+			'amount' => $sum,
+			'currency' => 'usd',
+			'customer' => $customer
+		]);
+		return $response;
 	}
 
 	public function subscribe($input, $user)

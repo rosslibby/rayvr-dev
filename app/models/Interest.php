@@ -16,7 +16,12 @@ class Interest extends Ardent {
 	 * 
 	 * @var array
 	 */
-	protected $fillable = array('user_id', 'cat_id');
+	protected $fillable = [
+		'user_id',
+		'cat_id',
+		'created_at',
+		'updated_at'
+	];
 
 	/**
 	 * Get the unique identifier for the interest

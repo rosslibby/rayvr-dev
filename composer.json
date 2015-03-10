@@ -17,7 +17,8 @@
 		"indatus/dispatcher": "~1.4",
 		"guzzle/guzzle": "~3.9",
 		"paypal/adaptivepayments-sdk-php": "~3.8",
-		"intervention/image": "~2.1"
+		"intervention/image": "~2.1",
+		"stripe/stripe-php": "~1.9"
 	},
 	"require-dev": {
 		"way/generators": "~2.0",
@@ -34,7 +35,8 @@
 			"app/database/seeds",
 			"app/tests/TestCase.php",
 			"app/lib",
-			"vendor/paypal"
+			"vendor/paypal",
+			"vendor/stripe"
 		],
 		"files": [
 			"vendor/gidlov/copycat/src/Gidlov/Copycat/Copycat.php",

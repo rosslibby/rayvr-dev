@@ -75,6 +75,13 @@ interface UserRepository {
 	public function current($user);
 
 	/**
+	 * Bill business for all 
+	 * redeemed offers and their
+	 * associated shipping costs
+	 */
+	public function postpay($offer);
+
+	/**
 	 * Subscribe businesses to
 	 * memberships
 	 */

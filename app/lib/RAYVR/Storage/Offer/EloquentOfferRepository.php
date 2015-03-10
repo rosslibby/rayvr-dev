@@ -163,18 +163,27 @@ class EloquentOfferRepository implements OfferRepository {
 				return;
 		}
 
-		/**
-		 * Check if the offer requires
-		 * Prime shipping. If true,
-		 * check if the user has Prime.
-		 * 
-		 * If false, continue to next
-		 * $user
-		 */
+		/*****************************
+		 ** AS OF 03/07/2015 WE ARE **
+		 ** NO LONGER CHECKING      **
+		 ** WHETHER BUSINESS        **
+		 ** PREFERS PRIME USERS, AS **
+		 ** THIS OPTION IS BEING    **
+		 ** REMOVED ENTIRELY        **
+		 *****************************/
 
-		if($offer->prime)
-			if(!$user->prime)
-				return;
+		// *
+		//  * Check if the offer requires
+		//  * Prime shipping. If true,
+		//  * check if the user has Prime.
+		//  * 
+		//  * If false, continue to next
+		//  * $user
+		 
+
+		// if($offer->prime)
+		// 	if(!$user->prime)
+		// 		return;
 
 		/**
 		 * Find any categories the $user
@@ -292,10 +301,10 @@ class EloquentOfferRepository implements OfferRepository {
 		 * Find all users that have been
 		 * blacklisted from working with
 		 * this business for receiving
-		 * 2 offers in the past
+		 * 3 offers in the past
 		 */
 		$blacklisted = json_decode(Blacklist::where('business_id', $offer->business_id)
-						->where('times',2)->get(['user_id']), true);
+						->where('times',3)->get(['user_id']), true);
 
 		/**
 		 * Set up an empty array to store
@@ -395,7 +404,7 @@ class EloquentOfferRepository implements OfferRepository {
 		 * appropriate date format
 		 */
 		$data['start'] = date("Y-m-d", strtotime($data['start']));
-		$data['end'] = date("Y-m-d", strtotime($data['start']. '+ '.$data['timeframe'].' days'));
+		$data['end'] = date("Y-m-d", strtotime($data['end']));
 
 		/**
 		 * Set up the array of offer codes
@@ -478,36 +487,48 @@ class EloquentOfferRepository implements OfferRepository {
 				$s->category()->save($cat);
 			}
 
-			/**
-			 * Check if user selected Prime exclusivity
-			 * 
-			 * If false, notify the user that they will
-			 * have to pay a shipping deposit of
-			 * $quota * rate
-			 * 
-			 * Check if user has enough available offers
-			 * to cover the $quota; if not, prompt the
-			 * user to purchase more offers
-			 */
-			$packs = $s->business->offerPack()
-						->where('prime', $s->prime)
-						->where('remaining', '!=', 0)
-						->get();
-			$offerCount = 0;
-			$packIter = 0;
+			/*****************************
+			 ** AS OF 03/07/2015 WE ARE **
+			 ** NO LONGER CHECKING      **
+			 ** WHETHER BUSINESS        **
+			 ** PREFERS PRIME USERS OR  **
+			 ** WHETHER THE BUSINESS    **
+			 ** OWNS ANY NUMBER OF      **
+			 ** "OFFER PACKS", AS BOTH  **
+			 ** OF THESE OPTIONS ARE    **
+			 ** BEING REMOVED ENTIRELY  **
+			 *****************************/
 
-			/**
-			 * Check if the user has any offer packs
-			 * whatsoever
-			 */
-			if(!empty(json_decode($packs)))
-			{
-				while($packIter < (count($packs) - 1))
-				{
-					$offerCount += $packs[$packIter]->remaining;
-					$packIter++;
-				}
-			}
+			// /**
+			//  * Check if user selected Prime exclusivity
+			//  * 
+			//  * If false, notify the user that they will
+			//  * have to pay a shipping deposit of
+			//  * $quota * rate
+			//  * 
+			//  * Check if user has enough available offers
+			//  * to cover the $quota; if not, prompt the
+			//  * user to purchase more offers
+			//  */
+			// $packs = $s->business->offerPack()
+			// 			->where('prime', $s->prime)
+			// 			->where('remaining', '!=', 0)
+			// 			->get();
+			// $offerCount = 0;
+			// $packIter = 0;
+
+			// /**
+			//  * Check if the user has any offer packs
+			//  * whatsoever
+			//  */
+			// if(!empty(json_decode($packs)))
+			// {
+			// 	while($packIter < (count($packs) - 1))
+			// 	{
+			// 		$offerCount += $packs[$packIter]->remaining;
+			// 		$packIter++;
+			// 	}
+			// }
 
 			/**
 			 * Email the business informing them of
@@ -521,72 +542,91 @@ class EloquentOfferRepository implements OfferRepository {
 				$message->to($user->email)->subject('Your offer has been submitted!');
 			});
 
-			if($offerCount >= $s->quota && $s->prime)
-			{
-				$response = [
-					'success' => 1,
-					'message' => 'Your offer has been successfully submitted for review. No further action is required at this point.',
-					'prime' => $s->prime,
-					'id' => $s->id
-				];
-				return $response;
-			}
-			elseif($s->prime)
-			{
-				$response = [
-					'success' => 2,
-					'message' => 'You do not have enough offers to send out to '.$s->quota.' users. Please purchase a <strong>Prime<sup>&reg;</sup> offer pack.',
-					'prime' => $s->prime,
-					'id' => $s->id
-				];
-				return $response;
-			}
-			elseif($offerCount >= $s->quota && !$s->prime)
-			{
-				$shipping_cost = $s->shipping_cost;
-				if($shipping_cost)
-				{
-					$response = [
-						'success' => 3,
-						'message' => 'You will need to leave a deposit of $'.($s->quota * $shipping_cost).' for shipping costs upon approval of your offer.',
-						'prime' => $s->prime,
-						'id' => $s->id
-					];
-				}
-				else
-				{
-					$response = [
-						'success' => 3,
-						'message' => 'You have indicated that your offer is eligible for free shipping. No further action is required at this time.',
-						'prime' => $s->prime,
-						'id' => $s->id
-					];
-				}
-				return $response;
-			}
-			else
-			{
-				$shipping_cost = $s->shipping_cost;
-				if($shipping_cost)
-				{
-					$response = [
-						'success' => 4,
-						'message' => 'You will need to purchase more <strong>regular (non-Prime<sup>&reg;</sup>)</strong>  offers to send to '.$s->quota.' users. Once your offer has been approved, you will need to leave a deposit of $'.($s->quota * $s->shipping_cost).' for shipping costs.',
-						'prime' => $s->prime,
-						'id' => $s->id
-					];
-				}
-				else
-				{
-					$response = [
-						'success' => 4,
-						'message' => 'You will need to purchase more <strong>regular (non-Prime<sup>&reg;</sup>)</strong>  offers to send to '.$s->quota.' users. You have indicated that your offer is eligible for free shipping. No further action is required at this time.',
-						'prime' => $s->prime,
-						'id' => $s->id
-					];
-				}
-				return $response;
-			}
+			/*****************************
+			 ** AS OF 03/07/2015 WE ARE **
+			 ** NO LONGER CHECKING      **
+			 ** WHETHER BUSINESS        **
+			 ** PREFERS PRIME USERS OR  **
+			 ** WHETHER THE BUSINESS    **
+			 ** OWNS ANY NUMBER OF      **
+			 ** "OFFER PACKS", AS BOTH  **
+			 ** OF THESE OPTIONS ARE    **
+			 ** BEING REMOVED ENTIRELY  **
+			 *****************************/
+
+			$response = [
+				'success'	=> 1,
+				'message'	=> 'Your offer has been successfully submitted for review. If it is accepted, it will begin on '.date('M. d, Y').'. No further action is required at this time.',
+				'id'		=> $s->id,
+			];
+			return $response;
+
+			// if($offerCount >= $s->quota && $s->prime)
+			// {
+			// 	$response = [
+			// 		'success' => 1,
+			// 		'message' => 'Your offer has been successfully submitted for review. No further action is required at this point.',
+			// 		'prime' => $s->prime,
+			// 		'id' => $s->id
+			// 	];
+			// 	return $response;
+			// }
+			// elseif($s->prime)
+			// {
+			// 	$response = [
+			// 		'success' => 2,
+			// 		'message' => 'You do not have enough offers to send out to '.$s->quota.' users. Please purchase a <strong>Prime<sup>&reg;</sup> offer pack.',
+			// 		'prime' => $s->prime,
+			// 		'id' => $s->id
+			// 	];
+			// 	return $response;
+			// }
+			// elseif($offerCount >= $s->quota && !$s->prime)
+			// {
+			// 	$shipping_cost = $s->shipping_cost;
+			// 	if($shipping_cost)
+			// 	{
+			// 		$response = [
+			// 			'success' => 3,
+			// 			'message' => 'You will need to leave a deposit of $'.($s->quota * $shipping_cost).' for shipping costs upon approval of your offer.',
+			// 			'prime' => $s->prime,
+			// 			'id' => $s->id
+			// 		];
+			// 	}
+			// 	else
+			// 	{
+			// 		$response = [
+			// 			'success' => 3,
+			// 			'message' => 'You have indicated that your offer is eligible for free shipping. No further action is required at this time.',
+			// 			'prime' => $s->prime,
+			// 			'id' => $s->id
+			// 		];
+			// 	}
+			// 	return $response;
+			// }
+			// else
+			// {
+			// 	$shipping_cost = $s->shipping_cost;
+			// 	if($shipping_cost)
+			// 	{
+			// 		$response = [
+			// 			'success' => 4,
+			// 			'message' => 'You will need to purchase more <strong>regular (non-Prime<sup>&reg;</sup>)</strong>  offers to send to '.$s->quota.' users. Once your offer has been approved, you will need to leave a deposit of $'.($s->quota * $s->shipping_cost).' for shipping costs.',
+			// 			'prime' => $s->prime,
+			// 			'id' => $s->id
+			// 		];
+			// 	}
+			// 	else
+			// 	{
+			// 		$response = [
+			// 			'success' => 4,
+			// 			'message' => 'You will need to purchase more <strong>regular (non-Prime<sup>&reg;</sup>)</strong>  offers to send to '.$s->quota.' users. You have indicated that your offer is eligible for free shipping. No further action is required at this time.',
+			// 			'prime' => $s->prime,
+			// 			'id' => $s->id
+			// 		];
+			// 	}
+			// 	return $response;
+			// }
 		}
 	}
 
@@ -824,133 +864,143 @@ class EloquentOfferRepository implements OfferRepository {
 		}
 	}
 
-	public function offerPurchase($input)
-	{
-		$token = $input['stripeToken'];
-		$pack = (int)($input['pack']);
-		switch($pack)
-		{
-			case 1:
-				$amount = '250.00';
-				$count = 50;
-				$prime = false;
-				break;
-			case 2:
-				$amount = '450.00';
-				$count = 100;
-				$prime = false;
-				break;
-			case 3:
-				$amount = '800.00';
-				$count = 200;
-				$prime = false;
-				break;
-			case 4:
-				$amount = '300.00';
-				$count = 50;
-				$prime = true;
-				break;
-			case 5:
-				$amount = '530.00';
-				$count = 100;
-				$prime = true;
-				break;
-			case 6:
-				$amount = '900.00';
-				$count = 200;
-				$prime = true;
-				break;
-			default:
-				return 'You selected an option that does not exist.';
-		}
+	/*****************************
+	 ** AS OF 03/07/2015 WE ARE **
+	 ** NO LONGER CHECKING      **
+	 ** WHETHER THE BUSINESS    **
+	 ** OWNS ANY NUMBER OF      **
+	 ** "OFFER PACKS", AS THIS  **
+	 ** OPTION IS BEING REMOVED **
+	 ** ENTIRELY                **
+	 *****************************/
 
-		$response = $this->gateway->purchase(['amount' => $amount, 'currency' => 'USD', 'token' => $token])->send();
+	// public function offerPurchase($input)
+	// {
+	// 	$token = $input['stripeToken'];
+	// 	$pack = (int)($input['pack']);
+	// 	switch($pack)
+	// 	{
+	// 		case 1:
+	// 			$amount = '250.00';
+	// 			$count = 50;
+	// 			$prime = false;
+	// 			break;
+	// 		case 2:
+	// 			$amount = '450.00';
+	// 			$count = 100;
+	// 			$prime = false;
+	// 			break;
+	// 		case 3:
+	// 			$amount = '800.00';
+	// 			$count = 200;
+	// 			$prime = false;
+	// 			break;
+	// 		case 4:
+	// 			$amount = '300.00';
+	// 			$count = 50;
+	// 			$prime = true;
+	// 			break;
+	// 		case 5:
+	// 			$amount = '530.00';
+	// 			$count = 100;
+	// 			$prime = true;
+	// 			break;
+	// 		case 6:
+	// 			$amount = '900.00';
+	// 			$count = 200;
+	// 			$prime = true;
+	// 			break;
+	// 		default:
+	// 			return 'You selected an option that does not exist.';
+	// 	}
 
-		/**
-		 * Creat a new OfferPack
-		 */
-		$offerPack = new OfferPack();
-		$offerPack->prime		= $prime;
-		$offerPack->total		= $count;
-		$offerPack->used		= 0;
-		$offerPack->remaining	= $count;
-		$offerPack->cost		= (float)($amount);
+	// 	$response = $this->gateway->purchase(['amount' => $amount, 'currency' => 'USD', 'token' => $token])->send();
 
-		/**
-		 * Save the OfferPack
-		 */
-		$offerPack->save();
+	// 	/**
+	// 	 * Creat a new OfferPack
+	// 	 */
+	// 	$offerPack = new OfferPack();
+	// 	$offerPack->prime		= $prime;
+	// 	$offerPack->total		= $count;
+	// 	$offerPack->used		= 0;
+	// 	$offerPack->remaining	= $count;
+	// 	$offerPack->cost		= (float)($amount);
 
-		/**
-		 * Get the logged in user to assign the
-		 * OfferPack to
-		 */
-		$user = Auth::user();
+	// 	/**
+	// 	 * Save the OfferPack
+	// 	 */
+	// 	$offerPack->save();
 
-		/**
-		 * Assign the OfferPack to $user
-		 */
-		$user->offerPack()->save($offerPack);
+	// 	/**
+	// 	 * Get the logged in user to assign the
+	// 	 * OfferPack to
+	// 	 */
+	// 	$user = Auth::user();
 
-		return $response;
-	}
+	// 	/**
+	// 	 * Assign the OfferPack to $user
+	// 	 */
+	// 	$user->offerPack()->save($offerPack);
 
-	public function offerPacks($user)
-	{
-		/**
-		 * Get all offer packs the user has
-		 * purchased
-		 */
-		$packs = $user->offerPack;
+	// 	return $response;
+	// }
 
-		/**
-		 * Get number of packs user owns
-		 */
-		$packTotal = count($packs);
+	// public function offerPacks($user)
+	// {
+	// 	/**
+	// 	 * Get all offer packs the user has
+	// 	 * purchased
+	// 	 */
+	// 	$packs = $user->offerPack;
 
-		/**
-		 * Discover how many offers total
-		 * the user has not used
-		 * 
-		 * Discover how many unused Prime
-		 * offers the user has
-		 */
-		$offerTotal	= 0;
-		$primeTotal = 0;
+	// 	/**
+	// 	 * Get number of packs user owns
+	// 	 */
+	// 	$packTotal = count($packs);
 
-		/**
-		 * Iterate through the offer packs
-		 */
-		foreach($packs as $pack)
-		{
-			/**
-			 * Add the remaining (unused) offers
-			 * from each pack to the $offerTotal
-			 */
-			$offerTotal += $pack->remaining;
+	// 	/**
+	// 	 * Discover how many offers total
+	// 	 * the user has not used
+	// 	 * 
+	// 	 * Discover how many unused Prime
+	// 	 * offers the user has
+	// 	 */
+	// 	$offerTotal	= 0;
+	// 	$primeTotal = 0;
 
-			/**
-			 * Determine if the OfferPack is for
-			 * Prime or regular
-			 * 
-			 * If the pack is for Prime, add the
-			 * remaining (unused) offers to the
-			 * primeTotal
-			 */
-			if($pack->prime)
-				$primeTotal += $pack->remaining;
-		}
+	// 	/**
+	// 	 * Iterate through the offer packs
+	// 	 */
+	// 	foreach($packs as $pack)
+	// 	{
+	// 		/**
+	// 		 * Add the remaining (unused) offers
+	// 		 * from each pack to the $offerTotal
+	// 		 */
+	// 		$offerTotal += $pack->remaining;
 
-		/**
-		 * Build an array of the OfferPack data
-		 */
-		$data = [
-			'packs'		=> $packs,
-			'total'		=> $packTotal,
-			'offers'	=> $offerTotal,
-			'prime'		=> $primeTotal,
-		];
+	// 		/**
+	// 		 * Determine if the OfferPack is for
+	// 		 * Prime or regular
+	// 		 * 
+	// 		 * If the pack is for Prime, add the
+	// 		 * remaining (unused) offers to the
+	// 		 * primeTotal
+	// 		 */
+	// 		if($pack->prime)
+	// 			$primeTotal += $pack->remaining;
+	// 	}
 
-		return $data;
-	}
+	// 	/**
+	// 	 * Build an array of the OfferPack data
+	// 	 */
+	// 	$data = [
+	// 		'packs'		=> $packs,
+	// 		'total'		=> $packTotal,
+	// 		'offers'	=> $offerTotal,
+	// 		'prime'		=> $primeTotal,
+	// 	];
+
+	// 	return $data;
+	// }
 }

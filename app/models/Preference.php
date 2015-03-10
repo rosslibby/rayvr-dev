@@ -16,7 +16,20 @@ class Preference extends Ardent {
 	 * 
 	 * @var array
 	 */
-	protected $fillable = array('user_id', 'first_name', 'last_name', 'prime', 'address_1', 'address_2', 'city', 'state_id', 'zip', 'country_id');
+	protected $fillable = [
+		'user_id',
+		'first_name',
+		'last_name',
+		'prime',
+		'address_1',
+		'address_2',
+		'city',
+		'state_id',
+		'zip',
+		'country_id',
+		'created_at',
+		'updated_at'
+	];
 
 	/**
 	 * Get the unique identifier for the preference record

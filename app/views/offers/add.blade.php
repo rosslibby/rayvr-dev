@@ -44,7 +44,7 @@
 <div class="content-wrapper">
 	<div class="col-md-10 col-md-offset-1">
 		<h3 class="raleway">Step 1: <span class="light">Product Information</span></h3>
-		<hr>
+		<hr class="dashed">
 
 		<div class="row">
 			<br>
@@ -61,7 +61,7 @@
 			</div>
 		</div>
 		<h3 class="raleway">Step 2: <span class="light">Voucher Code</span></h3>
-		<hr>
+		<hr class="dashed">
 
 		<div class="row">
 			<br>
@@ -82,7 +82,7 @@
 		<br>
 		<!-- Review page link -->
 		<h3 class="raleway">Step 3: <span class="light">Link to Review Page</span></h3>
-		<hr>
+		<hr class="dashed">
 
 		<div class="row">
 			<br>
@@ -96,7 +96,7 @@
 		<br>
 		<!-- Quota & Dates -->
 		<h3 class="raleway">Step 4: <span class="light">Offer Details</span></h3>
-		<hr>
+		<hr class="dashed">
 
 		<div class="row">
 			<br>
@@ -105,27 +105,32 @@
 				<p class="h4">{{ Form::label('quota', 'Number of Offers', ['class' => 'control-label raleway h4 light']) }}&nbsp;<i class="fa fa-cubes"></i></p>
 				{{ Form::select('quota', ['25' => '25', '50' => '50', '100' => '100', '200' => '200'], ['class' => 'selecter_basic', 'id' => 'quota']) }}
 			</div>
+		</div>
+		<br>
+		<hr>
+		<div class="row">
 			<!-- Date range -->
 			<div class="col-md-6">
 				<p class="h4">{{ Form::label('date', 'Preferred Start Date', ['class' => 'control-label raleway h4 light']) }}&nbsp;<i class="fa fa-calendar"></i></p>
 				<div class="sandbox-container">
-					<div class="input-daterange input-group col-md-8" id="datepicker">
+					<div class="input-daterange input-group col-md-12" id="datepicker">
 						{{--*/
 							$date = date('m/d/Y');
 							$futureDate = null;
 							if(date('d') == 1)
-								$futureDate = date('m/d/Y', strtotime($date. ' + 4 days'));
+							{
+								$startDate = date('m/d/Y', strtotime($date. ' + 4 days'));
+								$endDate = date('m/d/Y', strtotime($date. ' + 9 days'));
+							}
 							else
-								$futureDate = date('m/d/Y', strtotime($date. ' + 6 days'));
+							{
+								$startDate = date('m/d/Y', strtotime($date. ' + 6 days'));
+								$endDate = date('m/d/Y', strtotime($date. ' + 11 days'));
+							}
 						/*--}}
-						<span class="input-group-addon">Start</span>
-						{{ Form::text('start', $futureDate, ['class' => 'form-control subtle-input']) }}
-					</div>
-					<br>
-					<div class="input-group col-md-8">
-						<span class="input-group-addon">for</span>
-						{{ Form::text('timeframe', 5, ['class' => 'form-control subtle-input']) }}
-						<span class="input-group-addon">days</span>
+						{{ Form::text('start', $startDate, ['class' => 'form-control subtle-input']) }}
+						<span class="input-group-addon">to</span>
+						{{ Form::text('end', $endDate, ['class' => 'form-control subtle-input']) }}
 					</div>
 				</div>
 			</div>
@@ -135,11 +140,25 @@
 		<br>
 		<!-- Shipping Information -->
 		<h3 class="raleway">Step 5: <span class="light">Shipping Information</span></h3>
-		<hr>
+		<hr class="dashed">
 
 		<div class="row">
 			<br>
-			<div class="col-md-4">
+
+
+
+			{{----------------------------
+			 -- AS OF 03/07/2015 WE ARE --
+			 -- NO LONGER CHECKING      --
+			 -- WHETHER BUSINESS        --
+			 -- PREFERS PRIME USERS OR  --
+			 -- WHETHER THE BUSINESS    --
+			 -- OWNS ANY NUMBER OF      --
+			 -- "OFFER PACKS", AS BOTH  --
+			 -- OF THESE OPTIONS ARE    --
+			 -- BEING REMOVED ENTIRELY  --
+			 -----------------------------}}
+{{-- 			<div class="col-md-4">
 				<p class="h4">{{ Form::label('prime', 'Prime Exclusive') }}</p>
 				<div class="col-md-3">
 					<div class="radio" data-toggle="tooltip" data-placement="bottom" title data-original-title="This option requires the Prime offer pack">
@@ -153,36 +172,42 @@
 						{{ Form::label('prime', 'No') }}
 					</div>
 				</div>
-			</div>
-			<div class="col-md-3 text-left">
-				<h2 class="raleway light">if no</h2>
-			</div>
-			<div class="col-md-5">
-				<p class="h5">{{ Form::label('free_shipping', 'Is this product eligible for free shipping?', ['class' => 'control-label raleway h5 light']) }}</p>
-				<div class="col-md-3">
-					<div class="radio">
-						{{ Form::radio('free_shipping', '1', false) }}
-						{{ Form::label('free_shipping', 'Yes') }}
+			</div> --}}
+				<div class="row">
+					<div class="col-md-12">
+						<p class="h5">{{ Form::label('free_shipping', 'Is this product eligible for free shipping?', ['class' => 'control-label raleway h5 light']) }}</p>
+						<div class="col-md-4">
+							<div class="col-md-4">
+								<div class="radio">
+									{{ Form::radio('free_shipping', '1', false) }}
+									{{ Form::label('free_shipping', 'Yes') }}
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="radio">
+									{{ Form::radio('free_shipping', '0', true) }}
+									{{ Form::label('free_shipping', 'No') }}
+								</div>
+							</div>
+						</div>
 					</div>
 				</div>
-				<div class="col-md-3">
-					<div class="radio">
-						{{ Form::radio('free_shipping', '0', true) }}
-						{{ Form::label('free_shipping', 'No') }}
+				<hr>
+				<div class="row">
+					<div class="col-md-6">
+						<p class="h5">{{ Form::label('shipping_cost', 'If no, please estimate the cost of shipping:', ['class' => 'control-label raleway h5 light']) }}</p>
+						<div class="input-group">
+							<span class="input-group-addon"><i class="fa fa-usd"></i></span>{{ Form::text('shipping_cost', null, ['class' => 'form-control subtle-input']) }}
+						</div>
 					</div>
 				</div>
-				<p class="h5">{{ Form::label('shipping_cost', 'If no, estimate the cost of shipping:', ['class' => 'control-label raleway h5 light']) }}</p>
-				<div class="input-group">
-					<span class="input-group-addon"><i class="fa fa-usd"></i></span>{{ Form::text('shipping_cost', null, ['class' => 'form-control subtle-input']) }}
-				</div>
-			</div>
 		</div>
 
 		<br>
 		<br>
 		<!-- Demographic information -->
 		<h3 class="raleway">Step 6: <span class="light">Target Audience</span></h3>
-		<hr>
+		<hr class="dashed">
 
 		<div class="row">
 			<br>
@@ -256,7 +281,7 @@
 			</div> --}}
 
 		<br>
-		<hr>
+		<hr class="dashed">
 		<br>
 
 		<div class="row">

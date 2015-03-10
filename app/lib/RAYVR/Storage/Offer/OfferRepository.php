@@ -78,13 +78,23 @@ interface OfferRepository {
 	 */
 	public function distribute();
 
-	/**
-	 * Process offer-pack purchases
-	 */
-	public function offerPurchase($input);
+	/*****************************
+	 ** AS OF 03/07/2015 WE ARE **
+	 ** NO LONGER CHECKING      **
+	 ** WHETHER THE BUSINESS    **
+	 ** OWNS ANY NUMBER OF      **
+	 ** "OFFER PACKS", AS THIS  **
+	 ** OPTION IS BEING REMOVED **
+	 ** ENTIRELY                **
+	 *****************************/
 
-	/**
-	 * Get offer pack information
-	 */
-	public function offerPacks($user);
+	// /**
+	//  * Process offer-pack purchases
+	//  */
+	// public function offerPurchase($input);
+
+	// /**
+	//  * Get offer pack information
+	//  */
+	// public function offerPacks($user);
 }

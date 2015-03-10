@@ -19,10 +19,8 @@ Route::get('register/welcome', [
  * Route for testing anything
  */
 Route::get('test', function(){
-	if(!empty(json_decode(Offer::where('business_id',Auth::user()->id)->where('approved',false)->get())))
-		return json_encode(Offer::where('business_id',19)->get());
-	else
-		return "No";
+	// something
+	return Stripe_Customer::all();
 });
 
 Route::group(['before' => 'csrf'], function()
@@ -143,10 +141,18 @@ Route::group(['before' => 'csrf'], function()
 		]);
 
 		/**
-		 * Membership-subscription routes
+		 * Billing portal
+		 */
+		Route::get('billing', [
+			'uses' => 'PaymentController@billing',
+			'as' => 'billing'
+		]);
+
+		/**
+		 * Payment routes
 		 */
 		Route::get('payments', [
-			'use' => 'PaymentController@membership',
+			'uses' => 'PaymentController@membership',
 			'as' => 'payments'
 		]);
 		Route::post('payments', [
@@ -376,15 +382,6 @@ Route::group(['before' => 'csrf'], function()
 		/**
 		 * Payments
 		 */
-		Route::get('payments', [
-			'uses' => 'PaymentController@payments',
-			'as' => 'payments'
-		]);
-
-		Route::get('payments/membership', [
-			'uses' => 'PaymentController@membership',
-			'as' => 'membership'
-		]);
 
 		/**
 		 * Preferences

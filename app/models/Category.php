@@ -16,7 +16,11 @@ class Category extends Ardent {
 	 * 
 	 * @var array
 	 */
-	protected $fillable = array('title');
+	protected $fillable = [
+		'title',
+		'created_at',
+		'updated_at'
+	];
 
 	/**
 	 * Deny for mass assignment
