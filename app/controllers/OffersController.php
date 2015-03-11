@@ -169,6 +169,13 @@ class OffersController extends BaseController {
 		return "WRONG LEVERRRR!!";
 	}
 
+	public function verifyReview()
+	{
+			// $url = $offer->review_link;
+			// $review = $order->review;
+			return $this->offer->verifyReview();
+	}
+
 	/**
 	 * Direct a new offer to the quantity-
 	 * selection page

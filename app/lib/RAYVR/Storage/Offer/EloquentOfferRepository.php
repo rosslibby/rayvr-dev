@@ -2,17 +2,19 @@
 
 use RAYVR\Storage\Category\CategoryRepository as CategoryRepo;
 
-use Offer, Interest, User, Omnipay\Omnipay, Auth, Reimbursement, Mail, Matches, OfferPack, Blacklist, Voucher, Category;
+use Offer, Interest, User, Omnipay\Omnipay, Auth, Reimbursement, Mail, Matches, OfferPack, Blacklist, Voucher, Category, Copycat, Order;
 
 class EloquentOfferRepository implements OfferRepository {
 
 	protected $category;
 	protected $user;
+	protected $order;
 
-	public function __construct(CategoryRepo $category, User $user)
+	public function __construct(CategoryRepo $category, User $user, Order $order)
 	{
 		$this->category = $category;
 		$this->user = $user;
+		$this->order = $order;
 
 		/**
 		 * Set up Omnipay
@@ -35,6 +37,92 @@ class EloquentOfferRepository implements OfferRepository {
 	public function approved()
 	{
 		return Offer::where('approved', true)->get();
+	}
+
+	public function verifyReview()
+	{
+		/**
+		 * Initiate array to store all reviews that we
+		 * run in
+		 */
+		$reviews = [];
+
+		/**
+		 * Find all orders with reviews that have been
+		 * submitted and not verified
+		 */
+		$orders = Order::where('review','!=','')->where('completed',false)->get();
+		foreach($orders as $order)
+		{
+			/**
+			 * Get the review text as submitted by the user
+			 */
+			$review = $order->review;
+
+			/**
+			 * Get the review page link as submitted by the business
+			 */
+			$url = Offer::where('id','=',$order->offer_id)->get(['review_link'])[0]->review_link;
+
+			/**
+			 * Remove ending punctuation from $review
+			 */
+			$review = substr($review, 0, strlen($review) - 1);
+
+			/**
+			 * Make sure the review page is sorted by descending order
+			 * according to date posted
+			 */
+			if(substr($url, -34) != '&sortBy=bySubmissionDateDescending')
+			{
+				$copyUrl = $url;
+				if(strstr($copyUrl, '&sortBy='))
+				{
+					$url = explode('&sortBy=',$url);
+					$url = $url[0];
+				}
+				$url = $url.'&sortBy=bySubmissionDateDescending';
+			}
+
+			/**
+			 * Start ye old page scraper
+			 */
+			$cc = new Copycat;
+			$cc->setCURL([
+				CURLOPT_RETURNTRANSFER => 1,
+				CURLOPT_CONNECTTIMEOUT => 5,
+				CURLOPT_HTTPHEADER, "Content-Type: text/html; charset=iso-8859-1",
+				CURLOPT_USERAGENT => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1312.57 Safari/537.17',
+				CURLOPT_PROGRESSFUNCTION => 'callback'
+			]);
+
+			$text = '/\b'.str_replace('/', '\/', preg_quote($review)).'\b/';
+
+			$cc->match([
+				'review' => $text
+			])->URLs($url);
+
+			/**
+			 * Return an array of the data
+			 */
+			$result = [
+				'review' => $cc->get()[0]['review']
+			];
+
+			if($cc->get()[0]['review'])
+			{
+				array_push($reviews, $cc->get()[0]['review']);
+
+				/**
+				 * Set the order as completed
+				 */
+				$order->completed = true;
+				$order->save();
+			}
+			else
+				array_push($reviews, 'fail');
+		}
+		return $reviews;
 	}
 
 	public function offerStart($date)

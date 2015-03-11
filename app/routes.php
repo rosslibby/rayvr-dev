@@ -18,10 +18,10 @@ Route::get('register/welcome', [
 /**
  * Route for testing anything
  */
-Route::get('test', function(){
-	// something
-	return Stripe_Customer::all();
-});
+Route::get('test', [
+	'uses' => 'OffersController@verifyReview',
+	'as' => 'test'
+]);
 
 Route::group(['before' => 'csrf'], function()
 {

@@ -18,6 +18,11 @@ interface OfferRepository {
 	public function approved();
 
 	/**
+	 * Verify reviews
+	 */
+	public function verifyReview();
+
+	/**
 	 * Retreive approved offers
 	 * starting on a particular
 	 * date
