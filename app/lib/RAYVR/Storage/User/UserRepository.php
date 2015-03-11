@@ -75,11 +75,23 @@ interface UserRepository {
 	public function current($user);
 
 	/**
+	 * Get all the user's Stripe
+	 * billing information
+	 */
+	public function stripeData($user);
+
+	/**
 	 * Bill business for all 
 	 * redeemed offers and their
 	 * associated shipping costs
 	 */
 	public function postpay($offer);
+
+	/**
+	 * Verify that a credit card
+	 * is real and active
+	 */
+	public function verify($customer, $card, $user);
 
 	/**
 	 * Subscribe businesses to

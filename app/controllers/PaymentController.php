@@ -29,7 +29,7 @@ class PaymentController extends BaseController {
 
 	public function billing()
 	{
-		return View::make('forms.payment.card');
+		return View::make('forms.payment.card')->with('data', $this->user->stripeData(Auth::user()));
 		// return $this->user->postpay($this->offer->find(5));
 	}
 
@@ -43,7 +43,7 @@ class PaymentController extends BaseController {
 		/**
 		 * Show a thank-you message
 		 */
-		return Redirect::to('payments')->with('success', 'Your payment information has been saved successfully.');
+		return Redirect::to('billing')->with('success', 'Your payment information has been saved successfully.');
 	}
 
 	public function offers()

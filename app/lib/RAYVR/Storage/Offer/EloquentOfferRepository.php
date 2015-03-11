@@ -1,15 +1,15 @@
 <?php namespace RAYVR\Storage\Offer;
 
 use RAYVR\Storage\Category\CategoryRepository as CategoryRepo;
-use RAYVR\Storage\User\UserRepository as UserRepo;
 
 use Offer, Interest, User, Omnipay\Omnipay, Auth, Reimbursement, Mail, Matches, OfferPack, Blacklist, Voucher, Category;
 
 class EloquentOfferRepository implements OfferRepository {
 
 	protected $category;
+	protected $user;
 
-	public function __construct(CategoryRepo $category, UserRepo $user)
+	public function __construct(CategoryRepo $category, User $user)
 	{
 		$this->category = $category;
 		$this->user = $user;
@@ -203,15 +203,34 @@ class EloquentOfferRepository implements OfferRepository {
 				 * females, exclude males
 				 */
 
-				if($offer['male'] && !$offer['female'])
+				if(array_key_exists('female', $offer) && array_key_exists('male', $offer))
 				{
-					if($user->gender)
-						break;
+					if($offer['male'] && !$offer['female'])
+					{
+						if($user->gender)
+							break;
+					}
+					else if(!$offer['male'] && $offer['female'])
+					{
+						if(!$user->gender)
+							break;
+					}
 				}
-				else if(!$offer['male'] && $offer['female'])
+				else if(array_key_exists('female', $offer))
 				{
-					if(!$user->gender)
-						break;
+					if($offer['female'])
+					{
+						if(!$user->gender)
+							break;
+					}
+				}
+				else
+				{
+					if($offer['male'])
+					{
+						if($user->gender)
+							break;
+					}
 				}
 
 				/**

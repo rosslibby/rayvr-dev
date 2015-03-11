@@ -7,8 +7,11 @@
 <li class="{{ Request::is('billing') ? 'active' : '' }}"><a href="/billing"><span class="glyphicon glyphicon-credit-card"></span>&nbsp;&nbsp;&nbsp;&nbsp;Billing</a></li>
 @endif
 
-{{-- If the preferences have been completed, show the "add offer" form --}}
+{{-- If the preferences have been completed, show the "billing" form --}}
 @if(Auth::user()->first_name && Auth::user()->last_name && Auth::user()->email && Auth::user()->address && Auth::user()->city && Auth::user()->country && Auth::user()->zip && Auth::user()->phone)
+	<li class="{{ Request::is('billing') ? 'active' : '' }}"><a href="/billing"><span class="glyphicon glyphicon-credit-card"></span>&nbsp;&nbsp;&nbsp;&nbsp;Billing</a></li>
+@endif
+@if(count(Billing::where('user_id', Auth::user()->id)->get()) > 0)
 	<li class="{{ Request::is('offers/add') ? 'active' : '' }}"><a href="/offers/add"><span class="glyphicon glyphicon-tag"></span>&nbsp;&nbsp;&nbsp;&nbsp;New Offer</a></li>
 @endif
 {{-- Always show the Preferences and Support options --}}

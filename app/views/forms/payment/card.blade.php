@@ -8,6 +8,11 @@
 @section('contentarea')
 	<div class="header-wrapper">
 		<div class="text-center">
+			@if(Session::has('success'))
+				<div class="row">
+					<div class="alert alert-success alert-dismissable col-md-6 col-md-offset-3"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&#10005;</button> <strong>Success!</strong> {{ Session::get('success') }}</div>
+				</div>
+			@endif
 			<h2 class="fg-scheme-white"><span class="glyphicon glyphicon-credit-card"></span>&nbsp;Billing</h2>
 		</div>
 	</div>
@@ -16,7 +21,7 @@
 @section('content')
 	<div class="col-md-12 inset-form-container row-dark-blue">
 
-		{{ Form::open(['route' => 'payments', 'id' => 'payment-form']) }}
+		{{ Form::open(['route' => 'billing', 'id' => 'payment-form']) }}
 
 			<span class="payment-errors"></span>
 
@@ -67,4 +72,20 @@
 
 			{{ Form::button('Add payment method', ['type' => 'submit', 'class' => 'btn btn-info']) }}
 		{{ Form::close() }}
+
+		<div class="fg-scheme-white row">
+			{{-- Details --}}
+			<div class="col-md-12">
+				@foreach($data['customer']->sources->data as $card)
+				{{--*/ $class = "fa fa-cc-".strtolower($card->brand) /*--}}
+					<p>Card: <strong>************{{ $card->last4 }} / <i class="{{ $class }}"></i> {{ $card->funding }} / Exp. {{ $card->exp_month }}/{{ $card->exp_year }}</strong></p>
+				@endforeach
+			{{--	<p>Card: <strong>************{{ $card->last4 }} / <i class="fa fa-cc-{{ $card->brand }}"></i> {{ $card->funding }} / Exp. {{ $card->exp_month }}/{{ $card->exp_year }}</strong></p> --}}
+				@foreach($data['charges'] as $charge)
+				<p>Charge: <strong>${{ $charge->charge }}</strong></p>
+				<hr class="dashed">
+				@endforeach
+			</div>
+		</div>
+	</div>
 @stop

@@ -147,15 +147,7 @@ Route::group(['before' => 'csrf'], function()
 			'uses' => 'PaymentController@billing',
 			'as' => 'billing'
 		]);
-
-		/**
-		 * Payment routes
-		 */
-		Route::get('payments', [
-			'uses' => 'PaymentController@membership',
-			'as' => 'payments'
-		]);
-		Route::post('payments', [
+		Route::post('billing', [
 			'uses' => 'PaymentController@subscribe',
 			'as' => 'payments'
 		]);

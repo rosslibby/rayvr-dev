@@ -1,6 +1,6 @@
 <?php namespace RAYVR\Storage\User;
 
-use User, Matches, Mail, Blacklist, Validator, View, Offer, Order, Omnipay\Omnipay, Voucher, Deposit, OfferPack, Stripe;
+use User, Matches, Mail, Blacklist, Validator, View, Offer, Order, Omnipay\Omnipay, Voucher, Deposit, OfferPack, Stripe, Billing, Charge;
 use RAYVR\Storage\Offer\OfferRepository as OfferRepo;
 use Hashids\Hashids as Hashids;
 use Illuminate\Support\Facades\Hash;
@@ -432,6 +432,19 @@ class EloquentUserRepository implements UserRepository {
 				->get();
 	}
 
+	public function stripeData($user)
+	{
+		$customer = \Stripe_Customer::retrieve($user->stripe_customer);
+		$charges = Charge::where('user_id', $user->id)->get();
+
+		$data = [
+			'customer' => $customer,
+			'charges' => $charges
+		];
+
+		return $data;
+	}
+
 	public function createCustomer($input, $user)
 	{
 		/**
@@ -451,21 +464,52 @@ class EloquentUserRepository implements UserRepository {
 
 		/**
 		 * Create a new Stripe customer
+		 * if one does not already exist
+		 * for this user
 		 */
 
-		$customer = \Stripe_Customer::create([
-			'card' => $token,
-			'description' => 'Lifetime free membership for user #'.$user_id,
-			'email' => $email
-		]);
+		if(!$user->stripe_customer)
+		{
+			$customer = \Stripe_Customer::create([
+				'description' => 'Lifetime free membership for user #'.$user_id,
+				'source' => $token,
+				'email' => $email
+			]);
+
+			/**
+			 * Save the customer ID with its associated user
+			 */
+			$user->stripe_customer = $customer->id;
+			$user->save();
+			$card = $customer->sources->data->first();
+		}
+		else
+		{
+			$customer = \Stripe_Customer::retrieve($user->stripe_customer);
+			/**
+			 * Create a card with the customer
+			 */
+			$card = $customer->sources->create([
+				'source' => $token
+			]);
+
+			/**
+			 * Insert this card into the billing table
+			 */
+			$billing = new Billing();
+			$billing->user_id = $user->id;
+			$billing->stripe_id = $card->id;
+			$billing->save();
+		}
 
 		/**
-		 * Save the customer ID with its associated user
+		 * Verify that the card is valid
+		 * and functional
 		 */
-		$user->stripe_customer = $customer->id;
-		$user->save();
+		$verify = $this->verify($customer, $card, $user);
+		return 'hahaha';
 
-		return $customer;
+		return $verify;
 	}
 
 	public function postpay($offer)
@@ -519,7 +563,54 @@ class EloquentUserRepository implements UserRepository {
 			'currency' => 'usd',
 			'customer' => $customer
 		]);
+
+		/**
+		 * Store the charge
+		 */
+		$charge = new Charge();
+		$charge->user_id = $offer->business_id;
+		$charge->charge_id = $response->id;
+		$charge->card_id = $customer->sources->data->id;
+		$charge->charge = ($sum/100);
+		$charge->save();
+
 		return $response;
+	}
+
+	public function verify($customer, $card, $user)
+	{
+		$response = \Stripe_Charge::create([
+			'amount' => 100,
+			'currency' => 'usd',
+			'customer' => $customer,
+			'source' => $card
+		]);
+
+		/**
+		 * Store the charge
+		 */
+		$charge = new Charge();
+		$charge->user_id = $user->id;
+		$charge->charge_id = $response->id;
+		$charge->card_id = $card->id;
+		$charge->charge = 1.00;
+		$charge->save();
+
+		/**
+		 * If the charge was successfull:
+		 * 1. Set the billing status to
+		 * "verified"
+		 * 2. Refund the charge
+		 */
+		if($response->paid && !$response->refunded)
+		{
+			$billing = Billing::where('stripe_id', $card->id)->first();
+			$billing->verified = true;
+			$billing->save();
+
+			$ch = \Stripe_Charge::retrieve($response->id);
+			$re = $ch->refunds->create();
+		}
 	}
 
 	public function subscribe($input, $user)
