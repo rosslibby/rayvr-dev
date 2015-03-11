@@ -79,6 +79,7 @@
 				@foreach($data['customer']->sources->data as $card)
 				{{--*/ $class = "fa fa-cc-".strtolower($card->brand) /*--}}
 					<p>Card: <strong>************{{ $card->last4 }} / <i class="{{ $class }}"></i> {{ $card->funding }} / Exp. {{ $card->exp_month }}/{{ $card->exp_year }}</strong></p>
+					<hr class="dashed">
 				@endforeach
 			{{--	<p>Card: <strong>************{{ $card->last4 }} / <i class="fa fa-cc-{{ $card->brand }}"></i> {{ $card->funding }} / Exp. {{ $card->exp_month }}/{{ $card->exp_year }}</strong></p> --}}
 				@foreach($data['charges'] as $charge)

@@ -55,7 +55,7 @@ class LandingController extends BaseController {
 						 * the membership page
 						 */
 						if((Auth::user()->trial_ends_at < date('Y-m-d') && Auth::user()->subscription_ends_at < ('Y-m-d')) || !Auth::user()->stripe_plan)
-							return Redirect::to('payments');
+							return Redirect::to('billing');
 						else
 							return Redirect::to('offers/track');
 					}
@@ -69,7 +69,7 @@ class LandingController extends BaseController {
 					if(!Auth::user()->address || !Auth::user()->email || !Auth::user()->first_name || !Auth::user()->last_name || !Auth::user()->zip || !Auth::user()->country || !Auth::user()->phone)
 						return Redirect::to('settings');
 					else if(!Auth::user()->stripe_plan)
-						return Redirect::to('payments');
+						return Redirect::to('billing');
 					else
 						return Redirect::to('offers/track');
 				}
