@@ -30,6 +30,7 @@ class OfferPay extends ScheduledCommand {
 	 */
 	public function __construct(RAYVR\Storage\Offer\OfferRepository $offer)
 	{
+		
 		$this->offer = $offer;
 		parent::__construct();
 	}
