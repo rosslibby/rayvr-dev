@@ -84,6 +84,11 @@ interface OfferRepository {
 	 */
 	public function distribute();
 
+	/**
+	 * Charge for offers
+	 */
+	public function closeOffers();
+
 	/*****************************
 	 ** AS OF 03/07/2015 WE ARE **
 	 ** NO LONGER CHECKING      **

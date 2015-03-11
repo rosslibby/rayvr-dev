@@ -1,6 +1,7 @@
 <?php namespace RAYVR\Storage\Offer;
 
 use RAYVR\Storage\Category\CategoryRepository as CategoryRepo;
+use RAYVR\Storage\User\UserRepository as UserRepo;
 
 use Offer, Interest, User, Omnipay\Omnipay, Auth, Reimbursement, Mail, Matches, OfferPack, Blacklist, Voucher, Category;
 
@@ -8,9 +9,10 @@ class EloquentOfferRepository implements OfferRepository {
 
 	protected $category;
 
-	public function __construct(CategoryRepo $category)
+	public function __construct(CategoryRepo $category, UserRepo $user)
 	{
 		$this->category = $category;
+		$this->user = $user;
 
 		/**
 		 * Set up Omnipay
@@ -963,6 +965,17 @@ class EloquentOfferRepository implements OfferRepository {
 				}
 			}
 		}
+	}
+
+	public function closeOffers()
+	{
+		$date = date('Y-m-d');
+		$offers = Offer::where('end',$date)->get();
+		foreach($offers as $offer)
+		{
+			$this->user->postpay($offer);
+		}
+		return 'Donedonedonedonnnnnnnnnnnnnne';
 	}
 
 	/*****************************

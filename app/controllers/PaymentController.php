@@ -29,7 +29,8 @@ class PaymentController extends BaseController {
 
 	public function billing()
 	{
-		return $this->user->postpay($this->offer->find(5));
+		return View::make('forms.payment.card');
+		// return $this->user->postpay($this->offer->find(5));
 	}
 
 	public function subscribe()
