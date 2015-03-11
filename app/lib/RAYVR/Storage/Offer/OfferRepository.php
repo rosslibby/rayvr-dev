@@ -35,6 +35,12 @@ interface OfferRepository {
 	public function deny($id, $reason);
 
 	/**
+	 * Find maximum number of matches
+	 * for a new offer
+	 */
+	public function maxMatches($offer, $business);
+
+	/**
 	 * Match user with offer
 	 */
 	public function matchUser($user, $offer);

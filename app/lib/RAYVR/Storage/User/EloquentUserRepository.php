@@ -132,21 +132,31 @@ class EloquentUserRepository implements UserRepository {
 			}
 
 			$c = User::create($input);
-			$c->invite_code = $this->hashids->encode($c->id);;
+			$c->invite_code = $this->hashids->encode($c->id);
 
-			/**
-			 * If the user is a business, give
-			 * the user 15 offers
-			 */
-			if($c->business)
-			{
-				$offerPack = new OfferPack();
-				$offerPack->user_id = $c->id;
-				$offerPack->total = 15;
-				$offerPack->remaining = 15;
-				$offerPack->cost = 0.0;
-				$offerPack->save();
-			}
+			/*****************************
+			 ** AS OF 03/07/2015 WE ARE **
+			 ** NO LONGER CHECKING      **
+			 ** WHETHER THE BUSINESS    **
+			 ** OWNS ANY NUMBER OF      **
+			 ** "OFFER PACKS", AS THIS  **
+			 ** OPTION IS BEING REMOVED **
+			 ** ENTIRELY                **
+			 *****************************/
+
+			// /**
+			//  * If the user is a business, give
+			//  * the user 15 offers
+			//  */
+			// if($c->business)
+			// {
+			// 	$offerPack = new OfferPack();
+			// 	$offerPack->user_id = $c->id;
+			// 	$offerPack->total = 15;
+			// 	$offerPack->remaining = 15;
+			// 	$offerPack->cost = 0.0;
+			// 	$offerPack->save();
+			// }
 
 			return [true, $c];
 		} else {

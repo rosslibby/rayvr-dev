@@ -6,6 +6,7 @@
 {{ HTML::script( 'resources/js/jquery.fs.stepper.min.js' ) }}
 {{ HTML::script( 'resources/js/jquery.fs.selecter.js' ) }}
 {{ HTML::script( 'resources/js/bootstrap-datepicker.js' ) }}
+{{ HTML::script( 'resources/js/bootstrap-slider.js' ) }}
 
 <script>
 
@@ -117,6 +118,21 @@ $(document).ready(function(){
 
 	/** Date range **/
 	$('.input-daterange').datepicker();
+
+	/** Free shipping = no cost to ship **/
+	$("#free_shipping + ins").click(function(){
+		$("#shippingCost").slideToggle();
+	});
+
+	/** Offer maximum slider **/
+	var quotaSlider = $("#quotaSlider").slider({
+		tooltip: 'always'
+	});
+
+	$("#quotaSlider").change(function(){
+		$("#totalCost").html(quotaSlider.slider('getValue') * 5);
+		$("#numOffers").html(quotaSlider.slider('getValue'));
+	});
 });
 </script>
 

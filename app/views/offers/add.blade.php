@@ -40,7 +40,7 @@
 @section('content')
 <br>
 <br>
-{{ Form::open(['route' => 'offers.store', 'files' => true]) }}
+{{ Form::open(['route' => 'offers.quota', 'files' => true]) }}
 <div class="content-wrapper">
 	<div class="col-md-10 col-md-offset-1">
 		<h3 class="raleway">Step 1: <span class="light">Product Information</span></h3>
@@ -60,28 +60,11 @@
 				{{ Form::text('title', $title, ['id' => 'title_input', 'class' => 'hidden-input']) }}
 			</div>
 		</div>
-		<h3 class="raleway">Step 2: <span class="light">Voucher Code</span></h3>
-		<hr class="dashed">
-
-		<div class="row">
-			<br>
-			<div class="col-md-5">
-				<p class="h4">{{ Form::label('code', 'Multi-use Discount Code', ['class' => 'control-label raleway h4 light']) }}&nbsp;<i class="fa fa-tag"></i></p>
-				<p>{{ Form::text('code', null, ['id' => 'code', 'class' => 'form-control subtle-input']) }}</p>
-			</div>
-			<div class="col-md-2 text-center">
-				<h2 class="raleway light">or</h2>
-			</div>
-			<div class="col-md-5">
-				<p class="h4">{{ Form::label('codes', 'Single-use Discount Codes', ['class' => 'control-label raleway h4 light']) }}&nbsp;<i class="fa fa-tags"></i></p>
-				<p><span class="btn btn-info btn-file">Upload a file<span id="codeFileName"></span>{{ Form::file('codes', null, ['id' => 'codes', 'class' => 'form-control']) }}</span></p>
-			</div>
-		</div>
 
 		<br>
 		<br>
 		<!-- Review page link -->
-		<h3 class="raleway">Step 3: <span class="light">Link to Review Page</span></h3>
+		<h3 class="raleway">Step 2: <span class="light">Link to Review Page</span></h3>
 		<hr class="dashed">
 
 		<div class="row">
@@ -95,10 +78,10 @@
 		<br>
 		<br>
 		<!-- Quota & Dates -->
-		<h3 class="raleway">Step 4: <span class="light">Offer Details</span></h3>
+		<h3 class="raleway">Step 3: <span class="light">Start &amp; End Dates</span></h3>
 		<hr class="dashed">
 
-		<div class="row">
+		{{-- <div class="row">
 			<br>
 			<!-- Number of offers -->
 			<div class="col-md-6">
@@ -107,11 +90,11 @@
 			</div>
 		</div>
 		<br>
-		<hr>
+		<hr> --}}
 		<div class="row">
 			<!-- Date range -->
 			<div class="col-md-6">
-				<p class="h4">{{ Form::label('date', 'Preferred Start Date', ['class' => 'control-label raleway h4 light']) }}&nbsp;<i class="fa fa-calendar"></i></p>
+				<p class="h4">{{ Form::label('date', 'Preferred start &amp; end dates', ['class' => 'control-label raleway h4 light']) }}&nbsp;<i class="fa fa-calendar"></i></p>
 				<div class="sandbox-container">
 					<div class="input-daterange input-group col-md-12" id="datepicker">
 						{{--*/
@@ -139,7 +122,7 @@
 		<br>
 		<br>
 		<!-- Shipping Information -->
-		<h3 class="raleway">Step 5: <span class="light">Shipping Information</span></h3>
+		<h3 class="raleway">Step 4: <span class="light">Shipping Information</span></h3>
 		<hr class="dashed">
 
 		<div class="row">
@@ -173,25 +156,25 @@
 					</div>
 				</div>
 			</div> --}}
-				<div class="row">
-					<div class="col-md-12">
-						<p class="h5">{{ Form::label('free_shipping', 'Is this product eligible for free shipping?', ['class' => 'control-label raleway h5 light']) }}</p>
+				<div class="col-md-12">
+					<p class="h5">{{ Form::label('free_shipping', 'Is this product eligible for free shipping? (This does not include shipping to Prime&trade; users)', ['class' => 'control-label raleway h5 light']) }}</p>
+					<div class="col-md-4">
 						<div class="col-md-4">
-							<div class="col-md-4">
-								<div class="radio">
-									{{ Form::radio('free_shipping', '1', false) }}
-									{{ Form::label('free_shipping', 'Yes') }}
-								</div>
+							<div class="radio" id="shipFree">
+								{{ Form::radio('free_shipping', '1', false) }}
+								{{ Form::label('free_shipping', 'Yes') }}
 							</div>
-							<div class="col-md-4">
-								<div class="radio">
-									{{ Form::radio('free_shipping', '0', true) }}
-									{{ Form::label('free_shipping', 'No') }}
-								</div>
+						</div>
+						<div class="col-md-4">
+							<div class="radio">
+								{{ Form::radio('free_shipping', '0', true) }}
+								{{ Form::label('free_shipping', 'No') }}
 							</div>
 						</div>
 					</div>
 				</div>
+			</div>
+			<div id="shippingCost">
 				<hr>
 				<div class="row">
 					<div class="col-md-6">
@@ -201,12 +184,12 @@
 						</div>
 					</div>
 				</div>
-		</div>
+			</div>
 
 		<br>
 		<br>
 		<!-- Demographic information -->
-		<h3 class="raleway">Step 6: <span class="light">Target Audience</span></h3>
+		<h3 class="raleway">Step 5: <span class="light">Target Audience</span></h3>
 		<hr class="dashed">
 
 		<div class="row">
@@ -227,7 +210,7 @@
 					</div>
 					<div class="col-md-3">
 						<div class="checkbox">
-							{{ Form::checkbox('male', '0', null, ['id' => 'male']) }}
+							{{ Form::checkbox('male', '1', null, ['id' => 'male']) }}
 							{{ Form::label('male', 'Male') }}
 						</div>
 					</div>
@@ -286,7 +269,7 @@
 
 		<div class="row">
 			<div class="col-md-11 text-right">
-				{{ Form::submit('Submit Offer', ['class' => 'btn btn-primary']) }}
+				{{ Form::submit('Continue to next step &rarr;', ['class' => 'btn btn-primary']) }}
 			</div>
 		</div>
 		{{ Form::close() }}

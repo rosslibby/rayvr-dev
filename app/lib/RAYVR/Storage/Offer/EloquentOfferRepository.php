@@ -1,14 +1,14 @@
 <?php namespace RAYVR\Storage\Offer;
 
-use RAYVR\Storage\Category\CategoryRepository as Category;
+use RAYVR\Storage\Category\CategoryRepository as CategoryRepo;
 
-use Offer, Interest, User, Omnipay\Omnipay, Auth, Reimbursement, Mail, Matches, OfferPack, Blacklist, Voucher;
+use Offer, Interest, User, Omnipay\Omnipay, Auth, Reimbursement, Mail, Matches, OfferPack, Blacklist, Voucher, Category;
 
 class EloquentOfferRepository implements OfferRepository {
 
 	protected $category;
 
-	public function __construct(Category $category)
+	public function __construct(CategoryRepo $category)
 	{
 		$this->category = $category;
 
@@ -132,6 +132,107 @@ class EloquentOfferRepository implements OfferRepository {
 			return "<p>The offer for <em>" . $offer->title . "</em> has been denied.</p>";
 		}
 		return "The offer was not denied. Don't ask me why, I'm just the messenger.";
+	}
+
+	public function maxMatches($offer, $business)
+	{
+		/**
+		 * Returns $maxCount which shows
+		 * how many users are eligible
+		 * for the new offer
+		 */
+		$maxCount = 0;
+
+		/**
+		 * Find all users that have been
+		 * blacklisted from working with
+		 * this business for receiving
+		 * 3 offers in the past
+		 */
+		$blacklisted = json_decode(Blacklist::where('business_id', $business->id)
+						->where('times',3)->get(['user_id']), true);
+
+		/**
+		 * Set up an empty array to store
+		 * the blacklisted users' IDs
+		 */
+		$blacklistArr = [];
+
+		/**
+		 * Iterate through $blacklisted
+		 * and fetch the ID of each user
+		 * to store in the $blacklistArr
+		 */
+		foreach($blacklisted as $blacklist)
+		{
+			$userid = $blacklist['user_id'];
+			array_push($blacklistArr, $userid);
+		}
+
+		/**
+		 * Implode $blacklistArr so that
+		 * it can be checked against in
+		 * the database query
+		 */
+		$blacklistArr = implode(',', $blacklistArr);
+
+		$users = [];
+
+		$categories = Category::whereIn('id', $offer['interest'])->get();
+
+		$userArr = User::whereNotIn('id', [$blacklistArr])->get();
+		if(!empty($userArr))
+		{
+			foreach($userArr as $user)
+			{
+				/**
+				 * Make sure the user's gender
+				 * does not conflict with the
+				 * offer's parameters
+				 */
+
+				/**
+				 * If the offer requires males
+				 * and excludes females, exclude
+				 * females
+				 * 
+				 * Conversely, if the offer
+				 *  excludes males and requires
+				 * females, exclude males
+				 */
+
+				if($offer['male'] && !$offer['female'])
+				{
+					if($user->gender)
+						break;
+				}
+				else if(!$offer['male'] && $offer['female'])
+				{
+					if(!$user->gender)
+						break;
+				}
+
+				/**
+				 * Find any categories the $user
+				 * has in common with the $offer
+				 */
+				foreach($user->interest as $interest)
+				{
+					$common = false;
+					foreach($categories as $category)
+					{
+						if($category->id == $interest->cat_id)
+						{
+							$common = true;
+							$maxCount++;
+							break 2;
+						}
+					}
+				}
+			}
+		}
+
+		return $maxCount;
 	}
 
 	public function matchUser($user, $offer)

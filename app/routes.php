@@ -338,18 +338,18 @@ Route::group(['before' => 'csrf'], function()
 	/**
 	 * Session routes
 	 */
-	Route::get('login', array(
+	Route::get('login', [
 		'uses' => 'SessionController@create',
 		'as' => 'session.create'
-	));
-	Route::post('login', array(
+	]);
+	Route::post('login', [
 		'uses' => 'SessionController@store',
 		'as' => 'session.store'
-	));
-	Route::get('logout', array(
+	]);
+	Route::get('logout', [
 		'uses' => 'SessionController@destroy',
 		'as' => 'session.destroy'
-	));
+	]);
 
 	Route::group(['before' => 'auth'], function()
 	{
@@ -360,7 +360,12 @@ Route::group(['before' => 'csrf'], function()
 
 		Route::get('offers/add', 'OffersController@add');
 
-		Route::post('offers', [
+		Route::post('offers/add', [
+			'uses' => 'OffersController@quota',
+			'as' => 'offers.quota'
+		]);
+
+		Route::post('offers/quota', [
 			'uses' =>  'OffersController@store',
 			'as' => 'offers.store'
 		]);

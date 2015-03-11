@@ -4,16 +4,17 @@
 	<title>RAYVR Business Dashboard</title>
 
 	<!-- Load styles -->
-	{{ HTML::style( asset('resources/css/bootstrap.min.css') ) }}
-	{{ HTML::style( asset('resources/css/bootflat.css') ) }}
-	{{ HTML::style( asset('resources/css/skins/flat/red.css') ) }}
-	{{ HTML::style( asset('resources/css/custom.business.css') ) }}
-	{{ HTML::style( asset('resources/css/jquery.fs.selecter.css') ) }}
-	{{ HTML::style( asset('resources/css/datepicker.css') ) }}
-	{{ HTML::style( asset('//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css') ) }}
-	{{ HTML::style( asset('//fonts.googleapis.com/css?family=Raleway:700,100,400,200') ) }}
-	{{ HTML::style( asset('//fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,700') ) }}
-	{{ HTML::script('https://js.stripe.com/v2/') }}
+	{{ HTML::style( asset( 'resources/css/bootstrap.min.css' ) ) }}
+	{{ HTML::style( asset( 'resources/css/bootflat.css' ) ) }}
+	{{ HTML::style( asset( 'resources/css/skins/flat/red.css' ) ) }}
+	{{ HTML::style( asset( 'resources/css/custom.business.css' ) ) }}
+	{{ HTML::style( asset( 'resources/css/jquery.fs.selecter.css' ) ) }}
+	{{ HTML::style( asset( 'resources/css/datepicker.css' ) ) }}
+	{{ HTML::style( asset( '//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css' ) ) }}
+	{{ HTML::style( asset( '//fonts.googleapis.com/css?family=Raleway:700,100,400,200' ) ) }}
+	{{ HTML::style( asset( '//fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,700' ) ) }}
+	{{ HTML::style( asset( 'resources/css/bootstrap-slider.css' ) ) }}
+	{{ HTML::script( 'https://js.stripe.com/v2/' ) }}
 
 	<!-- In an attempt for AJAX posting... -->
 	<meta name="_token" content="{{ csrf_token() }}" />

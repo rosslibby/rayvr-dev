@@ -170,19 +170,34 @@ class OffersController extends BaseController {
 	}
 
 	/**
+	 * Direct a new offer to the quantity-
+	 * selection page
+	 */
+	public function quota()
+	{
+		$offer = Input::all();
+		Session::put('offer', $offer);
+		$maximum = $this->offer->maxMatches($offer, Auth::user());
+		return View::make('offers.quota')->with('maximum', $maximum);
+	}
+
+	/**
 	 * Store a newly created offer in storage.
 	 *
 	 * @return Response
 	 */
 	public function store()
 	{
-		$data = Input::except('interest');
+		$offer = Session::pull('offer');
+		$final_details = Input::all();
+		$categories = $offer['interest'];
+		$data = array_except($offer, ['interest']);
+		$data = array_merge($data, $final_details);
 
 		/**
 		 * Create the offer
 		 */
 
-		$categories = Input::get('interest');
 		$s = $this->offer->categories($data, $categories, Auth::user()->id);
 
 		/**

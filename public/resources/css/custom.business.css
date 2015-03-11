@@ -346,3 +346,48 @@ input:-webkit-autofill
 
 /** hr break **/
 hr.dashed { border-top: 3px dashed; }
+
+/** required label **/
+label.required::after
+{
+	content:"*";
+	display:block;
+	width:10px;
+	color:#f00;
+	position:absolute;
+	right:4px;
+	top:4px;
+}
+
+/** quota slider pin **/
+.slider-handle.min-slider-handle.round
+{
+	background-image: -webkit-linear-gradient(top, #dfdfdf 0%, #bebebe 100%);
+	background-image: -o-linear-gradient(top, #dfdfdf 0%, #bebebe 100%);
+	background-image: linear-gradient(to bottom, #dfdfdf 0%, #bebebe 100%);
+	background-repeat: repeat-x;
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffdfdfdf', endColorstr='#ffbebebe', GradientType=0);
+	width: 20px;
+	height: 20px;
+	border-radius: 0;
+	-webkit-border-radius: 0;
+	-moz-border-radius: 0;
+	-o-border-radius: 0;
+	-ms-border-radius: 0;
+	top: -5px;
+}
+.slider-handle.min-slider-handle.round:after
+{
+	content: " ";
+	position: absolute;
+	display: block;
+	border-right: 10px solid transparent;
+	border-left: 10px solid transparent;
+	border-top: 10px solid #bebebe;
+	top: 20px;
+	background-image: -webkit-linear-gradient(top, #dfdfdf 0%, #bebebe 100%);
+	background-image: -o-linear-gradient(top, #dfdfdf 0%, #bebebe 100%);
+	background-image: linear-gradient(to bottom, #dfdfdf 0%, #bebebe 100%);
+	background-repeat: repeat-x;
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffdfdfdf', endColorstr='#ffbebebe', GradientType=0);
+}
