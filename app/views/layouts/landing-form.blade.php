@@ -255,6 +255,8 @@
 					@section('inset-form-heading')
 					@show
 				</h3>
+				@section('alternate')
+				@show
 			</div>
 		</div>
 		<br>

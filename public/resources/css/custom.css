@@ -237,6 +237,12 @@ h3.inset-form-heading
 	border-radius: 0;
 }
 
+.inset-form-container textarea.inset-form-input
+{
+	border: 1px solid #4D5F6D;
+	padding: 10px;
+}
+
 .inset-form-container .checkbox label { color: #68778A !important; }
 .inset-form-container .checkbox label a
 {

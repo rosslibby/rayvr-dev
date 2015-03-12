@@ -76,6 +76,11 @@ Every day our program connects people just like you with quality <strong>free of
 Sign Up Today
 @stop
 
+@section('alternate')
+<p class="h5 raleway fg-scheme-dark normal"><em>Registering a business?</em></p>
+<p>{{ HTML::link('business', '&nbsp;Sign up here&nbsp;', ['class' => 'btn btn-success more-height h5 normal']) }}</p>
+@stop
+
 @section('use-form')
 @include('forms.register.inset-user')
 @stop

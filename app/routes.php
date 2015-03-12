@@ -18,10 +18,9 @@ Route::get('register/welcome', [
 /**
  * Route for testing anything
  */
-Route::get('test', [
-	'uses' => 'OffersController@verifyReview',
-	'as' => 'test'
-]);
+Route::get('test', function(){
+	return View::make('landing.contact-new');
+});
 
 Route::group(['before' => 'csrf'], function()
 {
