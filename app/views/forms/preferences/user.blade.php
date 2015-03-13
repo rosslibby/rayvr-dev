@@ -10,7 +10,7 @@
 				@if(Session::has('success'))
 				<div class="alert alert-success alert-dismissable">
 					<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&#10005;</button>
-					<strong>Your settings have been saved</strong>
+					<strong>{{ Session::get('success') }}</strong>
 				</div>
 				@endif
 				<br>
@@ -92,6 +92,10 @@
 							<div class="col-md-2 col-md-offset-2">
 
 								{{--*/
+									/**
+									 * This reflects whether a user is
+									 * male or female
+									 */
 									$gender = $model['gender'];
 									$male = null;
 									$female = null;

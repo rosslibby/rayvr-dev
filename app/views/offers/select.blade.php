@@ -26,12 +26,11 @@
 
 			<div class="col-md-3 text-right">
 				<br>
-				<img src="http://sd.keepcalm-o-matic.co.uk/i/keep-calm-and-choose-wisely-64.png" alt="Keep calm and choose wisely" width="170" class="calm" />
 
 				<br>
 				<br>
 
-				{{ Form::button('DECLINE OFFER&nbsp;&nbsp;&nbsp;<i class=\'fa fa-times\'></i>', ['type' => 'submit', 'name' => 'accept', 'value' => 3, 'class' => 'btn btn-danger h4 raleway more-height']) }}
+				{{ Form::button('DECLINE OFFER&nbsp;&nbsp;&nbsp;<i class="fa fa-times"></i>', ['type' => 'submit', 'name' => 'accept', 'value' => 3, 'class' => 'btn btn-danger h4 raleway more-height']) }}
 
 				<br>
 				<br>
@@ -57,7 +56,6 @@
 
 			<div class="col-md-3 text-left">
 				<br>
-				<img src="http://sd.keepcalm-o-matic.co.uk/i/keep-calm-and-pick-me-83.png" alt="Keep calm and choose wisely" width="170" class="calm" />
 
 				<br>
 				<br>

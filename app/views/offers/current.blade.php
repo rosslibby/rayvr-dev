@@ -47,7 +47,7 @@
 				@elseif($step['step'] === 3)
 					<h3 class="raleway normal">Once you have <strong>received</strong> your offer:</h3>
 					<ol class="raleway larger more-height">
-						<li><strong>try out</strong> your <strong>order confirmation code</strong> in the field below</li>
+						<li><strong>try out</strong> your <strong>order</strong> and write your review on the {{ HTML::link($step['step']['link'], 'product\'s review page', ['target' => '_blank']) }} in the field below</li>
 						<li>click <span class="label label-success"><strong>Submit review&nbsp;&nbsp;<i class="fa fa-check"></i></strong></span></li>
 					</ol>
 					<!--<p class="light fg-scheme-dark"><a href="#" target="_blank">(Need help? Check out our "Order &amp; Confirm" video here.</a>)</p>-->

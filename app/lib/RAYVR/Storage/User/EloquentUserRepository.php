@@ -342,6 +342,16 @@ class EloquentUserRepository implements UserRepository {
 			$voucher->used = true;
 			$voucher->save();
 
+			/*****************************
+			 ** AS OF 03/07/2015 WE ARE **
+			 ** NO LONGER CHECKING      **
+			 ** WHETHER THE BUSINESS    **
+			 ** OWNS ANY NUMBER OF      **
+			 ** "OFFER PACKS", AS THIS  **
+			 ** OPTION IS BEING REMOVED **
+			 ** ENTIRELY                **
+			 *****************************/
+
 			/**
 			 * Decrement the number of
 			 * offers the business has
@@ -351,16 +361,16 @@ class EloquentUserRepository implements UserRepository {
 			 * this is a prime offer
 			 * or a regular offer
 			 */
-			$prime = false;
-			if($match->offer->prime)
-				$prime = true;
-			$pack = $match->offer->business->offerPack()
-									->where('prime', $prime)
-									->where('remaining', '!=', 0)
-									->get()[0];
-			$pack->used = ((int)($pack->used) + 1);
-			$pack->remaining = ((int)($pack->remaining) - 1);
-			$pack->save();
+			// $prime = false;
+			// if($match->offer->prime)
+			// 	$prime = true;
+			// $pack = $match->offer->business->offerPack()
+			// 						->where('prime', $prime)
+			// 						->where('remaining', '!=', 0)
+			// 						->get()[0];
+			// $pack->used = ((int)($pack->used) + 1);
+			// $pack->remaining = ((int)($pack->remaining) - 1);
+			// $pack->save();
 
 			/**
 			 * Schedule an email to
@@ -406,7 +416,7 @@ class EloquentUserRepository implements UserRepository {
 
 			$step_1 = "Step 1. <span class=\"normal\">Order your offer using the code </span><span class=\"label\">" . $current->code . "</span>";
 			$step_2 = "Step 2. <span class=\"normal\">Did you pay anything for shipping? If <strong>no</strong>, just click \"I didn't pay for shipping.\"; otherwise, enter your shipping cost below.";
-			$step_3 = "Step 3. <span class=\"normal\">Try out your offer as soon as you receive it, and leave a review <a href=\"#\" target=\"_blank\">here</a>.</span>";
+			$step_3 = "Step 3. <span class=\"normal\">Try out your offer as soon as you receive it, and leave a review <a href=\"".$current->review_link."\" target=\"_blank\">here</a>. Then, copy + paste the text from your review to the box below to complete your offer!</span>";
 
 			if(!$current->confirmation_number)
 				$step = [
@@ -421,6 +431,7 @@ class EloquentUserRepository implements UserRepository {
 			elseif(!$current->review)
 				$step = [
 					'step'		=> 3,
+					'link'		=> $current->review_link,
 					'message'	=> $step_3
 				];
 

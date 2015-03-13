@@ -182,11 +182,11 @@ class PreferencesController extends BaseController {
 		if($user->save())
 		{
 			if($validator)
-				return Redirect::route('offers.current')
-					->with('flash', 'The user registration is complete');
+				return Redirect::route('user.preferences')
+					->with('success', 'Your preferences have been updated');
 			else
-				return Redirect::to('user/preferences')
-					->with('flash', 'The user registration is not complete');
+				return Redirect::to('user.preferences')
+					->with('success', 'You missed a few fields yo');
 		}
 
 		return Redirect::to('user/preferences')
