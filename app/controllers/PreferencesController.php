@@ -179,6 +179,24 @@ class PreferencesController extends BaseController {
 		 */
 		$this->preference->setInterests($user, $interests);
 
+		/**
+		 * If this is the first time setting
+		 * preferences, redirect the user to
+		 * 'invite your friends' page
+		 */
+		if(!$user->times_updated)
+		{
+			$user->times_updated = 1;
+			$user->save();
+			return Redirect::route('invite')
+				->with('success', 'Your account set is complete.');
+		}
+		else
+		{
+			$user->times_updated = (int)($user->times_updated) + 1;
+			$user->save();
+		}
+
 		if($user->save())
 		{
 			if($validator)

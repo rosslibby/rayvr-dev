@@ -168,6 +168,14 @@ Route::group(['before' => 'csrf'], function()
 	Route::group(['before' => 'user'], function(){
 
 		/**
+		 * Invite your friends page
+		 */
+		Route::get('invite', [
+			'uses' => 'UserController@invite',
+			'as' => 'invite'
+		]);
+
+		/**
 		 * User offer selector
 		 */
 		Route::get('offers/current', [

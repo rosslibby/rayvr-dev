@@ -38,6 +38,14 @@ class UserController extends BaseController {
 	}
 
 	/**
+	 * User invite page
+	 */
+	public function invite()
+	{
+		return View::make('user.invite');
+	}
+
+	/**
 	 * Store a newly created resource in storage.
 	 * POST /preferences
 	 *
