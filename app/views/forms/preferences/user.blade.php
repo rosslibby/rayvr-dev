@@ -17,7 +17,7 @@
 				{{ Form::open(['post' => 'preferences.storeUser', 'class' => 'form-horizontal']) }}
 
 					<div class="form-group">
-						{{ Form::label('first_name', 'First name', ['class' => 'control-label col-md-2']) }}
+						{{ Form::label('first_name', 'First name', ['class' => 'control-label required col-md-2']) }}
 						<div class="col-md-7">
 							{{ Form::text('first_name', $model['first_name'], ['class' => 'form-control required subtle-input']) }}
 						</div>
@@ -26,7 +26,7 @@
 					<hr>
 				
 					<div class="form-group">
-						{{ Form::label('last_name', 'Last name', ['class' => 'control-label col-md-2']) }}
+						{{ Form::label('last_name', 'Last name', ['class' => 'control-label required col-md-2']) }}
 						<div class="col-md-7">
 							{{ Form::text('last_name', $model['last_name'], ['class' => 'form-control required subtle-input']) }}
 						</div>
@@ -35,7 +35,7 @@
 					<hr>
 				
 					<div class="form-group">
-						{{ Form::label('email', 'Email address', ['class' => 'control-label col-md-2']) }}
+						{{ Form::label('email', 'Email address', ['class' => 'control-label required col-md-2']) }}
 						<div class="col-md-7">
 							{{ Form::text('email', $model['email'], ['class' => 'form-control required subtle-input']) }}
 						</div>
@@ -44,7 +44,7 @@
 					<hr>
 				
 					<div class="form-group">
-						{{ Form::label('address', 'Address', ['class' => 'control-label col-md-2']) }}
+						{{ Form::label('address', 'Address', ['class' => 'control-label required col-md-2']) }}
 						<div class="col-md-7">
 							{{ Form::text('address', $model['address'], ['class' => 'form-control required subtle-input']) }}
 						</div>
@@ -62,7 +62,7 @@
 					<hr>
 				
 					<div class="form-group">
-						{{ Form::label('city', 'City', ['class' => 'control-label col-md-2']) }}
+						{{ Form::label('city', 'City', ['class' => 'control-label required col-md-2']) }}
 						<div class="col-md-3">
 							{{ Form::text('city', $model['city'], ['class' => 'form-control subtle-input']) }}
 						</div>
@@ -72,11 +72,11 @@
 						</div>
 					</div>
 					<div class="form-group">
-						{{ Form::label('country', 'Country', ['class' => 'control-label col-md-2']) }}
+						{{ Form::label('country', 'Country', ['class' => 'control-label required col-md-2']) }}
 						<div class="col-md-4">
 							@include('forms.lists.countries')
 						</div>
-						{{ Form::label('zip', 'Zip', ['class' => 'control-label col-md-2']) }}
+						{{ Form::label('zip', 'Zip', ['class' => 'control-label required col-md-2']) }}
 						<div class="col-md-3">
 							{{ Form::text('zip', $model['zip'], ['class' => 'form-control subtle-input']) }}
 						</div>
@@ -86,7 +86,31 @@
 
 					<div class="form-group">
 						<div class="row">
-							{{ Form::label('interests', 'Interests', ['class' => 'control-label col-md-2']) }}
+							{{ Form::label(null, 'Gender', ['class' => 'control-label required col-md-2']) }}
+						</div>
+						<div class="row">
+							<div class="col-md-2 col-md-offset-2">
+
+								{{--*/
+									$gender = $model['gender'];
+									$male = null;
+									$female = null;
+									if(!$gender)
+										$male = 1;
+									elseif($gender)
+										$female = 1;
+								/*--}}
+								<p class="normal col-md-12 text-right">Male&nbsp;&nbsp;{{ Form::radio('gender', '0', $male, ['id' => 'male']) }}</p>
+								<p class="normal col-md-12 text-right">Female&nbsp;&nbsp;{{ Form::radio('gender', '1', $female, ['id' => 'female']) }}</p>
+							</div>
+						</div>
+					</div>
+
+					<hr>
+
+					<div class="form-group">
+						<div class="row">
+							{{ Form::label('interests', 'Interests', ['class' => 'control-label required col-md-2']) }}
 						</div>
 
 						<div class="col-md-12">

@@ -134,6 +134,14 @@ class EloquentUserRepository implements UserRepository {
 			$c = User::create($input);
 			$c->invite_code = $this->hashids->encode($c->id);
 
+			/**
+			 * Assign the user a new
+			 * confirmation string
+			 */
+			$confirmation = $this->hashids->encode(mt_rand(0,100000), mt_rand(0,100000), mt_rand(0, 10000), mt_rand(0, 10000), mt_rand(0, 10000), mt_rand(0, 10000), mt_rand(0, 10000), mt_rand(0, 10000), mt_rand(0, 10000), mt_rand(0, 10000), mt_rand(0, 10000));
+			$c->confirm = $confirmation;
+			$c->save();
+
 			/*****************************
 			 ** AS OF 03/07/2015 WE ARE **
 			 ** NO LONGER CHECKING      **

@@ -7,7 +7,6 @@
 {{ HTML::script( 'resources/js/jquery.fs.selecter.js' ) }}
 {{ HTML::script( 'resources/js/bootstrap-datepicker.js' ) }}
 {{ HTML::script( 'resources/js/bootstrap-slider.js' ) }}
-
 <script>
 
 
@@ -132,6 +131,17 @@ $(document).ready(function(){
 	$("#quotaSlider").change(function(){
 		$("#totalCost").html(quotaSlider.slider('getValue') * 5);
 		$("#numOffers").html(quotaSlider.slider('getValue'));
+	});
+
+	/** Card number separator **/
+	var keyCounter = 0;
+	$("#card").keyup(function(){
+		keyCounter++;
+		console.log($(this).val().length % 4);
+		if(!(keyCounter % 4) && keyCounter < 16)
+		{
+			$(this).val($(this).val() + ' - ');
+		}
 	});
 });
 </script>

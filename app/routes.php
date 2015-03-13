@@ -19,7 +19,7 @@ Route::get('register/welcome', [
  * Route for testing anything
  */
 Route::get('test', function(){
-	return View::make('landing.contact-new');
+	return View::make('forms.payment.sample');
 });
 
 Route::group(['before' => 'csrf'], function()

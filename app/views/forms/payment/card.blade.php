@@ -31,7 +31,8 @@
 							'size' => 20,
 							'data-stripe' => 'number',
 							'class' => 'form-control inset-form-input',
-							'placeholder' => 'Card number'
+							'placeholder' => 'Card number',
+							'id' => 'card'
 						]) }}<span class="input-group-addon"><i class="fa fa-credit-card"></i></span>
 				</div>
 			</div>

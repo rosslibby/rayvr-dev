@@ -157,9 +157,15 @@ class PreferencesController extends BaseController {
 				'city' => 'required',
 				'state' => 'required',
 				'zip' => 'required',
-				'country' => 'required'
+				'country' => 'required',
+				'gender' => 'required'
 			]
 		);
+
+		/**
+		 * Change the string value of gender
+		 * to a boolean
+		 */
 
 		/**
 		 * Save the preferences

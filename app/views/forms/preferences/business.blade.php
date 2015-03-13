@@ -60,7 +60,7 @@
 					<hr>
 				
 					<div class="form-group">
-						{{ Form::label('business_name', 'Business name', ['class' => 'control-label required col-md-2']) }}
+						{{ Form::label('business_name', 'Business name', ['class' => 'control-label col-md-2']) }}
 						<div class="col-md-9">
 							{{ Form::text('business_name', $model['business_name'], ['class' => 'form-control required subtle-input']) }}
 						</div>
@@ -78,7 +78,7 @@
 					<hr>
 				
 					<div class="form-group">
-						{{ Form::label('address_2', 'Address line 2', ['class' => 'control-label required col-md-2']) }}
+						{{ Form::label('address_2', 'Address line 2', ['class' => 'control-label col-md-2']) }}
 						<div class="col-md-9">
 							{{ Form::text('address_2', $model['address_2'], ['class' => 'form-control subtle-input']) }}
 						</div>
@@ -91,7 +91,7 @@
 						<div class="col-md-4">
 							{{ Form::text('city', $model['city'], ['class' => 'form-control subtle-input']) }}
 						</div>
-						{{ Form::label('state', 'State', ['class' => 'control-label required col-md-1']) }}
+						{{ Form::label('state', 'State', ['class' => 'control-label col-md-1']) }}
 						<div class="col-md-4">
 							@include('forms.lists.states')
 						</div>

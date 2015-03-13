@@ -109,6 +109,17 @@ class EloquentPreferenceRepository implements PreferenceRepository {
 		 */
 		$pref = User::find($user);
 		$pref->fill($preferences);
+
+		/**
+		 * Make sure the user didn't skip any fields
+		 */
+		if(!$pref->first_name || !$pref->last_name || !$pref->email || !$pref->address || !$pref->city || !$pref->country || !$pref->zip || !$pref->phone)
+		{
+			$s = $pref->save();
+
+			// return list of empty __required__ fields
+		}
+
 		$s = $pref->save();
 
 		return $s;

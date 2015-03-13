@@ -352,3 +352,18 @@ input:-webkit-autofill
 	-webkit-box-shadow: 0 0 0px 1000px #2E3740 inset;
 	-webkit-text-fill-color: #FFF !important;
 }
+
+/** hr break **/
+hr.dashed { border-top: 3px dashed; }
+
+/** required label **/
+label.required::after
+{
+	content:"*";
+	display:block;
+	width:10px;
+	color:#f00;
+	position:absolute;
+	right:4px;
+	top:4px;
+}
