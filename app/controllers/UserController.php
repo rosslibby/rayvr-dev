@@ -46,6 +46,18 @@ class UserController extends BaseController {
 	}
 
 	/**
+	 * Send user invite
+	 */
+	public function sendInvite()
+	{
+		if(Request::ajax())
+		{
+			$data = Input::all();
+			$this->user->invite($data, Auth::user());
+		}
+	}
+
+	/**
 	 * Store a newly created resource in storage.
 	 * POST /preferences
 	 *

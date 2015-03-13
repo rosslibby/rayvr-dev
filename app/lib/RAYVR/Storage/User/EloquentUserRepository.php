@@ -1,6 +1,6 @@
 <?php namespace RAYVR\Storage\User;
 
-use User, Matches, Mail, Blacklist, Validator, View, Offer, Order, Omnipay\Omnipay, Voucher, Deposit, OfferPack, Stripe, Billing, Charge;
+use User, Matches, Mail, Blacklist, Validator, View, Offer, Order, Omnipay\Omnipay, Voucher, Deposit, OfferPack, Stripe, Billing, Charge, Auth;
 use RAYVR\Storage\Offer\OfferRepository as OfferRepo;
 use Hashids\Hashids as Hashids;
 use Illuminate\Support\Facades\Hash;
@@ -132,7 +132,7 @@ class EloquentUserRepository implements UserRepository {
 			}
 
 			$c = User::create($input);
-			$c->invite_code = $this->hashids->encode($c->id);
+			$c->invite_code = $this->hashids->encode($c->id, mt_rand(100, 100000), mt_rand(100, 100000), mt_rand(100, 100000));
 
 			/**
 			 * Assign the user a new
@@ -759,6 +759,16 @@ class EloquentUserRepository implements UserRepository {
 		Mail::send('emails.forgot-password', ['name' => $user->first_name, 'from' => 'RAYVR Support', 'link' => $link], function($message) use ($user)
 		{
 			$message->to($user->email)->subject('Password Reset Request');
+		});
+	}
+
+	public function invite($data, $user)
+	{
+		$name = $data['name'];
+		$email = $data['email'];
+		Mail::send('emails.invite-user', ['name' => $name, 'from' => $user->first_name.' '.$user->last_name], function($message) use ($name, $email)
+		{
+			$message->to($email)->subject('Hey '.$name.'! You\'re invited to join RAYVR');
 		});
 	}
 }

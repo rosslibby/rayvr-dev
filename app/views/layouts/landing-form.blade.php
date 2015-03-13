@@ -146,7 +146,6 @@
 				</div>
 			</div>
 		</div>
-		<hr>
 		<br>
 		<div class="row source-sans-pro">
 			<!-- Column 5 -->
@@ -245,7 +244,6 @@
 
 <br>
 <br>
-<hr>
 <br>
 <div class="inset-form-container row-dark-blue">
 	<div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">

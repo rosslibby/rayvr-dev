@@ -175,6 +175,11 @@ Route::group(['before' => 'csrf'], function()
 			'as' => 'invite'
 		]);
 
+		Route::post('sendinvite', [
+			'uses' => 'UserController@sendInvite',
+			'as' => 'sendinvite'
+		]);
+
 		/**
 		 * User offer selector
 		 */

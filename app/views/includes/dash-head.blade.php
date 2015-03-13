@@ -16,7 +16,7 @@
 	{{ HTML::style( asset( 'resources/css/bootstrap-slider.css' ) ) }}
 	{{ HTML::script( 'https://js.stripe.com/v2/' ) }}
 
-	<!-- In an attempt for AJAX posting... -->
+	<!-- For AJAX posting -->
 	<meta name="_token" content="{{ csrf_token() }}" />
 
 	<!-- Setting up things -->

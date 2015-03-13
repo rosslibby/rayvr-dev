@@ -111,6 +111,24 @@ class EloquentPreferenceRepository implements PreferenceRepository {
 		$pref->fill($preferences);
 
 		/**
+		 * If this is the first time setting
+		 * preferences, redirect the user to
+		 * 'invite your friends' page
+		 */
+		if(!$user->times_updated)
+		{
+			$user->times_updated = 1;
+			return Redirect::route('invite')
+				->with('success', 'Your account setup is complete.');
+			$user->save();
+		}
+		else
+		{
+			$user->times_updated = (int)($user->times_updated) + 1;
+			$user->save();
+		}
+
+		/**
 		 * Make sure the user didn't skip any fields
 		 */
 		if(!$pref->first_name || !$pref->last_name || !$pref->email || !$pref->address || !$pref->city || !$pref->country || !$pref->zip || !$pref->phone)

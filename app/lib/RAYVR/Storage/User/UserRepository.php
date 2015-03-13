@@ -118,4 +118,9 @@ interface UserRepository {
 	 * Send password reset request
 	 */
 	public function reset($user);
+
+	/**
+	 * Send invite to user from RAYVR
+	 */
+	public function invite($data, $user);
 }

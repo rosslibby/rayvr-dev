@@ -26,6 +26,39 @@ $(document).ready(function(){
 		checkboxClass: 'icheckbox_flat-red',
 		radioClass: 'iradio_flat-red'
 	});
+
+	/** Send the invite via an ajax call **/
+	$("#userInvite").submit(function(e){
+		e.preventDefault();
+		var email = $("input#email").val();
+		var name = $("input#name").val();
+		var code = $("input#invite_code").val();
+
+		/** spin the cog as a progress indicator **/
+		$('#sendInviteCog').addClass('fa-spin');
+
+		$.ajax({
+			type	: "POST",
+			url 	: "sendinvite",
+			headers	: { 'X-CSRF-Token' : $('meta[name="_token"]').attr('content') },
+			data	: { email: email, name: name, code: code },
+			success	: function(data) {
+				$('#sendInviteCog').removeClass('fa-spin');
+				$('#successMsg').html(name + ' has been invited to RAYVR').fadeIn(400);
+				$('#userInvite').find('input[type="text"]').val("");
+				$('#userInvite').find('input[type="email"]').val("");
+			}
+		},"json");
+	});
+
+	/** Simulate generation of an invite code **/
+	$('#generateInvite').click(function(){
+		$('#loadingCog').addClass('fa-spin');
+		setTimeout(function(){
+			$('#loadingCog').removeClass('fa-spin');
+			$('#invite').val($('#hiddenInvite').val());
+		}, 2000);
+	});
 });
 jQuery.validator.setDefaults({
 	success: 'valid',

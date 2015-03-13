@@ -5,6 +5,9 @@
 
 	<!-- Load styles -->
 	@include('includes.styles')
+
+	<!-- For AJAX posting -->
+	<meta name="_token" content="{{ csrf_token() }}" />
 </head>
 <body>
 	<div class="wrapper">
