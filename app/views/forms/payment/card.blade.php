@@ -74,6 +74,7 @@
 			{{ Form::button('Add payment method', ['type' => 'submit', 'class' => 'btn btn-info']) }}
 		{{ Form::close() }}
 
+		@if(!empty($data))
 		<div class="fg-scheme-white row">
 			{{-- Details --}}
 			<div class="col-md-12">
@@ -89,5 +90,6 @@
 				@endforeach
 			</div>
 		</div>
+		@endif
 	</div>
 @stop
