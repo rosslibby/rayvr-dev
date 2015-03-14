@@ -42,7 +42,7 @@ class OfferStarterCommand extends ScheduledCommand {
 	 */
 	public function schedule(Schedulable $scheduler)
 	{
-		return $scheduler->everyMinute();
+		return $scheduler->everyMinutes(1);
 	}
 
 	/**
