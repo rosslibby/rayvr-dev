@@ -503,7 +503,7 @@ class EloquentUserRepository implements UserRepository {
 			 */
 			$user->stripe_customer = $customer->id;
 			$user->save();
-			$card = $customer->sources->data->first();
+			$card = $customer->sources->data;
 		}
 		else
 		{
