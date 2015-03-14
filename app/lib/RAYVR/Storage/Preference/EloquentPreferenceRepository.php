@@ -109,12 +109,6 @@ class EloquentPreferenceRepository implements PreferenceRepository {
 		 */
 		$pref = $user;
 
-		/**
-		 * Take only the last section of the
-		 * profile URL
-		 */
-		$profile = explode('/', $preferences['profile']);
-		$profile = $profile[count($profile) - 1];
 		$pref->fill($preferences);
 
 		/**

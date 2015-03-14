@@ -59,6 +59,9 @@
 				<p class="h4 raleway light" id="product-title">{{ $title }}</p>
 				{{ Form::text('title', $title, ['id' => 'title_input', 'class' => 'hidden-input']) }}
 			</div>
+
+			<!-- Product link -->
+			{{ Form::hidden('link', $link, ['id' => 'link_input', 'class' => 'hidden-input']) }}
 		</div>
 
 		<br>

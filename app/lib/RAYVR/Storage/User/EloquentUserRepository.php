@@ -430,13 +430,7 @@ class EloquentUserRepository implements UserRepository {
 		{
 			$current = $this->current($user)[0];
 
-			/**
-			 * $code will be fetched from $order
-			 * but for now I'll set a filler $code
-			 */
-			$code = 'FILLER09';
-
-			$step_1 = "Step 1. <span class=\"normal\">Order your offer using the code </span><span class=\"label\">" . $current->code . "</span>";
+			$step_1 = "<span class=\"normal\">Copy this promo code to use at checkout </span><span class=\"label\">" . $current->code . "</span>";
 			$step_2 = "Step 2. <span class=\"normal\">Did you pay anything for shipping? If <strong>no</strong>, just click \"I didn't pay for shipping.\"; otherwise, enter your shipping cost below.";
 			$step_3 = "Step 3. <span class=\"normal\">Try out your offer as soon as you receive it, and leave a review <a href=\"".$current->review_link."\" target=\"_blank\">here</a>. Then, copy + paste the text from your review to the box below to complete your offer!</span>";
 
@@ -444,7 +438,7 @@ class EloquentUserRepository implements UserRepository {
 				$step = [
 					'step'		=> 1,
 					'message'	=> $step_1,
-					'link'		=> $current->link
+					'link'		=> $current->offer->link
 				];
 			elseif(!$current->paid_shipping)
 				$step = [
