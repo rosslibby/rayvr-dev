@@ -149,6 +149,7 @@ html, body { height: 100%; }
 .icon-hollow.icon-briefcase { background-image: url('../img/business/icons/hollow/briefcase.png'); }
 .icon-hollow.icon-speedometer { background-image: url('../img/business/icons/hollow/speedometer.png'); }
 .icon-hollow.icon-lifering { background-image: url('../img/business/icons/hollow/lifering.png'); }
+.icon-hollow.icon-invite { background-image: url('../img/user/icons/hollow/invite-icon.png'); }
 
 /** landing-page registration **/
 

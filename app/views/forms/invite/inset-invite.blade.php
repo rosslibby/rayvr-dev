@@ -4,16 +4,16 @@
 		{{ Form::open(['', 'id' => 'userInvite']) }}
 
 			<div class="form-group required row">
+				<div class="col-md-5 text-left">
+					<button id="generateInvite" class="btn btn-info raleway light"><i class="fa fa-cog fg-scheme-white" id="loadingCog"></i>&nbsp;&nbsp;Generate Invite Code</button>
+				</div>
 				<div class="col-md-7">
 					<div class="input-group">
 						{{--*/ $inviteCode = Auth::user()->invite_code /*--}}
 						{{ Form::hidden('hiddenInvite', $inviteCode, ['id' => 'hiddenInvite']) }}
-						{{ Form::text('invite_code', null, ['id' => 'invite', 'class' => 'form-control inset-form-input']) }}
+						{{ Form::text('invite_code', null, ['id' => 'invite', 'class' => 'form-control inset-form-input', 'placeholder' => 'XXXXXXXXXXXX']) }}
 						<span class="input-group-addon"><i class="fa fa-qrcode"></i></span>
 					</div>
-				</div>
-				<div class="col-md-5 text-right">
-					<i class="fa fa-cog fg-scheme-white" id="loadingCog"></i>&nbsp;&nbsp;{{ Form::button('Generate Invite Code', ['id' => 'generateInvite', 'class' => 'btn btn-info raleway light']) }}
 				</div>
 			</div>
 
