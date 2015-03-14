@@ -46,7 +46,8 @@
 					<div class="form-group">
 						{{ Form::label('profile', 'Amazon&trade; Profile', ['class' => 'control-label required col-md-2']) }}
 						<div class="col-md-7">
-							<p>Click {{ HTML::link('http://www.amazon.com/gp/pdp/profile/', 'this link', ['target' => '_blank']) }} to proceed to your Amazon&trade; review profile. You may be asked to log in. Do so, then copy the URL from the page and return to this page (Preferences). Paste the link in the field below.</p>
+							<p>In order to use RAYVR you must link your Amazon profile to your RAYVR profile. This does not give us access to your Amazon account, it only allows us to verify that you are a legitimate Amazon shopper.</p>
+							<p>Click {{ HTML::link('http://www.amazon.com/gp/pdp/profile/', 'this link', ['target' => '_blank']) }} and, if prompted, login to Amazon. Once you arrive on your profile page, copy the url and paste it in the input below.</p>
 							{{ Form::text('profile', $model['profile'], ['class' => 'form-control required subtle-input']) }}
 						</div>
 					</div>

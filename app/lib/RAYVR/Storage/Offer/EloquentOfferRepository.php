@@ -60,6 +60,17 @@ class EloquentOfferRepository implements OfferRepository {
 			$review = $order->review;
 
 			/**
+			 * Get the user's review profile
+			 */
+			$profile = $order->user()->profile;
+			$profile = 'http://www.amazon.com/gp/cdp/member-reviews/'.end(explode('/', $profile)).'/ref=pdp_new';
+
+			/**
+			 * Get the offer's title
+			 */
+			$title = $order->offer()->title;
+
+			/**
 			 * Get the review page link as submitted by the business
 			 */
 			$url = Offer::where('id','=',$order->offer_id)->get(['review_link'])[0]->review_link;
@@ -96,11 +107,11 @@ class EloquentOfferRepository implements OfferRepository {
 				CURLOPT_PROGRESSFUNCTION => 'callback'
 			]);
 
-			$text = '/\b'.str_replace('/', '\/', preg_quote($review)).'\b/';
+			$text = '/\b'.str_replace('/', '\/', preg_quote($title)).'\b/';
 
 			$cc->match([
 				'review' => $text
-			])->URLs($url);
+			])->URLs($profile);
 
 			/**
 			 * Return an array of the data
@@ -446,6 +457,11 @@ class EloquentOfferRepository implements OfferRepository {
 			 * Determine whether the user has
 			 * been matched with this offer
 			 * in the past
+			 * 
+			 * Also determine whether the
+			 * user is a business. Businesses
+			 * shoul never be matched with
+			 * offers
 			 */
 			$criteria = [
 				'user_id' => $user->id,
@@ -458,7 +474,7 @@ class EloquentOfferRepository implements OfferRepository {
 				if($conflictingMatch)
 					$foundMatch = true;
 			}
-			if(!$foundMatch)
+			if(!$foundMatch && !$user->business)
 			{
 				$match = new Matches();
 				$match->offer_id = $offer->id;
