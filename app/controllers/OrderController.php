@@ -38,7 +38,8 @@ class OrderController extends BaseController {
 	 */
 	public function confirm()
 	{
-		return $this->order->confirm(Auth::user(), Input::get('confirmation'));
+		$this->order->confirm(Auth::user(), Input::get('confirmation'));
+		return $this->order->paidShipping(Auth::user(), Input::get('cost'));
 	}
 
 	/**
