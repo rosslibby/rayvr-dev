@@ -107,7 +107,7 @@ class EloquentPreferenceRepository implements PreferenceRepository {
 		 * If true, update
 		 * If false, create
 		 */
-		$pref = User::find($user);
+		$pref = $user;
 		$pref->fill($preferences);
 
 		/**
