@@ -19,7 +19,18 @@ Route::get('register/welcome', [
  * Route for testing anything
  */
 Route::get('test', function(){
-	return View::make('forms.payment.sample');
+	$categories = Category::all();
+			$user = Auth::user();
+	foreach($categories as $category)
+	{
+			/**
+			 * Create new Interest (user-category relationship)
+			 */
+			$interest = new Interest();
+			$interest->user_id = $user->id;
+			$interest->cat_id = $category->id;
+			$interest->save();
+	}
 });
 
 Route::group(['before' => 'csrf'], function()
@@ -239,7 +250,7 @@ Route::group(['before' => 'csrf'], function()
 			'as' => 'user.storePreferences'
 		]);
 
-		Route::post('preferences', [
+		Route::post('deactivate', [
 			'uses' => 'UserController@deactivate',
 			'as' => 'deactivate'
 		]);

@@ -1,6 +1,6 @@
 <?php namespace RAYVR\Storage\User;
 
-use User, Matches, Mail, Blacklist, Validator, View, Offer, Order, Omnipay\Omnipay, Voucher, Deposit, OfferPack, Stripe, Billing, Charge, Auth;
+use User, Matches, Mail, Blacklist, Validator, View, Offer, Order, Omnipay\Omnipay, Voucher, Deposit, OfferPack, Stripe, Billing, Charge, Auth, Category, Interest;
 use RAYVR\Storage\Offer\OfferRepository as OfferRepo;
 use Hashids\Hashids as Hashids;
 use Illuminate\Support\Facades\Hash;
@@ -141,6 +141,20 @@ class EloquentUserRepository implements UserRepository {
 			$confirmation = $this->hashids->encode(mt_rand(0,100000), mt_rand(0,100000), mt_rand(0, 10000), mt_rand(0, 10000), mt_rand(0, 10000), mt_rand(0, 10000), mt_rand(0, 10000), mt_rand(0, 10000), mt_rand(0, 10000), mt_rand(0, 10000), mt_rand(0, 10000));
 			$c->confirm = $confirmation;
 			$c->save();
+
+			/**
+			 * If the user is not a business or
+			 * an administrator, set the user
+			 * to interested in everything
+			 */
+			$categories = Category::all();
+			foreach($categories as $category)
+			{
+				$interest = new Interest();
+				$interest->user_id = $c->id;
+				$interest->cat_id = $category->id;
+				$interest->save();
+			}
 
 			/*****************************
 			 ** AS OF 03/07/2015 WE ARE **
