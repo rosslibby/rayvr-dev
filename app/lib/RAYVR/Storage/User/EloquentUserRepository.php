@@ -453,15 +453,18 @@ class EloquentUserRepository implements UserRepository {
 
 	public function stripeData($user)
 	{
-		$customer = \Stripe_Customer::retrieve($user->stripe_customer);
-		$charges = Charge::where('user_id', $user->id)->get();
+		if($user->stripe_customer)
+		{
+			$customer = \Stripe_Customer::retrieve($user->stripe_customer);
+			$charges = Charge::where('user_id', $user->id)->get();
 
-		$data = [
-			'customer' => $customer,
-			'charges' => $charges
-		];
+			$data = [
+				'customer' => $customer,
+				'charges' => $charges
+			];
 
-		return $data;
+			return $data;
+		}
 	}
 
 	public function createCustomer($input, $user)
