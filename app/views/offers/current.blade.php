@@ -27,6 +27,7 @@
 				@if($step['step'] === 1)
 					<h3 class="raleway normal">Once you have <strong>ordered</strong> your offer:</h3>
 					<ol class="raleway larger more-height">
+						<li><strong>Order</strong> your offer using {{ HTML::link($step['link'], 'this link [click here]', ['target' => '_blank']) }}</li>
 						<li><strong>copy + paste</strong> your <strong>order confirmation code</strong> in the field below</li>
 						<li>click <span class="label label-success"><strong>Confirm order&nbsp;&nbsp;<i class="fa fa-check"></i></strong></span></li>
 					</ol>

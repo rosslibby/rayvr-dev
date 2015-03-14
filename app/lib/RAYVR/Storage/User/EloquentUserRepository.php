@@ -421,7 +421,8 @@ class EloquentUserRepository implements UserRepository {
 			if(!$current->confirmation_number)
 				$step = [
 					'step'		=> 1,
-					'message'	=> $step_1
+					'message'	=> $step_1,
+					'link'		=> $current->link
 				];
 			elseif(!$current->paid_shipping)
 				$step = [
