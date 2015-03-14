@@ -132,6 +132,17 @@ class UserController extends BaseController {
 	}
 
 	/**
+	 * Deactivate a user
+	 */
+	public function deactivate()
+	{
+		$response = $this->user->deactivate(Auth::user());
+		if($response['deactivated'])
+			return Redirect::to('logout')->with('success', $response['message']);
+		return Redirect::to('logout')->with('fail', $response['message']);
+	}
+
+	/**
 	 * Delete a user (permanent)
 	 */
 	public function delete($id)

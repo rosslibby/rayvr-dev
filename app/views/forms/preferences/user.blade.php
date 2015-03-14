@@ -140,6 +140,12 @@
 						</div>
 					</div>
 				{{ Form::close() }}
+				<hr>
+				<div class="col-md-4">
+					{{ Form::open(['route' => 'deactivate']) }}
+						{{ Form::submit('DEACTIVATE ACCOUNT', ['class' => 'btn btn-danger']) }}
+					{{ Form::close() }}
+				</div>
 			</div>
 		</div>
 	</div>

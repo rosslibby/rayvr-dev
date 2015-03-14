@@ -204,6 +204,14 @@ class EloquentUserRepository implements UserRepository {
 		return "There was an issue; the user is still active.";
 	}
 
+	public function deactivate($user)
+	{
+		$user->active = false;
+		if($user->save())
+			return ['deactivated' => true, 'message' => "Your account has been deactivated."];
+		return ['deactivated' => false, 'message' => "There was a problem deactivating your account; please contact <a href=\"/contact\">support</a>."];
+	}
+
 	public function type($input)
 	{
 		$user = User::find($input['id']);

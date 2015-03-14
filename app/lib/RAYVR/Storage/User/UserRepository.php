@@ -43,6 +43,11 @@ interface UserRepository {
 	public function suspend($id);
 
 	/**
+	 * Deactivate user account
+	 */
+	public function deactivate($user);
+
+	/**
 	 * Modify user account type
 	 */
 	public function type($input);

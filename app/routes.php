@@ -168,10 +168,6 @@ Route::group(['before' => 'csrf'], function()
 	Route::group(['before' => 'user'], function(){
 
 		/**
-		 * 
-		 */
-
-		/**
 		 * Invite your friends page
 		 */
 		Route::get('invite', [
@@ -241,6 +237,11 @@ Route::group(['before' => 'csrf'], function()
 		Route::post('preferences', [
 			'uses' => 'PreferencesController@storeUser',
 			'as' => 'user.storePreferences'
+		]);
+
+		Route::post('preferences', [
+			'uses' => 'UserController@deactivate',
+			'as' => 'deactivate'
 		]);
 	});
 
