@@ -33,12 +33,21 @@
 			<div class="row">
 				<div class="col-md-7">
 					<div class="checkbox">
-						{{ Form::checkbox('agree', $value = 'Yes', null, array('id' => 'agree', 'class' => 'form-control')) }}
+						{{ Form::checkbox('agree', $value = 'Yes', null, ['id' => 'agree', 'class' => 'form-control']) }}
 						<label id="i_agree" for="agree">I accept the <a href="/resources/terms-and-conditions" target="_blank">terms &amp; conditions</a>.</label>
 					</div>
 				</div>
 				<div class="col-md-5 text-right">
-					{{ Form::submit('Register', array('class' => 'btn btn-success col-md-10 col-md-offset-2')) }}
+					{{ Form::submit('Register', ['class' => 'btn btn-success col-md-10 col-md-offset-2']) }}
+				</div>
+			</div>
+
+			<br>
+			<hr class="dashed">
+			
+			<div class="row">
+				<div class="col-md-12 text-center">
+					<p>{{ HTML::link('login', 'Or sign in with your existing account &rarr;', ['class' => 'raleway light']) }}</p>
 				</div>
 			</div>
 
