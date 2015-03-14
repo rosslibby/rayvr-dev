@@ -119,7 +119,7 @@ class PreferencesController extends BaseController {
 			]
 		);
 
-		$s = $this->preference->preferences($preferences, Auth::user()->id);
+		$s = $this->preference->preferences($preferences, Auth::user());
 
 		if($s)
 		{
