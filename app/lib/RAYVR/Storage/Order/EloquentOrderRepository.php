@@ -359,7 +359,7 @@ class EloquentOrderRepository implements OrderRepository {
 	public function review($user, $review)
 	{
 		$order = Order::where(['user_id' => $user->id, 'offer_id' => $user->current])->get()[0];
-		$order->review = $review;
+		$order->review = true;
 		$order->save();
 
 		$response = "Your offer has been confirmed with the review at <strong><a href='" . $review . "' target='_blank'>" . $review . "</a></strong>.";

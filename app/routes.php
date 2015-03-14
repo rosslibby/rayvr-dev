@@ -19,18 +19,8 @@ Route::get('register/welcome', [
  * Route for testing anything
  */
 Route::get('test', function(){
-	$categories = Category::all();
-			$user = Auth::user();
-	foreach($categories as $category)
-	{
-			/**
-			 * Create new Interest (user-category relationship)
-			 */
-			$interest = new Interest();
-			$interest->user_id = $user->id;
-			$interest->cat_id = $category->id;
-			$interest->save();
-	}
+	$order = Order::find(1);
+	return $order->offer->title;
 });
 
 Route::group(['before' => 'csrf'], function()

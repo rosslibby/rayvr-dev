@@ -51,49 +51,50 @@ class EloquentOfferRepository implements OfferRepository {
 		 * Find all orders with reviews that have been
 		 * submitted and not verified
 		 */
-		$orders = Order::where('review','!=','')->where('completed',false)->get();
+		$orders = Order::where('review',true)->where('completed',false)->get();
 		foreach($orders as $order)
 		{
 			/**
 			 * Get the review text as submitted by the user
 			 */
-			$review = $order->review;
+			// $review = $order->review;
 
 			/**
 			 * Get the user's review profile
 			 */
-			$profile = $order->user()->profile;
-			$profile = 'http://www.amazon.com/gp/cdp/member-reviews/'.end(explode('/', $profile)).'/ref=pdp_new';
+			$profile = $order->user->profile;
+			$profile = explode('/', $profile);
+			$profile = 'http://www.amazon.com/gp/cdp/member-reviews/'.end($profile).'/ref=pdp_new';
 
 			/**
 			 * Get the offer's title
 			 */
-			$title = $order->offer()->title;
+			$title = $order->offer->title;
 
 			/**
 			 * Get the review page link as submitted by the business
 			 */
-			$url = Offer::where('id','=',$order->offer_id)->get(['review_link'])[0]->review_link;
+			// $url = Offer::where('id','=',$order->offer_id)->get(['review_link'])[0]->review_link;
 
 			/**
 			 * Remove ending punctuation from $review
 			 */
-			$review = substr($review, 0, strlen($review) - 1);
+			// $review = substr($review, 0, strlen($review) - 1);
 
 			/**
 			 * Make sure the review page is sorted by descending order
 			 * according to date posted
 			 */
-			if(substr($url, -34) != '&sortBy=bySubmissionDateDescending')
-			{
-				$copyUrl = $url;
-				if(strstr($copyUrl, '&sortBy='))
-				{
-					$url = explode('&sortBy=',$url);
-					$url = $url[0];
-				}
-				$url = $url.'&sortBy=bySubmissionDateDescending';
-			}
+			// if(substr($url, -34) != '&sortBy=bySubmissionDateDescending')
+			// {
+			// 	$copyUrl = $url;
+			// 	if(strstr($copyUrl, '&sortBy='))
+			// 	{
+			// 		$url = explode('&sortBy=',$url);
+			// 		$url = $url[0];
+			// 	}
+			// 	$url = $url.'&sortBy=bySubmissionDateDescending';
+			// }
 
 			/**
 			 * Start ye old page scraper
@@ -107,7 +108,7 @@ class EloquentOfferRepository implements OfferRepository {
 				CURLOPT_PROGRESSFUNCTION => 'callback'
 			]);
 
-			$text = '/\b'.str_replace('/', '\/', preg_quote($title)).'\b/';
+			$text = '#'.str_replace('/', '/', preg_quote($title)).'#';
 
 			$cc->match([
 				'review' => $text
