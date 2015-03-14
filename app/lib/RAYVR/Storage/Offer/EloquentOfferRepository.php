@@ -1023,7 +1023,7 @@ class EloquentOfferRepository implements OfferRepository {
 				 * Fetch the offer's matches
 				 */
 				$matches = Matches::where('offer_id', $offer->id)
-								->where('live', false);
+								->where('live', false)->get();
 
 				/**
 				 * If the matching breaks, this is why
@@ -1033,7 +1033,10 @@ class EloquentOfferRepository implements OfferRepository {
 				 * matched with an offer
 				 */
 				$newMatches = $this->match($offer);
-				$matches = array_merge($matches, $newMatches);
+				if(!empty($newMatches))
+					$matches = array_merge(json_decode($matches, true), json_decode($newMatches, true));
+				else
+					$matches = json_decode($matches, true);
 				/**
 				 * End the new code breaking
 				 */
@@ -1050,10 +1053,11 @@ class EloquentOfferRepository implements OfferRepository {
 				$counter = 0;
 				foreach($matches as $match)
 				{
+					$match = Matches::find($match['id']);
 					/**
 					 * Find the user associated with the match
 					 */
-					$user = $match->user;
+					$user = $match['user'];
 
 					/**
 					 * Check if the user is currently in an

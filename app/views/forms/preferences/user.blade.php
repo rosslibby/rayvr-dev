@@ -152,10 +152,13 @@
 					</div>
 				{{ Form::close() }}
 				<hr>
-				<div class="col-md-4">
+				<div class="col-md-3">
 					{{ Form::open(['route' => 'deactivate']) }}
 						{{ Form::submit('DEACTIVATE ACCOUNT', ['class' => 'btn btn-danger']) }}
 					{{ Form::close() }}
+				</div>
+				<div class="col-md-4">
+					<p>This action cannot be undone</p>
 				</div>
 			</div>
 		</div>
