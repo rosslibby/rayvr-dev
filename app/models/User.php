@@ -55,7 +55,8 @@ class User extends Ardent implements UserInterface, RemindableInterface, Billabl
 		'updated_at',
 		'gender',
 		'phone',
-		'current'
+		'current',
+		'profile'
 	];
 
 	/**

@@ -42,6 +42,16 @@
 					</div>
 
 					<hr>
+
+					<div class="form-group">
+						{{ Form::label('profile', 'Amazon&trade; Profile', ['class' => 'control-label required col-md-2']) }}
+						<div class="col-md-7">
+							<p>Click {{ HTML::link('http://www.amazon.com/gp/pdp/profile/', 'this link', ['target' => '_blank']) }} to proceed to your Amazon&trade; review profile. You may be asked to log in. Do so, then copy the URL from the page and return to this page (Preferences). Paste the link in the field below.</p>
+							{{ Form::text('profile', $model['profile'], ['class' => 'form-control required subtle-input']) }}
+						</div>
+					</div>
+
+					<hr>
 				
 					<div class="form-group">
 						{{ Form::label('address', 'Address', ['class' => 'control-label required col-md-2']) }}
