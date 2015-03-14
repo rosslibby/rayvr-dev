@@ -1,4 +1,5 @@
 <!-- User registration -->
+
 <div class="row">
 	<div class="col-md-10 col-md-offset-1">
 		{{ Form::open(['route' => 'register.store', 'id' => 'businessRegistration']) }}

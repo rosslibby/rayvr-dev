@@ -139,7 +139,6 @@
 							{{ Form::submit('Save settings', ['class' => 'btn btn-success']) }}
 						</div>
 					</div>
-
 				{{ Form::close() }}
 			</div>
 		</div>
