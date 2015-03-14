@@ -115,7 +115,7 @@ class EloquentPreferenceRepository implements PreferenceRepository {
 		 * preferences, redirect the user to
 		 * 'invite your friends' page
 		 */
-		if(!$user->times_updated)
+		if(!$user->times_updated && !$user->business)
 		{
 			$user->times_updated = 1;
 			return Redirect::route('invite')
