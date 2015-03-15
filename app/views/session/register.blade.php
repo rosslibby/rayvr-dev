@@ -23,42 +23,42 @@ Every day our program connects people just like you with quality <strong>free of
 <!-- Column 1 -->
 	@section('column-1')
 		@section('icon-1')
-		<i class="icon-solid icon-checkbox"></i>
+		<h1><i class="fa fa-check-square fg-scheme-light larger"></i></h1>
 		@stop
 
 		@section('headline-1')
-		ONLY QUALITY PRODUCTS
+		HIGH QUALITY PRODUCTS
 
 		@section('paragraph-1')
-		We send our members high-quality products to test, 100% free. All you have to do is sign up.
+		We accept only high quality product offers and test each prior to sending them out to our members. Who doesn't like great stuff?
 		@stop
 	@stop
 
 <!-- Column 2 -->
 	@section('column-2')
 		@section('icon-2')
-		<i class="icon-solid icon-tortoise-and-hare"></i>
+		<h1><i class="fa fa-tags fg-scheme-light larger"></i></h1>
 		@stop
 
 		@section('headline-2')
-		BE QUICK
+		TOTALLY FREE
 
 		@section('paragraph-2')
-		We reward our RAYVRs that quickly complete offers by giving them first choice on great new offers.
+		That's right. You will receive a promo code to get a product free and will be reimbursed for any shipping costs via PayPal.
 		@stop
 	@stop
 
 <!-- Column 3 -->
 	@section('column-3')
 		@section('icon-3')
-		<i class="icon-solid icon-mail"></i>
+		<h1><i class="fa fa-microphone fg-scheme-light larger"></i></h1>
 		@stop
 
 		@section('headline-3')
-		OUR MEMBERS SHARE
+		SHARE WHAT YOU LOVE
 
 		@section('paragraph-3')
-		Within 48 hours of confirming an order of a RAYVR offer, you will be reimbursed in full for shipping.
+		Businesses hope to get great reviews for their products. When your product arrives, we will remind you to login and share your experience.
 		@stop
 	@stop
 
