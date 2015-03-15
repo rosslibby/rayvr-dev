@@ -631,7 +631,7 @@ class EloquentUserRepository implements UserRepository {
 		$charge = new Charge();
 		$charge->user_id = $user->id;
 		$charge->charge_id = $response->id;
-		$charge->card_id = $card->id;
+		$charge->card_id = $card;
 		$charge->charge = 1.00;
 		$charge->save();
 
