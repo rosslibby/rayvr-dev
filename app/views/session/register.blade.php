@@ -51,7 +51,7 @@ Every day our program connects people just like you with quality <strong>free of
 <!-- Column 3 -->
 	@section('column-3')
 		@section('icon-3')
-		<h1><i class="fa fa-microphone fg-scheme-light larger"></i></h1>
+		<h1><i class="fa fa-share-alt fg-scheme-light larger"></i></h1>
 		@stop
 
 		@section('headline-3')
