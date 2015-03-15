@@ -119,14 +119,27 @@ class EloquentPreferenceRepository implements PreferenceRepository {
 		if(!$user->times_updated && !$user->business)
 		{
 			$user->times_updated = 1;
+			$user->save();
 			return Redirect::route('invite')
 				->with('success', 'Your account setup is complete.');
+		}
+		else if(!$user->times_updated && $user->business)
+		{
+			$user->times_updated = 1;
 			$user->save();
+			return \Redirect::route('billing')
+				->with('success', 'Your account setup is complete.');
 		}
 		else
 		{
 			$user->times_updated = (int)($user->times_updated) + 1;
 			$user->save();
+
+			if($user->business)
+			{
+				return Redirect::route('business.preferences')
+					->with('success', 'Your settings have been saved');
+			}
 		}
 
 		/**

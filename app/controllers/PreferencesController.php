@@ -101,39 +101,7 @@ class PreferencesController extends BaseController {
 	{
 		$preferences = Input::all();
 
-		/**
-		 * Validate input
-		 */
-		$validator = Validator::make(
-			Input::except('business_name', 'address_2'),
-			[
-				'email' => 'required|unique',
-				'first_name' => 'required',
-				'last_name' => 'required',
-				'address' => 'required',
-				'city' => 'required',
-				'state' => 'required',
-				'zip' => 'required',
-				'country' => 'required',
-				'phone' => 'required'
-			]
-		);
-
-		$s = $this->preference->preferences($preferences, Auth::user());
-
-		if($s)
-		{
-			if($validator)
-				return Redirect::route('business.preferences')
-					->with('success', 'Your settings have been saved');
-			else
-				return Redirect::route('business.preferences')
-					->with('fail', 'There was an issue saving your preferences - please try again');
-		}
-
-		return Redirect::route('user/preferences')
-			->withInput()
-			->withErrors($s->errors());
+		return $this->preference->preferences($preferences, Auth::user());
 	}
 
 	/**
