@@ -7,6 +7,15 @@
 		<!-- Heading -->
 		<div class="row">
 			<div class="text-center">
+				@if(Session::has('success'))
+					<div class="alert alert-success alert-dismissable">
+						<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&#10005;</button>
+						<strong>Success:</strong> {{ Session::get('success') }}
+					</div>
+					<br>
+				@endif
+			</div>
+			<div class="text-center">
 				@if(!is_object($matches))
 					<h2 class="raleway">You have no offers at this time. Check back soon!</h2>
 					<hr>

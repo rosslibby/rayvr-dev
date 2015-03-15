@@ -7,10 +7,10 @@
 		<!-- Heading -->
 		<div class="row">
 			<div class="text-center">
-				@if($success)
+				@if(Session::has('success'))
 					<div class="alert alert-success alert-dismissable">
 						<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&#10005;</button>
-						<strong>Success:</strong> {{ $success }}
+						<strong>Success:</strong> {{ Session::get('success') }}
 					</div>
 					<br>
 				@endif
@@ -92,7 +92,7 @@
 							</div>
 							<div class="col-md-5 col-md-offset-2">
 								<p class="well raleway"><a href="{{ $step['offer']->review_link }}" target="_blank" class="btn btn-info raleway h3 light"><br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="h1" style="font-size: 400%;"><i class="glyphicon glyphicon-thumbs-up"></i></span>&nbsp;&nbsp;&nbsp;&nbsp;<br>I LOVE IT<br><br></a><br><br><strong>{{ HTML::link($step['offer']->review_link, 'Click here to write a review', ['target' => '_blank']) }}</strong></p>
-								<p class="well raleway"><a href="feedback" class="btn btn-danger raleway h4 light larger"><span class="h4"><i class="glyphicon glyphicon-thumbs-up"></i>&nbsp;&nbsp;REPORT AN ISSUE</span></a><br><br></p>
+								<p class="well raleway"><a href="feedback" class="btn btn-danger raleway h4 light larger"><span class="h4"><span class="icon-hollow icon-finger-point" style="width: 14px; height: 20px; float: left;"></span>&nbsp;&nbsp;REPORT AN ISSUE</span></a><br><br></p>
 							</div>
 						</div>
 					</div>
