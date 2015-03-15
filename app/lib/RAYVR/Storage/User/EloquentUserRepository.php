@@ -509,7 +509,10 @@ class EloquentUserRepository implements UserRepository {
 			$customer = \Stripe_Customer::create([
 				'description' => 'Lifetime free membership for user #'.$user_id,
 				'source' => $token,
-				'email' => $email
+				'email' => $email,
+				'metadata' => [
+					'id' => $user_id
+				]
 			]);
 
 			/**
@@ -517,7 +520,7 @@ class EloquentUserRepository implements UserRepository {
 			 */
 			$user->stripe_customer = $customer->id;
 			$user->save();
-			$card = $customer->sources->data;
+			$card = $customer->sources->data->get();
 		}
 		else
 		{
