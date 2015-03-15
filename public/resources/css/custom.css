@@ -368,3 +368,13 @@ label.required::after
 	right:4px;
 	top:4px;
 }
+
+/** required checkbox **/
+label.has-error:before
+{
+	content: "\25BA";
+	position: absolute;
+	left: -10px;
+	display: block;
+	color: #f00;
+}

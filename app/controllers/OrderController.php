@@ -33,6 +33,25 @@ class OrderController extends BaseController {
 	}
 
 	/**
+	 * Leave feedback for the order
+	 */
+	public function feedback()
+	{
+		return View::make('offers.feedback')->with('offer', $this->offer->find(Auth::user()->current));
+	}
+
+	/**
+	 * Save order feedback
+	 */
+	public function saveFeedback()
+	{
+		if($this->order->feedback(Input::all(), Auth::user()))
+			return Redirect::route('offers.current');
+		else
+			return Redirect::route('offers.feedback');
+	}
+
+	/**
 	 * Save the order confirmation
 	 * code
 	 */

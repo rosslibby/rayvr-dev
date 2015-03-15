@@ -7,6 +7,7 @@
 {{ HTML::script( 'resources/js/jquery.fs.selecter.js' ) }}
 {{ HTML::script( 'resources/js/bootstrap-datepicker.js' ) }}
 {{ HTML::script( 'resources/js/bootstrap-slider.js' ) }}
+{{ HTML::script( 'resources/js/bootstrap-rating-input.js' ) }}
 <script>
 
 
@@ -179,6 +180,35 @@ $(document).ready(function(){
 		if(!(keyCounter % 4) && keyCounter < 16)
 		{
 			$(this).val($(this).val() + ' - ');
+		}
+	});
+
+	/** Validate feedback form upon submission **/
+	$('#feedbackForm').submit(function(e){
+		if(!$('#damage').is(':checked') && !$('#malfunction').is(':checked') && !$('#description').is(':checked')) {
+			e.preventDefault();
+			$('#issue').prepend('<p class="has-error">Please select at least one</p>');
+			$('input[type="checkbox"]').closest('label').addClass('has-error');
+		}
+		if($('#rating').val() === '') {
+			e.preventDefault();
+			$('#pleaseRate').addClass('has-error');
+		}
+		if($('#feedbackExperience').val().length < 140) {
+			e.preventDefault();
+			$(this).addClass('has-error');
+			$('#experience').addClass('has-error');
+		}
+	});
+
+	/** 140 character minimum **/
+	$('#feedbackExperience').keyup(function(){
+		if($(this).val().length <= 140){
+			$('#moreFeedback').show();
+			$('#moreFeedback').html('You need <em>at least</em> <strong>' + (140 - ($(this).val().length)) + ' more</strong> characters');
+		} else {
+			$('#moreFeedback').html('You need <em>at least</em> <strong>0 more</strong> characters');
+			$('#moreFeedback').hide();
 		}
 	});
 });

@@ -1,6 +1,6 @@
 <?php namespace RAYVR\Storage\Order;
 
-use User, Mail, Order, Offer, Reimbursement, Dispute;
+use User, Mail, Order, Offer, Reimbursement, Dispute, Feedback;
 
 class EloquentOrderRepository implements OrderRepository {
 
@@ -331,6 +331,39 @@ class EloquentOrderRepository implements OrderRepository {
 				$message->to($business->email)->subject('Your Shipping Dispute Has Been Filed');
 			});
 			return "The claim for a refund of $". $claim->cost ." has been disputed and the current payout has been cancelled.";
+		}
+	}
+
+	public function feedback($input, $user)
+	{
+		$data = $input;
+		$data = array_merge($data, ['user_id' => $user->id, 'offer_id' => $user->current]);
+		$feedback = new Feedback();
+		$feedback->fill($data);
+		if($feedback->save())
+		{
+			/**
+			 * Set the order to complete
+			 */
+			$orders = Order::where(['user_id' => $user->id, 'offer_id' => $user->current])->get();
+			foreach($orders as $order)
+			{
+				$order->completed = true;
+				$order->review = true;
+				$order->save();
+			}
+
+			/**
+			 * Reset the user's current offer
+			 */
+			$user->current = 0;
+			$user->save();
+			
+			return true;
+		}
+		else
+		{
+			return false;
 		}
 	}
 

@@ -220,6 +220,15 @@ Route::group(['before' => 'csrf'], function()
 		Route::post('order/shipping', 'OrderController@shipping');
 
 		/**
+		 * Leave feedback for offer
+		 */
+		Route::get('offers/feedback', [
+			'uses' => 'OrderController@feedback',
+			'as' => 'offers.feedback'
+		]);
+		Route::post('offers/feedback', 'OrderController@saveFeedback');
+
+		/**
 		 * Confirm review with
 		 * review URL
 		 */

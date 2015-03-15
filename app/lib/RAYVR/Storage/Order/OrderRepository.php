@@ -69,6 +69,12 @@ interface OrderRepository {
 	public function dispute($claim);
 
 	/**
+	 * Store feedback for
+	 * an order
+	 */
+	public function feedback($input, $user);
+
+	/**
 	 * Confirm an order using
 	 * its confirmation code
 	 */

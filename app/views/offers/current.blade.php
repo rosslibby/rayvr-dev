@@ -78,7 +78,26 @@
 						</div>
 					</div>
 				@elseif($step['step'] === 3)
-					<h3 class="raleway normal">Once you have <strong>received</strong> your offer:</h3>
+					<div class="text-center">
+						<h2 class="raleway normal"><span class="light">Feedback Time!</span></h2>
+						<p class="h4 light">Before you can receive a new offer, we need feedback on</p>
+						<br>
+						<br>
+						<div class="row">
+							<div class="col-md-5">
+								<p>{{ HTML::image($step['offer']->photo, null, ['class' => 'well', 'height' => '240']) }}</p>
+								<p>{{ $step['offer']->title }}</p>
+								<hr>
+								<p>Ordered on {{ date('l, F d', strtotime($step['order']->updated_at)) }}</p>
+							</div>
+							<div class="col-md-5 col-md-offset-2">
+								<p class="well raleway"><a href="{{ $step['offer']->review_link }}" target="_blank" class="btn btn-info raleway h3 light"><br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="h1" style="font-size: 400%;"><i class="glyphicon glyphicon-thumbs-up"></i></span>&nbsp;&nbsp;&nbsp;&nbsp;<br>I LOVE IT<br><br></a><br><br><strong>{{ HTML::link($step['offer']->review_link, 'Click here to write a review', ['target' => '_blank']) }}</strong></p>
+								<p class="well raleway"><a href="feedback" class="btn btn-danger raleway h4 light larger"><span class="h4"><i class="glyphicon glyphicon-thumbs-up"></i>&nbsp;&nbsp;REPORT AN ISSUE</span></a><br><br></p>
+							</div>
+						</div>
+					</div>
+
+{{-- 					<h3 class="raleway normal">Feedback Time!</h3>
 					<ol class="raleway larger more-height">
 						<li><strong>try out</strong> your <strong>order</strong> write your review on the {{ HTML::link($step['step']['link'], 'product\'s review page', ['target' => '_blank']) }}</li>
 						<li>click <span class="label label-success"><strong>Submit review&nbsp;&nbsp;<i class="fa fa-check"></i></strong></span></li>
@@ -86,7 +105,7 @@
 					<!--<p class="light fg-scheme-dark"><a href="#" target="_blank">(Need help? Check out our "Order &amp; Confirm" video here.</a>)</p>-->
 					<br>
 					<hr>
-					@include('orders.review')
+					@include('orders.review') --}}
 				@endif
 			</div>
 			{{ Form::close() }}

@@ -440,15 +440,12 @@ class EloquentUserRepository implements UserRepository {
 					'message'	=> $step_1,
 					'link'		=> $current->offer->link
 				];
-			elseif(!$current->paid_shipping)
-				$step = [
-					'step'		=> 2,
-					'message'	=> $step_2
-				];
 			elseif(!$current->review)
 				$step = [
 					'step'		=> 3,
 					'link'		=> $current->review_link,
+					'offer'		=> $current->offer,
+					'order'		=> $current,
 					'message'	=> $step_3
 				];
 
