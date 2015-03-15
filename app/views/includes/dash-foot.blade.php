@@ -8,6 +8,7 @@
 {{ HTML::script( 'resources/js/bootstrap-datepicker.js' ) }}
 {{ HTML::script( 'resources/js/bootstrap-slider.js' ) }}
 {{ HTML::script( 'resources/js/bootstrap-rating-input.js' ) }}
+{{ HTML::script( 'resources/js/jquery.confirm.min.js' ) }}
 <script>
 
 
@@ -210,6 +211,59 @@ $(document).ready(function(){
 			$('#moreFeedback').html('You need <em>at least</em> <strong>0 more</strong> characters');
 			$('#moreFeedback').hide();
 		}
+	});
+
+	/** validate preferences **/
+	$('#preferences').submit(function(e) {
+		if($('#firstName').val() === '' || $('#firstName').val() == ' ') {
+			e.preventDefault();
+			$('#firstName').addClass('bg-scheme-dark');
+			$('#firstName').focus();
+		}
+		if($('#lastName').val() === '' || $('#lastName').val() == ' ') {
+			e.preventDefault();
+			$('#lastName').addClass('bg-scheme-dark');
+			$('#lastName').focus();
+		}
+		if($('#email').val() === '' || $('#email').val() == ' ') {
+			e.preventDefault();
+			$('#email').addClass('bg-scheme-dark');
+			$('#email').focus();
+		}
+		if($('#profile').val() === '' || $('#profile').val() == ' ') {
+			e.preventDefault();
+			$('#profile').addClass('bg-scheme-dark');
+			$('#profile').focus();
+		}
+		if($('#address').val() === '' || $('#address').val() == ' ') {
+			e.preventDefault();
+			$('#address').addClass('bg-scheme-dark');
+			$('#address').focus();
+		}
+		if($('#city').val() === '' || $('#city').val() == ' ') {
+			e.preventDefault();
+			$('#city').addClass('bg-scheme-dark');
+			$('#city').focus();
+		}
+		if($('#zip').val() === '' || $('#zip').val() == ' ') {
+			e.preventDefault();
+			$('#zip').addClass('bg-scheme-dark');
+			$('#zip').focus();
+		}
+	});
+
+	/** prevent accidental account deactivation **/
+	$('#deactivateAccount').click(function(e) {
+		e.preventDefault();
+		$.confirm({
+			text: 'This will deactivate your account. You will have to contact support if you wish to re-activate your account. Are you sure you want to proceed?',
+			confirm: function() {
+				$('#deactivate').submit();
+			},
+			cancel: function() {
+				// do nothing
+			}
+		});
 	});
 });
 </script>

@@ -14,12 +14,12 @@
 				</div>
 				@endif
 				<br>
-				{{ Form::open(['post' => 'preferences.storeUser', 'class' => 'form-horizontal']) }}
+				{{ Form::open(['post' => 'preferences.storeUser', 'class' => 'form-horizontal', 'id' => 'preferences']) }}
 
 					<div class="form-group">
 						{{ Form::label('first_name', 'First name', ['class' => 'control-label required col-md-2']) }}
 						<div class="col-md-7">
-							{{ Form::text('first_name', $model['first_name'], ['class' => 'form-control required subtle-input']) }}
+							{{ Form::text('first_name', $model['first_name'], ['class' => 'form-control required subtle-input', 'id' => 'firstName']) }}
 						</div>
 					</div>
 
@@ -28,7 +28,7 @@
 					<div class="form-group">
 						{{ Form::label('last_name', 'Last name', ['class' => 'control-label required col-md-2']) }}
 						<div class="col-md-7">
-							{{ Form::text('last_name', $model['last_name'], ['class' => 'form-control required subtle-input']) }}
+							{{ Form::text('last_name', $model['last_name'], ['class' => 'form-control required subtle-input', 'id' => 'lastName']) }}
 						</div>
 					</div>
 
@@ -37,7 +37,7 @@
 					<div class="form-group">
 						{{ Form::label('email', 'Email address', ['class' => 'control-label required col-md-2']) }}
 						<div class="col-md-7">
-							{{ Form::text('email', $model['email'], ['class' => 'form-control required subtle-input']) }}
+							{{ Form::text('email', $model['email'], ['class' => 'form-control required subtle-input', 'id' => 'email']) }}
 						</div>
 					</div>
 
@@ -48,7 +48,7 @@
 						<div class="col-md-7">
 							<p>In order to use RAYVR you must link your Amazon profile to your RAYVR profile. This does not give us access to your Amazon account, it only allows us to verify that you are a legitimate Amazon shopper.</p>
 							<p>Click {{ HTML::link('http://www.amazon.com/gp/pdp/profile/', 'this link', ['target' => '_blank']) }} and, if prompted, login to Amazon. Once you arrive on your profile page, copy the url and paste it in the input below.</p>
-							{{ Form::text('profile', $model['profile'], ['class' => 'form-control required subtle-input']) }}
+							{{ Form::text('profile', $model['profile'], ['class' => 'form-control required subtle-input', 'id' => 'profile']) }}
 						</div>
 					</div>
 
@@ -57,7 +57,7 @@
 					<div class="form-group">
 						{{ Form::label('address', 'Address', ['class' => 'control-label required col-md-2']) }}
 						<div class="col-md-7">
-							{{ Form::text('address', $model['address'], ['class' => 'form-control required subtle-input']) }}
+							{{ Form::text('address', $model['address'], ['class' => 'form-control required subtle-input', 'id' => 'address']) }}
 						</div>
 					</div>
 
@@ -75,7 +75,7 @@
 					<div class="form-group">
 						{{ Form::label('city', 'City', ['class' => 'control-label required col-md-2']) }}
 						<div class="col-md-3">
-							{{ Form::text('city', $model['city'], ['class' => 'form-control subtle-input']) }}
+							{{ Form::text('city', $model['city'], ['class' => 'form-control subtle-input', 'id' => 'city']) }}
 						</div>
 						{{ Form::label('state', 'State', ['class' => 'control-label col-md-1']) }}
 						<div class="col-md-2">
@@ -89,7 +89,7 @@
 						</div>
 						{{ Form::label('zip', 'Zip', ['class' => 'control-label required col-md-2']) }}
 						<div class="col-md-3">
-							{{ Form::text('zip', $model['zip'], ['class' => 'form-control subtle-input']) }}
+							{{ Form::text('zip', $model['zip'], ['class' => 'form-control subtle-input', 'id' => 'zip']) }}
 						</div>
 					</div>
 
@@ -153,8 +153,8 @@
 				{{ Form::close() }}
 				<hr>
 				<div class="col-md-3">
-					{{ Form::open(['route' => 'deactivate']) }}
-						{{ Form::submit('DEACTIVATE ACCOUNT', ['class' => 'btn btn-danger']) }}
+					{{ Form::open(['route' => 'deactivate', 'id' => 'deactivate']) }}
+						{{ Form::button('DEACTIVATE ACCOUNT', ['class' => 'btn btn-danger', 'id' => 'deactivateAccount']) }}
 					{{ Form::close() }}
 				</div>
 				<div class="col-md-4">
