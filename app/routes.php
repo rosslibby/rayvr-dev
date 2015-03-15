@@ -323,6 +323,10 @@ Route::group(['before' => 'csrf'], function()
 		return View::make('resources.user-faq');
 	});
 
+	Route::get('business/faq', function(){
+		return View::make('resources.business-faq');
+	});
+
 	Route::get('resources/terms-and-conditions', function()
 	{
 		return View::make('resources.terms');

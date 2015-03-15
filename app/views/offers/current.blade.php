@@ -50,7 +50,7 @@
 						<div class="col-md-5">
 							<p>Enter exact shipping cost to be reimbursed</p>
 							<br>
-							<p>{{ Form::text('cost', null, ['id' => 'cost', 'class' => 'form-control subtle-input text-center']) }}</p>
+							<p>{{ Form::number('cost', null, ['id' => 'cost', 'class' => 'form-control subtle-input text-center']) }}</p>
 						</div>
 						<br>
 						<br>
@@ -91,7 +91,7 @@
 								<p>Ordered on {{ date('l, F d', strtotime($step['order']->updated_at)) }}</p>
 							</div>
 							<div class="col-md-5 col-md-offset-2">
-								<p class="well raleway"><a href="/order/review" class="btn btn-info raleway h3 light"><br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="h1" style="font-size: 400%;"><i class="glyphicon glyphicon-thumbs-up"></i></span>&nbsp;&nbsp;&nbsp;&nbsp;<br>I LOVE IT<br><br></a><br><br><strong>{{ HTML::link('order/review', 'Click here to write a review') }}</strong></p>
+								<p class="well raleway"><a href="/order/review" class="btn btn-info raleway h3 light"><br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="h1" style="font-size: 400%;"><i class="glyphicon glyphicon-thumbs-up"></i></span>&nbsp;&nbsp;&nbsp;&nbsp;<br>I LOVE IT<br><br></a><br><br><strong>{{ HTML::link('order/review', 'Click here to write a review', ['style' => 'color: #000;', 'class' => 'h5 light']) }}</strong></p>
 								<p class="well raleway"><a href="feedback" class="btn btn-danger raleway h4 light larger"><span class="h4"><span class="icon-hollow icon-finger-point" style="width: 14px; height: 20px; float: left;"></span>&nbsp;&nbsp;REPORT AN ISSUE</span></a><br><br></p>
 							</div>
 						</div>

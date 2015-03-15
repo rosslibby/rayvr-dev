@@ -23,11 +23,13 @@ $(document).ready(function(){
 	/** Simulate generation of an invite code **/
 	$('#generateInvite').click(function(){
 		$('#loadingCog').addClass('fa-spin');
+		$('#inviteAnother').slideToggle();
 		setTimeout(function(){
 			$('#loadingCog').removeClass('fa-spin');
 			/** This one keeps spinning when it shouldn't **/
 			$('#sendInviteCog').removeClass('fa-spin');
 			$('#invite').val($('#hiddenInvite').val());
+			$('#inviteAnother').html('Invite another friend!');
 		}, 2000);
 	});
 
@@ -54,6 +56,7 @@ $(document).ready(function(){
 				$('#successMsg').html(name + ' has been invited to RAYVR').fadeIn(400);
 				$('#userInvite').find('input[type="text"]').val("");
 				$('#userInvite').find('input[type="email"]').val("");
+				$('#inviteAnother').slideToggle();
 			}
 		},"json");
 	});

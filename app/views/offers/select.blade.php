@@ -111,10 +111,7 @@
 				<br>
 				<br>
 
-				<p class="source-sans-pro">This is the better choice. It gets you the pictured offer <strong>100% FREE</strong>. Just click the button. One click won't hurt. Go on, just one click!</p>
-				<p class="source-sans-pro">...</p>
-				<p class="source-sans-pro"><em>In case I was too subtle:</em></p>
-				<h3 class="source-sans-pro fg-scheme-dark">PICK ME!!!</h3>
+				<p class="source-sans-pro">Select this option to immediately reserve this offer for yourself. You will immediately receive a voucher code to redeem this offer for free.</p>
 			</div>
 			{{ Form::close() }}
 			<hr>

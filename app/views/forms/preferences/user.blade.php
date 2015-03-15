@@ -125,10 +125,14 @@
 
 					<div class="form-group">
 						<div class="row">
-							{{ Form::label('interests', 'Interests', ['class' => 'control-label required col-md-2']) }}
+							<p>{{ Form::label('interests', 'Interests', ['class' => 'control-label required col-md-2']) }}</p>
+							<div class="col-md-7 col-md-offset-1">
+								<p>Your interests determine which offers you receive. The more interests you check the more offers you will receive!</p>
+							</div>
 						</div>
 
 						<div class="col-md-12">
+							<br>
 							@foreach ($categories as $interest)
 								<div class="col-md-4">
 									<div class="checkbox">
