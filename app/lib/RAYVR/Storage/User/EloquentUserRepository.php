@@ -517,7 +517,7 @@ class EloquentUserRepository implements UserRepository {
 			 */
 			$user->stripe_customer = $customer->id;
 			$user->save();
-			$card = $customer->sources->retrieve(json_decode($customer->sources->data, true)['id']);
+			$card = $customer->sources->retrieve($customer->sources->data[0]->id);
 		}
 		else
 		{
