@@ -509,10 +509,7 @@ class EloquentUserRepository implements UserRepository {
 			$customer = \Stripe_Customer::create([
 				'description' => 'Lifetime free membership for user #'.$user_id,
 				'source' => $token,
-				'email' => $email,
-				'metadata' => [
-					'id' => $user_id
-				]
+				'email' => $email
 			]);
 
 			/**
@@ -520,7 +517,7 @@ class EloquentUserRepository implements UserRepository {
 			 */
 			$user->stripe_customer = $customer->id;
 			$user->save();
-			$card = $customer->sources->data[0]->id;
+			$card = $customer->sources->retrieve($customer->sources->data->id);
 		}
 		else
 		{
@@ -631,7 +628,7 @@ class EloquentUserRepository implements UserRepository {
 		$charge = new Charge();
 		$charge->user_id = $user->id;
 		$charge->charge_id = $response->id;
-		$charge->card_id = $card;
+		$charge->card_id = $card->id;
 		$charge->charge = 1.00;
 		$charge->save();
 
@@ -643,15 +640,12 @@ class EloquentUserRepository implements UserRepository {
 		 */
 		if($response->paid && !$response->refunded)
 		{
-			$billing = Billing::where('stripe_id', $card)->get();
-			foreach($billing as $bill)
-			{
-				$bill->verified = true;
-				$bill->save();
+			$billing = Billing::where('stripe_id', $card->id)->first();
+			$billing->verified = true;
+			$billing->save();
 
-				$ch = \Stripe_Charge::retrieve($response->id);
-				$re = $ch->refunds->create();
-			}
+			$ch = \Stripe_Charge::retrieve($response->id);
+			$re = $ch->refunds->create();
 		}
 	}
 
