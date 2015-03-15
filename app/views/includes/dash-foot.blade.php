@@ -141,6 +141,7 @@ $(document).ready(function(){
 				$("#title_input").val(data['title']);
 				/* $("#description_input").html(data['description']); */
 				$("#link_input").val(data['url']);
+				$("#asin_input").val(data['asin']);
 
 				/** Display the returned data **/
 				$("#product-photo").attr('src', data['photo']);

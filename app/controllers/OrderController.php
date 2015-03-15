@@ -41,6 +41,15 @@ class OrderController extends BaseController {
 	}
 
 	/**
+	 * Leave review for the offer
+	 */
+	public function leavereview()
+	{
+		return View::make('orders.review')
+			->with('offer', $this->offer->find(Auth::user()->current));
+	}
+
+	/**
 	 * Save order feedback
 	 */
 	public function saveFeedback()

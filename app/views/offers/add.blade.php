@@ -61,7 +61,10 @@
 			</div>
 
 			<!-- Product link -->
-			{{ Form::hidden('link', $link, ['id' => 'link_input', 'class' => 'hidden-input']) }}
+			{{ Form::hidden('link', $link = null, ['id' => 'link_input', 'class' => 'hidden-input']) }}
+
+			<!-- Product ASIN -->
+			{{ Form::hidden('asin', $asin = null, ['id' => 'asin_input', 'class' => 'hidden-input']) }}
 		</div>
 
 		<br>

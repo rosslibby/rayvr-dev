@@ -232,9 +232,10 @@ Route::group(['before' => 'csrf'], function()
 		 * Confirm review with
 		 * review URL
 		 */
-		Route::get('order/review', function(){
-			return View::make('orders.review');
-		});
+		Route::get('order/review', [
+			'uses' => 'OrderController@leavereview',
+			'as' => 'order.review'
+		]);
 		Route::post('order/review', 'OrderController@review');
 
 		/**

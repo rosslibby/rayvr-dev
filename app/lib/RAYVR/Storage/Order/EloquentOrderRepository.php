@@ -395,7 +395,7 @@ class EloquentOrderRepository implements OrderRepository {
 		$order->review = true;
 		$order->save();
 
-		$response = "Your offer has been confirmed with the review at <strong><a href='" . $review . "' target='_blank'>" . $review . "</a></strong>.";
+		$response = "Your offer has been marked as <strong>complete</strong>.";
 
 		/**
 		 * Now that the offer is

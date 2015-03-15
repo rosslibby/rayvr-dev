@@ -16,28 +16,29 @@
 							<i class="glyphicon glyphicon-thumbs-up"></i>
 						</div>
 						<div class="col-md-4">
-							{{ HTML::link($link, ) }}
+							<p>{{ HTML::link($link, 'Click here to write a review', ['class' => 'btn btn-success']) }}</p>
 						</div>
-						<div class="col-md-5">
+						<div class="col-md-5 text-right">
 							<p>{{ HTML::image($offer->photo, null, ['class' => 'well', 'height' => '240']) }}</p>
 							<p>{{ $offer->title }}</p>
 						</div>
 					</div>
 					<br>
 					<div class="row">
-						<div class="col-md-10 col-md-offset-1">
-							<hr>
-							<label id="experience" class="raleway h5">Please describe your experience here (Min. 140 Characters)</label>
-							{{ Form::textarea('experience', null, ['class' => 'form-control subtle-input', 'id' => 'feedbackExperience']) }}
-							<p class="text-right" id="moreFeedback"></p>
-							<hr>
-							<p>This survey will be reviewed by our team and sent to the product developer. We value your feedback.</p>
+						<div class="col-md-6 col-md-offset-3">
+							<h3>Tips for writing a great review:</h3>
+							<p>Explain <em>why</em> you liked the item</p>
+							<p>Compare it to similar products</p>
+							<p>Identify your favorite attributes</p>
+							<p><strong>Clearly explain that you received the product for free to test and review</strong></p>
 						</div>
 					</div>
 					<br>
 					<div class="row">
 						<div class="col-md-10 col-md-offset-1 text-right">
-							{{ Form::submit('Submit Feedback', ['class' => 'btn btn-success']) }}
+							{{ Form::open(['route' => 'orders/review']) }}
+								{{ Form::submit('Submit Feedback', ['class' => 'btn btn-success']) }}
+							{{ Form::close() }}
 						</div>
 					</div>
 					<br>

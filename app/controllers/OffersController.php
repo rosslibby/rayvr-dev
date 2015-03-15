@@ -137,15 +137,16 @@ class OffersController extends BaseController {
 				CURLOPT_PROGRESSFUNCTION => 'callback'
 			));
 
-			$cc->match(array(
-				'title' => '/id="productTitle" class="a-size-large">(.*?)</ms',
-				'photo' => '/data-a-dynamic-image="{&quot;(.*?)&quot;/',
-				'description' => '/%22productDescriptionWrapper%22%3E%0A(.*?)%3Ch3%20class%3D%22productDescriptionSource/',
-				'alt_description' => '/%3D%22productDescriptionWrapper%22%3E%0A(.*?)%0A/'
-			))->URLs($url)
-			->callback(array(
+			$cc->match([
+				'title'				=> '/id="productTitle" class="a-size-large">(.*?)</ms',
+				'photo'				=> '/data-a-dynamic-image="{&quot;(.*?)&quot;/',
+				'description'		=> '/%22productDescriptionWrapper%22%3E%0A(.*?)%3Ch3%20class%3D%22productDescriptionSource/',
+				'alt_description'	=> '/%3D%22productDescriptionWrapper%22%3E%0A(.*?)%0A/',
+				'asin'				=> '/data-asin="(.*?)"/'
+			])->URLs($url)
+			->callback([
 				'_all_' => array('trim')
-			));
+			]);
 
 			/**
 			 * Make sure description exists
@@ -157,12 +158,13 @@ class OffersController extends BaseController {
 			/**
 			 * Return an array of the data
 			 */
-			$product = array(
+			$product = [
 				'photo' => $cc->get()[0]['photo'],
 				'title' => $cc->get()[0]['title'],
 				'description' => urldecode($description),
-				'url' => $url
-			);
+				'url' => $url,
+				'asin' => $cc->get()[0]['asin']
+			];
 
 			return $product;
 		}
