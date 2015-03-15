@@ -217,7 +217,7 @@ $(document).ready(function(){
 		}
 	});
 
-	/** validate preferences **/
+	/** validate preferences (user) **/
 	$('#preferences').submit(function(e) {
 		if($('#firstName').val() === '' || $('#firstName').val() == ' ') {
 			e.preventDefault();
@@ -253,6 +253,52 @@ $(document).ready(function(){
 			e.preventDefault();
 			$('#zip').addClass('bg-scheme-dark');
 			$('#zip').focus();
+		}
+	});
+
+	/** validate preferences (business) **/
+	$('#businessPreferences').submit(function(e) {
+		if($('#firstName').val() === '' || $('#firstName').val() == ' ') {
+			e.preventDefault();
+			$('#firstName').removeClass('subtle-input');
+			$('#firstName').addClass('bg-scheme-dark');
+			$('#firstName').focus();
+		}
+		if($('#lastName').val() === '' || $('#lastName').val() == ' ') {
+			e.preventDefault();
+			$('#lastName').removeClass('subtle-input');
+			$('#lastName').addClass('bg-scheme-dark');
+			$('#lastName').focus();
+		}
+		if($('#email').val() === '' || $('#email').val() == ' ') {
+			e.preventDefault();
+			$('#email').removeClass('subtle-input');
+			$('#email').addClass('bg-scheme-dark');
+			$('#email').focus();
+		}
+		if($('#address').val() === '' || $('#address').val() == ' ') {
+			e.preventDefault();
+			$('#address').removeClass('subtle-input');
+			$('#address').addClass('bg-scheme-dark');
+			$('#address').focus();
+		}
+		if($('#city').val() === '' || $('#city').val() == ' ') {
+			e.preventDefault();
+			$('#city').removeClass('subtle-input');
+			$('#city').addClass('bg-scheme-dark');
+			$('#city').focus();
+		}
+		if($('#zip').val() === '' || $('#zip').val() == ' ') {
+			e.preventDefault();
+			$('#zip').removeClass('subtle-input');
+			$('#zip').addClass('bg-scheme-dark');
+			$('#zip').focus();
+		}
+		if($('#phone').val() === '' || $('#phone').val() == ' ') {
+			e.preventDefault();
+			$('#phone').removeClass('subtle-input');
+			$('#phone').addClass('bg-scheme-dark');
+			$('#phone').focus();
 		}
 	});
 

@@ -30,12 +30,12 @@
 				</div>
 				@endif
 				<br>
-				{{ Form::open(['post' => 'preferences.storeBusiness', 'class' => 'form-horizontal']) }}
+				{{ Form::open(['post' => 'preferences.storeBusiness', 'class' => 'form-horizontal', 'id' => 'businessPreferences']) }}
 
 					<div class="form-group">
 						{{ Form::label('first_name', 'First name', ['class' => 'control-label required col-md-2']) }}
 						<div class="col-md-9">
-							{{ Form::text('first_name', $model['first_name'], ['class' => 'form-control required subtle-input']) }}
+							{{ Form::text('first_name', $model['first_name'], ['class' => 'form-control required subtle-input', 'id' => 'firstName']) }}
 						</div>
 					</div>
 
@@ -44,7 +44,7 @@
 					<div class="form-group">
 						{{ Form::label('last_name', 'Last name', ['class' => 'control-label required col-md-2']) }}
 						<div class="col-md-9">
-							{{ Form::text('last_name', $model['last_name'], ['class' => 'form-control required subtle-input']) }}
+							{{ Form::text('last_name', $model['last_name'], ['class' => 'form-control required subtle-input', 'id' => 'lastName']) }}
 						</div>
 					</div>
 
@@ -53,7 +53,7 @@
 					<div class="form-group">
 						{{ Form::label('email', 'Email address', ['class' => 'control-label required col-md-2']) }}
 						<div class="col-md-9">
-							{{ Form::text('email', $model['email'], ['class' => 'form-control required subtle-input']) }}
+							{{ Form::text('email', $model['email'], ['class' => 'form-control required subtle-input', 'id' => 'email']) }}
 						</div>
 					</div>
 
@@ -62,7 +62,7 @@
 					<div class="form-group">
 						{{ Form::label('business_name', 'Business name', ['class' => 'control-label col-md-2']) }}
 						<div class="col-md-9">
-							{{ Form::text('business_name', $model['business_name'], ['class' => 'form-control required subtle-input']) }}
+							{{ Form::text('business_name', $model['business_name'], ['class' => 'form-control required subtle-input', 'id' => 'businessName']) }}
 						</div>
 					</div>
 
@@ -71,7 +71,7 @@
 					<div class="form-group">
 						{{ Form::label('address', 'Business address', ['class' => 'control-label required col-md-2']) }}
 						<div class="col-md-9">
-							{{ Form::text('address', $model['address'], ['class' => 'form-control required subtle-input']) }}
+							{{ Form::text('address', $model['address'], ['class' => 'form-control required subtle-input', 'id' => 'address']) }}
 						</div>
 					</div>
 
@@ -89,7 +89,7 @@
 					<div class="form-group">
 						{{ Form::label('city', 'City', ['class' => 'control-label required col-md-2']) }}
 						<div class="col-md-4">
-							{{ Form::text('city', $model['city'], ['class' => 'form-control subtle-input']) }}
+							{{ Form::text('city', $model['city'], ['class' => 'form-control subtle-input', 'id' => 'city']) }}
 						</div>
 						{{ Form::label('state', 'State', ['class' => 'control-label col-md-1']) }}
 						<div class="col-md-4">
@@ -103,7 +103,7 @@
 						</div>
 						{{ Form::label('zip', 'Zip', ['class' => 'control-label required col-md-2']) }}
 						<div class="col-md-3">
-							{{ Form::text('zip', $model['zip'], ['class' => 'form-control subtle-input']) }}
+							{{ Form::text('zip', $model['zip'], ['class' => 'form-control subtle-input', 'id' => 'zip']) }}
 						</div>
 					</div>
 
@@ -112,7 +112,7 @@
 					<div class="form-group">
 						{{ Form::label('phone', 'Phone number', ['class' => 'control-label required col-md-2']) }}
 						<div class="col-md-7">
-							{{ Form::text('phone', $model['phone'], ['class' => 'form-control required subtle-input']) }}
+							{{ Form::text('phone', $model['phone'], ['class' => 'form-control required subtle-input', 'id' => 'phone']) }}
 						</div>
 					</div>
 
