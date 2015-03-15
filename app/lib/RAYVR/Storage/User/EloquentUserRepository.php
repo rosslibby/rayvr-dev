@@ -643,7 +643,7 @@ class EloquentUserRepository implements UserRepository {
 		 */
 		if($response->paid && !$response->refunded)
 		{
-			$billing = Billing::where('stripe_id', $card->id)->first();
+			$billing = Billing::where('stripe_id', $card)->first();
 			$billing->verified = true;
 			$billing->save();
 
