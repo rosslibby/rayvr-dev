@@ -41,7 +41,7 @@
 						<br>
 						<h2 class="raleway normal">Step 3. <span class="light">Shipping Reimbursement</span></h2>
 						<div class="col-md-6">
-							<label class="h5 light">{{ Form::checkbox('free_shipping', 1) }} Free Shipping</label>
+							<label class="h5 light">{{ Form::checkbox('free_shipping', 1) }} I didn't pay for shipping</label>
 						</div>
 						<div class="col-md-1 text-right">
 							<br>
