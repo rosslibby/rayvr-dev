@@ -81,7 +81,7 @@
 		<br>
 		@foreach($data['customer']->sources->data as $card)
 			<p class="source-sans-pro"><strong>{{ $card->brand }} <i class="fa fa-cc-{{ strtolower($card->brand) }}"></i></strong> ************{{ $card->last4 }} | Exp. {{ $card->exp_month }}/{{ $card->exp_year }} | {{ HTML::link('card/'.$card->id.'/delete', 'Remove card') }}</p>
-			<hr class="dashed">
+			<hr>
 		@endforeach
 	</div>
 		{{-- <div class="col-md-12">
