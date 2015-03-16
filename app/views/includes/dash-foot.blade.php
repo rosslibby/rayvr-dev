@@ -9,6 +9,7 @@
 {{ HTML::script( 'resources/js/bootstrap-slider.js' ) }}
 {{ HTML::script( 'resources/js/bootstrap-rating-input.js' ) }}
 {{ HTML::script( 'resources/js/jquery.confirm.min.js' ) }}
+{{ HTML::script( 'resources/js/jquery.validate.min.js' ) }}
 <script>
 
 
@@ -29,8 +30,44 @@ $(document).ready(function(){
 			/** This one keeps spinning when it shouldn't **/
 			$('#sendInviteCog').removeClass('fa-spin');
 			$('#invite').val($('#hiddenInvite').val());
+			$('#invite').blur();
+			$('#email').focus();
 			$('#inviteAnother').html('Invite another friend!');
 		}, 2000);
+	});
+
+	$("#userLogin").validate({
+		rules: {
+			email: {
+				required: true,
+				email: true
+			},
+			password: {
+				required: true,
+				minlength: 6
+			}
+		},
+		errorPlacement: function(error, element){
+			return true;
+		}
+	});
+
+	$("#userInvite").validate({
+		rules: {
+			invite_code: {
+				required: true
+			},
+			email: {
+				required: true,
+				email: true
+			},
+			name: {
+				required: true
+			}
+		},
+		errorPlacement: function(error, element){
+			return true;
+		}
 	});
 
 	/** Send the invite via an ajax call **/
