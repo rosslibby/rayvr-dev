@@ -199,9 +199,9 @@ h3.inset-form-heading
 	color: #fff;
 }
 
-.inset-form-container .inset-form-input.error { border-color: #DA4453 !important; }
+.inset-form-input.error { border-color: #DA4453 !important; }
 
-.inset-form-container .inset-form-input.valid { border-color: #8CC152; }
+.inset-form-input.valid { border-color: #8CC152; }
 
 .inset-form-container .inset-form-input.error + .input-group-addon { color: #DA4453; }
 

@@ -1,7 +1,7 @@
 <!-- Inline business registration -->
 <div class="row inline-sign-up">
 	<div class="container">
-		{{ Form::open(['route' => 'register.store', 'id' => 'businessRegistration', 'class' => 'form-inline text-left col-md-12']) }}
+		{{ Form::open(['route' => 'register.store', 'id' => 'inlineRegistration', 'class' => 'form-inline text-left col-md-12']) }}
 
 			<div class="col-md-2 text-center">
 				<p class="h4 fg-scheme-white light">Sign Up Now</p>
@@ -9,7 +9,7 @@
 
 			<div class="form-group required col-md-4">
 				<div class="input-group col-md-12">
-					{{ Form::email('email', null, array('id' => 'email', 'class' => 'form-control inset-form-input', 'placeholder' => 'Email')) }}
+					{{ Form::email('email', null, array('id' => 'email', 'class' => 'form-control inset-form-input', 'placeholder' => 'Email', 'required')) }}
 				</div>
 			</div>
 			

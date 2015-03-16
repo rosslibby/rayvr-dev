@@ -27,23 +27,53 @@ $(document).ready(function(){
 		radioClass: 'iradio_flat-red'
 	});
 });
-jQuery.validator.setDefaults({
-	success: 'valid',
-	error: 'error'
-});
+
+/** validate user registration inline form **/
+// $('#inlineRegistration').submit(function(e){
+// 	if($('#email').val() == '' || $('#email').val() == ' ') {
+// 		e.preventDefault();
+// 		$('#email').removeClass('inset-form-input');
+// 		$('#email').addClass('bg-scheme-dark fg-scheme-white');
+// 	}
+// 	if($('#password').val() == '' || $('#password').val() == ' ') {
+// 		e.preventDefault();
+// 		$('#password').removeClass('inset-form-input');
+// 		$('#password').addClass('bg-scheme-dark fg-scheme-white');
+// 	}
+// });
 $("#businessRegistration").validate({
 	rules: {
 		email: {
 			required: true,
 			email: true
-		}
-	},
-	rules: {
+		},
+		password: {
+			required: true,
+			minlength: 6,
+		},
 		password_confirmation: {
 			required: true,
 			minlength: 6,
-			equalTo: password
+			equalTo: "#true_password"
+		},
+		agree: {
+			required: true
 		}
+	},
+	errorPlacement: function(error, element){
+		return true;
+	}
+});
+$("#inlineRegistration").validate({
+	rules: {
+		email: {
+			required: true,
+			email: true
+		},
+		password: {
+			required: true,
+			minlength: 6
+		},
 	},
 	errorPlacement: function(error, element){
 		return true;
@@ -54,9 +84,7 @@ $("#userLogin").validate({
 		email: {
 			required: true,
 			email: true
-		}
-	},
-	rules: {
+		},
 		password: {
 			required: true,
 			minlength: 6

@@ -6,21 +6,21 @@
 
 			<div class="form-group required">
 				<div class="input-group">
-					{{ Form::email('email', null, array('id' => 'email', 'class' => 'form-control inset-form-input', 'placeholder' => 'Email')) }}
+					{{ Form::email('email', null, ['id' => 'email', 'class' => 'form-control inset-form-input', 'placeholder' => 'Email']) }}
 					<span class="input-group-addon"><i class="fa fa-envelope"></i></span>
 				</div>
 			</div>
 			
 			<div class="form-group required">
 				<div class="input-group">
-					{{ Form::password('password', array('id' => 'password', 'class' => 'form-control inset-form-input', 'placeholder' => 'Password')) }}
+					{{ Form::password('password', ['id' => 'true_password', 'class' => 'form-control inset-form-input', 'placeholder' => 'Password']) }}
 					<span class="input-group-addon"><i class="fa fa-lock"></i></span>
 				</div>
 			</div>
 
 			<div class="form-group required">
 				<div class="input-group">
-					{{ Form::password('password_confirmation', array('id' => 'password_confirmation', 'class' => 'form-control inset-form-input', 'placeholder' => 'Confirm Password')) }}
+					{{ Form::password('password_confirmation', ['id' => 'password_confirmation', 'class' => 'form-control inset-form-input', 'placeholder' => 'Confirm Password']) }}
 					<span class="input-group-addon"><i class="fa fa-lock"></i></span>
 				</div>
 			</div>
