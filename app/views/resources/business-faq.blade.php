@@ -27,7 +27,7 @@
 <p>To end a promotion early, contact {{ HTML::link('mailto:support@rayvr.com', 'support@rayvr.com') }}</p>
 <br>
 <p class="h5">How do I cancel my account?</p>
-<p>Contact {{ HTML::('mailto:support@rayvr.com', 'support@rayvr.com') }}.</p>
+<p>Contact {{ HTML::link('mailto:support@rayvr.com', 'support@rayvr.com') }}.</p>
 <br>
 <p class="h5">What products are not allowed on RAYVR?</p>
 <p>Vitamins, supplements, e-books, books, food products, and adult products are not allowed on RAYVR. To keep a high level of quality for products in our program, we reserve the right to reject any product submitted at our discretion.</p>

@@ -93,6 +93,14 @@ Route::group(['before' => 'csrf'], function()
 	 * Business-specific routes
 	 */
 	Route::group(['before' => 'business'], function(){
+
+		/**
+		 * Business FAQ
+		 */
+		Route::get('business/faq', function(){
+			return View::make('resources.business-faq');
+		});
+
 		/**
 		 * Dispute shipping claim
 		 */
@@ -328,10 +336,6 @@ Route::group(['before' => 'csrf'], function()
 
 	Route::get('faq', function(){
 		return View::make('resources.user-faq');
-	});
-
-	Route::get('business/faq', function(){
-		return View::make('resources.business-faq');
 	});
 
 	Route::get('resources/terms-and-conditions', function()
