@@ -28,19 +28,6 @@ $(document).ready(function(){
 	});
 });
 
-/** validate user registration inline form **/
-// $('#inlineRegistration').submit(function(e){
-// 	if($('#email').val() == '' || $('#email').val() == ' ') {
-// 		e.preventDefault();
-// 		$('#email').removeClass('inset-form-input');
-// 		$('#email').addClass('bg-scheme-dark fg-scheme-white');
-// 	}
-// 	if($('#password').val() == '' || $('#password').val() == ' ') {
-// 		e.preventDefault();
-// 		$('#password').removeClass('inset-form-input');
-// 		$('#password').addClass('bg-scheme-dark fg-scheme-white');
-// 	}
-// });
 $("#businessRegistration").validate({
 	rules: {
 		email: {
