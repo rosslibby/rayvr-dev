@@ -38,12 +38,7 @@ class PaymentController extends BaseController {
 		/**
 		 * Subscribe to the membership
 		 */
-		$customer = $this->user->createCustomer(Input::all(), Auth::user());
-
-		/**
-		 * Show a thank-you message
-		 */
-		return Redirect::to('billing')->with('success', 'Your payment information has been saved successfully.');
+		return $customer = $this->user->createCustomer(Input::all(), Auth::user());;
 	}
 
 	public function offers()

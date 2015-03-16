@@ -518,6 +518,19 @@ class EloquentUserRepository implements UserRepository {
 			$user->stripe_customer = $customer->id;
 			$user->save();
 			$card = $customer->sources->retrieve($customer->sources->data[0]->id);
+
+			/**
+			 * Verify that the card is valid
+			 * and functional
+			 */
+			$verify = $this->verify($customer, $card, $user);
+
+			/**
+			 * This is the first card the business
+			 * has entered, so redirect the
+			 * business to the "new offer" page
+			 */
+			return \Redirect::to('offers/add');
 		}
 		else
 		{
@@ -536,16 +549,18 @@ class EloquentUserRepository implements UserRepository {
 			$billing->user_id = $user->id;
 			$billing->stripe_id = $card->id;
 			$billing->save();
+
+			/**
+			 * Verify that the card is valid
+			 * and functional
+			 */
+			$verify = $this->verify($customer, $card, $user);
+
+			/**
+			 * Show a thank-you message
+			 */
+			return Redirect::to('billing')->with('success', 'Your payment information has been saved successfully.');
 		}
-
-		/**
-		 * Verify that the card is valid
-		 * and functional
-		 */
-		$verify = $this->verify($customer, $card, $user);
-		return 'hahaha';
-
-		return $verify;
 	}
 
 	public function postpay($offer)
