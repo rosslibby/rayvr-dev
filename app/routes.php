@@ -19,8 +19,7 @@ Route::get('register/welcome', [
  * Route for testing anything
  */
 Route::get('test', function(){
-	$order = Order::find(1);
-	return $order->offer->title;
+	// test
 });
 
 Route::group(['before' => 'csrf'], function()
