@@ -31,7 +31,8 @@ class Order extends Ardent {
 		'reviewed',
 		'completed',
 		'created_at',
-		'updated_at'
+		'updated_at',
+		'asin'
 	];
 
 	/**

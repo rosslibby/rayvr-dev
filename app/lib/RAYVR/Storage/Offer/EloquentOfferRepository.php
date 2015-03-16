@@ -272,6 +272,23 @@ class EloquentOfferRepository implements OfferRepository {
 		}
 
 		/**
+		 * Add any users - who have received
+		 * this product before through a
+		 * different promotion - to the
+		 * blacklist
+		 */
+		$asin = json_decode($this->order()->where('asin',$offer->asin)->get(['user_id']), true);
+
+		if(!empty($asin))
+		{
+			foreach($asin as $blacklist)
+			{
+				$userid = $blacklist['user_id'];
+				array_push($blacklistArr, $userid);
+			}
+		}
+
+		/**
 		 * Implode $blacklistArr so that
 		 * it can be checked against in
 		 * the database query

@@ -69,7 +69,7 @@
 
 		<br>
 		<br>
-		<!-- Review page link -->
+{{-- 		<!-- Review page link -->
 		<h3 class="raleway">Step 2: <span class="light">Link to Review Page</span></h3>
 		<hr class="dashed">
 
@@ -82,9 +82,9 @@
 		</div>
 
 		<br>
-		<br>
+		<br> --}}
 		<!-- Quota & Dates -->
-		<h3 class="raleway">Step 3: <span class="light">Start &amp; End Dates</span></h3>
+		<h3 class="raleway">Step 2: <span class="light">Start &amp; End Dates</span></h3>
 		<hr class="dashed">
 
 		{{-- <div class="row">
@@ -100,7 +100,7 @@
 		<div class="row">
 			<!-- Date range -->
 			<div class="col-md-6">
-				<p class="h4">{{ Form::label('date', 'Preferred start &amp; end dates', ['class' => 'control-label raleway h4 light']) }}&nbsp;<i class="fa fa-calendar"></i></p>
+				<p class="h4">{{ Form::label('date', 'Preferred start &amp; end dates', ['class' => 'control-label raleway h4 light']) }}</p>
 				<div class="sandbox-container">
 					<div class="input-daterange input-group col-md-12" id="datepicker">
 						{{--*/
@@ -128,7 +128,7 @@
 		<br>
 		<br>
 		<!-- Shipping Information -->
-		<h3 class="raleway">Step 4: <span class="light">Shipping Information</span></h3>
+		<h3 class="raleway">Step 3: <span class="light">Shipping Information</span></h3>
 		<hr class="dashed">
 
 		<div class="row">
@@ -163,7 +163,7 @@
 				</div>
 			</div> --}}
 				<div class="col-md-12">
-					<p class="h5">{{ Form::label('free_shipping', 'Is this product eligible for free shipping? (This does not include shipping to Prime&trade; users)', ['class' => 'control-label raleway h5 light']) }}</p>
+					<p class="h5">{{ Form::label('free_shipping', 'Is this product eligible for free shipping outside of the Prime&trade; program?', ['class' => 'control-label raleway h5 light']) }}</p>
 					<div class="col-md-4">
 						<div class="col-md-4">
 							<div class="radio" id="shipFree">
@@ -195,7 +195,7 @@
 		<br>
 		<br>
 		<!-- Demographic information -->
-		<h3 class="raleway">Step 5: <span class="light">Target Audience</span></h3>
+		<h3 class="raleway">Step 4: <span class="light">Target Audience</span></h3>
 		<hr class="dashed">
 
 		<div class="row">
@@ -210,13 +210,13 @@
 				<div class="row">
 					<div class="col-md-3 col-md-offset-3">
 						<div class="checkbox">
-							{{ Form::checkbox('female', '1', null, ['id' => 'female']) }}
+							{{ Form::checkbox('female', '1', true, ['id' => 'female']) }}
 							{{ Form::label('female', 'Female') }}
 						</div>
 					</div>
 					<div class="col-md-3">
 						<div class="checkbox">
-							{{ Form::checkbox('male', '1', null, ['id' => 'male']) }}
+							{{ Form::checkbox('male', '1', true, ['id' => 'male']) }}
 							{{ Form::label('male', 'Male') }}
 						</div>
 					</div>

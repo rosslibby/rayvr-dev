@@ -355,12 +355,18 @@ class EloquentUserRepository implements UserRepository {
 											->first();
 
 			/**
+			 * Fetch the offer
+			 */
+			$theOffer = $this->offer->find($match->offer_id);
+
+			/**
 			 * Create the order
 			 */
 			$order				= new Order();
 			$order->offer_id	= $match->offer_id;
 			$order->user_id		= $user->id;
 			$order->code		= $voucher->code;
+			$order->asin		= $theOffer->asin;
 			$order->save();
 
 			/**
