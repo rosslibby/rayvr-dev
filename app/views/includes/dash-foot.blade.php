@@ -10,8 +10,8 @@
 {{ HTML::script( 'resources/js/bootstrap-rating-input.js' ) }}
 {{ HTML::script( 'resources/js/jquery.confirm.min.js' ) }}
 {{ HTML::script( 'resources/js/jquery.validate.min.js' ) }}
+{{ HTML::script( 'resources/js/jquery.maskedinput.min.js' ) }}
 <script>
-
 
 /**
  * Show file upload data to user
@@ -215,15 +215,7 @@ $(document).ready(function(){
 	});
 
 	/** Card number separator **/
-	var keyCounter = 0;
-	$("#card").keyup(function(){
-		keyCounter++;
-		console.log($(this).val().length % 4);
-		if(!(keyCounter % 4) && keyCounter < 16)
-		{
-			$(this).val($(this).val() + ' - ');
-		}
-	});
+	$("#card").mask("9999 - 9999 - 9999 - 9999");
 
 	/** Validate feedback form upon submission **/
 	$('#feedbackForm').submit(function(e){

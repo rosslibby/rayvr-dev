@@ -73,23 +73,28 @@
 
 			{{ Form::button('Add payment method', ['type' => 'submit', 'class' => 'btn btn-info']) }}
 		{{ Form::close() }}
-
-		@if(!empty($data))
-		<div class="fg-scheme-white row">
-			{{-- Details --}}
-			<div class="col-md-12">
-				@foreach($data['customer']->sources->data as $card)
-				{{--*/ $class = "fa fa-cc-".strtolower($card->brand) /*--}}
-					<p>Card: <strong>************{{ $card->last4 }} / <i class="{{ $class }}"></i> {{ $card->funding }} / Exp. {{ $card->exp_month }}/{{ $card->exp_year }}</strong></p>
-					<hr class="dashed">
-				@endforeach
-			{{--	<p>Card: <strong>************{{ $card->last4 }} / <i class="fa fa-cc-{{ $card->brand }}"></i> {{ $card->funding }} / Exp. {{ $card->exp_month }}/{{ $card->exp_year }}</strong></p> --}}
-				@foreach($data['charges'] as $charge)
-				<p>Charge: <strong>${{ $charge->charge }}</strong></p>
-				<hr class="dashed">
-				@endforeach
-			</div>
-		</div>
-		@endif
 	</div>
+	@if(!empty($data['customer']->sources->data))
+	{{-- Details --}}
+	<div class="col-md-10 col-md-offset-1">
+		<br>
+		<br>
+		@foreach($data['customer']->sources->data as $card)
+			<p class="source-sans-pro"><strong>{{ $card->brand }} <i class="fa fa-cc-{{ strtolower($card->brand) }}"></i></strong> ************{{ $card->last4 }} | Exp. {{ $card->exp_month }}/{{ $card->exp_year }} | {{ HTML::link('card/'.$card->id.'/delete', 'Remove card') }}</p>
+			<hr class="dashed">
+		@endforeach
+	</div>
+		{{-- <div class="col-md-12">
+		@foreach($data['customer']->sources->data as $card)
+		*/ $class = "fa fa-cc-".strtolower($card->brand) /*
+			<p>Card: <strong>************{{ $card->last4 }} / <i class="{{ $class }}"></i> {{ $card->funding }} / Exp. {{ $card->exp_month }}/{{ $card->exp_year }}</strong></p>
+			<hr class="dashed">
+		@endforeach
+		<p>Card: <strong>************{{ $card->last4 }} / <i class="fa fa-cc-{{ $card->brand }}"></i> {{ $card->funding }} / Exp. {{ $card->exp_month }}/{{ $card->exp_year }}</strong></p> 
+		@foreach($data['charges'] as $charge)
+		<p>Charge: <strong>${{ $charge->charge }}</strong></p>
+		<hr class="dashed">
+		@endforeach
+	</div> --}}
+@endif
 @stop

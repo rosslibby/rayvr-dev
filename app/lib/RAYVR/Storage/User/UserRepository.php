@@ -33,6 +33,11 @@ interface UserRepository {
 	public function createEarly($input);
 
 	/**
+	 * Delete business credit card
+	 */
+	public function deleteCard($id, $user);
+
+	/**
 	 * Delete user account (permanent)
 	 */
 	public function delete($id);

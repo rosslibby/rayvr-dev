@@ -103,6 +103,14 @@ Route::group(['before' => 'csrf'], function()
 		Route::post('orders/{order}/shipping', 'OrderController@dispute');
 
 		/**
+		 * Delete credit card
+		 */
+		Route::get('card/{id}/delete', [
+			'uses' => 'PaymentController@delete',
+			'as' => 'card.delete'
+		]);
+
+		/**
 		 * Offers ordered
 		 */
 		Route::get('offers/track/{id}', [

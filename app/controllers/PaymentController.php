@@ -48,6 +48,15 @@ class PaymentController extends BaseController {
 	}
 
 	/**
+	 * Delete a card
+	 */
+	public function delete($id)
+	{
+		$this->user->deleteCard($id, Auth::user());
+		return Redirect::route('billing');
+	}
+
+	/**
 	 * Process Stripe payment for
 	 * offer packs
 	 */

@@ -186,6 +186,12 @@ class EloquentUserRepository implements UserRepository {
 		}
 	}
 
+	public function deleteCard($id, $user)
+	{
+		$customer = \Stripe_Customer::retrieve($user->stripe_customer);
+		return $customer->sources->retrieve($id)->delete();
+	}
+
 	public function delete($id)
 	{
 		/**
@@ -559,7 +565,7 @@ class EloquentUserRepository implements UserRepository {
 			/**
 			 * Show a thank-you message
 			 */
-			return Redirect::to('billing')->with('success', 'Your payment information has been saved successfully.');
+			return \Redirect::to('billing')->with('success', 'Your payment information has been saved successfully.');
 		}
 	}
 
@@ -656,11 +662,8 @@ class EloquentUserRepository implements UserRepository {
 		if($response->paid && !$response->refunded)
 		{
 			$billing = Billing::where('stripe_id', $card->id)->get();
-			foreach($billing as $bill)
-			{
-				$billing->verified = true;
-				$billing->save();
-			}
+			$billing[0]->verified = true;
+			$billing[0]->save();
 
 			$ch = \Stripe_Charge::retrieve($response->id);
 			$re = $ch->refunds->create();
