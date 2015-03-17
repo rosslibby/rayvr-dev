@@ -405,7 +405,7 @@ Route::group(['before' => 'csrf'], function()
 		 * Select credit card as billing method
 		 */
 		Route::get('billing/{id}/select', [
-			'uses' => 'PaymentController@chooseBilling',
+			'uses' => 'OffersController@chooseBilling',
 			'as' => 'billing.select'
 		]);
 
