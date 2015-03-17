@@ -16,7 +16,7 @@
 				@endif
 			</div>
 			<div class="text-center">
-				@if(!is_object($matches))
+				@if(!is_object($matches) || Session::has('cheating'))
 					<h2 class="raleway">You have no offers at this time. Check back soon!</h2>
 					<hr>
 					<div class="col-md-8 col-md-offset-2 raleway">

@@ -441,6 +441,9 @@ class EloquentUserRepository implements UserRepository {
 		 * If true, show the offers.current template,
 		 * along with the next step in the process
 		 * 
+		 * If the user has confirmed an order within
+		 * the last 24 hours, show a countdown
+		 * 
 		 * Otherwise, show the offers.select template
 		 */
 
@@ -475,6 +478,14 @@ class EloquentUserRepository implements UserRepository {
 					->with('current', $current)
 					->with('step', $step)
 					->with('success', $success = null);
+		}
+
+		$date = date('Y-m-d H:i:s', strtotime('-24 hours'));
+		$lastOrder = json_decode($user->order()->where('created_at', '>=', $date)->get(), true);
+		if(!empty($lastOrder))
+		{
+			$cheating = 'Too soon, bro.';
+			return View::make('offers.select')->with('cheating', $cheating);
 		}
 
 		return View::make('offers.select')->with('matches', $this->matches($user->matches));
