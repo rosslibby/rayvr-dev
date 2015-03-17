@@ -255,7 +255,8 @@ class EloquentUserRepository implements UserRepository {
 		 * Build an array of
 		 * matches the user is
 		 * eligible for and has
-		 * not declined
+		 * not declined and are
+		 * live
 		 */
 		$eligible = [];
 
@@ -274,7 +275,7 @@ class EloquentUserRepository implements UserRepository {
 			 * If neither, add
 			 * to array
 			 */
-			if(!$match->accept && !$match->decline)
+			if(!$match->accept && !$match->decline && $match->live)
 				array_push($eligible, $match);
 		}
 
