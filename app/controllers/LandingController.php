@@ -54,7 +54,7 @@ class LandingController extends BaseController {
 						 * a membership, direct the user to
 						 * the membership page
 						 */
-						if((Auth::user()->trial_ends_at < date('Y-m-d') && Auth::user()->subscription_ends_at < ('Y-m-d')) || !Auth::user()->stripe_plan)
+						if((!Auth::user()->billing)
 							return Redirect::to('billing');
 						else
 							return Redirect::to('offers/track');
