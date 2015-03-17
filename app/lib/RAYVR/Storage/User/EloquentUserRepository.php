@@ -563,7 +563,9 @@ class EloquentUserRepository implements UserRepository {
 			 * has entered, so redirect the
 			 * business to the "new offer" page
 			 */
-			return \Redirect::to('offers/add');
+			if($verify)
+				return \Redirect::to('offers/add');
+			return \Redirect::to('billing')->with('fail', 'Your card failed to verify. Please try a different card.');
 		}
 		else
 		{
@@ -707,7 +709,10 @@ class EloquentUserRepository implements UserRepository {
 
 			$ch = \Stripe_Charge::retrieve($response->id);
 			$re = $ch->refunds->create();
+
+			return true;
 		}
+		return false;
 	}
 
 	public function subscribe($input, $user)

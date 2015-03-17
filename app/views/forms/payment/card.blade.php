@@ -13,6 +13,11 @@
 					<div class="alert alert-success alert-dismissable col-md-6 col-md-offset-3"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&#10005;</button> <strong>Success!</strong> {{ Session::get('success') }}</div>
 				</div>
 			@endif
+			@if(Session::has('fail'))
+				<div class="row">
+					<div class="alert alert-danger alert-dismissable col-md-6 col-md-offset-3"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&#10005;</button> <strong>Error:</strong> {{ Session::get('fail') }}</div>
+				</div>
+			@endif
 			<h2 class="fg-scheme-white"><span class="glyphicon glyphicon-credit-card"></span>&nbsp;Billing</h2>
 		</div>
 	</div>
