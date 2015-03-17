@@ -2,7 +2,7 @@
 
 use RAYVR\Storage\Category\CategoryRepository as CategoryRepo;
 
-use Offer, Interest, User, Omnipay\Omnipay, Auth, Reimbursement, Mail, Matches, OfferPack, Blacklist, Voucher, Category, Copycat, Order;
+use Offer, Interest, User, Omnipay\Omnipay, Auth, Reimbursement, Mail, Matches, OfferPack, Blacklist, Voucher, Category, Copycat, Order, Stripe;
 
 class EloquentOfferRepository implements OfferRepository {
 
@@ -22,6 +22,8 @@ class EloquentOfferRepository implements OfferRepository {
 		$gateway = Omnipay::create('Stripe');
 		$gateway->setApiKey('sk_test_3YmCSPqFkZCBhSroMCu4QAC0');
 		$this->gateway = $gateway;
+
+		Stripe::setApiKey($_ENV['stripe_api_key']);
 	}
 
 	public function all()
@@ -135,6 +137,12 @@ class EloquentOfferRepository implements OfferRepository {
 				array_push($reviews, 'fail');
 		}
 		return $reviews;
+	}
+
+	public function paymentMethod($id, $promotion)
+	{
+		$promotion->billing = $id;
+		return $promotion->save();
 	}
 
 	public function offerStart($date)
@@ -879,6 +887,8 @@ class EloquentOfferRepository implements OfferRepository {
 			 */
 			$data['code'] = $offerCodes[0];
 		} else {
+			if(!array_key_exists('quota', $data))
+				$data = array_merge($data, ['quota' => 15]);
 			for($i = 0; $i < (int)($data['quota']); $i++)
 			{
 				array_push($offerCodes, $data['code']);

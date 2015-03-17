@@ -588,6 +588,15 @@ class EloquentUserRepository implements UserRepository {
 	public function postpay($offer)
 	{
 		/**
+		 * Don't charge for trial
+		 * promotion
+		 */
+		if(count($offer->business()->offers) == 1)
+		{
+			return true;
+		}
+
+		/**
 		 * Set the Rate Per Offer (RPO)
 		 */
 		$RPO = 5;
@@ -634,7 +643,8 @@ class EloquentUserRepository implements UserRepository {
 		$response = \Stripe_Charge::create([
 			'amount' => $sum,
 			'currency' => 'usd',
-			'customer' => $customer
+			'customer' => $customer,
+			'source' => $offer->billing
 		]);
 
 		/**

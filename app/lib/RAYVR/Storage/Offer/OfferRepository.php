@@ -23,6 +23,11 @@ interface OfferRepository {
 	public function verifyReview();
 
 	/**
+	 * Select payment method for promotion
+	 */
+	public function paymentMethod($id, $promotion);
+
+	/**
 	 * Retreive approved offers
 	 * starting on a particular
 	 * date

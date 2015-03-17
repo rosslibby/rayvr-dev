@@ -219,8 +219,24 @@ class OffersController extends BaseController {
 		if($s['success'] == 1)
 			return Redirect::to('offers/review')->with('success', $s['message']);
 		elseif($s['success'] == 2)
-			return Redirect::to('offers/review')->with('success', $s['message']);
-			// return Redirect::to('offers/billing')->with('success', $s['message']);
+			// return Redirect::to('offers/review')->with('success', $s['message']);
+			return Redirect::to('offers/billing')->with('success', $s['message']);
+	}
+
+	/**
+	 * Offer billing page
+	 */
+	public function billing()
+	{
+		return View::make('forms.payment.select')->with('data', $this->user->stripeData(Auth::user()));
+	}
+
+	/**
+	 * Set billing method
+	 */
+	public function chooseBilling()
+	{
+		return Redirect::to('/');
 	}
 
 	/**
