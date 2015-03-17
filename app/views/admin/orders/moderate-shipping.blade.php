@@ -9,6 +9,7 @@
 				<strong>{{ Session::get('success') }}</strong>
 			</div>
 		@endif
+		@if(Session::has('claims'))
 		{{ Form::open(['post' => 'shipping/approve']) }}
 		<ul class="list-group">
 			@foreach($claims as $claim)
@@ -29,6 +30,7 @@
 			@endforeach
 		</ul>
 		{{ Form::close() }}
+		@endif
 	</div>
 </div>
 @stop
