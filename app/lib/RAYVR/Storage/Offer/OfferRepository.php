@@ -51,6 +51,12 @@ interface OfferRepository {
 	public function matchUser($user, $offer);
 
 	/**
+	 * Match users with promotions
+	 * every second
+	 */
+	public function secondMatching();
+
+	/**
 	 * Match offer with users
 	 * upon initial approval
 	 * of the respective offer

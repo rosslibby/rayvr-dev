@@ -216,10 +216,11 @@ class OffersController extends BaseController {
 		 * 3: Leave shipping deposit
 		 * 4: Purchase non-prime offers & leave shipping deposit
 		 */
-		if($s['success'] == 1 || $s['success'] == 3)
+		if($s['success'] == 1)
 			return Redirect::to('offers/review')->with('success', $s['message']);
-		elseif($s['success'] == 2 || $s['success'] == 4)
+		elseif($s['success'] == 2)
 			return Redirect::to('offers/review')->with('success', $s['message']);
+			// return Redirect::to('offers/billing')->with('success', $s['message']);
 	}
 
 	/**

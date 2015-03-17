@@ -401,6 +401,8 @@ Route::group(['before' => 'csrf'], function()
 
 		Route::get('offers/add', 'OffersController@add');
 
+		Route::get('offers/billing', 'OffersController@billing');
+
 		Route::post('offers/add', [
 			'uses' => 'OffersController@quota',
 			'as' => 'offers.quota'

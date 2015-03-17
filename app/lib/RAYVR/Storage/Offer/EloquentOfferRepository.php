@@ -514,6 +514,198 @@ class EloquentOfferRepository implements OfferRepository {
 	}
 
 	/**
+	 * Match users with promotions
+	 * every second of the day
+	 */
+	public function secondMatching()
+	{
+		/**
+		 * Determine today's date
+		 */
+		$date = date('Y-m-d');
+
+		/**
+		 * Select all promotions that
+		 * have not yet ended and
+		 * have been approved and
+		 * have selected billing
+		 * information
+		 */
+		$promotions = Offer::where('end', '>=', $date)
+						->where('approved', true)
+						->where('billing', true)
+						->get();
+
+		/**
+		 * Iterate through promotions
+		 * to find users that match
+		 * each promotion's attributes
+		 */
+		foreach($promotions as $promo)
+		{
+			/**
+			 * Select the offer's gender
+			 * preference (if any)
+			 */
+			$male = $promo->male;
+			$female = $promo->female;
+
+			/**
+			 * Set up the gender that
+			 * the user should NOT match
+			 */
+			$bad = null;
+			if(($male && $female) || (!$male && !$female))
+			{
+				$bad = 2;
+			}
+			else
+			{
+				if($male)
+				{
+					$bad = 0;
+				}
+				else
+				{
+					$bad = 1;
+				}
+			}
+
+			/**
+			 * Select the categories
+			 */
+			$categories = $promo->category;
+
+			/**
+			 * Build the blacklist of users
+			 * that have already done ordered
+			 * from this business 3 times
+			 */
+			$blacklisted = json_decode(Blacklist::where('business_id', $promo->business_id)
+												->where('times', 3)
+												->get(['user_id']), true);
+			$blacklistArr = [];
+			foreach($blacklisted as $blacklist)
+			{
+				$userid = $blacklist['user_id'];
+				array_push($blacklistArr, $userid);
+			}
+			$blacklistArr = implode(',', $blacklistArr);
+
+			/**
+			 * Find all the users that
+			 * match the promo's criteria
+			 */
+			$users = [];
+			$userArr = User::whereNotInt('id', [$blacklistArr])
+							->where('gender', '!=', $bad)
+							->where('current', false)
+							->get();
+
+			/**
+			 * Create the matches
+			 */
+			$unique = [];
+			foreach($userArr as $user)
+			{
+				/**
+				 * Assume the user has no
+				 * interests in common with
+				 * the promotion
+				 */
+				$common = false;
+
+				/**
+				 * Iterate through the user's
+				 * interests in hopes of
+				 * discovering a common
+				 * interest
+				 */
+				foreach($user->interest as $interest)
+				{
+					foreach($categories as $category)
+					{
+						if($interest->cat_id == $category->category_id)
+						{
+							$common = true;
+							break 2;
+						}
+					}
+				}
+
+				/**
+				 * Check for conflicting
+				 * addresses
+				 */
+				$conflict = false;
+
+				if($common)
+				{
+					$address = [
+						'address'	=> $user->address,
+						'address_2'	=> $user->address_2,
+						'city'		=> $user->city,
+						'state'		=> $user->state,
+						'zip'		=> $user->zip,
+						'country'	=> $user->country,
+					];
+
+					/**
+					 * Find all orders associated
+					 * with the offer thus far to
+					 * check the addresses against
+					 */
+					$orders = $promo->orders;
+
+					foreach($orders as $order)
+					{
+						if($order->user()->where($address)->get())
+						{
+							$conflict = true;
+						}
+					}
+				}
+
+				if(!$conflict)
+				{
+					/**
+					 * Determine whether the user has
+					 * been matched with this offer
+					 * in the past
+					 * 
+					 * Also determine whether the
+					 * user is a business. Businesses
+					 * should never be matched with
+					 * offers
+					 */
+					$criteria = [
+						'user_id' => $user->id,
+						'offer_id' => $promo->id,
+					];
+					$match = json_decode(Matches::where($criteria)->get(), true);
+					$foundMatch = false;
+					if(!empty($match))
+					{
+						foreach($match as $conflictingMatch)
+						{
+							$foundMatch = true;
+						}
+					}
+
+					if(!$foundMatch && !$user->business)
+					{
+						$match = new Matches();
+						$match->offer_id = $promo->id;
+						$match->user_id = $user->id;
+						$match->business_id = $promo->business_id;
+						$match->save();
+					}
+				}
+			}
+		}
+	}
+
+	/**
 	 * Match offer with users
 	 * upon initial approval
 	 * of the respective offer
@@ -800,9 +992,22 @@ class EloquentOfferRepository implements OfferRepository {
 
 			$response = [
 				'success'	=> 1,
-				'message'	=> 'Your offer has been successfully submitted for review. If it is accepted, it will begin on '.date('M. d, Y').'. No further action is required at this time.',
+				'message'	=> 'Your offer has been successfully submitted for review. If it is accepted, it will begin on '.date('M. d, Y', strtotime($s->start)).'. No further action is required at this time.',
 				'id'		=> $s->id,
 			];
+
+			/**
+			 * If the business has used the trial
+			 * already, direct to the billing page
+			 */
+			if(count($user->offers) > 1)
+			{
+				$response = [
+					'success'	=> 2,
+					'message'	=> 'Your offer has been successfully submitted for review. Please confirm your billing information on the next page.',
+					'id'		=> $s->id,
+				];
+			}
 			return $response;
 
 			// if($offerCount >= $s->quota && $s->prime)
