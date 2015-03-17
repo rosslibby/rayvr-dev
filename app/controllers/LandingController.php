@@ -54,7 +54,7 @@ class LandingController extends BaseController {
 						 * a membership, direct the user to
 						 * the membership page
 						 */
-						if((!Auth::user()->billing)
+						if(!Auth::user()->billing)
 							return Redirect::to('billing');
 						else
 							return Redirect::to('offers/track');
