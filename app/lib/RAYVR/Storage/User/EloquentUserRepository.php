@@ -292,6 +292,16 @@ class EloquentUserRepository implements UserRepository {
 		$match = Matches::find($match);
 
 		/**
+		 * If the user has already
+		 * declined the match, do not
+		 * allow any other action
+		 */
+		if($match->decline)
+		{
+			return \Redirect::to('offers/current');
+		}
+
+		/**
 		 * If the offer is declined
 		 * set "decline" to true
 		 * 

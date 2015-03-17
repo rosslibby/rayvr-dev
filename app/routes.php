@@ -20,6 +20,8 @@ Route::get('register/welcome', [
  */
 Route::get('test', function(){
 	// test
+	$offer = Offer::find(35);
+	return count($offer->business->offers);
 });
 
 Route::group(['before' => 'csrf'], function()

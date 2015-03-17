@@ -12,44 +12,32 @@
 		<hr class="dashed">
 
 		<div class="row">
-			{{-- If there are enough potential user-matches to justify a campaign, show the slider --}}
-			@if($maximum >= 25)
+			{{-- If the business has used their trial promotion already, show the quota slider --}}
+			@if(count(Auth::user()->offers))
 				<div class="col-md-12 text-center">
-					<p class="h3 source-sans-pro"><span class="light"><strong><span class="totalCount"><span id="numOffers">25</span></strong> Offers</span></p>
+					<p class="h3 source-sans-pro"><span class="light"><strong><span class="totalCount"><span id="numOffers">25</span></strong> Products</span></p>
 					<p class="text-center"><strong>___________________________</strong></p>
 					<p class="h3 source-sans-pro"><span class="light"><strong>$<span id="totalCost">{{ (5 * 25) }}</span></strong></span></p>
 					<br>
 				</div>
 				<div class="col-md-12">
-					{{ Form::text('quota', 25, ['id' => 'quotaSlider', 'data-slider-max' => $maximum, 'data-slider-ticks-snap-bounds' => '5', 'data-slider-min' => '25', 'data-slider-step' => '1', 'style' => 'width: 100%;', 'data-placement' => 'bottom', 'data-slider-ticks' => '[25, '.(int)($maximum/2).', '.$maximum.']']) }}
+					{{ Form::text('quota', 25, ['id' => 'quotaSlider', 'data-slider-max' => $maximum, 'data-slider-ticks-snap-bounds' => '5', 'data-slider-min' => '1', 'data-slider-step' => '1', 'style' => 'width: 100%;', 'data-placement' => 'bottom', 'data-slider-ticks' => '[1, '.(int)($maximum/2).', '.$maximum.']']) }}
 				</div>
 				<div class="row">
 					<br>
 					<div class="col-md-1 text-left">
-						<p>&nbsp;&nbsp;25</p>
+						<p>&nbsp;&nbsp;1</p>
 					</div>
 					<div class="col-md-11 text-right">
-						<p>50&nbsp;&nbsp;</p>
+						<p>{{ $maximum }}&nbsp;&nbsp;</p>
 					</div>
 				</div>
 			@else
 				<div class="col-md-12 text-center">
-					<p class="h3 source-sans-pro"><span class="light"><strong><span class="totalCount"><span id="numOffers">15</span></strong> Offers</span></p>
+					<p class="h3 source-sans-pro"><span class="light"><strong><span class="totalCount"><span id="numOffers">15</span></strong> Products</span></p>
 					<p class="text-center"><strong>___________________________</strong></p>
-					<p class="h3 source-sans-pro"><span class="light"><strong>$<span id="totalCost">{{ (5 * 15) }}</span></strong></span></p>
+					<p class="h3 source-sans-pro"><span class="light"><strong>Free Trial</strong></span></p>
 					<br>
-				</div>
-				<div class="col-md-12">
-					{{ Form::text('quota', 15, ['id' => 'quotaSlider', 'data-slider-max' => 25, 'data-slider-ticks-snap-bounds' => '5', 'data-slider-min' => '15', 'data-slider-step' => '1', 'style' => 'width: 100%;', 'data-placement' => 'bottom', 'data-slider-ticks' => '[15, 20, 25]']) }}
-				</div>
-				<div class="row">
-					<br>
-					<div class="col-md-1 text-left">
-						<p>&nbsp;&nbsp;15</p>
-					</div>
-					<div class="col-md-11 text-right">
-						<p>25&nbsp;&nbsp;</p>
-					</div>
 				</div>
 			@endif
 		</div>
@@ -79,7 +67,11 @@
 
 		<div class="row">
 			<div class="col-md-12 text-center">
-				{{ Form::submit('Submit Offer', ['class' => 'btn btn-info h2 raleway normal']) }}
+				@if(count(Auth::user()->offers))
+					{{ Form::submit('Proceed to Billing', ['class' => 'btn btn-info h2 raleway normal']) }}
+				@else
+					{{ Form::submit('Submit Offer', ['class' => 'btn btn-info h2 raleway normal']) }}
+				@endif
 			</div>
 		</div>
 	</div>

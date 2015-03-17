@@ -277,7 +277,7 @@ class EloquentOfferRepository implements OfferRepository {
 		 * different promotion - to the
 		 * blacklist
 		 */
-		$asin = json_decode($this->order()->where('asin',$offer->asin)->get(['user_id']), true);
+		$asin = json_decode(Order::where('asin', $offer['asin'])->get(['user_id']), true);
 
 		if(!empty($asin))
 		{

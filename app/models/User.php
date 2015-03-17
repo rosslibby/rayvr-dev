@@ -157,6 +157,16 @@ class User extends Ardent implements UserInterface, RemindableInterface, Billabl
 	}
 
 	/**
+	 * Business --> offer relationship
+	 * shows all the offers a business
+	 * has created
+	 */
+	public function offers()
+	{
+		return $this->hasMany('Offer', 'business_id');
+	}
+
+	/**
 	 * User <--> order relationship
 	 */
 	public function order()
