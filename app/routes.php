@@ -20,6 +20,8 @@ Route::get('register/welcome', [
  */
 Route::get('test', function(){
 	// test
+	$offer = Offer::find(33);
+	return Voucher::where('offer_id',$offer->id)->get();
 });
 
 Route::group(['before' => 'csrf'], function()
@@ -182,6 +184,13 @@ Route::group(['before' => 'csrf'], function()
 	 * User-specific routes
 	 */
 	Route::group(['before' => 'user'], function(){
+
+		/**
+		 * User support page
+		 */
+		Route::get('support', function(){
+			return View::make('user.support');
+		});
 
 		/**
 		 * Invite your friends page

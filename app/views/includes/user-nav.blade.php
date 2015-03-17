@@ -7,4 +7,5 @@
 	@endif
 	<li class="fg-scheme-dark-gray anchor {{ Request::is('preferences') ? 'active' : '' }}">{{ HTML::link('preferences', 'Preferences') }}</li>
 	<li class="fg-scheme-dark-gray anchor {{ Request::is('invite') ? 'active' : '' }}">{{ HTML::link('invite', 'Invite') }}</li>
+	<li class="fg-scheme-dark-gray anchor {{ Request::is('support') ? 'active' : '' }}">{{ HTML::link('support', 'Support') }}</li>
 @stop

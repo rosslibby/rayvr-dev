@@ -25,6 +25,15 @@
 					<p><strong>Send out: </strong>{{ $offer['offer']->quota }}</p>
 					<p><strong>Start: </strong>{{ $offer['offer']->start }}</p>
 					<p><strong>End: </strong>{{ $offer['offer']->end }}</p>
+					<p><strong>URL: </strong>{{ HTML::link($offer['offer']->link, $offer['offer']->link, ['target' => '_blank']) }}</p>
+					<ul>
+						{{--*/ $vouchers = Voucher::where('offer_id', $offer['offer']->id)->get(); $counter = 0;/*--}}
+						@foreach($vouchers as $voucher)
+							@if($counter < 3)
+								<li>{{ $voucher->code }} {{--*/$voucher->used = true; $voucher->save(); $counter++;/*--}}</li>
+							@endif
+						@endforeach
+					</ul>
 					<p><strong>Categories:</strong></p>
 					<ul>
 						@foreach($offer['categories'] as $category)
