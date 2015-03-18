@@ -48,7 +48,7 @@
 						'size' => 4,
 						'data-stripe' => 'cvc',
 						'class' => 'form-control inset-form-input',
-						'placeholder' => 'CSV'
+						'placeholder' => 'CVC'
 					]) }}
 					<span class="input-group-addon"><i class="fa fa-lock"></i></span>
 				</div>
