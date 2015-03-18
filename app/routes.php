@@ -20,8 +20,8 @@ Route::get('register/welcome', [
  */
 Route::get('test', function(){
 	// test
-	$offer = Offer::find(33);
-	return Voucher::where('offer_id',$offer->id)->get();
+	$offer = Offer::find(39);
+	return $offer->business->has_email;
 });
 
 Route::group(['before' => 'csrf'], function()
