@@ -7,14 +7,15 @@
 @section('contentarea')
 	<div class="header-wrapper">
 		<div class="text-center">
-			<h2 class="fg-scheme-white"><i class="glyphicon glyphicon-link"></i>&nbsp;Enter the product link</h2>
+			<h3 class="raleway fg-scheme-white">Step 1: <span class="light">Enter the product link</span></h3>
+			<p class="light fg-scheme-white">This will pull your product title, photo, and ASIN from the Amazon&trade; listing.</p>
 
 			{{ Form::open(['', 'id' => 'fetch']) }}
 
 				<div class="col-md-10 col-md-offset-1">
 					<div class="row">
 						<div class="col-md-9 col-md-offset-1">
-							{{ Form::text('url', null, ['class' => 'form-control bg-scheme-transparent-gray', 'id' => 'url']) }}
+							{{ Form::text('url', null, ['class' => 'form-control bg-scheme-transparent-gray', 'id' => 'url', 'autofocus']) }}
 						</div>
 						{{ Form::submit('FETCH DATA', ['class' => 'btn btn-primary']) }}
 					</div>
@@ -43,8 +44,8 @@
 {{ Form::open(['route' => 'offers.quota', 'files' => true]) }}
 <div class="content-wrapper">
 	<div class="col-md-10 col-md-offset-1">
-		<h3 class="raleway">Step 1: <span class="light">Product Information</span></h3>
-		<hr class="dashed">
+		<h3 class="raleway"><span class="light">Product Information</span></h3>
+		<hr>
 
 		<div class="row">
 			<br>
@@ -71,7 +72,7 @@
 		<br>
 {{-- 		<!-- Review page link -->
 		<h3 class="raleway">Step 2: <span class="light">Link to Review Page</span></h3>
-		<hr class="dashed">
+		<hr>
 
 		<div class="row">
 			<br>
@@ -85,7 +86,7 @@
 		<br> --}}
 		<!-- Quota & Dates -->
 		<h3 class="raleway">Step 2: <span class="light">Start &amp; End Dates</span></h3>
-		<hr class="dashed">
+		<hr>
 
 		{{-- <div class="row">
 			<br>
@@ -122,6 +123,8 @@
 						{{ Form::text('end', $endDate, ['class' => 'form-control subtle-input']) }}
 					</div>
 				</div>
+				<br>
+				<p class="light text-center">(Plan for <strong>at least 3 days</strong> from today for our review process.)</p>
 			</div>
 		</div>
 
@@ -129,7 +132,7 @@
 		<br>
 		<!-- Shipping Information -->
 		<h3 class="raleway">Step 3: <span class="light">Shipping Information</span></h3>
-		<hr class="dashed">
+		<hr>
 
 		<div class="row">
 			<br>
@@ -163,17 +166,17 @@
 				</div>
 			</div> --}}
 				<div class="col-md-12">
-					<p class="h5">{{ Form::label('free_shipping', 'Is this product eligible for free shipping outside of the Prime&trade; program?', ['class' => 'control-label raleway h5 light']) }}</p>
+					<p class="h5">{{ Form::label('free_shipping', 'Is this product always shipped free?', ['class' => 'control-label raleway h5 light']) }}</p>
 					<div class="col-md-4">
 						<div class="col-md-4">
 							<div class="radio" id="shipFree">
-								{{ Form::radio('free_shipping', '1', false) }}
+								{{ Form::radio('free_shipping', '1', true) }}
 								{{ Form::label('free_shipping', 'Yes') }}
 							</div>
 						</div>
 						<div class="col-md-4">
-							<div class="radio">
-								{{ Form::radio('free_shipping', '0', true) }}
+							<div class="radio" id="shipPaid">
+								{{ Form::radio('free_shipping', '0', false) }}
 								{{ Form::label('free_shipping', 'No') }}
 							</div>
 						</div>
@@ -196,7 +199,7 @@
 		<br>
 		<!-- Demographic information -->
 		<h3 class="raleway">Step 4: <span class="light">Target Audience</span></h3>
-		<hr class="dashed">
+		<hr>
 
 		<div class="row">
 			<br>
@@ -270,7 +273,7 @@
 			</div> --}}
 
 		<br>
-		<hr class="dashed">
+		<hr>
 		<br>
 
 		<div class="row">

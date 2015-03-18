@@ -197,12 +197,24 @@ $(document).ready(function(){
 	$("select").selecter();
 
 	/** Date range **/
-	$('.input-daterange').datepicker();
+	var date = new Date();
+	$('.input-daterange').datepicker({  startDate: new Date() });
 
 	/** Free shipping = no cost to ship **/
-	$("#free_shipping + ins").click(function(){
-		$("#shippingCost").slideToggle();
+	$("#shippingCost").hide();
+	$("#shipFree ins").click(function(){
+		if($("input[type=radio]").is(':checked')){
+			$("#shippingCost").slideUp(400);
+		}
 	});
+	$("#shipPaid ins").click(function(){
+		if($("input[type=radio]").is(':checked')){
+			$("#shippingCost").slideDown(400);
+		}
+	});
+	// $("#free_shipping + ins").click(function(){
+	// 	$("#shippingCost").slideToggle();
+	// });
 
 	/** Offer maximum slider **/
 	var quotaSlider = $("#quotaSlider").slider({
