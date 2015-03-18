@@ -1,4 +1,4 @@
-@extends('emails.email')
+@extends('layouts.email')
 
 @section('heading')
 Did your product arrive?
