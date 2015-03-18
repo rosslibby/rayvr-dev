@@ -24,7 +24,7 @@ Before we send an offer out to our members, we have it tested for quality by our
 <!-- Column 1 -->
 	@section('column-1')
 		@section('icon-1')
-		<i class="icon-solid icon-checkbox"></i>
+		<h1><i class="fa fa-check-square fg-scheme-blue larger"></i></h1>
 		@stop
 
 		@section('headline-1')
@@ -38,7 +38,7 @@ Before we send an offer out to our members, we have it tested for quality by our
 <!-- Column 2 -->
 	@section('column-2')
 		@section('icon-2')
-		<i class="icon-solid icon-target"></i>
+		<h1><i class="fa fa-crosshairs fg-scheme-blue larger"></i></h1>
 		@stop
 
 		@section('headline-2')
@@ -52,7 +52,7 @@ Before we send an offer out to our members, we have it tested for quality by our
 <!-- Column 3 -->
 	@section('column-3')
 		@section('icon-3')
-		<i class="icon-solid icon-bullhorn"></i>
+		<h1><i class="fa fa-share-alt fg-scheme-blue larger"></i></h1>
 		@stop
 
 		@section('headline-3')
@@ -66,7 +66,7 @@ Before we send an offer out to our members, we have it tested for quality by our
 <!-- Column 4 -->
 	@section('column-4')
 		@section('icon-4')
-		<i class="icon-solid icon-graph"></i>
+		<h1><i class="fa fa-area-chart fg-scheme-blue larger"></i></h1>
 		@stop
 
 		@section('headline-4')
@@ -80,7 +80,7 @@ Before we send an offer out to our members, we have it tested for quality by our
 <!-- Column 1 -->
 	@section('column-5')
 		@section('icon-5')
-		<i class="icon-solid icon-mail"></i>
+		<h1><i class="fa fa-envelope fg-scheme-blue larger"></i></h1>
 		@stop
 
 		@section('headline-5')
@@ -94,7 +94,7 @@ Before we send an offer out to our members, we have it tested for quality by our
 <!-- Column 2 -->
 	@section('column-6')
 		@section('icon-6')
-		<i class="icon-solid icon-briefcase"></i>
+		<h1><i class="fa fa-eyedropper fg-scheme-blue larger"></i></h1>
 		@stop
 
 		@section('headline-6')
@@ -108,7 +108,7 @@ Before we send an offer out to our members, we have it tested for quality by our
 <!-- Column 3 -->
 	@section('column-7')
 		@section('icon-7')
-		<i class="icon-solid icon-speedometer"></i>
+		<h1><i class="fa fa-dashboard fg-scheme-blue larger"></i></h1>
 		@stop
 
 		@section('headline-7')
@@ -122,7 +122,7 @@ Before we send an offer out to our members, we have it tested for quality by our
 <!-- Column 4 -->
 	@section('column-8')
 		@section('icon-8')
-		<i class="icon-solid icon-lifering"></i>
+		<h1><i class="fa fa-life-buoy fg-scheme-blue larger"></i></h1>
 		@stop
 
 		@section('headline-8')
