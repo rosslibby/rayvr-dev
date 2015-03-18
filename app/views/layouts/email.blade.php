@@ -541,13 +541,6 @@
 									
 									<table style="border-collapse:collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;" class="full" align="center" border="0" width="100%" cellpadding="0" cellspacing="0" object="drag-module-small">
 										<tbody><tr>
-											<td height="30" width="100%">
-											</td>
-										</tr>
-									</tbody></table><!-- End Space --> 
-									
-									<table style="border-collapse:collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;" class="full" align="center" border="0" width="100%" cellpadding="0" cellspacing="0" object="drag-module-small">
-										<tbody><tr>
 											<td height="40" width="100%">
 											</td>
 										</tr>
@@ -606,7 +599,7 @@
 																			<tbody><tr>
 																				<td width="auto" align="center" height="34" style="font-weight: bold; font-family: Helvetica, Arial, sans-serif; text-transform: uppercase; color: rgb(255, 255, 255);" mc:edit="7">
 																					<!--[if !mso]><!--><span style="font-family: 'proxima_nova_rgbold', Helvetica; font-weight: normal;"><!--<![endif]-->
-																						<a href="http://rayvr.com/register" style="color: rgb(255, 255, 255); font-size: 12px; text-decoration: none; line-height: 30px; width: 100%;" class="underline">Learn More</a>
+																						<a href="http://rayvr.com/login" style="color: rgb(255, 255, 255); font-size: 12px; text-decoration: none; line-height: 30px; width: 100%;" class="underline">Sign in</a>
 																					<!--[if !mso]><!--></span><!--<![endif]-->
 																				</td>
 																			</tr>
@@ -624,13 +617,6 @@
 											</div></td>
 										</tr>
 									</tbody></table>
-			
-									<table style="border-collapse:collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;" class="full" align="center" border="0" width="100%" cellpadding="0" cellspacing="0" object="drag-module-small">
-										<tbody><tr>
-											<td height="50" width="100%">
-											</td>
-										</tr>
-									</tbody></table><!-- End Space --> 
 									
 									<table style="border-collapse:collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;" class="full" align="center" border="0" width="100%" cellpadding="0" cellspacing="0" object="drag-module-small">
 										<tbody><tr>
@@ -665,13 +651,6 @@
 			<table width="100%" border="0" cellpadding="0" cellspacing="0" align="center" class="mobile">
 				<tbody><tr>
 					<td align="center">
-					
-						<!-- Space -->
-						<table width="100%" border="0" cellpadding="0" cellspacing="0" align="center" class="full">
-							<tbody><tr>
-								<td width="100%" height="18"></td>
-							</tr>
-						</tbody></table><!-- End Space -->
 						
 						<!-- Wrapper -->
 						<table width="600" border="0" cellpadding="0" cellspacing="0" align="center" class="full">

@@ -87,6 +87,16 @@ $("#userLogin").validate({
 		return true;
 	}
 });
+$('#businessRegistration').submit(function(e){
+	if(!$('#agree').is(':checked')) {
+		var styles = {
+			background: 'rgba(0, 0, 0, .3)',
+			border: '1px solid rgba(250, 0, 0, .4)',
+			padding: '10px'
+		};
+		$('.checkbox').css(styles);
+	}
+});
 </script>
 
 </body>

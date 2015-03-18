@@ -19,7 +19,7 @@
 @stop
 
 @section('content')
-	<div class="col-md-12 inset-form-container row-dark-blue">
+	{{-- <div class="col-md-12 inset-form-container row-dark-blue">
 
 		{{ Form::open(['route' => 'billing', 'id' => 'payment-form']) }}
 
@@ -73,7 +73,7 @@
 
 			{{ Form::button('Add payment method', ['type' => 'submit', 'class' => 'btn btn-info']) }}
 		{{ Form::close() }}
-	</div>
+	</div> --}}
 	@if(!empty($data['customer']->sources->data))
 	{{-- Details --}}
 	<div class="col-md-10 col-md-offset-1">

@@ -86,6 +86,7 @@
 		<br> --}}
 		<!-- Quota & Dates -->
 		<h3 class="raleway">Step 2: <span class="light">Start &amp; End Dates</span></h3>
+		<p class="light">These are the desired dates that you want to run your offers. We will make sure to send out the offers between these dates. Please note that the start date is <strong>3 business days</strong> from today because we need time to review your product for quality control.</p>
 		<hr>
 
 		{{-- <div class="row">
@@ -109,13 +110,13 @@
 							$futureDate = null;
 							if(date('d') == 1)
 							{
-								$startDate = date('m/d/Y', strtotime($date. ' + 4 days'));
-								$endDate = date('m/d/Y', strtotime($date. ' + 9 days'));
+								$startDate = date('m/d/Y', strtotime($date. ' + 3 days'));
+								$endDate = date('m/d/Y', strtotime($date. ' + 8 days'));
 							}
 							else
 							{
-								$startDate = date('m/d/Y', strtotime($date. ' + 6 days'));
-								$endDate = date('m/d/Y', strtotime($date. ' + 11 days'));
+								$startDate = date('m/d/Y', strtotime($date. ' + 5 days'));
+								$endDate = date('m/d/Y', strtotime($date. ' + 10 days'));
 							}
 						/*--}}
 						{{ Form::text('start', $startDate, ['class' => 'form-control subtle-input']) }}
@@ -199,6 +200,7 @@
 		<br>
 		<!-- Demographic information -->
 		<h3 class="raleway">Step 4: <span class="light">Target Audience</span></h3>
+		<p class="light">Tell us what gender you want to target, male or female or both. Also, make sure to select at least 1 relevant category for your promotion.</p>
 		<hr>
 
 		<div class="row">

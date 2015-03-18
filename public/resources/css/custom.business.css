@@ -24,7 +24,7 @@ body
 	padding: 0 0 100px 0;
 }
 
-.content-area { margin-left: 258px; }
+.content-area { margin-left: 215px; }
 
 /** sidebar **/
 
@@ -49,7 +49,7 @@ body
 	.sidebar
 	{
 		position: fixed;
-		width: 258px;
+		width: 215px;
 		height: 100%;
 		display: block;
 		overflow-x: hidden;
@@ -61,7 +61,12 @@ body
 
 .navbar-fixed-top { border: 0; }
 
-.navbar-header { width: 258px; }
+.navbar.navbar-primary {
+	box-shadow: 0 15px 5px -15px #666;
+	-webkit-box-shadow: 0 15px 5px -15px #666;
+	-moz-box-shadow: 0 15px 5px -15px #666;
+	border-bottom: 1px solid #F5F5F5;
+}
 
 /** colors **/
 

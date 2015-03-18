@@ -146,14 +146,25 @@ class EloquentUserRepository implements UserRepository {
 			 * If the user is not a business or
 			 * an administrator, set the user
 			 * to interested in everything
+			 * 
+			 * Also send the user a welcome
+			 * email
 			 */
 			$categories = Category::all();
-			foreach($categories as $category)
+			if(!$c->business)
 			{
-				$interest = new Interest();
-				$interest->user_id = $c->id;
-				$interest->cat_id = $category->id;
-				$interest->save();
+				foreach($categories as $category)
+				{
+					$interest = new Interest();
+					$interest->user_id = $c->id;
+					$interest->cat_id = $category->id;
+					$interest->save();
+				}
+
+				Mail::send('emails.welcome', ['from' => 'The RAYVR team', 'code' => $c->invite_code], function($message) use ($c)
+				{
+					$message->to($c->email)->subject('Welcome to RAYVR!');
+				});
 			}
 
 			/*****************************
