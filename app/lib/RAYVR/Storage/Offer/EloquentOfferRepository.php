@@ -1311,11 +1311,22 @@ class EloquentOfferRepository implements OfferRepository {
 						/**
 						 * Email the user to notify him or her
 						 * of a new offer
+						 * 
+						 * If the user has already been emailed
+						 * do not email him or her again
+						 * 
+						 * Send only to users that want an email
+						 * notification
 						 */
-						Mail::send('emails.new-offer', ['name' => $user->first_name.' '.$user->last_name, 'from' => 'The RAYVR team'], function($message) use ($user)
+						if(!$user->has_email)
 						{
-							$message->to($user->email)->subject('You have new offers waiting for you!');
-						});
+							Mail::send('emails.new-offer', ['name' => $user->first_name.' '.$user->last_name, 'from' => 'The RAYVR team'], function($message) use ($user)
+							{
+								$message->to($user->email)->subject('You have new offers waiting for you!');
+							});
+							$user->has_email = true;
+							$user->save();
+						}
 
 						/**
 						 * Increment $counter

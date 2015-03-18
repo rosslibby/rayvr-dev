@@ -36,7 +36,8 @@
 				<div class="col-md-12 text-center">
 					<p class="h3 source-sans-pro"><span class="light"><strong><span class="totalCount"><span id="numOffers">15</span></strong> Products</span></p>
 					<p class="text-center"><strong>___________________________</strong></p>
-					<p class="h3 source-sans-pro"><span class="light"><strong>Free Trial</strong></span></p>
+					<p class="h3 source-sans-pro"><span class="light"><strong>Free Trial / <span class="fg-scheme-dark">$75 Value</span></strong></span></p>
+					<p>After your free trial of 15 free redemptions, this is where you will choose your desired number of redemptions.</p>
 					<br>
 				</div>
 			@endif

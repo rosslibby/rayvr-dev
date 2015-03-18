@@ -11,7 +11,9 @@
 	<li class="{{ Request::is('billing') ? 'active' : '' }}"><a href="/billing"><span class="glyphicon glyphicon-credit-card"></span>&nbsp;&nbsp;&nbsp;&nbsp;Billing</a></li>
 @endif
 @if(Auth::user()->stripe_customer)
-	<li class="{{ Request::is('offers/add') ? 'active' : '' }}"><a href="/offers/add"><span class="glyphicon glyphicon-tag"></span>&nbsp;&nbsp;&nbsp;&nbsp;New Offer</a></li>
+	@if(!empty(json_decode($offers)))
+		<li class="{{ Request::is('offers/add') ? 'active' : '' }}"><a href="/offers/add"><span class="glyphicon glyphicon-tag"></span>&nbsp;&nbsp;&nbsp;&nbsp;New Offer</a></li>
+	@endif
 @endif
 {{-- Always show the Preferences and Support options --}}
 <li class="{{ Request::is('settings') ? 'active' : '' }}"><a href="/settings"><span class="glyphicon glyphicon-wrench"></span>&nbsp;&nbsp;&nbsp;&nbsp;Settings</a></li>

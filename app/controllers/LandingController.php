@@ -40,7 +40,7 @@ class LandingController extends BaseController {
 		{
 			if(Auth::user()->business && Auth::user()->active == 1)
 			{
-				if(Auth::user()->address && Auth::user()->email && Auth::user()->first_name && Auth::user()->last_name && Auth::user()->zip && Auth::user()->country && Auth::user()->phone && Auth::user()->stripe_plan)
+				if(Auth::user()->address && Auth::user()->email && Auth::user()->first_name && Auth::user()->last_name && Auth::user()->zip && Auth::user()->country && Auth::user()->phone)
 				{
 					/**
 					 * If the user has no approved offers,
@@ -61,7 +61,7 @@ class LandingController extends BaseController {
 					}
 					else
 					{
-						return Redirect::to('offers/review');
+						return Redirect::to('offers/add');
 					}
 				}
 				else

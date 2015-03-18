@@ -328,6 +328,12 @@ class EloquentUserRepository implements UserRepository {
 			$match->save();
 
 			/**
+			 * Set the user's email flag to true
+			 */
+			$user->has_email = true;
+			$user->save();
+
+			/**
 			 * Set the user's current
 			 * offer to the match's
 			 * associated offer

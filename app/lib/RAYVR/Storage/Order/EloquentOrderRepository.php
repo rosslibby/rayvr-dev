@@ -375,6 +375,12 @@ class EloquentOrderRepository implements OrderRepository {
 		$successMsg = "Your order has been confirmed with code <strong>" . $confirmation . "</strong>";
 
 		/**
+		 * Set the user's email status to false
+		 */
+		$user->has_email = false;
+		$user->save();
+
+		/**
 		 * Schedule review-reminder email
 		 * for user
 		 */
@@ -394,6 +400,12 @@ class EloquentOrderRepository implements OrderRepository {
 		$order = Order::where(['user_id' => $user->id, 'offer_id' => $user->current])->get()[0];
 		$order->review = true;
 		$order->save();
+
+		/**
+		 * Clear the user's email flag for their next offer
+		 */
+		$user->has_email = false;
+		$user->save();
 
 		$response = "Your offer has been marked as <strong>complete</strong>.";
 
