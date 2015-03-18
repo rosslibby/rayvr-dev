@@ -70,7 +70,7 @@ class LandingController extends BaseController {
 				{
 					if(!Auth::user()->address || !Auth::user()->email || !Auth::user()->first_name || !Auth::user()->last_name || !Auth::user()->zip || !Auth::user()->country || !Auth::user()->phone)
 						return Redirect::to('settings');
-					else if(!Auth::user()->billing)
+					else if(!Auth::user()->stripe_customer)
 						return Redirect::to('billing');
 					else
 						return Redirect::to('offers/track');
