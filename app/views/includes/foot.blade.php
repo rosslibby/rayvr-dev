@@ -26,6 +26,12 @@ $(document).ready(function(){
 		checkboxClass: 'icheckbox_flat-red',
 		radioClass: 'iradio_flat-red'
 	});
+
+	$('#scrollDown').click(function(){
+		$('html, body').animate({
+			scrollTop: $("#pageInfo").offset().top
+		}, 800);
+	});
 });
 
 $("#businessRegistration").validate({
