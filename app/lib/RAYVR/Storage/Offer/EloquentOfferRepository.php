@@ -1163,13 +1163,20 @@ class EloquentOfferRepository implements OfferRepository {
 				 */
 				$user = $matches[$i]->user;
 
-				if(!$user->has_email)
+				/**
+				 * Send only to uses that have not yet received their
+				 * new offer notification
+				 */
+				if(!$user->has_email && !$user->business)
 				{
 					Mail::send('emails.new-offer', ['name' => $user->first_name.' '.$user->last_name, 'from' => 'The RAYVR team'], function($message) use ($user)
 					{
 						$message->to($user->email)->subject('You have new offers waiting for you!');
 					});
 
+					/**
+					 * 
+					 */
 					$user->has_email = true;
 					$user->save();
 				}
