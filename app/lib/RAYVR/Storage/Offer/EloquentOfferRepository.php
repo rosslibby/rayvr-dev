@@ -1188,9 +1188,12 @@ class EloquentOfferRepository implements OfferRepository {
 			 */
 
 			$user = $offer->business;
+			if(!$offer->business->has_email)
 			Mail::send('emails.new-offer', ['name' => $user->first_name.' '.$user->last_name, 'from' => 'The RAYVR team'], function($message) use ($user)
 			{
 				$message->to($user->email)->subject('Your Offer Has Started');
+				$offer->business->has_email = true;
+				$offer->business->save();
 			});
 		}
 	}
