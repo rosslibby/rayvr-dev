@@ -20,8 +20,12 @@ Route::get('register/welcome', [
  */
 Route::get('test', function(){
 	// test
-	$offer = Offer::find(39);
-	return $offer->business->has_email;
+	$offer = Offer::find(34);
+	$offer->match[0]->live = true;
+	$offer->match[0]->save();
+	if($offer->match[0]->live)
+		return 'live';
+	return 'not live';
 });
 
 Route::group(['before' => 'csrf'], function()
