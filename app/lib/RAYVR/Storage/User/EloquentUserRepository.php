@@ -893,7 +893,9 @@ class EloquentUserRepository implements UserRepository {
 	{
 		$name = $data['name'];
 		$email = $data['email'];
-		Mail::send('emails.invite-user', ['name' => $name, 'from' => $user->first_name.' '.$user->last_name], function($message) use ($name, $email)
+		$firstName = $user->first_name;
+		$code = $user->invite_code;
+		Mail::send('emails.invite-user', ['name' => $name, 'from' => $user->first_name.' '.$user->last_name], function($message) use ($name, $email, $firstName, $code)
 		{
 			$message->to($email)->subject('Hey '.$name.'! You\'re invited to join RAYVR');
 		});
