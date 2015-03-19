@@ -1,7 +1,7 @@
 @extends('layouts.email')
 
 @section('heading')
-Your product has been denied
+We were unable to approve your offer
 @stop
 
 @section('heading-accent')
@@ -12,7 +12,7 @@ Hi {{ $name }},
 @stop
 
 @section('body')
-Your product was denied due to the following reasons:
+Your product was not approved due to the following reasons:
 <br>
 {{ $reasons }}
 <br>
