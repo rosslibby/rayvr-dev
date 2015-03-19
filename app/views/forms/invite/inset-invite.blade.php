@@ -18,7 +18,7 @@
 					<div class="input-group">
 						{{--*/ $inviteCode = Auth::user()->invite_code /*--}}
 						{{ Form::hidden('hiddenInvite', $inviteCode, ['id' => 'hiddenInvite']) }}
-						{{ Form::text('invite_code', null, ['id' => 'invite', 'class' => 'form-control inset-form-input', 'placeholder' => 'XXXXXXXXXXXX']) }}
+						{{ Form::text('invite_code', null, ['id' => 'invite', 'class' => 'form-control inset-form-input text-right', 'placeholder' => 'XXXXXXXXXXXX']) }}
 						<span class="input-group-addon"><i class="fa fa-qrcode"></i></span>
 					</div>
 				</div>
