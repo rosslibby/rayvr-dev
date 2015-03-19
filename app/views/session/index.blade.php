@@ -59,7 +59,7 @@ Before we send an offer out to our members, we have it tested for quality by our
 		OUR MEMBERS SHARE
 
 		@section('paragraph-3')
-		Our members are happy to get quality products that they have interest in, and are willing to share their experiences.
+		Our members receive quality products that they express interest in and are more than willing to share their experiences.
 		@stop
 	@stop
 
@@ -73,7 +73,7 @@ Before we send an offer out to our members, we have it tested for quality by our
 		WE TRACK FEEDBACK
 
 		@section('paragraph-4')
-		From your dashboard you can see how many offers have been sent out, and track feedback as it comes in.
+		From your dashboard you can see how many offers have been sent out and track feedback as it comes in.
 		@stop
 	@stop
 
@@ -87,7 +87,7 @@ Before we send an offer out to our members, we have it tested for quality by our
 		SHIPPING REIMBURSEMENT
 
 		@section('paragraph-5')
-		No more spending hours reimbursing individuals for shipping: our automated system handles the entire process for you.
+		Our automated system handles the entire process for you, so there's no need to spend hours reimbursing individuals for shipping. 
 		@stop
 	@stop
 
@@ -115,7 +115,7 @@ Before we send an offer out to our members, we have it tested for quality by our
 		GET ON THE FAST TRACK
 
 		@section('paragraph-7')
-		What better way to kickstart a product launch than receiving great feedback for your awesome product?
+		What better way to kickstart a product launch than receiving great feedback for your product?
 		@stop
 	@stop
 
@@ -129,7 +129,7 @@ Before we send an offer out to our members, we have it tested for quality by our
 		TOP CUSTOMER CARE
 
 		@section('paragraph-8')
-		Our business support team is here to help. With dedicated support, your questions will be answered in no time.
+		Our dedicated support team is here to answer any questions you have. 
 		@stop
 	@stop
 
