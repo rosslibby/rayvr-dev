@@ -14,7 +14,9 @@ Hi {{ $name }},
 @section('body')
 Your product was denied due to the following reasons:
 <br>
-Cnotact us with any questions.
+{{ $reasons }}
+<br>
+Contact us with any questions.
 <br>
 <br> 
 Best,
