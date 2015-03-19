@@ -898,7 +898,8 @@ class EloquentOfferRepository implements OfferRepository {
 		/**
 		 * Add the ASIN
 		 */
-		$asin = explode('gp/product/', $data['link'])[1];
+		$asinArr = explode('gp/product/', $data['link']);
+		$asin = $asinArr[1];
 		$asin = explode('/', $asin)[0];
 		$data = array_merge($data, ['asin' => $asin]);
 
