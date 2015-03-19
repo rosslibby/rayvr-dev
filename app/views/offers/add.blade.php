@@ -7,7 +7,8 @@
 @section('contentarea')
 	<div class="header-wrapper">
 		<div class="text-center">
-			<h3 class="raleway fg-scheme-white">Step 1: <span class="light">Enter the product link</span></h3>
+			<h3 class="raleway fg-scheme-white">Step 1: <span class="light">Product Information</span></h3>
+			<p class="raleway light fg-scheme-white">Enter the product link</p>
 			<p class="light fg-scheme-white">This will pull your product title, photo, and ASIN from the Amazon&trade; listing.</p>
 
 			{{ Form::open(['', 'id' => 'fetch']) }}
@@ -44,7 +45,6 @@
 {{ Form::open(['route' => 'offers.quota', 'files' => true]) }}
 <div class="content-wrapper">
 	<div class="col-md-10 col-md-offset-1">
-		<h3 class="raleway"><span class="light">Product Information</span></h3>
 		<hr>
 
 		<div class="row">

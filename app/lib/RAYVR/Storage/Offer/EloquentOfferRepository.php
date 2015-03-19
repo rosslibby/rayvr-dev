@@ -1021,7 +1021,7 @@ class EloquentOfferRepository implements OfferRepository {
 			{
 				$response = [
 					'success'	=> 2,
-					'message'	=> 'Your offer has been successfully submitted for review. Please confirm your billing information on the next page.',
+					'message'	=> 'Your offer has been successfully submitted for review. Please confirm your billing information below.',
 					'id'		=> $s->id,
 				];
 			}
