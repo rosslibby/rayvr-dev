@@ -16,6 +16,9 @@
 		@endif
 		@foreach($offers as $offer)
 			<div class="row">
+				@if(!count(Offer::where('asin', $offer['offer']->asin)->where('id', '!=', $offer['offer']->id)->get()))
+				<span class="label label-success">First time</span>
+				@endif
 				<p><strong>{{ $offer['offer']->id }} | {{ $offer['offer']->title }}</strong></p>
 				<div class="col-md-4">
 					<img src="{{ $offer['offer']->photo }}" width="200" class="well" />
