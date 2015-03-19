@@ -50,7 +50,7 @@
 						<div class="col-md-5">
 							<p>Enter exact shipping cost to be reimbursed</p>
 							<br>
-							<p>{{ Form::number('cost', null, ['id' => 'cost', 'class' => 'form-control subtle-input text-center']) }}</p>
+							<p>{{ Form::text('cost', null, ['id' => 'cost', 'class' => 'form-control subtle-input text-center']) }}</p>
 						</div>
 						<br>
 						<br>
