@@ -307,7 +307,7 @@ class EloquentUserRepository implements UserRepository {
 		 * Check how many remaining products there are
 		 */
 		$quota = $match->offer->quota;
-		$used = Orders::where('offer_id', $match->offer_id)->get();
+		$used = Order::where('offer_id', $match->offer_id);
 		if(count($used) >= $quota)
 		{
 			return \Redirect::to('offers/current');
