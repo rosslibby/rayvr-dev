@@ -304,148 +304,174 @@ class EloquentUserRepository implements UserRepository {
 		$match = Matches::find($match);
 
 		/**
-		 * If the user has already
-		 * declined the match, do not
-		 * allow any other action
+		 * Check how many remaining products there are
 		 */
-		if($match->decline)
+		$quota = $match->offer->quota;
+		$used = Orders::where('offer_id', $match->offer_id);
+		if(count($used) >= $quota)
 		{
 			return \Redirect::to('offers/current');
 		}
-
-		/**
-		 * If the offer is declined
-		 * set "decline" to true
-		 * 
-		 * "accept" is already false
-		 * by default and does not
-		 * need to be changed
-		 * 
-		 * If the offer is accepted
-		 * set "accept" to true
-		 * 
-		 * "decline" is already false
-		 * by default and does not
-		 * need to be changed
-		 */
-		if($accept == 3)
+		else if(count($used) < $quota)
 		{
-			$match->decline = true;
-			$match->save();
-		}
-		else
-		{
-			$match->accept = $accept;
-			$match->save();
-
 			/**
-			 * Set the user's email flag to true
+			 * If the user has already
+			 * declined the match, do not
+			 * allow any other action
 			 */
-			$user->has_email = true;
-			$user->save();
-
-			/**
-			 * Set the user's current
-			 * offer to the match's
-			 * associated offer
-			 */
-			$user->current = $match->offer_id;
-			$user->save();
-
-			/**
-			 * Check if the user is in
-			 * a blacklist with the
-			 * business.
-			 * If true, increment "times"
-			 * If false, create the
-			 * blacklist
-			 */
-			if(!empty(json_decode($user->blacklist()->where('business_id', $match->business_id)->get(), true)))
+			if($match->decline)
 			{
-				$blacklist = $user->blacklist()->where('business_id', $match->business_id)->get()[0];
-				$blacklist->times = (int)($blacklist->times) + 1;
-				$blacklist->save();
+				return \Redirect::to('offers/current');
+			}
+
+			/**
+			 * If the offer is declined
+			 * set "decline" to true
+			 * 
+			 * "accept" is already false
+			 * by default and does not
+			 * need to be changed
+			 * 
+			 * If the offer is accepted
+			 * set "accept" to true
+			 * 
+			 * "decline" is already false
+			 * by default and does not
+			 * need to be changed
+			 */
+			if($accept == 3)
+			{
+				$match->decline = true;
+				$match->save();
 			}
 			else
 			{
-				$blacklist = new Blacklist();
-				$blacklist->user_id = $user->id;
-				$blacklist->business_id = $match->business_id;
-				$blacklist->save();
+				$match->accept = $accept;
+				$match->save();
+
+				/**
+				 * If this is the last available product,
+				 * remove all other live matches
+				 */
+				if(count($used) == ((int)($quota) - 1))
+				{
+					$matches = Matches::where(['offer_id' => $match->offer_id, 'live' => true]);
+					foreach($matches as $killMatch)
+					{
+						if(!count(Orders::where(['offer_id' => $killMatch->offer_id, 'user_id' => $user_id])))
+							$killMatch->delete();
+					}
+				}
+
+				/**
+				 * Set the user's email flag to true
+				 */
+				$user->has_email = true;
+				$user->save();
+
+				/**
+				 * Set the user's current
+				 * offer to the match's
+				 * associated offer
+				 */
+				$user->current = $match->offer_id;
+				$user->save();
+
+				/**
+				 * Check if the user is in
+				 * a blacklist with the
+				 * business.
+				 * If true, increment "times"
+				 * If false, create the
+				 * blacklist
+				 */
+				if(!empty(json_decode($user->blacklist()->where('business_id', $match->business_id)->get(), true)))
+				{
+					$blacklist = $user->blacklist()->where('business_id', $match->business_id)->get()[0];
+					$blacklist->times = (int)($blacklist->times) + 1;
+					$blacklist->save();
+				}
+				else
+				{
+					$blacklist = new Blacklist();
+					$blacklist->user_id = $user->id;
+					$blacklist->business_id = $match->business_id;
+					$blacklist->save();
+				}
+
+				/**
+				 * Fetch a voucher code
+				 * for the order
+				 */
+				$voucher = Voucher::where('offer_id', $match->offer_id)
+												->where('used', false)
+												->first();
+
+				/**
+				 * Fetch the offer
+				 */
+				$theOffer = $this->offer->find($match->offer_id);
+
+				/**
+				 * Create the order
+				 */
+				$order				= new Order();
+				$order->offer_id	= $match->offer_id;
+				$order->user_id		= $user->id;
+				$order->code		= $voucher->code;
+				$order->asin		= $theOffer->asin;
+				$order->save();
+
+				/**
+				 * Set the voucher code usage
+				 * status to true
+				 */
+				$voucher->used = true;
+				$voucher->save();
+
+				/*****************************
+				 ** AS OF 03/07/2015 WE ARE **
+				 ** NO LONGER CHECKING      **
+				 ** WHETHER THE BUSINESS    **
+				 ** OWNS ANY NUMBER OF      **
+				 ** "OFFER PACKS", AS THIS  **
+				 ** OPTION IS BEING REMOVED **
+				 ** ENTIRELY                **
+				 *****************************/
+
+				/**
+				 * Decrement the number of
+				 * offers the business has
+				 * remaining
+				 * 
+				 * First, determine whether
+				 * this is a prime offer
+				 * or a regular offer
+				 */
+				// $prime = false;
+				// if($match->offer->prime)
+				// 	$prime = true;
+				// $pack = $match->offer->business->offerPack()
+				// 						->where('prime', $prime)
+				// 						->where('remaining', '!=', 0)
+				// 						->get()[0];
+				// $pack->used = ((int)($pack->used) + 1);
+				// $pack->remaining = ((int)($pack->remaining) - 1);
+				// $pack->save();
+
+				/**
+				 * Schedule an email to
+				 * the user as a reminder
+				 * to order the offer
+				 */
+
+				Mail::send('emails.order-reminder', ['name' => $user->first_name.' '.$user->last_name, 'from' => 'The RAYVR team'], function($message) use ($user)
+				{
+					$message->to($user->email)->subject('Don\'t Forget To Order Your Offer');
+					$headers = $message->getHeaders();
+					$headers->addTextHeader('X-MC-SendAt', date("Y-m-d H:i:s", time()+86400));
+				});
 			}
-
-			/**
-			 * Fetch a voucher code
-			 * for the order
-			 */
-			$voucher = Voucher::where('offer_id', $match->offer_id)
-											->where('used', false)
-											->first();
-
-			/**
-			 * Fetch the offer
-			 */
-			$theOffer = $this->offer->find($match->offer_id);
-
-			/**
-			 * Create the order
-			 */
-			$order				= new Order();
-			$order->offer_id	= $match->offer_id;
-			$order->user_id		= $user->id;
-			$order->code		= $voucher->code;
-			$order->asin		= $theOffer->asin;
-			$order->save();
-
-			/**
-			 * Set the voucher code usage
-			 * status to true
-			 */
-			$voucher->used = true;
-			$voucher->save();
-
-			/*****************************
-			 ** AS OF 03/07/2015 WE ARE **
-			 ** NO LONGER CHECKING      **
-			 ** WHETHER THE BUSINESS    **
-			 ** OWNS ANY NUMBER OF      **
-			 ** "OFFER PACKS", AS THIS  **
-			 ** OPTION IS BEING REMOVED **
-			 ** ENTIRELY                **
-			 *****************************/
-
-			/**
-			 * Decrement the number of
-			 * offers the business has
-			 * remaining
-			 * 
-			 * First, determine whether
-			 * this is a prime offer
-			 * or a regular offer
-			 */
-			// $prime = false;
-			// if($match->offer->prime)
-			// 	$prime = true;
-			// $pack = $match->offer->business->offerPack()
-			// 						->where('prime', $prime)
-			// 						->where('remaining', '!=', 0)
-			// 						->get()[0];
-			// $pack->used = ((int)($pack->used) + 1);
-			// $pack->remaining = ((int)($pack->remaining) - 1);
-			// $pack->save();
-
-			/**
-			 * Schedule an email to
-			 * the user as a reminder
-			 * to order the offer
-			 */
-
-			Mail::send('emails.order-reminder', ['name' => $user->first_name.' '.$user->last_name, 'from' => 'The RAYVR team'], function($message) use ($user)
-			{
-				$message->to($user->email)->subject('Don\'t Forget To Order Your Offer');
-				$headers = $message->getHeaders();
-				$headers->addTextHeader('X-MC-SendAt', date("Y-m-d H:i:s", time()+86400));
-			});
 		}
 
 		return \Redirect::to('offers/current');

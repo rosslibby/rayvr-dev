@@ -20,12 +20,9 @@ Route::get('register/welcome', [
  */
 Route::get('test', function(){
 	// test
-	$offer = Offer::find(34);
-	$offer->match[0]->live = true;
-	$offer->match[0]->save();
-	if($offer->match[0]->live)
-		return 'live';
-	return 'not live';
+	$match = Matches::find(24);
+	$used = Order::where('offer_id', $match->offer_id);
+	return count($used);
 });
 
 Route::group(['before' => 'csrf'], function()
