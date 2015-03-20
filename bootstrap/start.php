@@ -28,7 +28,7 @@ $env = $app->detectEnvironment(array(
 
 	'local' => ['localhost'],
 	'staging' => ['staging'],
-	'production' => ['stunning-shelter']
+	'production' => ['production']
 
 ));
 
