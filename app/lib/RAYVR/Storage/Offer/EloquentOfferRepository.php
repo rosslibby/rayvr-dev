@@ -23,7 +23,7 @@ class EloquentOfferRepository implements OfferRepository {
 		$gateway->setApiKey('sk_test_3YmCSPqFkZCBhSroMCu4QAC0');
 		$this->gateway = $gateway;
 
-		Stripe::setApiKey($_ENV['stripe_api_key']);
+		Stripe::setApiKey(getenv['stripe_api_key']);
 	}
 
 	public function all()
