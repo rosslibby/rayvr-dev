@@ -20,7 +20,7 @@ Route::get('register/welcome', [
  */
 Route::get('test', function(){
 	// test
-	return $_ENV['stripe_publishable_key'];
+	return $_ENV['DB_HOST'];
 });
 
 Route::group(['before' => 'csrf'], function()
