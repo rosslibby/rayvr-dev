@@ -101,6 +101,13 @@ interface OfferRepository {
 	public function distribute();
 
 	/**
+	 * Bill business for all 
+	 * redeemed offers and their
+	 * associated shipping costs
+	 */
+	public function postpay($offer);
+
+	/**
 	 * Charge for offers
 	 */
 	public function closeOffers();

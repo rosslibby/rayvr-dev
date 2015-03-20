@@ -53,10 +53,10 @@ class OfferPay extends ScheduledCommand {
 	 */
 	public function fire()
 	{
-		$this->line('Kicking off today\'s offers.');
-		$this->offer->closeOffers();
-		$this->line('The offers have been started.');
-		Log::info('Offer closeout completed.');
+		$this->line('Discovering offers that ended yesterday...');
+		$offers = $this->offer->closeOffers();
+		$this->line('The offers have been closed and charged for.');
+		Log::info('Offer closeout completed with offers: '.json_encode($offers));
 	}
 
 	/**

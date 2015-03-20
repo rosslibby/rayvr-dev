@@ -18,12 +18,11 @@ Route::get('register/welcome', [
 /**
  * Route for testing anything
  */
-Route::get('test', function(){
-	// test
-	$match = Matches::find(24);
-	$used = Order::where('offer_id', $match->offer_id);
-	return count($used);
-});
+// Route::get('test', function(){
+// 	// test
+// 	$offer = Offer::find(29);
+// 	return $offer->business->offers;
+// });
 
 Route::group(['before' => 'csrf'], function()
 {

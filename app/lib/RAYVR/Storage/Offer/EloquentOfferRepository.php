@@ -2,7 +2,7 @@
 
 use RAYVR\Storage\Category\CategoryRepository as CategoryRepo;
 
-use Offer, Interest, User, Omnipay\Omnipay, Auth, Reimbursement, Mail, Matches, OfferPack, Blacklist, Voucher, Category, Copycat, Order, Stripe;
+use Offer, Interest, User, Omnipay\Omnipay, Auth, Reimbursement, Mail, Matches, OfferPack, Blacklist, Voucher, Category, Copycat, Order, Stripe, DateTime, DateInterval, Charge;
 
 class EloquentOfferRepository implements OfferRepository {
 
@@ -1356,15 +1356,95 @@ class EloquentOfferRepository implements OfferRepository {
 		}
 	}
 
+	public function postpay($offer)
+	{
+		/**
+		 * Don't charge for trial
+		 * promotion
+		 */
+		if(count($offer->business->offers) == 1)
+		{
+			return true;
+		}
+
+		/**
+		 * Set the Rate Per Offer (RPO)
+		 */
+		$RPO = 5;
+
+		/**
+		 * Retrieve all completed orders
+		 * associated with $offer
+		 */
+		$orders = $offer->orders()->where('completed', true)->get();
+
+		/**
+		 * Calculate total cost of
+		 * shipping
+		 */
+		$shipping = 0;
+		foreach($orders as $order)
+		{
+			$shipping += $order->cost;
+		}
+
+		/**
+		 * Set a description for the charge
+		 */
+		$description = "Payment for promotion #".$offer->id;
+
+		/**
+		 * Calculate total cost of the
+		 * promotion using the following
+		 * algorithm:
+		 * 
+		 * (number of orders x $RPO)
+		 * + total cost of shipping ($shipping)
+		 * x 100
+		 * = $sum
+		 */
+		$sum = ((count($orders) * $RPO) + $shipping) * 100;
+
+		/**
+		 * Retrieve the Stripe customer
+		 * associated with the business
+		 */
+		$customer = \Stripe_Customer::retrieve($offer->business->stripe_customer);
+
+		$response = \Stripe_Charge::create([
+			'amount' => $sum,
+			'currency' => 'usd',
+			'customer' => $customer,
+			// 'source' => $offer->billing
+		]);
+
+		/**
+		 * Store the charge
+		 */
+		$charge = new Charge();
+		$charge->user_id = $offer->business_id;
+		$charge->charge_id = $response->id;
+		$charge->card_id = $customer->sources->data[0]->id;
+		$charge->charge = ($sum/100);
+		$charge->save();
+
+		return $response;
+	}
+
 	public function closeOffers()
 	{
-		$date = date('Y-m-d');
-		$offers = Offer::where('end',$date)->get();
-		foreach($offers as $offer)
+		$date = new DateTime();
+		$date->sub(new DateInterval('P1D'));
+		$offers = Offer::where('end',$date->format('Y-m-d'))->get();
+		if(count($offers))
 		{
-			$this->user->postpay($offer);
+			foreach($offers as $offer)
+			{
+				$this->postpay($offer);
+			}
+			return $offers;
 		}
-		return 'Donedonedonedonnnnnnnnnnnnnne';
+		return 'No offers to charge for.';
 	}
 
 	/*****************************

@@ -91,13 +91,6 @@ interface UserRepository {
 	public function stripeData($user);
 
 	/**
-	 * Bill business for all 
-	 * redeemed offers and their
-	 * associated shipping costs
-	 */
-	public function postpay($offer);
-
-	/**
 	 * Verify that a credit card
 	 * is real and active
 	 */

@@ -175,9 +175,9 @@ class EloquentOrderRepository implements OrderRepository {
 		/**
 		 * Step 1: Fetch the access token
 		 */
-		$url = 'https://api.sandbox.paypal.com/v1/oauth2/token';
-		$client_id = 'AYlbChCk7mTzAcQD1u_rxLr4KB0PNE9QhmJU6Gmfh_9scFyzoeGiCckcfQsy';
-		$secret = 'EGmHiRAE1KdRZqBIkphWz5NfNkPKwgHu6nHz_MQkTuEcaQ-Kmf-AqhmImrUr';
+		$url = $_ENV['paypal_api_url'];
+		$client_id = $_ENV['paypal_client_id'];
+		$secret = $_ENV['paypal_secret'];
 
 		$curl = curl_init();
 
@@ -198,7 +198,7 @@ class EloquentOrderRepository implements OrderRepository {
 		/**
 		 * Send payment request
 		 */
-		$url = 'https://api.sandbox.paypal.com/v1/payments/payouts/?sync_mode=true';
+		$url = $_ENV['paypal_payment_url'];
 		$body = '{
 			"sender_batch_header": {
 				"email_subject": "You have a payment"
@@ -279,9 +279,9 @@ class EloquentOrderRepository implements OrderRepository {
 		 * 
 		 * Step 1: Fetch the access token
 		 */
-		$url = 'https://api.sandbox.paypal.com/v1/oauth2/token';
-		$client_id = 'AYlbChCk7mTzAcQD1u_rxLr4KB0PNE9QhmJU6Gmfh_9scFyzoeGiCckcfQsy';
-		$secret = 'EGmHiRAE1KdRZqBIkphWz5NfNkPKwgHu6nHz_MQkTuEcaQ-Kmf-AqhmImrUr';
+		$url = $_ENV['paypal_api_url'];
+		$client_id = $_ENV['paypal_client_id'];
+		$secret = $_ENV['paypal_secret'];
 
 		$curl = curl_init();
 
@@ -300,7 +300,7 @@ class EloquentOrderRepository implements OrderRepository {
 		$access_token = json_decode($result, true)['access_token'];
 
 		$payout_item_id = json_decode($claim->response, true)['items'][0]['payout_item_id'];
-		$url = 'https://api.sandbox.paypal.com/v1/payments/payouts-item/'.$payout_item_id.'/cancel';
+		$url = $_ENV['paypal_cancel_url'].$payout_item_id.'/cancel';
 		$cancel = curl_init();
 		curl_setopt($cancel, CURLOPT_URL, $url);
 		curl_setopt($cancel, CURLOPT_HTTPHEADER, [
