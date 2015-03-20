@@ -32,7 +32,7 @@ class SessionController extends BaseController {
 		else
 			$referral = ['referral' => ''];
 
-		return View::make('session.register')->with('referral', $referral);
+		return View::make('session.index')->with('referral', $referral);
 	}
 
 	public function store()
