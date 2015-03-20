@@ -54,6 +54,33 @@ Route::filter('auth.basic', function()
 	return Auth::basic();
 });
 
+/**
+ * Active status is as follows:
+ * 0: inactive
+ * 1: user
+ * 2: business
+ * 3: administrator
+ */
+Route::filter('admin', function(){
+	if(Auth::user())
+	{
+		if(Auth::user()->active != 3)
+			return Redirect::to('/');
+	}
+	else
+	{
+		return Redirect::to('/');
+	}
+});
+Route::filter('business', function(){
+	if(!Auth::user()->active || !Auth::user()->business)
+		return Redirect::to('/');
+});
+Route::filter('user', function(){
+	if(Auth::user()->active != 1)
+		return Redirect::to('/');
+});
+
 /*
 |--------------------------------------------------------------------------
 | Guest Filter

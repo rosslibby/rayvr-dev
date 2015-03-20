@@ -35,7 +35,7 @@ RAYVR connects you with offers for real products that you will love. 100% free.
 
 							{{ Form::text('business', $value = 'no', array('class' => 'hidden-input')) }}
 
-							{{ Form::text('invited_by', $value = $referral['referral'], array('class' => 'hidden-input')) }}
+							{{ Form::text('invited_by', $value = $referral, array('class' => 'hidden-input')) }}
 
 							<div class="col-md-3 col-sm-3">
 								{{ Form::submit('SIGN UP', array('class' => 'btn btn-primary col-md-12 col-sm-12')) }}

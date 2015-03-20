@@ -20,6 +20,11 @@ class User extends Ardent implements UserInterface, RemindableInterface, Billabl
 	protected $table = 'users';
 
 	/**
+	 * Setting up Cashier
+	 */
+	protected $dates = ['trial_ends_at', 'subscription_ends_at'];
+
+	/**
 	 * The attributes excluded from the model's JSON form.
 	 *
 	 * @var array
@@ -29,7 +34,32 @@ class User extends Ardent implements UserInterface, RemindableInterface, Billabl
 	/**
 	 * Allow for mass assignment
 	 */
-	protected $fillable = ['email', 'password', 'invite_code', 'invited_by', 'first_name', 'last_name', 'business', 'business_name', 'address', 'address_2', 'city', 'state', 'zip', 'country', 'phone', 'current'];
+	protected $fillable = [
+		'email',
+		'password',
+		'invite_code',
+		'invited_by',
+		'first_name',
+		'last_name',
+		'business',
+		'business_name',
+		'address',
+		'address_2',
+		'city',
+		'state',
+		'zip',
+		'country',
+		'confirm',
+		'active',
+		'created_at',
+		'updated_at',
+		'gender',
+		'phone',
+		'current',
+		'profile',
+		'has_email',
+		'wants_email',
+	];
 
 	/**
 	 * Deny for mass assignment
@@ -110,5 +140,47 @@ class User extends Ardent implements UserInterface, RemindableInterface, Billabl
 	public function preference()
 	{
 		return $this->hasOne('Preference');
+	}
+
+	/**
+	 * User <--> offer relationship
+	 */
+	public function matches()
+	{
+		return $this->hasMany('Matches');
+	}
+
+	/**
+	 * User <--> offer-pack relationship
+	 */
+	public function offerPack()
+	{
+		return $this->hasMany('OfferPack');
+	}
+
+	/**
+	 * Business --> offer relationship
+	 * shows all the offers a business
+	 * has created
+	 */
+	public function offers()
+	{
+		return $this->hasMany('Offer', 'business_id');
+	}
+
+	/**
+	 * User <--> order relationship
+	 */
+	public function order()
+	{
+		return $this->hasMany('Order');
+	}
+
+	/**
+	 * User <--> blacklist relationship
+	 */
+	public function blacklist()
+	{
+		return $this->hasMany('Blacklist');
 	}
 }

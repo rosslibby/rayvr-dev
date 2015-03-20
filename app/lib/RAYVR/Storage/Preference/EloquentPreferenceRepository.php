@@ -66,6 +66,35 @@ class EloquentPreferenceRepository implements PreferenceRepository {
 			return false;
 	}
 
+	public function setInterests($user, $interests)
+	{
+		/**
+		 * Delete old user interests
+		 */
+		$user->interest()->delete();
+		/**
+		 * Create a user relationship with each
+		 * category they are interested in
+		 */
+		for($i = 0; $i < count($interests['interest']); $i++)
+		{
+			/**
+			 * Find category associated with user selection
+			 */
+			$category = Category::find((int)($interests['interest'][$i]));
+
+			/**
+			 * Build array for interest creation
+			 */
+			$interest = array_merge(['user_id' => $user->id], ['cat_id' => $category->id]);
+
+			/**
+			 * Create new Interest (user-category relationship)
+			 */
+			$user->interest()->create($interest);
+		}
+	}
+
 	/**
 	 * This sets up preferences without
 	 * associating any user <--> category
@@ -78,10 +107,105 @@ class EloquentPreferenceRepository implements PreferenceRepository {
 		 * If true, update
 		 * If false, create
 		 */
-		$pref = User::find($user);
+		$pref = $user;
+
 		$pref->fill($preferences);
+
+		/**
+		 * If this is the first time setting
+		 * preferences, redirect the user to
+		 * 'invite your friends' page
+		 */
+		if(!$user->times_updated && !$user->business)
+		{
+			$user->times_updated = 1;
+			$user->save();
+			return Redirect::route('invite')
+				->with('success', 'Your account setup is complete.');
+		}
+		else if(!$user->times_updated && $user->business)
+		{
+			$user->times_updated = 1;
+			$user->save();
+			return \Redirect::route('billing')
+				->with('success', 'Your account setup is complete.');
+		}
+		else
+		{
+			$user->times_updated = (int)($user->times_updated) + 1;
+			$user->save();
+
+			if($user->business)
+			{
+				return Redirect::route('business.preferences')
+					->with('success', 'Your settings have been saved');
+			}
+		}
+
+		/**
+		 * Make sure the user didn't skip any fields
+		 */
+		if(!$pref->first_name || !$pref->last_name || !$pref->email || !$pref->address || !$pref->city || !$pref->country || !$pref->zip || !$pref->phone)
+		{
+			$s = $pref->save();
+
+			// return list of empty __required__ fields
+		}
+
 		$s = $pref->save();
 
 		return $s;
+	}
+
+	public function interestCategories($user)
+	{
+		/**
+		 * Select all the categories
+		 */
+		$categories = Category::all();
+
+		/**
+		 * Select all the user's interests
+		 */
+		$interests = $user->interest;
+
+		/**
+		 * Build an array of the
+		 * categories, assigning a value
+		 * of true to those that are
+		 * interests and false to those
+		 * that are not
+		 */
+		$cats = [];
+
+		foreach($categories as $category)
+		{
+			$isInterest = false;
+
+			/**
+			 * Iterate through the $interests
+			 * array to find a match for the
+			 * category ID
+			 */
+			foreach($interests as $interest)
+			{
+				if($interest->cat_id == $category->id)
+				{
+					$isInterest = true;
+					break;
+				}
+			}
+
+			$cat = [
+				'id'		=> $category->id,
+				'title'		=> $category->title,
+				'interest'	=> $isInterest
+			];
+			array_push($cats, $cat);
+		}
+
+		$categories = $cats;
+
+		return $categories;
 	}
 }

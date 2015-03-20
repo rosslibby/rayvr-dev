@@ -11,12 +11,39 @@
 		</div>
 		<br>
 		<br>
-		<div class="col-md-6 col-md-offset-3 text-center">
+		<div class="col-md-10 col-md-offset-1 text-center">
+			<div class="row">
+				@if(Session::has('confirm'))
+					<div class="alert alert-success alert-dismissable col-md-8 col-md-offset-2">
+						{{ Form::button('×', ['class' => 'close', 'data-dismiss' => 'alert', 'aria-hidden' => true]) }}
+						<strong>Thank you! </strong>{{ Session::get('confirm') }}
+					</div>
+				@endif
+				<div class="col-md-6 col-md-offset-3">
+					@if($membership['member'])
+						<ul class="list-group">
+
+							@if($membership['trial'] > date('Y-m-d'))
+								<li class="list-group-item list-group-item-success fg-scheme-white raleway">Current plan: <strong>{{ $membership['plan'] }} (30 day trial)</strong></li>
+							<li class="list-group-item list-group-item-warning fg-scheme-white raleway">Trial ends: <strong>{{ date('M. d, Y', strtotime($membership['trial'])) }}</strong></li>
+							@else
+								<li class="list-group-item list-group-item-success fg-scheme-white raleway">Current subscription: <strong>{{ $membership['plan'] }}</strong></li>
+								<li class="list-group-item list-group-item-warning fg-scheme-white raleway">Subscription expires: <strong>{{ date('M. d, Y', strtotime($membership['expiration'])) }}</strong></li>
+							@endif
+						</ul>
+					@else
+						<ul class="list-group">
+							<li class="list-group-item list-group-item-info fg-scheme-white raleway text-center">Subscribe to a plan below to start your <strong>free 30-day trial</strong></li>
+						</ul>
+					@endif
+				</div>
+			</div>
+			<br>
 			<div class="pricing">
 				<ul>
 					<li class="unit price-primary">
 						<div class="price-title">
-							<h3>$199</h3>
+							<h3>$80</h3>
 							<p>per month</p>
 						</div>
 						<div class="price-body">
@@ -29,13 +56,22 @@
 							</ul>
 						</div>
 						<div class="price-foot">
-							{{ HTML::link('#', 'Free Trial', ['class' => 'btn btn-primary', 'data-toggle' => 'tooltip', 'data-placement' => 'bottom', 'data-original-title' => '1 Month Free Trial with 15 Free Offers']) }}
-							{{ HTML::link('#', 'Subscribe', ['class' => 'btn btn-info']) }}
+							{{ Form::open(['post' => 'membership/month']) }}
+								{{ Form::hidden('plan', 1) }}
+								<script
+									src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+									data-key="pk_test_X8GEnzu7zmgQ1N62Nr3W5vqD"
+									data-amount="8000"
+									data-name="RAYVR"
+									data-description="1 Month Membership"
+									data-image="/resources/img/logo.png">
+								</script>
+							{{ Form::close() }}
 						</div>
 					</li>
 					<li class="unit price-success active">
 						<div class="price-title">
-							<h3>$1399</h3>
+							<h3>$740</h3>
 							<p>per year</p>
 						</div>
 						<div class="price-body">
@@ -48,13 +84,22 @@
 							</ul>
 						</div>
 						<div class="price-foot">
-							{{ HTML::link('#', 'Free Trial', ['class' => 'btn btn-primary', 'data-toggle' => 'tooltip', 'data-placement' => 'bottom', 'data-original-title' => '1 Month Free Trial with 15 Free Offers']) }}
-							{{ HTML::link('#', 'Subscribe', ['class' => 'btn btn-info']) }}
+							{{ Form::open(['post' => 'membership/year']) }}
+								{{ Form::hidden('plan', 3) }}
+								<script
+									src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+									data-key="pk_test_X8GEnzu7zmgQ1N62Nr3W5vqD"
+									data-amount="74000"
+									data-name="RAYVR"
+									data-description="1 Year Membership"
+									data-image="/resources/img/logo.png">
+								</script>
+							{{ Form::close() }}
 						</div>
 					</li>
 					<li class="unit price-warning">
 						<div class="price-title">
-							<h3>$899</h3>
+							<h3>$420</h3>
 							<p>per 6 months</p>
 						</div>
 						<div class="price-body">
@@ -67,8 +112,17 @@
 							</ul>
 						</div>
 						<div class="price-foot">
-							{{ HTML::link('#', 'Free Trial', ['class' => 'btn btn-primary', 'data-toggle' => 'tooltip', 'data-placement' => 'bottom', 'data-original-title' => '1 Month Free Trial with 15 Free Offers']) }}
-							{{ HTML::link('#', 'Subscribe', ['class' => 'btn btn-info']) }}
+							{{ Form::open(['post' => 'membership/half']) }}
+								{{ Form::hidden('plan', 2) }}
+								<script
+									src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+									data-key="pk_test_X8GEnzu7zmgQ1N62Nr3W5vqD"
+									data-amount="42000"
+									data-name="RAYVR"
+									data-description="6 Month Membership"
+									data-image="/resources/img/logo.png">
+								</script>
+							{{ Form::close() }}
 						</div>
 					</li>
 				</ul>

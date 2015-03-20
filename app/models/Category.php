@@ -16,7 +16,11 @@ class Category extends Ardent {
 	 * 
 	 * @var array
 	 */
-	protected $fillable = array('title');
+	protected $fillable = [
+		'title',
+		'created_at',
+		'updated_at'
+	];
 
 	/**
 	 * Deny for mass assignment
@@ -64,9 +68,8 @@ class Category extends Ardent {
 	/**
 	 * Offer categories relationship
 	 */
-	public function categories()
+	public function offers()
 	{
 		return $this->belongsToMany('Offer', 'offer_categories', 'offer_id', 'category_id');
 	}
-
 }

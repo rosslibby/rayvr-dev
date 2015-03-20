@@ -1,4 +1,4 @@
-@extends('layouts.landing-master')
+@extends('layouts.landing-form')
 
 @section('heading')
 Sign in to your account.
@@ -8,47 +8,14 @@ Sign in to your account.
 Manage your offers, preferences, and score in your RAYVR dashboard.
 @stop
 
-@section('content')
-<div class="col-md-4 col-sm-6 col-md-offset-4 col-sm-offset-3">
-	<div class="row">
-		<div class="col-md-10 col-md-offset-1">
-			<div class="panel" role="tabpanel">
-				<ul id="loginTabs" class="nav nav-tabs nav-justified" role="tablist">
-					<li role="presentation" data-toggle="tab" class="active"><a href="#user" aria-controls="user" role="tab" data-toggle="tab">User &amp; Business Login</a></li>
-				</ul>
-				<br>
-				<div class="tab-content">
-					@include('includes.login')
-				</div>
-				<br>
-			</div>
-			@if(Session::has('error'))
-				<br>
-				<div class="alert alert-warning alert-dismissable">
-					<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-					{{ Session::get('error') }}
-					<strong>Try again</strong> or <strong>{{ HTML::link('register', 'Sign up') }}</strong>
-				</div>
-			@endif
-		</div>
-	</div>
-</div>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
+@section('inset-form-heading')
+Sign in to your User or Business account
+@stop
+
+@section('alternate')
+<span class="fg-scheme-white">Don't have an account?</span> {{ HTML::link('/#businessRegistration', 'Sign up here') }}<span class="fg-scheme-white">.</span>
+@stop
+
+@section('use-form')
+@include('forms.login.inset-login')
 @stop

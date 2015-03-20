@@ -54,6 +54,18 @@ class PreferencesController extends BaseController {
 	}
 
 	/**
+	 * User preferences form
+	 */
+	public function user()
+	{
+		$model = Auth::user();
+		$categories = $this->preference->interestCategories($model);
+		return View::make('forms.preferences.user')
+					->with(compact('model'))
+					->with('categories', $categories);
+	}
+
+	/**
 	 * Show the form for creating a new resource.
 	 * GET /preferences/create
 	 *
@@ -77,16 +89,9 @@ class PreferencesController extends BaseController {
 		$interests = Input::only('interest');
 
 		$this->preference->interests($preferences, $interests);
-
-		if($s->save())
-		{
-			return Redirect::route('register.welcome')
-				->with('flash', 'The user registration is complete');
-		}
-
-		return Redirect::route('user.preferences')
-			->withInput()
-			->withErrors($s->errors());
+	
+		return Redirect::route('register.welcome')
+			->with('flash', 'The user registration is complete');
 	}
 
 	/**
@@ -96,11 +101,22 @@ class PreferencesController extends BaseController {
 	{
 		$preferences = Input::all();
 
+		return $this->preference->preferences($preferences, Auth::user());
+	}
+
+	/**
+	 * Store the User preferences
+	 */
+	public function storeUser()
+	{
+		$preferences = Input::except(['_token', 'interest']);
+		$interests = Input::only('interest');
+
 		/**
 		 * Validate input
 		 */
 		$validator = Validator::make(
-			Input::except('business_name', 'address_2'),
+			Input::except('address_2'),
 			[
 				'email' => 'required|unique',
 				'first_name' => 'required',
@@ -110,23 +126,56 @@ class PreferencesController extends BaseController {
 				'state' => 'required',
 				'zip' => 'required',
 				'country' => 'required',
-				'phone' => 'required'
+				'gender' => 'required'
 			]
 		);
 
-		$s = $this->preference->preferences($preferences, Auth::user()->id);
+		/**
+		 * Change the string value of gender
+		 * to a boolean
+		 */
 
-		if($s)
+		/**
+		 * Save the preferences
+		 */
+		$user = Auth::user();
+		$user->fill($preferences);
+
+		/**
+		 * Add new interests and
+		 * remove any old interests
+		 */
+		$this->preference->setInterests($user, $interests);
+
+		/**
+		 * If this is the first time setting
+		 * preferences, redirect the user to
+		 * 'invite your friends' page
+		 */
+		if(!$user->times_updated)
 		{
-			if($validator)
-				return Redirect::route('business.preferences')
-					->with('flash', 'The user registration is complete');
-			else
-				return Redirect::route('business.preferences')
-					->with('flash', 'The user registration is not complete');
+			$user->times_updated = 1;
+			$user->save();
+			return Redirect::route('invite')
+				->with('success', 'Your account set is complete.');
+		}
+		else
+		{
+			$user->times_updated = (int)($user->times_updated) + 1;
+			$user->save();
 		}
 
-		return Redirect::route('user.preferences')
+		if($user->save())
+		{
+			if($validator)
+				return Redirect::route('user.preferences')
+					->with('success', 'Your preferences have been updated');
+			else
+				return Redirect::to('user.preferences')
+					->with('success', 'You missed a few fields yo');
+		}
+
+		return Redirect::to('user/preferences')
 			->withInput()
 			->withErrors($s->errors());
 	}

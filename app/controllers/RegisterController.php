@@ -80,28 +80,33 @@ class RegisterController extends BaseController {
 		if($s[0])
 		{
 			Session::put('new_user', $s[1]->id);
-			// temporarily do not authorize the user upon creation
-			//Auth::login($s[1]);
+			Auth::login($s[1]);
 
 			/**
 			 * Determine the redirect based on
 			 * whether this is a user or
 			 * business registration
 			 */
-			$route = 'user.preferences';
+			$route = 'preferences';
 
 			if(Input::get('business') == 'true')
 			{
 				// temporarily show just the business 'welcome' page
 				//$route = 'business.preferences';
-				$route = 'business.welcome';
+				$route = '/';
 			}
 
-			return Redirect::route($route)
+			return Redirect::to($route)
 				->with('flash', 'The new user has been created');
 		}
 
-		return Redirect::route('session.index')
+		if(Input::get('business'))
+		{
+			return Redirect::route('session.index')
+				->withInput()
+				->with('error', $s[1]);
+		}
+		return Redirect::route('session.register')
 			->withInput()
 			->with('error', $s[1]);
 	}
@@ -115,7 +120,7 @@ class RegisterController extends BaseController {
 		 * Send the welcome email
 		 */
 		$user = $this->user->find(Session::get('new_user'));
-		Mail::send('emails.welcome', ['name' => Session::get('name'), 'from' => 'The RAYVR team'], function($message) use ($user)
+		Mail::send('emails.welcome', ['name' => Session::get('name'), 'from' => 'The RAYVR team', 'code' => $user->invite_code], function($message) use ($user)
 		{
 			$message->to($user->email)->subject('Welcome to RAYVR!');
 		});

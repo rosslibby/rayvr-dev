@@ -1,6 +1,6 @@
 <?php
 
-return array(
+return [
 
 	/*
 	|--------------------------------------------------------------------------
@@ -14,13 +14,14 @@ return array(
 	|
 	*/
 
-	'mandrill' => array(
+	'mandrill' => [
 		'secret' => 'Lkql5S2ulGHrCHUwqXcy6g',
-	),
+		'async' => true
+	],
 
-	'stripe' => array(
+	'stripe' => [
 		'model'  => 'User',
 		'secret' => 'sk_test_3YmCSPqFkZCBhSroMCu4QAC0',
-	),
+	],
 
-);
+];

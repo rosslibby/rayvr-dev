@@ -4,9 +4,9 @@
 
 <div class="container-fluid">
 	<div class="row">
-		<div class="sidebar bg-scheme-gray">
+		<div class="sidebar">
 
-			<ul class="nav nav-sidebar fg-scheme-gray anchor heavier">
+			<ul class="nav nav-sidebar anchor light">
 				@section('sidebar')
 				@show
 			</ul>

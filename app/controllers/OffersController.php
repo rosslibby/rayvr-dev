@@ -2,6 +2,19 @@
 
 use RAYVR\Storage\Category\CategoryRepository as Category;
 use RAYVR\Storage\Offer\OfferRepository as Offer;
+use RAYVR\Storage\Order\OrderRepository as Order;
+use RAYVR\Storage\User\UserRepository as User;
+
+/**
+ * Bring in the PayPal!!!
+ */
+use PayPal\Rest\ApiContext;
+use PayPal\Auth\OAuthTokenCredential;
+use PayPal\Types\AP\PayRequest;
+use PayPal\Service\AdaptivePaymentsService;
+use PayPal\Types\AP\Receiver;
+use PayPal\Types\AP\ReceiverList;
+use PayPal\Types\Common\RequestEnvelope;
 
 class OffersController extends BaseController {
 
@@ -11,15 +24,31 @@ class OffersController extends BaseController {
 	 */
 	protected $category;
 	protected $offer;
+	protected $order;
+	protected $user;
+
+	/**
+	 * PayPal API context
+	 */
+	private $_api_context;
 
 	/**
 	 * Inject the Category repository
 	 * Inject the Offer repository
 	 */
-	public function __construct(Category $category, Offer $offer)
+	public function __construct(Category $category, Offer $offer, User $user, Order $order)
 	{
 		$this->category = $category;
 		$this->offer = $offer;
+		$this->order = $order;
+		$this->user = $user;
+
+		/**
+		 * Construct the PayPal stuff
+		 */
+		$paypal_conf = Config::get('paypal');
+		$this->_api_context = new ApiContext(new OAuthTokenCredential($paypal_conf['client_id'], $paypal_conf['secret']));
+		$this->_api_context->setConfig($paypal_conf['settings']);
 	}
 
 	/**
@@ -41,7 +70,7 @@ class OffersController extends BaseController {
 	 */
 	public function add()
 	{
-		return View::make('offers.add', array('title' => 'Title', 'photo' => 'http://placehold.it/400x400', 'description' => 'Description', 'url' => 'URL', 'interests' => $this->category->all()));
+		return View::make('offers.add', ['title' => '', 'photo' => 'http://placehold.it/120x100', 'description' => 'Description', 'url' => 'URL', 'interests' => $this->category->all()]);
 	}
 
 	/**
@@ -50,8 +79,39 @@ class OffersController extends BaseController {
 	public function track()
 	{
 		$offers = $this->offer->offers(Auth::user()->id);
+		$orders = [];
+		for($i = 0;  $i < count($offers); $i++)
+		{
+			$orderSet = $this->order->orders($offers[$i]->id);
+			array_push($orders, $orderSet);
+			$offers[$i] = ['offer' => $offers[$i], 'orders' => $orderSet];
+		}
 
-		return View::make('offers.track')->with('offers', $offers);
+		return View::make('offers.track')->with(['offers' => $offers]);
+	}
+
+	/**
+	 * Show the individual offer view
+	 */
+	public function single($id)
+	{
+		$offer = $this->offer->find($id);
+		$orders = $this->order->data($id);
+
+		$offer = [
+			'offer' => $offer,
+			'orders' => $orders
+		];
+
+		return View::make('offers.single')->with(['offer' => $offer]);
+	}
+
+	/**
+	 * Show the data view
+	 */
+	public function data($id)
+	{
+		return $this->order->data($id)['data'];
 	}
 
 	/**
@@ -77,15 +137,16 @@ class OffersController extends BaseController {
 				CURLOPT_PROGRESSFUNCTION => 'callback'
 			));
 
-			$cc->match(array(
-				'title' => '/id="productTitle" class="a-size-large">(.*?)</ms',
-				'photo' => '/data-a-dynamic-image="{&quot;(.*?)&quot;/',
-				'description' => '/%22productDescriptionWrapper%22%3E%0A(.*?)%3Ch3%20class%3D%22productDescriptionSource/',
-				'alt_description' => '/%3D%22productDescriptionWrapper%22%3E%0A(.*?)%0A/'
-			))->URLs($url)
-			->callback(array(
+			$cc->match([
+				'title'				=> '/id="productTitle" class="a-size-large">(.*?)</ms',
+				'photo'				=> '/data-a-dynamic-image="{&quot;(.*?)&quot;/',
+				'description'		=> '/%22productDescriptionWrapper%22%3E%0A(.*?)%3Ch3%20class%3D%22productDescriptionSource/',
+				'alt_description'	=> '/%3D%22productDescriptionWrapper%22%3E%0A(.*?)%0A/',
+				'asin'				=> '/data-asin="(.*?)"/'
+			])->URLs($url)
+			->callback([
 				'_all_' => array('trim')
-			));
+			]);
 
 			/**
 			 * Make sure description exists
@@ -97,16 +158,36 @@ class OffersController extends BaseController {
 			/**
 			 * Return an array of the data
 			 */
-			$product = array(
+			$product = [
 				'photo' => $cc->get()[0]['photo'],
 				'title' => $cc->get()[0]['title'],
 				'description' => urldecode($description),
-				'url' => $url
-			);
+				'url' => $url,
+				'asin' => $cc->get()[0]['asin']
+			];
 
 			return $product;
 		}
 		return "WRONG LEVERRRR!!";
+	}
+
+	public function verifyReview()
+	{
+			// $url = $offer->review_link;
+			// $review = $order->review;
+			return $this->offer->verifyReview();
+	}
+
+	/**
+	 * Direct a new offer to the quantity-
+	 * selection page
+	 */
+	public function quota()
+	{
+		$offer = Input::all();
+		Session::put('offer', $offer);
+		$maximum = $this->offer->maxMatches($offer, Auth::user());
+		return View::make('offers.quota')->with('maximum', $maximum);
 	}
 
 	/**
@@ -116,17 +197,46 @@ class OffersController extends BaseController {
 	 */
 	public function store()
 	{
-		$data = Input::except('interest');
+		$offer = Session::pull('offer');
+		$final_details = Input::all();
+		$categories = $offer['interest'];
+		$data = array_except($offer, ['interest']);
+		$data = array_merge($data, $final_details);
 
 		/**
 		 * Create the offer
 		 */
 
-		$categories = Input::get('interest');
 		$s = $this->offer->categories($data, $categories, Auth::user()->id);
 
-		if($s)
-			return Redirect::route('offers.track');
+		/**
+		 * Redirect based on the offer's success code:
+		 * 1: No action required
+		 * 2: Purchase Prime offers
+		 * 3: Leave shipping deposit
+		 * 4: Purchase non-prime offers & leave shipping deposit
+		 */
+		if($s['success'] == 1)
+			return Redirect::to('offers/review')->with('success', $s['message']);
+		elseif($s['success'] == 2)
+			// return Redirect::to('offers/review')->with('success', $s['message']);
+			return Redirect::to('offers/billing')->with('success', $s['message']);
+	}
+
+	/**
+	 * Offer billing page
+	 */
+	public function billing()
+	{
+		return View::make('forms.payment.select')->with('data', $this->user->stripeData(Auth::user()));
+	}
+
+	/**
+	 * Set billing method
+	 */
+	public function chooseBilling()
+	{
+		return Redirect::to('/');
 	}
 
 	/**
@@ -190,4 +300,90 @@ class OffersController extends BaseController {
 		return Redirect::route('offers.index');
 	}
 
+	/**
+	 * Offer moderation
+	 */
+	public function moderate()
+	{
+		$offers = $this->offer->unmoderated();
+		$categories = $this->offer->allCategories($offers);
+		return View::make('admin.offers.moderate')->with('offers', $categories);
+	}
+
+	/**
+	 * Confirm offer approval
+	 */
+	public function approveConfirm($id)
+	{
+		return View::make('admin.offers.exclusive')->with('id', $id);
+	}
+
+	/**
+	 * Approve an offer
+	 */
+	public function approve()
+	{
+		$this->offer->approve(Input::get('id'), Input::get('exclusivity'));
+		return Redirect::to('offers/moderate')->with('approve', 'Offer #'.Input::get('id').' has been approved.');
+	}
+
+	/**
+	 * Confirm offer denial
+	 */
+	public function denyConfirm($id)
+	{
+		return View::make('admin.offers.reason')->with('id', $id);
+	}
+
+	/**
+	 * Deny an offer
+	 */
+	public function deny()
+	{
+		echo $this->offer->deny(Input::get('id'), Input::get('reason'));
+		return Redirect::to('offers/moderate')->with('deny', 'Offer #'.Input::get('id').' has been denied.');
+	}
+
+	/**
+	 * Place claim for shipping reimbursement
+	 */
+	public function claim()
+	{
+		/**
+		 * Get amount claimed
+		 */
+		$cost = implode(".", [Input::get('dollars'), Input::get('cents')]);
+
+		/**
+		 * Get the order to associate
+		 * the claim with
+		 */
+		$order = $this->order->find(Input::get('order'));
+		
+		echo $this->order->claim(Auth::user(), $order, $cost);
+	}
+
+	/**
+	 * Get shipping deposit
+	 */
+	public function deposit()
+	{
+		return View::make('payments.deposit');
+	}
+
+	/**
+	 * Process shipping deposit
+	 */
+	public function processDeposit()
+	{
+		/**
+		 * Save the deposit
+		 */
+		$this->user->deposit(Auth::user(), Input::all());
+
+		/**
+		 * Redirect to offers/track
+		 */
+		return Redirect::to('offers/track');
+	}
 }

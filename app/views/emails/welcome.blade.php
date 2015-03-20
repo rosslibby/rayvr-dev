@@ -1,8 +1,41 @@
-<h2>Hi {{ $name }},</h2>
-<p>Hope you're doing well! For the past 6 months I've been developing a new program called RAYVR, the first service where you sign up to get products that match <em>your</em> interests from developers <strong>completely free!</strong> I wanted to invite you to be one of our very first members. All we ask is that you provide feedback for the products you receive. It's super simple and easy to use. The best part is it doesn't cost a cent and there are <strong>no strings attached!</strong></p>
-<p><a href="http://rayvr.com">Click here to learn more &minus; You'll thank me later!</a></p>
-<p>Let me know if you have any questions. I'd appreciate it if you could share it with your friends after signing up!</p>
+@extends('layouts.email')
+
+@section('heading')
+Welcome to
+@stop
+
+@section('heading-accent')
+RAYVR
+@stop
+
+@section('greeting')
+You're our newest member!
+@stop
+
+@section('body')
+Congratulations on joining RAYVR.
 <br>
-<p>All the best,</p>
+We're working away to ensure we have top-notch products ready to go for our launch.
 <br>
-<p><em>{{ $from }}</em></p>
+Stayt tuned - you'll be receiving an email about your first offer in the next few weeks.
+<br>
+<br>
+Want to share the love?
+<br>
+<a href="http://rayvr.com/invite/{{ $code }}">Send your friends an early invite to join RAYVR today (click here)</a>.
+<br>
+<br>
+Best,
+<br>
+<br>
+<em>Ben Katzaman</em>
+<br>
+<br>
+Cofounder, Community Development
+<br>
+<a href="mailto:ben@rayvr.com">ben@rayvr.com</a>
+<br>
+RAYVR
+<br>
+<a href="http://rayvr.com">www.rayvr.com</a>
+@stop

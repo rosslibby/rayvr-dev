@@ -37,15 +37,58 @@ class LandingController extends BaseController {
 		 * preferences page
 		 */
 		if(Auth::user())
-			if(Auth::user()->business)
-				if(Auth::user()->address)
-					return Redirect::to('offers/track');
+		{
+			if(Auth::user()->business && Auth::user()->active == 1)
+			{
+				if(Auth::user()->address && Auth::user()->email && Auth::user()->first_name && Auth::user()->last_name && Auth::user()->zip && Auth::user()->country && Auth::user()->phone)
+				{
+					/**
+					 * If the user has no approved offers,
+					 * redirect the user to the holding
+					 * page
+					 */
+					if(!empty(json_decode(Offer::where('business_id',Auth::user()->id)->where('approved',true)->get())))
+					{
+						/**
+						 * If the user has not subscribed to
+						 * a membership, direct the user to
+						 * the membership page
+						 */
+						if(!Auth::user()->billing)
+							return Redirect::to('billing');
+						else
+							return Redirect::to('offers/track');
+					}
+					else
+					{
+						if(!empty(json_decode(Offer::where('business_id',Auth::user()->id)->where('approved',false)->get())))
+							return Redirect::to('offers/review');
+						return Redirect::to('offers/add');
+					}
+				}
 				else
-					return Redirect::to('settings');
+				{
+					if(!Auth::user()->address || !Auth::user()->email || !Auth::user()->first_name || !Auth::user()->last_name || !Auth::user()->zip || !Auth::user()->country || !Auth::user()->phone)
+						return Redirect::to('settings');
+					else if(!Auth::user()->stripe_customer)
+						return Redirect::to('billing');
+					else
+						return Redirect::to('offers/track');
+				}
+			}
+			else if(Auth::user()->business && Auth::user()->active == 3)
+			{
+				return Redirect::to('admin/control');
+			}
 			else
-				return View::make('landing.home');
+			{
+				return Redirect::to('offers/current');
+			}
+		}
 		else
-			return View::make('landing.home')->with('referral', $referral);
+		{
+			return View::make('session.register')->with('referral', $referral);
+		}
 	}
 
 	/**

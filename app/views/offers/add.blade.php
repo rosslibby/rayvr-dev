@@ -7,14 +7,16 @@
 @section('contentarea')
 	<div class="header-wrapper">
 		<div class="text-center">
-			<h2 class="fg-scheme-dark"><span class="glyphicon glyphicon-link"></span>&nbsp;Enter the product link</h2>
+			<h3 class="raleway fg-scheme-white">Step 1: <span class="light">Product Information</span></h3>
+			<p class="raleway light fg-scheme-white">Enter the product link</p>
+			<p class="light fg-scheme-white">This will pull your product title, photo, and ASIN from the Amazon&trade; listing.</p>
 
 			{{ Form::open(['', 'id' => 'fetch']) }}
 
-				<div class="col-md-6 col-md-offset-3">
+				<div class="col-md-10 col-md-offset-1">
 					<div class="row">
 						<div class="col-md-9 col-md-offset-1">
-							{{ Form::text('url', null, ['class' => 'form-control bg-scheme-transparent-gray', 'id' => 'url']) }}
+							{{ Form::text('url', null, ['class' => 'form-control bg-scheme-transparent-gray', 'id' => 'url', 'autofocus']) }}
 						</div>
 						{{ Form::submit('FETCH DATA', ['class' => 'btn btn-primary']) }}
 					</div>
@@ -32,7 +34,6 @@
 						</div>
 					</div>
 				</div>
-
 			{{ Form::close() }}
 		</div>
 	</div>
@@ -41,134 +42,199 @@
 @section('content')
 <br>
 <br>
+{{ Form::open(['route' => 'offers.quota', 'files' => true]) }}
 <div class="content-wrapper">
-	<div class="col-md-6 col-md-offset-3">
-		{{ Form::open(['route' => 'offers.store']) }}
+	<div class="col-md-10 col-md-offset-1">
+		<hr>
 
 		<div class="row">
 			<br>
-			<br>
-
-			<!-- Targeted gender -->
-
-			<div class="col-md-4">
-				<div class="row">
-					<div class="col-md-6">
-					{{ Form::label('gender', 'Targeted Gender', ['class' => 'label bg-scheme-dark fg-scheme-white h6']) }}
-					</div>
-				</div>
-				<br>
-				<div class="row">
-					<div class="col-md-6">
-						<div class="checkbox">
-							{{ Form::checkbox('female', '1', null, ['id' => 'female']) }}
-							{{ Form::label('female', 'Female') }}
-						</div>
-					</div>
-					<div class="col-md-6">
-						<div class="checkbox">
-							{{ Form::checkbox('male', '0', null, ['id' => 'male']) }}
-							{{ Form::label('male', 'Male') }}
-						</div>
-					</div>
-				</div>
+			<!-- Product image -->
+			<div class="col-md-2 col-md-offset-1 well">
+				{{ HTML::image($photo, $title, ['id' => 'product-photo']) }}
+				{{ Form::text('photo', $photo, ['id' => 'photo_input', 'class' => 'hidden-input']) }}
 			</div>
 
-			<!-- Prime customers vs. Regular customers -->
-
-			<div class="col-md-4">
-				<div class="row">
-					<div class="col-md-6">
-						{{ Form::label('prime', 'Prime Exclusive', ['class' => 'label bg-scheme-dark fg-scheme-white h6']) }}
-					</div>
-				</div>
-				<br>
-				<div class="row">
-					<div class="col-md-4">
-						<div class="radio" data-toggle="tooltip" data-placement="bottom" title data-original-title="This option is reserved for premium members">
-							{{ Form::radio('prime', '1', false, ['disabled']) }}
-							{{ Form::label('prime', 'Yes') }}
-						</div>
-					</div>
-					<div class="col-md-4">
-						<div class="radio">
-							{{ Form::radio('prime', '0', true) }}
-							{{ Form::label('prime', 'No') }}
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="col-md-4">
-				<div class="row">
-					<div class="col-md-6">
-						{{ Form::label('code', 'Discount Code', ['class' => 'label bg-scheme-dark fg-scheme-white h6']) }}
-					</div>
-				</div>
-				<br>
-				<div class="row">
-					<div class="col-md-12">
-						{{ Form::text('code', null, ['id' => 'code', 'class' => 'form-control']) }}
-					</div>
-				</div>
+			<!-- Product title -->
+			<div class="col-md-9 text-left">
+				<p class="h4 raleway light" id="product-title">{{ $title }}</p>
+				{{ Form::text('title', $title, ['id' => 'title_input', 'class' => 'hidden-input']) }}
 			</div>
 
+			<!-- Product link -->
+			{{ Form::hidden('link', $link = null, ['id' => 'link_input', 'class' => 'hidden-input']) }}
+
+			<!-- Product ASIN -->
+			{{ Form::hidden('asin', $asin = null, ['id' => 'asin_input', 'class' => 'hidden-input']) }}
 		</div>
 
 		<br>
 		<br>
-		<br>
+{{-- 		<!-- Review page link -->
+		<h3 class="raleway">Step 2: <span class="light">Link to Review Page</span></h3>
+		<hr>
 
 		<div class="row">
+			<br>
+			<div class="col-md-12">
+				<p class="h4">{{ Form::label('review_link', 'Review Link', ['class' => 'control-label raleway h4 light']) }}&nbsp;<i class="fa fa-link"></i></p>
+				<p>{{ Form::text('review_link', null, ['class' => 'form-control subtle-input taller-input']) }}</p>
+			</div>
+		</div>
 
+		<br>
+		<br> --}}
+		<!-- Quota & Dates -->
+		<h3 class="raleway">Step 2: <span class="light">Start &amp; End Dates</span></h3>
+		<p class="light">These are the desired dates that you want to run your offers. We will make sure to send out the offers between these dates. Please note that the start date is <strong>3 business days</strong> from today because we need time to review your product for quality control.</p>
+		<hr>
+
+		{{-- <div class="row">
+			<br>
 			<!-- Number of offers -->
-
-			<div class="col-md-4">
-				<div class="row">
-					<div class="col-md-6">
-					{{ Form::label('quota', 'Number of Offers', ['class' => 'label bg-scheme-dark fg-scheme-white h6']) }}
+			<div class="col-md-6">
+				<p class="h4">{{ Form::label('quota', 'Number of Offers', ['class' => 'control-label raleway h4 light']) }}&nbsp;<i class="fa fa-cubes"></i></p>
+				{{ Form::select('quota', ['25' => '25', '50' => '50', '100' => '100', '200' => '200'], ['class' => 'selecter_basic', 'id' => 'quota']) }}
+			</div>
+		</div>
+		<br>
+		<hr> --}}
+		<div class="row">
+			<!-- Date range -->
+			<div class="col-md-6">
+				<p class="h4">{{ Form::label('date', 'Preferred start &amp; end dates', ['class' => 'control-label raleway h4 light']) }}</p>
+				<div class="sandbox-container">
+					<div class="input-daterange input-group col-md-12" id="datepicker">
+						{{--*/
+							$date = date('m/d/Y');
+							$futureDate = null;
+							if(date('d') == 1)
+							{
+								$startDate = date('m/d/Y', strtotime($date. ' + 3 days'));
+								$endDate = date('m/d/Y', strtotime($date. ' + 8 days'));
+							}
+							else
+							{
+								$startDate = date('m/d/Y', strtotime($date. ' + 5 days'));
+								$endDate = date('m/d/Y', strtotime($date. ' + 10 days'));
+							}
+						/*--}}
+						{{ Form::text('start', $startDate, ['class' => 'form-control subtle-input']) }}
+						<span class="input-group-addon">to</span>
+						{{ Form::text('end', $endDate, ['class' => 'form-control subtle-input']) }}
 					</div>
 				</div>
 				<br>
-				<div class="row">
-					<div class="col-md-8">
-						{{ Form::select('quota', ['25' => '25', '50' => '50', '100' => '100', '200' => '200'], ['class' => 'selecter_basic', 'id' => 'quota']) }}
+				<p class="light text-center">(Plan for <strong>at least 3 days</strong> from today for our review process.)</p>
+			</div>
+		</div>
+
+		<br>
+		<br>
+		<!-- Shipping Information -->
+		<h3 class="raleway">Step 3: <span class="light">Shipping Information</span></h3>
+		<hr>
+
+		<div class="row">
+			<br>
+
+
+
+			{{----------------------------
+			 -- AS OF 03/07/2015 WE ARE --
+			 -- NO LONGER CHECKING      --
+			 -- WHETHER BUSINESS        --
+			 -- PREFERS PRIME USERS OR  --
+			 -- WHETHER THE BUSINESS    --
+			 -- OWNS ANY NUMBER OF      --
+			 -- "OFFER PACKS", AS BOTH  --
+			 -- OF THESE OPTIONS ARE    --
+			 -- BEING REMOVED ENTIRELY  --
+			 -----------------------------}}
+{{-- 			<div class="col-md-4">
+				<p class="h4">{{ Form::label('prime', 'Prime Exclusive') }}</p>
+				<div class="col-md-3">
+					<div class="radio" data-toggle="tooltip" data-placement="bottom" title data-original-title="This option requires the Prime offer pack">
+						{{ Form::radio('prime', '1', false) }}
+						{{ Form::label('prime', 'Yes') }}
+					</div>
+				</div>
+				<div class="col-md-3">
+					<div class="radio">
+						{{ Form::radio('prime', '0', true) }}
+						{{ Form::label('prime', 'No') }}
+					</div>
+				</div>
+			</div> --}}
+				<div class="col-md-12">
+					<p class="h5">{{ Form::label('free_shipping', 'Is this product always shipped free?', ['class' => 'control-label raleway h5 light']) }}</p>
+					<div class="col-md-4">
+						<div class="col-md-4">
+							<div class="radio" id="shipFree">
+								{{ Form::radio('free_shipping', '1', true) }}
+								{{ Form::label('free_shipping', 'Yes') }}
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="radio" id="shipPaid">
+								{{ Form::radio('free_shipping', '0', false) }}
+								{{ Form::label('free_shipping', 'No') }}
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
-
-			<!-- Date range -->
-
-			<div class="col-md-8">
+			<div id="shippingCost">
+				<hr>
 				<div class="row">
-					<div class="col-md-4">
-					{{ Form::label('date', 'Start &amp; End', ['class' => 'label bg-scheme-dark fg-scheme-white h6']) }}
-					</div>
-				</div>
-				<br>
-				<div class="row form-horizontal">
-					<div class="col-md-10" id="sandbox-container">
-						<div class="input-daterange input-group" id="datepicker">
-							{{ Form::text('start', null, ['class' => 'form-control']) }}
-							<span class="input-group-addon">to</span>
-							{{ Form::text('end', null, ['class' => 'form-control']) }}
+					<div class="col-md-6">
+						<p class="h5">{{ Form::label('shipping_cost', 'If no, please estimate the cost of shipping:', ['class' => 'control-label raleway h5 light']) }}</p>
+						<div class="input-group">
+							<span class="input-group-addon"><i class="fa fa-usd"></i></span>{{ Form::text('shipping_cost', null, ['class' => 'form-control subtle-input']) }}
 						</div>
 					</div>
 				</div>
 			</div>
 
-			<div class="col-md-8">
-				<br>
-				<br>
+		<br>
+		<br>
+		<!-- Demographic information -->
+		<h3 class="raleway">Step 4: <span class="light">Target Audience</span></h3>
+		<p class="light">Tell us what gender you want to target, male or female or both. Also, make sure to select at least 1 relevant category for your promotion.</p>
+		<hr>
+
+		<div class="row">
+			<br>
+			<div class="col-md-6 col-md-offset-3 text-center">
+				<!-- Targeted gender -->
+
+				<div class="row">
+					<p class="h4"><i class="fa fa-mars"></i>&nbsp;{{ Form::label('gender', 'Targeted Gender', ['class' => 'control-label raleway h4 light']) }}&nbsp;<i class="fa fa-venus"></i></p>
+				</div>
 				<br>
 				<div class="row">
-					<div class="col-md-4">
-						{{ Form::label('categories', 'Categories', ['class' => 'label bg-scheme-dark fg-scheme-white h6']) }}
+					<div class="col-md-3 col-md-offset-3">
+						<div class="checkbox">
+							{{ Form::checkbox('female', '1', true, ['id' => 'female']) }}
+							{{ Form::label('female', 'Female') }}
+						</div>
+					</div>
+					<div class="col-md-3">
+						<div class="checkbox">
+							{{ Form::checkbox('male', '1', true, ['id' => 'male']) }}
+							{{ Form::label('male', 'Male') }}
+						</div>
 					</div>
 				</div>
+				<br>
+				<hr>
 			</div>
-			<div class="row form-horizontal">
-				<div class="col-md-11">
-					<br>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<p class="h4 text-center">{{ Form::label('categories', 'Relevant Categories', ['class' => 'control-label raleway h4 light']) }}</p>
+
+				<div class="col-md-12 form-horizontal">
 					@foreach ($interests as $interest)
 						<div class="col-md-4">
 							<div class="checkbox">
@@ -179,40 +245,42 @@
 					@endforeach
 				</div>
 			</div>
-
 		</div>
 
-		<br>
-		<br>
-		<br>
+			
 
-		<!-- Product data -->
+			<!-- Prime customers vs. Regular customers -->
 
-		<div class="row">
-			<div class="col-md-11">
-				<div class="jumbotron">
-					<br>
-					<br>
-					<div class="jumbotron-photo">
-						{{ HTML::image($photo, $title, ['id' => 'product-photo']) }}
-						{{ Form::text('photo', $photo, ['id' => 'photo_input', 'class' => 'hidden-input']) }}
-					</div>
-					<div class="jumbotron-contents">
-						<h2 id="product-title">{{ $title }}</h2>
-						{{ Form::text('title', $title, ['id' => 'title_input', 'class' => 'hidden-input']) }}
-						<hr>
-						{{ Form::label('description', 'Description') }}
-						{{ Form::textarea('description', null, ['id' => 'description_input', 'class' => 'form-control']) }}
-						<p><em>{{ HTML::link($url, $url, ['id' => 'product-url', 'target' => '_blank']) }}</em></p>
-						{{ Form::text('link', $url, ['id' => 'link_input', 'class' => 'hidden-input']) }}
+		{{--	<div class="col-md-4">
+				<div class="row">
+					<div class="col-md-6">
+						{{ Form::label('prime', 'Prime&reg; Exclusive', ['class' => 'label bg-scheme-dark fg-scheme-white h6']) }}
 					</div>
 				</div>
-			</div>
-		</div>
+				<br>
+				<div class="row">
+					<div class="col-md-4">
+						<div class="radio" data-toggle="tooltip" data-placement="bottom" title data-original-title="This option requires the Prime offer pack">
+							{{ Form::radio('prime', '1', false) }}
+							{{ Form::label('prime', 'Yes') }}
+						</div>
+					</div>
+					<div class="col-md-4">
+						<div class="radio">
+							{{ Form::radio('prime', '0', true) }}
+							{{ Form::label('prime', 'No') }}
+						</div>
+					</div>
+				</div>
+			</div> --}}
+
+		<br>
+		<hr>
+		<br>
 
 		<div class="row">
 			<div class="col-md-11 text-right">
-				{{ Form::submit('Submit Offer', ['class' => 'btn btn-primary']) }}
+				{{ Form::submit('Continue to next step &rarr;', ['class' => 'btn btn-primary']) }}
 			</div>
 		</div>
 		{{ Form::close() }}

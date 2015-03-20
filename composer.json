@@ -13,7 +13,12 @@
 		"laravel/cashier": "~2.0",
 		"ignited/laravel-omnipay": "1.*",
 		"omnipay/paypal": "~2.0",
-		"omnipay/stripe": "~2.0"
+		"omnipay/stripe": "~2.0",
+		"indatus/dispatcher": "~1.4",
+		"guzzle/guzzle": "~3.9",
+		"paypal/adaptivepayments-sdk-php": "~3.8",
+		"intervention/image": "~2.1",
+		"stripe/stripe-php": "~1.9"
 	},
 	"require-dev": {
 		"way/generators": "~2.0",
@@ -29,10 +34,13 @@
 			"app/database/migrations",
 			"app/database/seeds",
 			"app/tests/TestCase.php",
-			"app/lib"
+			"app/lib",
+			"vendor/paypal",
+			"vendor/stripe"
 		],
 		"files": [
-			"vendor/gidlov/copycat/src/Gidlov/Copycat/Copycat.php"
+			"vendor/gidlov/copycat/src/Gidlov/Copycat/Copycat.php",
+			"vendor/paypal/sdk-core-php/tests/PPBootStrap.php"
 		]
 	},
 	"scripts": {

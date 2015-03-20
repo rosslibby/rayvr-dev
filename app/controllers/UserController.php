@@ -38,6 +38,26 @@ class UserController extends BaseController {
 	}
 
 	/**
+	 * User invite page
+	 */
+	public function invite()
+	{
+		return View::make('user.invite');
+	}
+
+	/**
+	 * Send user invite
+	 */
+	public function sendInvite()
+	{
+		if(Request::ajax())
+		{
+			$data = Input::all();
+			$this->user->invite($data, Auth::user());
+		}
+	}
+
+	/**
 	 * Store a newly created resource in storage.
 	 * POST /preferences
 	 *
@@ -45,7 +65,7 @@ class UserController extends BaseController {
 	 */
 	public function store()
 	{
-		$preferences = Input::only('first_name', 'last_name'/** Disabled until site is live:, 'prime', 'address_1', 'address_2', 'city', 'state_id', 'zip', 'country_id'*/);
+		$preferences = Input::only('first_name', 'last_name', 'prime', 'address', 'address_2', 'city', 'state', 'zip', 'country');
 		
 		$interests = Input::only('interest');
 		$interests = $interests['interest'];
@@ -70,6 +90,24 @@ class UserController extends BaseController {
 	}
 
 	/**
+	 * Request a password reset
+	 */
+	public function requestReset()
+	{
+		return View::make('user.request-reset');
+	}
+
+	/**
+	 * Send password reset request
+	 */
+	public function sendResetRequest()
+	{
+		$email = Input::get('email');
+		$this->user->reset($email);
+		return "We have sent you an email containing instructions for resetting your password.<br><a href=\"/\">Return home</a>";
+	}
+
+	/**
 	 * Reset a user's password
 	 */
 	public function reset()
@@ -82,5 +120,67 @@ class UserController extends BaseController {
 			$user->save();
 		}
 		return "Your password has been reset";
+	}
+
+	/**
+	 * Suspend a user
+	 */
+	public function suspend($id)
+	{
+		$this->user->suspend($id);
+		return Redirect::to('users');
+	}
+
+	/**
+	 * Deactivate a user
+	 */
+	public function deactivate()
+	{
+		$response = $this->user->deactivate(Auth::user());
+		if($response['deactivated'])
+			return Redirect::to('logout')->with('success', $response['message']);
+		return Redirect::to('logout')->with('fail', $response['message']);
+	}
+
+	/**
+	 * Delete a user (permanent)
+	 */
+	public function delete($id)
+	{
+		$this->user->delete($id);
+		return Redirect::to('users');
+	}
+
+	/**
+	 * Change user account type
+	 * (user --> business)
+	 * (business --> user)
+	 * 
+	 * Does not allow to set
+	 * account to moderator as
+	 * that could be a horrible
+	 * accident
+	 */
+	public function type()
+	{
+		echo $this->user->type(Input::all());
+		return Redirect::to('admin/control');
+	}
+
+	/**
+	 * Display all user --> offer
+	 * matches
+	 */
+	public function matches()
+	{
+		return $this->user->currentOffer(Auth::user());
+	}
+
+	/**
+	 * Accept/decline an offer
+	 */
+	public function accept()
+	{
+		return $this->user->accept(Auth::user(), Input::get('match'), Input::get('accept'));
 	}
 }
