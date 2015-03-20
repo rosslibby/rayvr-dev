@@ -28,7 +28,7 @@ $env = $app->detectEnvironment([
 
 	'local' => ['localhost'],
 	'staging' => ['staging'],
-	'production' => ['production']
+	'production' => ['rayvr.com']
 
 ]);
 
