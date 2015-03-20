@@ -264,21 +264,29 @@ $(document).ready(function(){
 			e.preventDefault();
 			$('#firstName').addClass('bg-scheme-dark');
 			$('#firstName').focus();
+		} else {
+			$('#firstName').removeClass('bg-scheme-dark');
 		}
 		if($('#lastName').val() === '' || $('#lastName').val() == ' ') {
 			e.preventDefault();
 			$('#lastName').addClass('bg-scheme-dark');
 			$('#lastName').focus();
+		} else {
+			$('#lastName').removeClass('bg-scheme-dark');
 		}
 		if($('#email').val() === '' || $('#email').val() == ' ') {
 			e.preventDefault();
 			$('#email').addClass('bg-scheme-dark');
 			$('#email').focus();
+		} else {
+			$('#email').removeClass('bg-scheme-dark');
 		}
 		if($('#profile').val() === '' || $('#profile').val() == ' ') {
 			e.preventDefault();
 			$('#profile').addClass('bg-scheme-dark');
 			$('#profile').focus();
+		} else {
+			$('#profile').removeClass('bg-scheme-dark');
 		}
 		if(($('#profile').val().indexOf('http://www.amazon.com/gp/profile/') === -1) && ($('#profile').val().indexOf('https://www.amazon.com/gp/profile/') === -1)) {
 			e.preventDefault();
@@ -287,21 +295,29 @@ $(document).ready(function(){
 			}
 			$('#profile').addClass('bg-scheme-dark follow-directions');
 			$('#profile').focus();
+		} else {
+			$('#profile').removeClass('bg-scheme-dark follow-directions');
 		}
 		if($('#address').val() === '' || $('#address').val() == ' ') {
 			e.preventDefault();
 			$('#address').addClass('bg-scheme-dark');
 			$('#address').focus();
+		} else {
+			$('#address').removeClass('bg-scheme-dark');
 		}
 		if($('#city').val() === '' || $('#city').val() == ' ') {
 			e.preventDefault();
 			$('#city').addClass('bg-scheme-dark');
 			$('#city').focus();
+		} else {
+			$('#city').removeClass('bg-scheme-dark');
 		}
 		if($('#zip').val() === '' || $('#zip').val() == ' ') {
 			e.preventDefault();
 			$('#zip').addClass('bg-scheme-dark');
 			$('#zip').focus();
+		} else {
+			$('#zip').removeClass('bg-scheme-dark');
 		}
 	});
 
@@ -312,42 +328,63 @@ $(document).ready(function(){
 			$('#firstName').removeClass('subtle-input');
 			$('#firstName').addClass('bg-scheme-dark');
 			$('#firstName').focus();
+		} else {
+			$('#firstName').addClass('subtle-input');
+			$('#firstName').removeClass('bg-scheme-dark');
 		}
 		if($('#lastName').val() === '' || $('#lastName').val() == ' ') {
 			e.preventDefault();
 			$('#lastName').removeClass('subtle-input');
 			$('#lastName').addClass('bg-scheme-dark');
 			$('#lastName').focus();
+		} else {
+			$('#lastName').addClass('subtle-input');
+			$('#lastName').removeClass('bg-scheme-dark');
 		}
 		if($('#email').val() === '' || $('#email').val() == ' ') {
 			e.preventDefault();
 			$('#email').removeClass('subtle-input');
 			$('#email').addClass('bg-scheme-dark');
 			$('#email').focus();
+		} else {
+			$('#email').addClass('subtle-input');
+			$('#email').removeClass('bg-scheme-dark');
 		}
 		if($('#address').val() === '' || $('#address').val() == ' ') {
 			e.preventDefault();
 			$('#address').removeClass('subtle-input');
 			$('#address').addClass('bg-scheme-dark');
 			$('#address').focus();
+		} else {
+			$('#address').addClass('subtle-input');
+			$('#address').removeClass('bg-scheme-dark');
 		}
 		if($('#city').val() === '' || $('#city').val() == ' ') {
 			e.preventDefault();
 			$('#city').removeClass('subtle-input');
 			$('#city').addClass('bg-scheme-dark');
 			$('#city').focus();
+		} else {
+			$('#city').addClass('subtle-input');
+			$('#city').removeClass('bg-scheme-dark');
 		}
 		if($('#zip').val() === '' || $('#zip').val() == ' ') {
 			e.preventDefault();
 			$('#zip').removeClass('subtle-input');
 			$('#zip').addClass('bg-scheme-dark');
 			$('#zip').focus();
+		} else {
+			$('#zip').addClass('subtle-input');
+			$('#zip').removeClass('bg-scheme-dark');
 		}
 		if($('#phone').val() === '' || $('#phone').val() == ' ') {
 			e.preventDefault();
 			$('#phone').removeClass('subtle-input');
 			$('#phone').addClass('bg-scheme-dark');
 			$('#phone').focus();
+		} else {
+			$('#phone').addClass('subtle-input');
+			$('#phone').removeClass('bg-scheme-dark');
 		}
 	});
 
