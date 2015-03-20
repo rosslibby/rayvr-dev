@@ -24,13 +24,13 @@ $app = new Illuminate\Foundation\Application;
 |
 */
 
-$env = $app->detectEnvironment(array(
+$env = $app->detectEnvironment([
 
 	'local' => ['localhost'],
 	'staging' => ['staging'],
 	'production' => ['production']
 
-));
+]);
 
 /*
 |--------------------------------------------------------------------------
