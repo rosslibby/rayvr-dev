@@ -18,11 +18,10 @@ Route::get('register/welcome', [
 /**
  * Route for testing anything
  */
-// Route::get('test', function(){
-// 	// test
-// 	$offer = Offer::find(29);
-// 	return $offer->business->offers;
-// });
+Route::get('test', function(){
+	// test
+	return $_ENV['stripe_api_key'];
+});
 
 Route::group(['before' => 'csrf'], function()
 {
