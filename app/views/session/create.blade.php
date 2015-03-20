@@ -13,7 +13,7 @@ Sign in to your User or Business account
 @stop
 
 @section('alternate')
-Don't have an account? {{ HTML::link('/#businessRegistration', 'Sign up here') }}.
+<span class="fg-scheme-white">Don't have an account?</span> {{ HTML::link('/#businessRegistration', 'Sign up here') }}<span class="fg-scheme-white">.</span>
 @stop
 
 @section('use-form')
