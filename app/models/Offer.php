@@ -34,6 +34,7 @@ class Offer extends Eloquent {
 		'updated_at',
 		'asin',
 		'billing',
+		'billed',
 	];
 
 	/**

@@ -1376,7 +1376,7 @@ class EloquentOfferRepository implements OfferRepository {
 		 * Retrieve all completed orders
 		 * associated with $offer
 		 */
-		$orders = $offer->orders()->where('completed', true)->get();
+		$orders = $offer->orders()->where('confirmation_number', true)->get();
 
 		/**
 		 * Calculate total cost of
@@ -1411,12 +1411,21 @@ class EloquentOfferRepository implements OfferRepository {
 		 */
 		$customer = \Stripe_Customer::retrieve($offer->business->stripe_customer);
 
-		$response = \Stripe_Charge::create([
-			'amount' => $sum,
-			'currency' => 'usd',
-			'customer' => $customer,
-			// 'source' => $offer->billing
-		]);
+		if(count($orders))
+		{
+			$response = \Stripe_Charge::create([
+				'amount' => $sum,
+				'currency' => 'usd',
+				'customer' => $customer,
+				// 'source' => $offer->billing
+			]);
+		}
+
+		/**
+		 * Mark the offer as billed
+		 */
+		$offer->billed = true;
+		$offer->save();
 
 		/**
 		 * Store the charge
@@ -1428,14 +1437,17 @@ class EloquentOfferRepository implements OfferRepository {
 		$charge->charge = ($sum/100);
 		$charge->save();
 
-		return $response;
+		if($response)
+			return $response;
+		else
+			return 'No redeemed offers';
 	}
 
 	public function closeOffers()
 	{
 		$date = new DateTime();
 		$date->sub(new DateInterval('P1D'));
-		$offers = Offer::where('end',$date->format('Y-m-d'))->get();
+		$offers = Offer::where(['end' => $date->format('Y-m-d'), 'billed' => false])->get();
 		if(count($offers))
 		{
 			foreach($offers as $offer)
