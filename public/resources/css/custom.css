@@ -51,6 +51,8 @@
 		padding-top: 3px;
 	}
 	.navbar-toggle .icon-bar+.icon-bar { margin-top: 3px; }
+
+	body{ font-size: 300%; }
 }
 
 /** footer **/
