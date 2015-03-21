@@ -27,6 +27,8 @@
 
 			<div style="display: none !important;">
 				{{ Form::hidden('business', 'false') }}
+
+				{{ Form::hidden('invited_by', $referral['referral']) }}
 			</div>
 
 			<br>
