@@ -5,7 +5,6 @@
 	<div class="col-md-12">
 		<br>
 		<br>
-		<div class="row">
 			<div class="col-md-8 col-md-offset-2 well">
 				@if(Session::has('success'))
 				<div class="alert alert-success alert-dismissable">
@@ -102,7 +101,7 @@
 
 					<hr>
 
-					<div class="form-group">
+					<div class="form-group col-md-12">
 						<div class="row">
 							{{ Form::label(null, 'Gender', ['class' => 'control-label required col-md-2']) }}
 						</div>
@@ -130,7 +129,7 @@
 
 					<hr>
 
-					<div class="form-group">
+					<div class="form-group col-md-12">
 						<div class="row">
 							<p>{{ Form::label('interests', 'Interests', ['class' => 'control-label required col-md-2']) }}</p>
 							<div class="col-md-7 col-md-offset-1">
@@ -172,7 +171,6 @@
 					<p>This action cannot be undone</p>
 				</div>
 			</div>
-		</div>
 	</div>
 </div>
 @stop
