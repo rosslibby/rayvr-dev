@@ -282,7 +282,7 @@ Route::group(['before' => 'csrf'], function()
 	/**
 	 * Home page without invite code
 	 */
-	Route::get('/{referral?}', [
+	Route::get('/', [
 		'uses' => 'LandingController@index',
 		'as' => 'index'
 	]);
