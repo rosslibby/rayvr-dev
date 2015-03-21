@@ -86,9 +86,9 @@ $(document).ready(function(){
 
 		$.ajax({
 			type	: 'POST',
-			url 	: 'sendinvite',
+			url 	: 'invite',
 			headers	: { 'X-CSRF-Token' : token },
-			data	: { 'email' : email, 'name' : name, 'code' : code },
+			data	: { email: email, name: name, code: code },
 			success	: function(data) {
 				$('#sendInviteCog').removeClass('fa-spin');
 				$('#successMsg').html(name + ' has been invited to RAYVR').fadeIn(400);
@@ -98,7 +98,7 @@ $(document).ready(function(){
 			}
 		},"json");
 	});
-	
+
 
 	var stripeResponseHandler = function(status, response) {
 		var $form = $("#payment-form");
