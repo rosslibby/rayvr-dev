@@ -6,6 +6,9 @@
 	<!-- Load styles -->
 	@include('includes.styles')
 
+	<!-- Viewport -->
+	<meta name="viewport" content="initial-scale = 1.0,maximum-scale = 1.0" />
+
 	<!-- In an attempt for AJAX posting... -->
 	<meta name="_token" content="{{ csrf_token() }}" />
 
@@ -21,7 +24,7 @@
 		<div class="container">
 			<div class="container-fluid">
 				<div class="navbar-header">
-					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#top-nav">
+					<button type="button" id="navbar-toggle" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#top-nav" aria-expanded="false">
 						<span class="sr-only">Toggle navigation</span>
 						<span class="icon-bar"></span>
 						<span class="icon-bar"></span>

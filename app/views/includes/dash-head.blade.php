@@ -16,6 +16,9 @@
 	{{ HTML::style( asset( 'resources/css/bootstrap-slider.css' ) ) }}
 	{{ HTML::script( 'https://js.stripe.com/v2/' ) }}
 
+	<!-- Viewport -->
+	<meta name="viewport" content="initial-scale = 1.0,maximum-scale = 1.0" />
+	
 	<!-- For AJAX posting -->
 	<meta name="_token" content="{{ csrf_token() }}" />
 
