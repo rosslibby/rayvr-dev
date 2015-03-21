@@ -50,12 +50,8 @@ class UserController extends BaseController {
 	 */
 	public function sendInvite()
 	{
-		return 'lol';
-		if(Request::ajax())
-		{
 			$data = Input::all();
 			$this->user->invite($data, Auth::user());
-		}
 	}
 
 	/**
