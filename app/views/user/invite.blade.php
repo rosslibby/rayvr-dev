@@ -9,7 +9,6 @@
 </p>
 
 <!-- Description for page -->
-
 		<div class="col-md-12 text-center">
 			<div class="row">
 				<div class="col-md-6 col-md-offset-3">

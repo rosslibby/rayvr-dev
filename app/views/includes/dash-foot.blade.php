@@ -98,6 +98,7 @@ $(document).ready(function(){
 			}
 		},"json");
 	});
+	
 
 	var stripeResponseHandler = function(status, response) {
 		var $form = $("#payment-form");

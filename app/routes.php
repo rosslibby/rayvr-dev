@@ -182,6 +182,7 @@ Route::group(['before' => 'csrf'], function()
 	/**
 	 * User-specific routes
 	 */
+	
 	Route::group(['before' => 'user'], function(){
 
 		/**
