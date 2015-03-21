@@ -34,7 +34,7 @@
 
 				<div class="form-group required">
 					{{ Form::label('referral', 'Invite code', array('class' => 'control-label subtle-label')) }}
-					{{ Form::text('referral', $referral['referral'], array('class' => 'form-control subtle-input')) }}
+					{{ Form::text('invited_by', $referral['referral'], array('class' => 'form-control subtle-input')) }}
 				</div>
 
 				<div class="row">
