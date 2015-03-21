@@ -99,7 +99,7 @@ class RegisterController extends BaseController {
 			return Redirect::to($route)
 				->with('flash', 'The new user has been created');
 		}
-		return Redirect::route('session.register')
+		return Redirect::to('session.register')
 			->withInput()
 			->with('error', $s[1]);
 	}
