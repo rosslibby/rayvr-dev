@@ -2,7 +2,9 @@
 {{ HTML::script( 'resources/js/jquery.min.js' ) }}
 {{ HTML::script( 'resources/js/bootstrap.min.js' ) }}
 {{ HTML::script( 'resources/js/icheck.min.js' ) }}
+{{ HTML::script( 'resources/js/jquery.fs.selecter.min.js' ) }}
 {{ HTML::script( 'resources/js/jquery.fs.stepper.min.js' ) }}
+{{ HTML::script( 'resources/js/jquery.fs.selecter.js' ) }}
 {{ HTML::script( 'resources/js/bootstrap-datepicker.js' ) }}
 {{ HTML::script( 'resources/js/bootstrap-slider.js' ) }}
 {{ HTML::script( 'resources/js/bootstrap-rating-input.js' ) }}
@@ -31,7 +33,7 @@ $(document).ready(function(){
 			$('#invite').blur();
 			$('#email').focus();
 			$('#inviteAnother').html('Invite another friend!');
-		}, 2000);
+		}, 800);
 	});
 
 	$("#userLogin").validate({
@@ -71,26 +73,27 @@ $(document).ready(function(){
 	/** Send the invite via an ajax call **/
 	$("#userInvite").submit(function(e){
 		e.preventDefault();
+		var token = $('meta[name="_token"]').attr('content');
 
 		/** This one keeps spinning when it shouldn't **/
 		$('#sendInviteCog').removeClass('fa-spin');
 		var email = $("input#email").val();
 		var name = $("input#name").val();
-		var code = $("input#invite_code").val();
+		var code = $("input#hiddenInvite").val();
 
 		/** spin the cog as a progress indicator **/
 		$('#sendInviteCog').addClass('fa-spin');
 
 		$.ajax({
-			type	: "POST",
-			url 	: "sendinvite",
-			headers	: { 'X-CSRF-Token' : $('meta[name="_token"]').attr('content') },
-			data	: { email: email, name: name, code: code },
+			type	: 'POST',
+			url 	: 'sendinvite',
+			headers	: { 'X-CSRF-Token' : token },
+			data	: { 'email' : email, 'name' : name, 'code' : code },
 			success	: function(data) {
 				$('#sendInviteCog').removeClass('fa-spin');
 				$('#successMsg').html(name + ' has been invited to RAYVR').fadeIn(400);
-				$('#userInvite').find('input[type="text"]').val("");
-				$('#userInvite').find('input[type="email"]').val("");
+				$('#userInvite').find('input[type="text"]').val('');
+				$('#userInvite').find('input[type="email"]').val('');
 				$('#inviteAnother').slideToggle();
 			}
 		},"json");
@@ -190,6 +193,9 @@ $(document).ready(function(){
 			}
 		},"json");
 	});
+	
+	/** Selecter **/
+	// $("select").selecter();
 
 	/** Date range **/
 	var date = new Date();

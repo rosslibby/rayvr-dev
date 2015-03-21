@@ -11,7 +11,7 @@
 				</div>
 				<div class="col-md-8 col-md-offset-2 text-center">
 					<p class="fg-scheme-white light">Click this button <i class="fa fa-arrow-circle-down"></i></p>
-					<button id="generateInvite" class="btn btn-info raleway light h4"><i class="fa fa-cog fg-scheme-white" id="loadingCog"></i>&nbsp;&nbsp;Generate Invite Code</button>
+					<button id="generateInvite" type="button" class="btn btn-info raleway light h4"><i class="fa fa-cog fg-scheme-white" id="loadingCog"></i>&nbsp;&nbsp;Generate Invite Code</button>
 				</div>
 				<div class="col-md-8 col-md-offset-2">
 					<br>
