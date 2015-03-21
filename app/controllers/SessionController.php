@@ -61,9 +61,6 @@ class SessionController extends BaseController {
 
 	public function destroy()
 	{
-		/**
-		 * Destroy "remember me"
-		 */
 		$message = null;
 		if(Session::has('success'))
 		{

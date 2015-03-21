@@ -182,7 +182,6 @@ Route::group(['before' => 'csrf'], function()
 	/**
 	 * User-specific routes
 	 */
-
 	Route::group(['before' => 'user'], function(){
 
 		/**
@@ -200,7 +199,7 @@ Route::group(['before' => 'csrf'], function()
 			'as' => 'invite'
 		]);
 
-		Route::post('invite', [
+		Route::post('sendinvite', [
 			'uses' => 'UserController@sendInvite',
 			'as' => 'sendinvite'
 		]);
@@ -283,7 +282,7 @@ Route::group(['before' => 'csrf'], function()
 	/**
 	 * Home page without invite code
 	 */
-	Route::get('/{referral?}', [
+	Route::get('/', [
 		'uses' => 'LandingController@index',
 		'as' => 'index'
 	]);
