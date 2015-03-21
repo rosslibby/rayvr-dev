@@ -64,8 +64,6 @@ class SessionController extends BaseController {
 		/**
 		 * Destroy "remember me"
 		 */
-		Auth::user()->remember_token = null;
-		Auth::user()->save();
 		$message = null;
 		if(Session::has('success'))
 		{
