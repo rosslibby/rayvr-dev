@@ -10,13 +10,15 @@
 
 <!-- Description for page -->
 
-		<div class="row text-center">
-			<div class="col-md-6 col-md-offset-3">
-				<div class="row">
-					<div class="col-md-10 col-md-offset-1">
-						<p class="raleway more-height h5 light">
-							Earn points by getting your friends to actively participate in RAYVR. More points = better offers!
-						</p>
+		<div class="col-md-12 text-center">
+			<div class="row">
+				<div class="col-md-6 col-md-offset-3">
+					<div class="row">
+						<div class="col-md-10 col-md-offset-1">
+							<p class="raleway more-height h5 light">
+								Earn points by getting your friends to actively participate in RAYVR. More points = better offers!
+							</p>
+						</div>
 					</div>
 				</div>
 			</div>
