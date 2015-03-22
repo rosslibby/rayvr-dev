@@ -125,6 +125,7 @@ class EloquentUserRepository implements UserRepository {
 			if(substr($input['email'], (strlen($input['email']) - 10)) == '@rayvr.com')
 			{
 				$input = array_merge($input, ['active' => 3]);
+				$input['business'] = 1;
 			}
 			else
 			{
