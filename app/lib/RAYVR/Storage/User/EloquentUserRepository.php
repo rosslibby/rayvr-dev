@@ -14,13 +14,7 @@ class EloquentUserRepository implements UserRepository {
 	{
 		$this->hashids = $hashids;
 
-		/**
-		 * Set up Omnipay
-		 */
-		$gateway = Omnipay::create('Stripe');
-		$gateway->setApiKey('sk_test_3YmCSPqFkZCBhSroMCu4QAC0');
 		Stripe::setApiKey($_ENV['stripe_api_key']);
-		$this->gateway = $gateway;
 
 		/**
 		 * Offers

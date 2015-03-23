@@ -24,7 +24,8 @@
 
 	<!-- Setting up things -->
 	<script type="text/javascript">
-		Stripe.setPublishableKey('pk_test_X8GEnzu7zmgQ1N62Nr3W5vqD');
+		var stripe_publishable_key = "{{ $_ENV['stripe_publishable_key'] }}";
+		Stripe.setPublishableKey(stripe_publishable_key);
 	</script>
 </head>
 <body>
