@@ -24,6 +24,7 @@ class CreateReimbursementTable extends Migration {
 		});
 	}
 
+
 	/**
 	 * Reverse the migrations.
 	 *
