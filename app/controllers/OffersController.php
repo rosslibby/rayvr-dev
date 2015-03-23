@@ -386,4 +386,14 @@ class OffersController extends BaseController {
 		 */
 		return Redirect::to('offers/track');
 	}
+
+	/**
+	 * Stop an active (in-progress) promotion
+	 */
+	public function stopPromo($id)
+	{
+		$this->offer->stopPromo($id);
+		return Redirect::to('offers/active')
+				->with('success', 'Offer #'.$id.' has been successfully stopped');
+	}
 }

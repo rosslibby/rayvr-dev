@@ -1459,6 +1459,13 @@ class EloquentOfferRepository implements OfferRepository {
 		return 'No offers to charge for.';
 	}
 
+	public function stopPromo($id)
+	{
+		$promo = Offer::find($id);
+		$promo->approved = false;
+		$promo->save();
+	}
+
 	/*****************************
 	 ** AS OF 03/07/2015 WE ARE **
 	 ** NO LONGER CHECKING      **

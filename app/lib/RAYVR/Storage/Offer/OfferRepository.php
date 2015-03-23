@@ -112,6 +112,12 @@ interface OfferRepository {
 	 */
 	public function closeOffers();
 
+	/**
+	 * Stop an active (in-progress)
+	 * offer
+	 */
+	public function stopPromo($id);
+
 	/*****************************
 	 ** AS OF 03/07/2015 WE ARE **
 	 ** NO LONGER CHECKING      **

@@ -15,13 +15,12 @@ Route::get('register/welcome', [
 	'as' => 'register.welcome'
 ]);
 
-/**
- * Route for testing anything
- */
-Route::get('test', function(){
-	// test
-	return $_ENV['DB_HOST'];
-});
+// /**
+//  * Route for testing anything
+//  */
+// Route::get('test', function(){
+// 	// test
+// });
 
 Route::group(['before' => 'csrf'], function()
 {
@@ -39,6 +38,11 @@ Route::group(['before' => 'csrf'], function()
 		 * View users
 		 */
 		Route::get('users', 'AdminController@users');
+
+		/**
+		 * View active offers
+		 */
+		Route::get('offers/active', 'AdminController@active');
 
 		/**
 		 * View individual user
@@ -88,6 +92,11 @@ Route::group(['before' => 'csrf'], function()
 		 */
 		Route::get('shipping/moderate', 'OrderController@moderateShipping');
 		Route::post('shipping/moderate', 'OrderController@approveShipping');
+
+		/**
+		 * Stop offer
+		 */
+		Route::get('offers/{id}/stop', 'OffersController@stopPromo');
 	});
 
 	/**
