@@ -118,6 +118,11 @@ interface OfferRepository {
 	 */
 	public function stopPromo($id);
 
+	/**
+	 * Delete a promotion
+	 */
+	public function deletePromo($id);
+
 	/*****************************
 	 ** AS OF 03/07/2015 WE ARE **
 	 ** NO LONGER CHECKING      **

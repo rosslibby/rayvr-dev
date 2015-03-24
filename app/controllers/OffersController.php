@@ -396,4 +396,14 @@ class OffersController extends BaseController {
 		return Redirect::to('offers/active')
 				->with('success', 'Offer #'.$id.' has been successfully stopped');
 	}
+
+	/**
+	 * Completely delete a promotion
+	 */
+	public function deletePromo($id)
+	{
+		$this->offer->deletePromo($id);
+		return Redirect::to('offers/all')
+				->with('success', 'Offer #'.$id.' has been successfully deleted');
+	}
 }

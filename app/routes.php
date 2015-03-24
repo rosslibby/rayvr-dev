@@ -40,6 +40,11 @@ Route::group(['before' => 'csrf'], function()
 		Route::get('users', 'AdminController@users');
 
 		/**
+		 * View all offers
+		 */
+		Route::get('offers/all', 'AdminController@offers');
+
+		/**
 		 * View active offers
 		 */
 		Route::get('offers/active', 'AdminController@active');
@@ -97,6 +102,11 @@ Route::group(['before' => 'csrf'], function()
 		 * Stop offer
 		 */
 		Route::get('offers/{id}/stop', 'OffersController@stopPromo');
+
+		/**
+		 * Delete the offer
+		 */
+		Route::get('offers/delete/{id}', 'OffersController@deletePromo');
 	});
 
 	/**

@@ -1466,6 +1466,12 @@ class EloquentOfferRepository implements OfferRepository {
 		$promo->save();
 	}
 
+	public function deletePromo($id)
+	{
+		$promo = Offer::find($id);
+		$promo->delete();
+	}
+
 	/*****************************
 	 ** AS OF 03/07/2015 WE ARE **
 	 ** NO LONGER CHECKING      **
