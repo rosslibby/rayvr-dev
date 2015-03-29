@@ -886,6 +886,17 @@ class EloquentOfferRepository implements OfferRepository {
 			 * first code in the array
 			 */
 			$data['code'] = $offerCodes[0];
+
+			/**
+			 * Set up the quotas based on
+			 * the number of codes submitted
+			 */
+			if(!array_key_exists('quota', $data))
+				$data = array_merge($data, ['quota' => count($offerCodes)]);
+			for($i = 0; $i < (int)($data['quota']); $i++)
+			{
+				array_push($offerCodes, $data['code']);
+			}
 		} else {
 			if(!array_key_exists('quota', $data))
 				$data = array_merge($data, ['quota' => 15]);
