@@ -41,7 +41,7 @@ class OfferDistribution extends ScheduledCommand {
 	 */
 	public function schedule(Schedulable $scheduler)
 	{
-		return $scheduler->daily()->hours(1);
+		return $scheduler;
 	}
 
 	/**
