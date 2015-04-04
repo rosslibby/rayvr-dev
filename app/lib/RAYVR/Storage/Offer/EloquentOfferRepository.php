@@ -111,7 +111,6 @@ class EloquentOfferRepository implements OfferRepository {
 			]);
 
 			$text = '#'.str_replace('/', '/', preg_quote($title)).'#';
-			return $text;
 
 			$cc->match([
 				'review' => $text
@@ -126,6 +125,7 @@ class EloquentOfferRepository implements OfferRepository {
 
 			if($cc->get()[0]['review'])
 			{
+				return 'SICILY';
 				array_push($reviews, $cc->get()[0]['review']);
 
 				/**
