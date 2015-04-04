@@ -54,7 +54,7 @@ class CheckReviews extends ScheduledCommand {
 	public function fire()
 	{
 		$this->line('Verifying reviews...');
-		$this->offer->verifyReview();
+		$this->line($this->offer->verifyReview());
 		$this->line('The reviews have been verified.');
 		Log::info('Review verification completed.');
 	}

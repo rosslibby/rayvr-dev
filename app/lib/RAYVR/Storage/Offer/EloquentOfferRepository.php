@@ -111,6 +111,7 @@ class EloquentOfferRepository implements OfferRepository {
 			]);
 
 			$text = '#'.str_replace('/', '/', preg_quote($title)).'#';
+			return $text;
 
 			$cc->match([
 				'review' => $text
