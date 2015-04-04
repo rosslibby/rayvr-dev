@@ -1391,7 +1391,7 @@ class EloquentOfferRepository implements OfferRepository {
 		 * Retrieve all completed orders
 		 * associated with $offer
 		 */
-		$orders = $offer->orders()->where('confirmation_number', '!=', null)->get();
+		$orders = $offer->orders()->where('review', true)->get();
 		return count($orders);
 
 		/**
