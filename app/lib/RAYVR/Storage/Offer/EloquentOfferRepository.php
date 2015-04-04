@@ -1426,6 +1426,11 @@ class EloquentOfferRepository implements OfferRepository {
 		 */
 		$customer = \Stripe_Customer::retrieve($offer->business->stripe_customer);
 
+		/**
+		 * Set up response variable
+		 */
+		$response = null;
+
 		if(count($orders))
 		{
 			$response = \Stripe_Charge::create([
