@@ -71,7 +71,11 @@ class EloquentOfferRepository implements OfferRepository {
 			/**
 			 * Get the offer's title
 			 */
-			$title = $order->offer->title;
+			// $title = $order->offer->title;
+			/**
+			 * Actually get the offer's ASIN
+			 */
+			$title = $order->asin;
 
 			/**
 			 * Get the review page link as submitted by the business
@@ -110,8 +114,7 @@ class EloquentOfferRepository implements OfferRepository {
 				CURLOPT_PROGRESSFUNCTION => 'callback'
 			]);
 
-			$text = '#'.str_replace('/', '/', preg_quote($title)).'#';
-			return $text;
+			// $text = '#'.str_replace('/', '/', preg_quote($title)).'#';
 
 			$cc->match([
 				'review' => $text
