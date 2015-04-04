@@ -1419,6 +1419,7 @@ class EloquentOfferRepository implements OfferRepository {
 		 * = $sum
 		 */
 		$sum = ((count($orders) * $RPO) + $shipping) * 100;
+		return $sum;
 
 		/**
 		 * Retrieve the Stripe customer
