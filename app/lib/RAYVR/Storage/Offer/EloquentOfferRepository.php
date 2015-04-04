@@ -1392,7 +1392,6 @@ class EloquentOfferRepository implements OfferRepository {
 		 * associated with $offer
 		 */
 		$orders = $offer->orders()->where('review', true)->get();
-		return count($orders);
 
 		/**
 		 * Calculate total cost of
