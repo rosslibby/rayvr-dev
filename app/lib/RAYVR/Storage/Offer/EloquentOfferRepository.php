@@ -110,7 +110,6 @@ class EloquentOfferRepository implements OfferRepository {
 				CURLOPT_PROGRESSFUNCTION => 'callback'
 			]);
 
-			$title = str_replace('#', '&#35;', $title);
 			$text = '#'.str_replace('/', '/', preg_quote($title)).'#';
 
 			$cc->match([
@@ -123,6 +122,8 @@ class EloquentOfferRepository implements OfferRepository {
 			$result = [
 				'review' => $cc->get()[0]['review']
 			];
+
+			return $result;
 
 			if($cc->get()[0]['review'])
 			{
