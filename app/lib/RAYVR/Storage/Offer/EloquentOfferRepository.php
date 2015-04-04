@@ -1466,7 +1466,7 @@ class EloquentOfferRepository implements OfferRepository {
 	public function closeOffers()
 	{
 		$date = date('Y-m-d');
-		$offers = Offer::where('end', '<', $date->format('Y-m-d'))->where('billed', false)->get();
+		$offers = Offer::where('end', '<', $date)->where('billed', false)->get();
 		if(count($offers))
 		{
 			foreach($offers as $offer)
