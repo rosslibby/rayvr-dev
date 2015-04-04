@@ -1467,6 +1467,7 @@ class EloquentOfferRepository implements OfferRepository {
 	{
 		$date = date('Y-m-d');
 		$offers = Offer::where('end', '<', $date)->where('billed', false)->get();
+		return $date;
 		if(count($offers))
 		{
 			foreach($offers as $offer)
