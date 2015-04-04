@@ -1391,7 +1391,8 @@ class EloquentOfferRepository implements OfferRepository {
 		 * Retrieve all completed orders
 		 * associated with $offer
 		 */
-		$orders = $offer->orders()->where('confirmation_number', true)->get();
+		$orders = $offer->orders()->where('confirmation_number', '!=', null)->get();
+		return count($orders);
 
 		/**
 		 * Calculate total cost of
@@ -1419,7 +1420,6 @@ class EloquentOfferRepository implements OfferRepository {
 		 * = $sum
 		 */
 		$sum = ((count($orders) * $RPO) + $shipping) * 100;
-		return $sum;
 
 		/**
 		 * Retrieve the Stripe customer
