@@ -1471,8 +1471,7 @@ class EloquentOfferRepository implements OfferRepository {
 		{
 			foreach($offers as $offer)
 			{
-				return $offer;
-				$this->postpay($offer);
+				return $this->postpay($offer);
 			}
 			return $offers;
 		}
