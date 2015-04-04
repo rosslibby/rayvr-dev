@@ -114,7 +114,7 @@ class EloquentOfferRepository implements OfferRepository {
 				CURLOPT_PROGRESSFUNCTION => 'callback'
 			]);
 
-			// $text = '#'.str_replace('/', '/', preg_quote($title)).'#';
+			$text = '#'.str_replace('/', '/', preg_quote($title)).'#';
 
 			$cc->match([
 				'review' => $text
