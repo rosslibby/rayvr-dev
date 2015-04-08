@@ -1,5 +1,15 @@
 <!-- User invite -->
 
+<!-- FB Like -->
+<div class="row">
+	<div
+		class="fb-like"
+		data-share="true"
+		data-width="450"
+		data-show-faces="true">
+	</div>
+</div>
+
 <div class="row">
 	<div class="col-md-10 col-md-offset-1">
 		{{ Form::open(['', 'id' => 'userInvite']) }}
