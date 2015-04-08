@@ -56,7 +56,7 @@
 						</div>
 					</div>
 				@else
-					<h2 class="raleway">Select an offer</h2>
+					<h2 class="raleway">Select a product</h2>
 			</div>
 		</div>
 
