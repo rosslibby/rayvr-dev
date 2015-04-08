@@ -19,6 +19,25 @@
 </head>
 <body>
 
+<!-- Facebook SDK -->
+<script>
+	window.fbAsyncInit = function() {
+		FB.init({
+			appId: '366410603565006',
+			xfbml: true,
+			version: 'v2.3'
+		});
+	};
+
+	(function(d, s, id){
+		var js, fjs = d.getElementsByTagName(s)[0];
+		if (d.getElementById(id)) {return;}
+		js = d.createElement(s); js.id = id;
+		js.src = "//connect.facebook.net/en_US/sdk.js";
+		fjs.parentNode.insertBefore(js, fjs);
+	}(document, 'script', 'facebook-jssdk'));
+</script>
+
 <div class="header bg-scheme-white">
 	<div class="nav navbar-primary navbar-fixed-top bg-scheme-white" role="navigation">
 		<div class="container">
