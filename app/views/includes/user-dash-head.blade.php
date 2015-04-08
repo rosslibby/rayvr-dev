@@ -9,8 +9,20 @@
 	<!-- Viewport -->
 	<meta name="viewport" content="initial-scale = 1.0,maximum-scale = 1.0" />
 
-	<!-- In an attempt for AJAX posting... -->
+	<!-- For AJAX posting... -->
 	<meta name="_token" content="{{ csrf_token() }}" />
+
+	<!-- Open Graph tags -->
+	<meta property="og:url"					content="http://rayvr.com/register/{{ Auth::user()->invite_code }}" />
+	<meta property="fb:app_id"				content="366410603565006" />
+	<meta property="og:type"				content="business" />
+	<meta property="og:title"				content="Quality Products. 100% Free." />
+	<meta property="og:description"			content="Get Free Stuff Just for Signing Up With RAYVR" />
+	<meta property="og:video"				content="https://player.vimeo.com/video/118826532" />
+	<meta property="og:video:url"			content="https://player.vimeo.com/video/118826532" />
+	<meta property="og:video:secure_url"	content="https://player.vimeo.com/video/118826532" />
+	<meta property="og:video:width"			content="945" />
+	<meta property="og:video:height"		content="532" />
 
 	<!-- Setting up things -->
 	<script type="text/javascript">
@@ -28,14 +40,6 @@
 			version: 'v2.3'
 		});
 	};
-
-	FB.ui({
-		method: 'share_open_graph',
-		action_type: 'og.likes',
-		action_properties: JSON.stringify({
-			object:'https://rayvr.com/register/<?php echo Auth::user()->invite_code; ?>',
-		})
-	}, function(response){});
 
 	(function(d, s, id){
 		var js, fjs = d.getElementsByTagName(s)[0];
