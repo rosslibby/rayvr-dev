@@ -39,6 +39,14 @@
 			xfbml: true,
 			version: 'v2.3'
 		});
+
+		$("#share").click(function(){
+			FB.ui({
+				method: 'feed',
+				link: 'https://developers.facebook.com/docs/',
+				caption: 'An example caption',
+			}, function(response){});
+		});
 	};
 
 	(function(d, s, id){

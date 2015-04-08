@@ -12,12 +12,7 @@
 				</div>
 			</div>
 			<div class="row text-center">
-				<div
-					class="fb-like"
-					data-send="true"
-					data-width="450"
-					data-show-faces="true">
-				</div>
+				<button class="btn btn-info" id="share"><i class="fa fa-facebook"></i> Share</button>
 			</div>
 			<div class="form-group required row">
 				<div class="col-md-8 col-md-offset-2 text-center">
