@@ -42,9 +42,12 @@
 
 		$("#share").click(function(){
 			FB.ui({
-				method: 'feed',
-				link: 'https://developers.facebook.com/docs/',
-				caption: 'An example caption',
+				method: 'share',
+				link: 'https://rayvr.com/register/<?php echo Auth::user()->invite_code; ?>',
+				name: 'Get Free Stuff Just for Signing Up With RAYVR',
+				caption: 'Quality Products. 100% Free.',
+				description: 'Get products you\'ll use everyday completely free! RAYVR connects you with great products to try out and keep forever. Signing up is quick and easy. Join today.',
+				picture: 'https://rayvr.com/resources/img/logo.png',
 			}, function(response){});
 		});
 	};
