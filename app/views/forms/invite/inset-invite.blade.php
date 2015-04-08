@@ -1,25 +1,20 @@
 <!-- User invite -->
 
-<!-- FB Like -->
-<div class="row">
-	<div
-		class="fb-like"
-		data-share="true"
-		data-width="450"
-		data-show-faces="true">
-	</div>
-</div>
-
 <div class="row">
 	<div class="col-md-10 col-md-offset-1">
 		{{ Form::open(['', 'id' => 'userInvite']) }}
 
-			<div class="form-group required row">
+			<div class="row">
 				<div class="col-md-8 col-md-offset-2 text-center">
 					<p class="h3 raleway light fg-scheme-light" id="inviteAnother">Invite a friend!</p>
 					<hr class="dashed">
 					<br>
 				</div>
+			</div>
+			<div class="row text-center">
+				<div class="fb-share-button" data-href="https://developers.facebook.com/docs/plugins/" data-layout="button"></div>
+			</div>
+			<div class="form-group required row">
 				<div class="col-md-8 col-md-offset-2 text-center">
 					<p class="fg-scheme-white light">Click this button <i class="fa fa-arrow-circle-down"></i></p>
 					<button id="generateInvite" type="button" class="btn btn-info raleway light h4"><i class="fa fa-cog fg-scheme-white" id="loadingCog"></i>&nbsp;&nbsp;Generate Invite Code</button>
