@@ -42,7 +42,7 @@
 
 		$("#share").click(function(){
 			FB.ui({
-				method: 'share',
+				method: 'feed',
 				link: 'https://rayvr.com/register/<?php echo Auth::user()->invite_code; ?>',
 				name: 'Get Free Stuff Just for Signing Up With RAYVR',
 				caption: 'Quality Products. 100% Free.',
