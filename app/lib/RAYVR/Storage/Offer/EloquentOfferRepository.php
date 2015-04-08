@@ -1388,10 +1388,10 @@ class EloquentOfferRepository implements OfferRepository {
 		$RPO = 5;
 
 		/**
-		 * Retrieve all completed orders
-		 * associated with $offer
+		 * Retrieve all orders associated
+		 * with $offer
 		 */
-		$orders = $offer->orders()->where('review', true)->get();
+		$orders = $offer->orders()->where('confirmation_number', '!=', '')->get();
 
 		/**
 		 * Calculate total cost of
