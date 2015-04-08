@@ -12,11 +12,13 @@
 				</div>
 			</div>
 			<div class="row text-center">
-				<button class="btn btn-info" id="share"><i class="fa fa-facebook"></i> Share</button>
+				<button class="btn btn-info" id="share" style="background-color: #376BBC; border-color: #376BBC;"><i class="fa fa-facebook"></i>&nbsp;&nbsp;<span class="lighter">Share</span></button>
+				<br>
+				<br>
 			</div>
 			<div class="form-group required row">
 				<div class="col-md-8 col-md-offset-2 text-center">
-					<p class="fg-scheme-white light">Click this button <i class="fa fa-arrow-circle-down"></i></p>
+					<p class="fg-scheme-white light"><i class="fa fa-envelope"></i>&nbsp;&nbsp;Or invite using email <i class="fa fa-arrow-circle-down"></i></p>
 					<button id="generateInvite" type="button" class="btn btn-info raleway light h4"><i class="fa fa-cog fg-scheme-white" id="loadingCog"></i>&nbsp;&nbsp;Generate Invite Code</button>
 				</div>
 				<div class="col-md-8 col-md-offset-2">

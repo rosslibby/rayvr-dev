@@ -40,7 +40,9 @@
 			version: 'v2.3'
 		});
 
-		$("#share").click(function(){
+		$("#share").click(function(e){
+			// necessary to keep the cog from spinning on the "send invite" button
+			e.preventDefault();
 			FB.ui({
 				method: 'feed',
 				link: 'https://rayvr.com/register/<?php echo Auth::user()->invite_code; ?>',
