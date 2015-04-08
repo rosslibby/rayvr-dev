@@ -27,7 +27,7 @@
 
 			<div style="display: none !important;">
 				{{ Form::hidden('business', 'false') }}
-				@if(Session::has('referral'))
+				@if(isset($referral))
 				{{ Form::hidden('invited_by', $referral) }}
 				@endif
 			</div>

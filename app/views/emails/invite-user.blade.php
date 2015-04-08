@@ -19,7 +19,7 @@ Join the only program that connects you with high quality FREE products - all we
 <br>
 Sign up today to be matched with your first product offer:
 <br>
-<a href="http://rayvr.com/{{ $code }}" class="underline btn btn-success">Join RAYVR Today</a>
+<a href="http://rayvr.com/register/{{ $code }}" class="underline btn btn-success">Join RAYVR Today</a>
 <br>
 <br>
 <em>The RAYVR team</em>
