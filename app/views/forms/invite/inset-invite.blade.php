@@ -12,12 +12,12 @@
 				</div>
 			</div>
 			<div class="row text-center">
-			<div
-				class="fb-like"
-				data-send="true"
-				data-width="450"
-				data-show-faces="true">
-			</div>
+				<div
+					class="fb-like"
+					data-send="true"
+					data-width="450"
+					data-show-faces="true">
+				</div>
 			</div>
 			<div class="form-group required row">
 				<div class="col-md-8 col-md-offset-2 text-center">
