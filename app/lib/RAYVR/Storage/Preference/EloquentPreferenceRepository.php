@@ -1,6 +1,6 @@
 <?php namespace RAYVR\Storage\Preference;
 
-use Preference, User, Session, Category;
+use Preference, User, Session, Category, Lob;
 
 class EloquentPreferenceRepository implements PreferenceRepository {
 
@@ -207,5 +207,70 @@ class EloquentPreferenceRepository implements PreferenceRepository {
 		$categories = $cats;
 
 		return $categories;
+	}
+
+	public function postcard($user)
+	{
+		/**
+		 * Initiate Lob
+		 */
+		$lob = new \Lob\Lob($_ENV['lob_api_key']);
+
+		/**
+		 * If the user entered their address
+		 * and their account is unverified,
+		 * send a verification post card
+		 */
+		if(!$user->verified && $user->first_name != '' && $user->last_name != '' && $user->address != '' && $user->zip != '' && $user->state != '' && $user->city != '' && $user->country != '')
+		{
+			/**
+			 * Create the receiving address
+			 */
+			$toAddress = $lob->addresses()->create([
+				'description'		=> $user->email.' - Home',
+				'name'				=> $user->first_name.' '.$user->last_name,
+				'address_line1'		=> $user->address,
+				'address_line2'		=> $user->address_2,
+				'address_city'		=> $user->city,
+				'address_state'		=> $user->state,
+				'address_country'	=> $user->country,
+				'address_zip'		=> $user->zip,
+				'email'				=> $user->email,
+				'phone'				=> $user->phone
+			]);
+
+			/**
+			 * Create the sending address
+			 */
+			$fromAddress = $lob->addresses()->create([
+				'description'		=> 'RAYVR, LLC',
+				'name'				=> 'The RAYVR Team',
+				'address_line1'		=> '1704 Lake Avenue',
+				'address_line2'		=> '1/2',
+				'address_city'		=> 'West Palm Beach',
+				'address_state'		=> 'FL',
+				'address_country'	=> 'US',
+				'address_zip'		=> '33401',
+				'email'				=> 'info@rayvr.com',
+				'phone'				=> ''
+			]);
+
+			/**
+			 * Extract the address ID from
+			 * the newly created address
+			 */
+			$address = $toAddress['id'];
+			$from = $fromAddress['id'];
+			$postcard = $lob->postcards()->create([
+				'name'			=> $user->first_name,
+				'to'			=> $address,
+				'from'			=> $from,
+				'full_bleed'	=> 1,
+				'template'		=> 1,
+				'front'			=> '<html style="margin: 130px 0; font-size: 50;">Code: <strong>'.$user->confirm.'</strong></html>',
+				'back'			=> 'https://lob.com/postcardback.pdf',
+			]);
+			return $postcard;
+		}
 	}
 }

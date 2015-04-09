@@ -59,6 +59,7 @@ class User extends Ardent implements UserInterface, RemindableInterface, Billabl
 		'profile',
 		'has_email',
 		'wants_email',
+		'verified',
 	];
 
 	/**

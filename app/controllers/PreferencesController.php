@@ -12,6 +12,11 @@ class PreferencesController extends BaseController {
 	protected $user;
 
 	/**
+	 * Initiate Lob
+	 */
+	protected $lob;
+
+	/**
 	 * Add Category Repository
 	 */
 	protected $category;
@@ -31,6 +36,7 @@ class PreferencesController extends BaseController {
 		$this->user = $user;
 		$this->category = $category;
 		$this->preference = $preference;
+		$lob = new \Lob\Lob($_ENV['lob_api_key']);
 	}
 
 	/**
@@ -140,6 +146,12 @@ class PreferencesController extends BaseController {
 		 */
 		$user = Auth::user();
 		$user->fill($preferences);
+
+		/**
+		 * Send the post card if the account
+		 * is unverified
+		 */
+		$this->preference->postcard($user);
 
 		/**
 		 * Add new interests and

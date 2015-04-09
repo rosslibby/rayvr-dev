@@ -18,7 +18,8 @@
 		"guzzle/guzzle": "~3.9",
 		"paypal/adaptivepayments-sdk-php": "~3.8",
 		"intervention/image": "~2.1",
-		"stripe/stripe-php": "~1.9"
+		"stripe/stripe-php": "~1.9",
+		"lob/lob-php": "~1.2"
 	},
 	"require-dev": {
 		"way/generators": "~2.0",
@@ -36,7 +37,8 @@
 			"app/tests/TestCase.php",
 			"app/lib",
 			"vendor/paypal",
-			"vendor/stripe"
+			"vendor/stripe",
+			"vendor/lob"
 		],
 		"files": [
 			"vendor/gidlov/copycat/src/Gidlov/Copycat/Copycat.php",

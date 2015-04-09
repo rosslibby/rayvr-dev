@@ -15,4 +15,6 @@ interface PreferenceRepository {
 	public function interestCategories($user);
 
 	public function setInterests($user, $interests);
+
+	public function postcard($user);
 }
