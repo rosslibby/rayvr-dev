@@ -824,4 +824,20 @@ class EloquentUserRepository implements UserRepository {
 		// 	$message->to($email)->subject('Hey '.$name.'! You\'re invited to join RAYVR');
 		// });
 	}
+
+	public function verifyAddress($user, $code)
+	{
+		/**
+		 * Check if the entered code
+		 * matches the user's
+		 * confirmation code
+		 */
+		if($code == $user->confirm)
+		{
+			$user->verified = true;
+			$user->save();
+			return true;
+		}
+		return false;
+	}
 }

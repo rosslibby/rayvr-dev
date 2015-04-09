@@ -48,6 +48,17 @@ Route::filter('auth', function()
 	}
 });
 
+Route::filter('verify', function()
+{
+	if (Auth::user())
+	{
+		if (!Auth::user()->verified && !Auth::user()->business)
+		{
+			return Redirect::to('verify');
+		}
+	}
+});
+
 
 Route::filter('auth.basic', function()
 {
@@ -77,8 +88,11 @@ Route::filter('business', function(){
 		return Redirect::to('/');
 });
 Route::filter('user', function(){
-	if(Auth::user()->active != 1)
-		return Redirect::to('/');
+	if(Auth::user())
+	{
+		if(Auth::user()->active != 1)
+			return Redirect::to('/');
+	}
 });
 
 /*

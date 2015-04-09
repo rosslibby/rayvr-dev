@@ -80,9 +80,13 @@ class LandingController extends BaseController {
 			{
 				return Redirect::to('admin/control');
 			}
-			else
+			else if(Auth::user()->verified)
 			{
 				return Redirect::to('offers/current');
+			}
+			else
+			{
+				return Redirect::to('verify');
 			}
 		}
 		else

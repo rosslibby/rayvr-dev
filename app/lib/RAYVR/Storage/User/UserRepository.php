@@ -126,4 +126,9 @@ interface UserRepository {
 	 * Send invite to user from RAYVR
 	 */
 	public function invite($data, $user);
+
+	/**
+	 * Verify user address
+	 */
+	public function verifyAddress($user, $code);
 }

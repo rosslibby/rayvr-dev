@@ -183,4 +183,17 @@ class UserController extends BaseController {
 	{
 		return $this->user->accept(Auth::user(), Input::get('match'), Input::get('accept'));
 	}
+
+	/**
+	 * Let user enter verification code
+	 */
+	public function verify()
+	{
+		$verified = $this->user->verifyAddress(Auth::user(), Input::get('code'));
+
+		if($verified)
+			return Redirect::to('/');
+		else
+			return Redirect::to('verify')->with('error', 'The verification code was incorrect; please try again.');
+	}
 }

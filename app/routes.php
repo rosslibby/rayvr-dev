@@ -203,99 +203,111 @@ Route::group(['before' => 'csrf'], function()
 	 */
 	Route::group(['before' => 'user'], function(){
 
-		/**
-		 * User support page
-		 */
-		Route::get('support', function(){
-			return View::make('user.support');
+		Route::group(['before' => 'verify'], function(){
+
+			/**
+			 * User support page
+			 */
+			Route::get('support', function(){
+				return View::make('user.support');
+			});
+
+			/**
+			 * Invite your friends page
+			 */
+			Route::get('invite', [
+				'uses' => 'UserController@invite',
+				'as' => 'invite'
+			]);
+
+			Route::post('invite', [
+				'uses' => 'UserController@sendInvite',
+				'as' => 'sendinvite'
+			]);
+
+			/**
+			 * User offer selector
+			 */
+			Route::get('offers/current', [
+				'uses' => 'UserController@matches',
+				'as' => 'offers.current'
+			]);
+			Route::post('offers/current', 'UserController@accept');
+
+			/**
+			 * Shipping reimbursement claims
+			 */
+			Route::get('offers/{offer}/shipping/{order?}', function($offer, $order = null){
+				return View::make('offers.shipping')->with('order', $order);
+			});
+			Route::post('offers/shipping', [
+				'uses' => 'OffersController@claim',
+				'as' => 'shipping.claim'
+			]);
+
+			/**
+			 * Confirm order with
+			 * confirmation code
+			 */
+			Route::get('order/confirm', function(){
+				return View::make('orders.confirm');
+			});
+			Route::post('order/confirm', 'OrderController@confirm');
+
+			/**
+			 * Confirm whether user
+			 * paid for shipping
+			 */
+			Route::get('order/shipping', function(){
+				return View::make('orders.shipping');
+			});
+			Route::post('order/shipping', 'OrderController@shipping');
+
+			/**
+			 * Leave feedback for offer
+			 */
+			Route::get('offers/feedback', [
+				'uses' => 'OrderController@feedback',
+				'as' => 'offers.feedback'
+			]);
+			Route::post('offers/feedback', 'OrderController@saveFeedback');
+
+			/**
+			 * Confirm review with
+			 * review URL
+			 */
+			Route::get('order/review', [
+				'uses' => 'OrderController@leavereview',
+				'as' => 'order.review'
+			]);
+			Route::post('order/review', 'OrderController@review');
+
+			/**
+			 * User preferences
+			 */
+			Route::get('preferences', [
+				'uses' => 'PreferencesController@user',
+				'as' => 'user.preferences'
+			]);
+			Route::post('preferences', [
+				'uses' => 'PreferencesController@storeUser',
+				'as' => 'user.storePreferences'
+			]);
+
+			Route::post('deactivate', [
+				'uses' => 'UserController@deactivate',
+				'as' => 'deactivate'
+			]);
 		});
 
-		/**
-		 * Invite your friends page
-		 */
-		Route::get('invite', [
-			'uses' => 'UserController@invite',
-			'as' => 'invite'
-		]);
-
-		Route::post('invite', [
-			'uses' => 'UserController@sendInvite',
-			'as' => 'sendinvite'
-		]);
-
-		/**
-		 * User offer selector
-		 */
-		Route::get('offers/current', [
-			'uses' => 'UserController@matches',
-			'as' => 'offers.current'
-		]);
-		Route::post('offers/current', 'UserController@accept');
-
-		/**
-		 * Shipping reimbursement claims
-		 */
-		Route::get('offers/{offer}/shipping/{order?}', function($offer, $order = null){
-			return View::make('offers.shipping')->with('order', $order);
-		});
-		Route::post('offers/shipping', [
-			'uses' => 'OffersController@claim',
-			'as' => 'shipping.claim'
-		]);
-
-		/**
-		 * Confirm order with
-		 * confirmation code
-		 */
-		Route::get('order/confirm', function(){
-			return View::make('orders.confirm');
-		});
-		Route::post('order/confirm', 'OrderController@confirm');
-
-		/**
-		 * Confirm whether user
-		 * paid for shipping
-		 */
-		Route::get('order/shipping', function(){
-			return View::make('orders.shipping');
-		});
-		Route::post('order/shipping', 'OrderController@shipping');
-
-		/**
-		 * Leave feedback for offer
-		 */
-		Route::get('offers/feedback', [
-			'uses' => 'OrderController@feedback',
-			'as' => 'offers.feedback'
-		]);
-		Route::post('offers/feedback', 'OrderController@saveFeedback');
-
-		/**
-		 * Confirm review with
-		 * review URL
-		 */
-		Route::get('order/review', [
-			'uses' => 'OrderController@leavereview',
-			'as' => 'order.review'
-		]);
-		Route::post('order/review', 'OrderController@review');
-
-		/**
-		 * User preferences
-		 */
-		Route::get('preferences', [
-			'uses' => 'PreferencesController@user',
-			'as' => 'user.preferences'
-		]);
-		Route::post('preferences', [
-			'uses' => 'PreferencesController@storeUser',
-			'as' => 'user.storePreferences'
-		]);
-
-		Route::post('deactivate', [
-			'uses' => 'UserController@deactivate',
-			'as' => 'deactivate'
-		]);
+			Route::get('verify', function()
+			{
+				return View::make('user.verify');
+			});
+			Route::post('verify', [
+				'uses' => 'UserController@verify',
+				'as' => 'verify'
+			]);
 	});
 
 	/**
