@@ -133,7 +133,7 @@ class EloquentUserRepository implements UserRepository {
 			 * Assign the user a new
 			 * confirmation string
 			 */
-			$confirmation = $this->hashids->encode(mt_rand(0,100000), mt_rand(0,100000), mt_rand(0, 10000), mt_rand(0, 10000), mt_rand(0, 10000), mt_rand(0, 10000), mt_rand(0, 10000), mt_rand(0, 10000), mt_rand(0, 10000), mt_rand(0, 10000), mt_rand(0, 10000));
+			$confirmation = $this->hashids->encode(mt_rand(0,100000), mt_rand(0,100000), mt_rand(0, 10000), mt_rand(0, 10000), mt_rand(0, 10000), mt_rand(0, 10000), mt_rand(0, 10000), mt_rand(0, 10000));
 			$c->confirm = $confirmation;
 			$c->save();
 
@@ -639,44 +639,50 @@ class EloquentUserRepository implements UserRepository {
 
 	public function verify($customer, $card, $user)
 	{
-		$response = \Stripe_Charge::create([
-			'amount' => 100,
-			'currency' => 'usd',
-			'customer' => $customer,
-			'source' => $card
-		]);
-
 		/**
-		 * Store the charge
+		 * Don't charge card since Stripe
+		 * verifies the card on its own
 		 */
-		$charge = new Charge();
-		$charge->user_id = $user->id;
-		$charge->charge_id = $response->id;
-		$charge->card_id = $card->id;
-		$charge->charge = 1.00;
-		$charge->save();
 
-		/**
-		 * If the charge was successfull:
-		 * 1. Set the billing status to
-		 * "verified"
-		 * 2. Refund the charge
-		 */
-		if($response->paid && !$response->refunded)
-		{
-			$billing = Billing::where('stripe_id', $card->id)->get();
-			foreach($billing as $bill)
-			{
-				$billing->verified = true;
-				$billing->save();
-			}
+		// $response = \Stripe_Charge::create([
+		// 	'amount' => 100,
+		// 	'currency' => 'usd',
+		// 	'customer' => $customer,
+		// 	'source' => $card
+		// ]);
 
-			$ch = \Stripe_Charge::retrieve($response->id);
-			$re = $ch->refunds->create();
+		// /**
+		//  * Store the charge
+		//  */
+		// $charge = new Charge();
+		// $charge->user_id = $user->id;
+		// $charge->charge_id = $response->id;
+		// $charge->card_id = $card->id;
+		// $charge->charge = 1.00;
+		// $charge->save();
 
-			return true;
-		}
-		return false;
+		// *
+		//  * If the charge was successfull:
+		//  * 1. Set the billing status to
+		//  * "verified"
+		//  * 2. Refund the charge
+		 
+		// if($response->paid && !$response->refunded)
+		// {
+		// 	$billing = Billing::where('stripe_id', $card->id)->get();
+		// 	foreach($billing as $bill)
+		// 	{
+		// 		$billing->verified = true;
+		// 		$billing->save();
+		// 	}
+
+		// 	$ch = \Stripe_Charge::retrieve($response->id);
+		// 	$re = $ch->refunds->create();
+
+		// 	return true;
+		// }
+		// return false;
+		return true;
 	}
 
 	public function subscribe($input, $user)
