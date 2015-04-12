@@ -7,6 +7,10 @@
 @section('contentarea')
 	<div class="header-wrapper">
 		<div class="text-center">
+			@if(!count(Offer::where('business_id', Auth::user()->id)))
+				<h3 class="raleway fg-scheme-white">Submit your first product</h3>
+			@endif
+			<br>
 			<h3 class="raleway fg-scheme-white">Step 1: <span class="light">Product Information</span></h3>
 			<p class="raleway light fg-scheme-white">Enter the product link</p>
 			<p class="light fg-scheme-white">This will pull your product title, photo, and ASIN from the Amazon&trade; listing.</p>
