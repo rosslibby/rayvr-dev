@@ -238,7 +238,7 @@ class EloquentOfferRepository implements OfferRepository {
 			 * which we retrieve the email address
 			 */
 			$business = User::find($offer->business_id);
-			Mail::send('emails.offer-denied', ['name' => $business->first_name.' '.$business->last_name, 'from' => 'The RAYVR team', 'reason' => $reason], function($message) use ($business)
+			Mail::send('emails.offer-denied', ['name' => $business->first_name.' '.$business->last_name, 'from' => 'The RAYVR team', 'reason' => $reason], function($message) use ($business, $reason)
 			{
 				$message->to($business->email)->subject('Your Offer Has Been Denied');
 			});
