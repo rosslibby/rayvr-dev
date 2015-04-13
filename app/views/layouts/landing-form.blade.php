@@ -77,8 +77,6 @@
 					@section('inset-form-heading')
 					@show
 				</h3>
-				@section('alternate')
-				@show
 			</div>
 		</div>
 		<br>
@@ -95,6 +93,10 @@
 						<strong>Try again</strong> or <strong>{{ HTML::link('register', 'Sign up') }}</strong>
 					</div>
 				@endif
+				<div class="text-center">
+					@section('alternate')
+					@show
+				</div>
 			</div>
 		</div>
 		<br>

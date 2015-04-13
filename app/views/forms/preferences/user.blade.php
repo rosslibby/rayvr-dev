@@ -12,6 +12,10 @@
 					<strong>{{ Session::get('success') }}</strong>
 				</div>
 				@endif
+				@if(Auth::user()->address == '')
+				<h3 class="raleway light text-center">Create your account</h3>
+				<hr>
+				@endif
 				<br>
 				{{ Form::open(['post' => 'preferences.storeUser', 'class' => 'form-horizontal', 'id' => 'preferences']) }}
 
@@ -157,7 +161,7 @@
 							@endif
 						</div>
 						<div class="col-md-2 text-right">
-							{{ Form::submit('Save settings', ['class' => 'btn btn-success']) }}
+							{{ Form::submit('Save 	settings', ['class' => 'btn btn-success']) }}
 						</div>
 					</div>
 				{{ Form::close() }}

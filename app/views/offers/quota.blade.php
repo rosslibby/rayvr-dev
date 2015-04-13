@@ -15,9 +15,9 @@
 			{{-- If the business has used their trial promotion already, show the quota slider --}}
 			@if(count(Auth::user()->offers))
 				<div class="col-md-12 text-center">
-					<p class="h3 source-sans-pro"><span class="light"><strong><span class="totalCount"><span id="numOffers">25</span></strong> Products</span></p>
+					<p class="h3 source-sans-pro"><span class="light"><strong><span class="totalCount"><span id="numOffers">{{ $maximum }}</span></strong> Products</span></p>
 					<p class="text-center"><strong>___________________________</strong></p>
-					<p class="h3 source-sans-pro"><span class="light"><strong>$<span id="totalCost">{{ (5 * 25) }}</span></strong></span></p>
+					<p class="h3 source-sans-pro"><span class="light"><strong>$<span id="totalCost">{{ (5 * $maximum) }}</span></strong></span></p>
 					<br>
 				</div>
 				<div class="col-md-12">
@@ -52,7 +52,7 @@
 		<h3 class="raleway">Step 7: <span class="light">Promotional Code</span></h3>
 		<p class="light">Provide the promotional code for 100% discount. We recommend single-redemption promotional codes, but 1 code (multi-use) is accepted as well. Please read our terms of service for further information about promotional codes.</p>
 		<hr>
-		<p class="h4 light">The start and end dates you previously selected are: <strong>Start: {{ Session::get('offer')['start'] }} &rarr; End: {{ Session::get('offer')['end'] }}</strong></p>
+		<p class="h4 light">The start and end dates you previously selected are: <strong>Start: {{ Session::get('offer')['start'] }} &rarr; End: {{ Session::get('offer')['end'] }}</strong><br><br><span class="fg-scheme-light"><i class="fa fa-exclamation-triangle"></i></span> Please make sure that your promotional codes are active <strong>starting today</strong> for our review process.</p>
 		<hr>
 
 		<div class="row">

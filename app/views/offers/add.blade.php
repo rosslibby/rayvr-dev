@@ -192,7 +192,7 @@
 				<hr>
 				<div class="row">
 					<div class="col-md-6">
-						<p class="h5">{{ Form::label('shipping_cost', 'If no, please estimate the cost of shipping:', ['class' => 'control-label raleway h5 light']) }}</p>
+						<p class="h5"><label id="shipping_cost" class="control-label raleway h5 light">If no, please estimate the cost of shipping <strong>per unit:</strong></label></p>
 						<div class="input-group">
 							<span class="input-group-addon"><i class="fa fa-usd"></i></span>{{ Form::text('shipping_cost', null, ['class' => 'form-control subtle-input']) }}
 						</div>

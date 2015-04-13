@@ -1,47 +1,47 @@
-@extends('includes.user-nav')
+@extends('layouts.landing-contact')
 
-@section('content')
-<div class="header-wrapper">
-	<div class="col-md-12">
-
-		<!-- Heading -->
-		<div class="row">
-			<div class="text-center">
-				@if(Session::has('success'))
-					<div class="alert alert-success alert-dismissable">
-						<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&#10005;</button>
-						<strong>Success:</strong> {{ Session::get('success') }}
-					</div>
-					<br>
-				@endif
-			</div>
-		</div>
-	</div>
-</div>
+@section('pre-heading')
+RAYVR Customer Support
 @stop
 
+@section('heading')
+We're here to help
+@stop
 
-@section('out-container')
-<div class="inset-form-container row-dark-blue">
-	<div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
-		<br>
-		<h1 class="raleway fg-scheme-white text-center">Contact RAYVR Support</h1>
-		<br>
-		<p class="fg-scheme-white light h5 text-center">Or visit our {{ HTML::link('faq', 'FAQs', ['target' => '_blank']) }}</p>
-		<br>
-		<div class="row">
-			<div class="col-md-12">
-				@include('forms.contact.inset-contact')
-				@if(Session::has('error'))
-					<br>
-					<div class="alert alert-warning alert-dismissable">
-						<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-						{{ Session::get('error') }}
-						<strong>Try again</strong> or <strong>{{ HTML::link('register', 'Sign up') }}</strong>
-					</div>
-				@endif
-			</div>
-		</div>
-	</div>
-</div>
+	<!-- Column 1 -->
+	@section('column-1')
+		@section('icon-1')
+		<h1><i class="fa fa-mobile-phone larger"></i></h1>
+		@stop
+
+		@section('headline-1')
+		<p class="h3">+1 (888) 842 - 5754</p>
+	@stop
+
+	<!-- Column 2 -->
+	@section('column-2')
+		@section('icon-2')
+		<h1><i class="fa fa-envelope larger"></i></h1>
+		@stop
+
+		@section('headline-2')
+		<p class="h3">Support</p>
+	@stop
+
+	<!-- Column 3 -->
+	@section('column-3')
+		@section('icon-3')
+		<h1><i class="fa fa-life-ring larger"></i></h1>
+		@stop
+
+		@section('headline-3')
+		<p class="h3">FAQ</p>
+	@stop
+
+@section('inset-form-heading')
+Contact RAYVR Support
+@stop
+
+@section('use-form')
+@include('forms.contact.inset-contact')
 @stop
