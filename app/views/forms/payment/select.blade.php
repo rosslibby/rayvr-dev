@@ -80,7 +80,7 @@
 		<br>
 		<br>
 		@foreach($data['customer']->sources->data as $card)
-			<div class="source-sans-pro"><div class="text-left col-md-6"><strong>{{ $card->brand }} <i class="fa fa-cc-{{ strtolower($card->brand) }}"></i></strong> ************{{ $card->last4 }} | Exp. {{ $card->exp_month }}/{{ $card->exp_year }}</div><div class="text-right col-md-6">{{ HTML::link('billing/'.$card->id.'/select', 'Use this card', ['class' => 'btn btn-info']) }}</div>
+			<div class="source-sans-pro"><div class="text-left col-md-6"><strong>{{ $card->brand }} <i class="fa fa-cc-{{ strtolower($card->brand) }}"></i></strong> ************{{ $card->last4 }} | Exp. {{ $card->exp_month }}/{{ $card->exp_year }}</div><div class="text-right col-md-6">{{ HTML::link('billing/'.$card->id.'/'.Session::get('offer').'/select', 'Use this card', ['class' => 'btn btn-info']) }}</div>
 			<br>
 			<hr>
 		@endforeach

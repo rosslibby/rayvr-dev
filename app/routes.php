@@ -443,7 +443,7 @@ Route::group(['before' => 'csrf'], function()
 		/**
 		 * Select credit card as billing method
 		 */
-		Route::get('billing/{id}/select', [
+		Route::get('billing/{id}/{offer}/select', [
 			'uses' => 'OffersController@chooseBilling',
 			'as' => 'billing.select'
 		]);

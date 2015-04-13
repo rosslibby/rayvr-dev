@@ -220,7 +220,7 @@ class OffersController extends BaseController {
 			return Redirect::to('offers/review')->with('success', $s['message']);
 		elseif($s['success'] == 2)
 			// return Redirect::to('offers/review')->with('success', $s['message']);
-			return Redirect::to('offers/billing')->with('success', $s['message']);
+			return Redirect::to('offers/billing')->with(['success' => $s['message'], 'offer' => $s['id']]);
 	}
 
 	/**
@@ -234,9 +234,18 @@ class OffersController extends BaseController {
 	/**
 	 * Set billing method
 	 */
-	public function chooseBilling()
+	public function chooseBilling($card, $offer)
 	{
-		return Redirect::to('/');
+		/* Get the offer */
+		$product = $this->offer->find($offer);
+
+		/* if the offer belongs to the signed in user, set its billing method */
+		if(Auth::user()->id == $product->business_id)
+		{
+			$product->billing = $card;
+			$product->save();
+		}
+		return Redirect::to('billing')->with('selected', 'true');
 	}
 
 	/**
