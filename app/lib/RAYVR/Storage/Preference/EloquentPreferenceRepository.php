@@ -221,7 +221,7 @@ class EloquentPreferenceRepository implements PreferenceRepository {
 		 * and their account is unverified,
 		 * send a verification post card
 		 */
-		if(!$user->verified && $user->first_name != '' && $user->last_name != '' && $user->address != '' && $user->zip != '' && $user->state != '' && $user->city != '' && $user->country != '')
+		if(!$user->verified && !$user->postcard_sent && $user->address != '' && $user->zip != '' && $user->state != '' && $user->city != '' && $user->country != '')
 		{
 			/**
 			 * Create the receiving address
@@ -267,9 +267,19 @@ class EloquentPreferenceRepository implements PreferenceRepository {
 				'from'			=> $from,
 				'full_bleed'	=> 1,
 				'template'		=> 1,
-				'front'			=> '<html style="margin: 130px 0; font-size: 50;">Code: <strong>'.$user->confirm.'</strong></html>',
-				'back'			=> 'https://lob.com/postcardback.pdf',
+				'front'			=> '<html style="margin: 0 auto; text-align: center; font-size: 34; width: 6.25in; height: 4.25in;"><p>Welcome to RAYVR, '.$user->first_name.'!</p><p><img src="https://rayvr.com/resources/img/logo.png" />&nbsp;Login to <strong>https://rayvr.com/login</strong> and enter the following confirmation code:</p><p><span style="display: block; background: #ccc; padding: 10px; margin: 0 auto;">'.$user->confirm.'</span></p></html>',
+				'back'			=> '<html><head><title>Lob.com Sample Area Mail Back</title><style>*, *:before, *:after {-webkit-box-sizing: border-box;-moz-box-sizing: border-box;box-sizing: border-box;}body {width: 6.25in;height: 4.25in;margin: 0;padding: 0;/* If using an image, the background image should have dimensions of 1875x1275 pixels. */}#safe-area {position: absolute;width: 5.875in;height: 3.875in;left: 0.1875in;top: 0.1875in;background-color: rgba(255,255,255,0.5);}#ink-free {position: absolute;right: -0.1875in;bottom: -0.1875in;background-color: white;}.text {margin: 10px;width: 220px;font-family: sans-serif;font-size: 20px;font-weight: 700;color: #000;}</style></head><body><div id="safe-area"><!-- All text should appear without the safe area. --><div class="text">'.$user->first_name.', This is your official RAYVR confirmation code. Follow the instructions on the back to verify your account and start getting free stuff!</div></div><div id="ink-free"><!-- Do not place any artwork or text in the ink free area, it is reserved for postage --></div></body></html>',
 			]);
+
+			/**
+			 * Store the fact that the postcard
+			 * has been sent
+			 * Also store the postcard object
+			 */
+			$user->postcard_sent = true;
+			$user->postcard = json_encode($postcard);
+			$user->save();
+
 			return $postcard;
 		}
 	}

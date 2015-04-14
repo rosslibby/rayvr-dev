@@ -86,7 +86,9 @@ class LandingController extends BaseController {
 			}
 			else
 			{
-				return Redirect::to('verify');
+				if(Auth::user()->postcard_sent)
+					return Redirect::to('verify');
+				return Redirect::to('preferences');
 			}
 		}
 		else

@@ -133,7 +133,7 @@ class EloquentUserRepository implements UserRepository {
 			 * Assign the user a new
 			 * confirmation string
 			 */
-			$confirmation = $this->hashids->encode(mt_rand(0,100000), mt_rand(0,100000), mt_rand(0, 10000), mt_rand(0, 10000), mt_rand(0, 10000), mt_rand(0, 10000), mt_rand(0, 10000), mt_rand(0, 10000));
+			$confirmation = $this->hashids->encode(mt_rand(0,100000), mt_rand(0,100000), mt_rand(0, 10000), mt_rand(0, 10000));
 			$c->confirm = $confirmation;
 			$c->save();
 
