@@ -492,7 +492,7 @@
 													<tbody><tr>
 														<td height="62" valign="middle" align="center" width="100%" class="fullCenter" style="line-height: 1px;">
 															<a href="#"> 
-																<img src="https://gallery.mailchimp.com/257213c17fc4ea4fc2f022268/images/44023107-7bcd-4df8-ae30-6394a925e717.png" width="70" alt="" border="0" class="hover" mc:edit="1">
+																<img src="https://rayvr.com/resources/img/logo.png" width="70" alt="" border="0" class="hover" mc:edit="1">
 															</a>
 														</td>
 													</tr>
