@@ -379,7 +379,7 @@ Route::group(['before' => 'csrf'], function()
 
 	Route::get('resources/terms-and-conditions', function()
 	{
-		return View::make('resources.terms');
+		return View::make('resources.terms-and-conditions');
 	});
 
 	/**
