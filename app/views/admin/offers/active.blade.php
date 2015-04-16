@@ -45,6 +45,7 @@
 					</div>
 				</div>
 				<div class="col-md-2 text-right">
+					<p>{{ HTML::link('offers/view/'.$offer->id, 'View offer', ['class' => 'btn btn-success']) }}</p>
 					<p>{{ HTML::link('users/'.$offer->business_id, 'View business', ['class' => 'btn btn-info']) }}</p>
 					<p>{{ HTML::link('offers/'.$offer->id.'/stop', 'Stop promotion', ['class' => 'btn btn-danger']) }}</p>
 				</div>

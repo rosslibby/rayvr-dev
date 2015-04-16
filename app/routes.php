@@ -86,6 +86,11 @@ Route::group(['before' => 'csrf'], function()
 			Route::get('offers/active', 'AdminController@active');
 
 			/**
+			 * View individual offer
+			 */
+			Route::get('offers/view/{offer}', 'AdminController@single');
+
+			/**
 			 * View individual user
 			 */
 			Route::get('users/{id}', 'AdminController@user');

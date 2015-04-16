@@ -24,6 +24,7 @@
 					<img src="{{ $offer['offer']->photo }}" width="200" class="well" />
 				</div>
 				<div class="col-md-8">
+					<p><strong>Business: </strong><em>{{ $offer['offer']->business['business_name'] }} | {{ $offer['offer']->business['last_name'] }}, {{ $offer['offer']->business['first_name'] }}: {{ HTML::link('mailto:'.$offer['offer']->business['email'], $offer['offer']->business['email']) }}
 					<p><strong>Description: </strong><em>{{ $offer['offer']->description }}</em></p>
 					<p><strong>Send out: </strong>{{ $offer['offer']->quota }}</p>
 					<p><strong>Start: </strong>{{ $offer['offer']->start }}</p>

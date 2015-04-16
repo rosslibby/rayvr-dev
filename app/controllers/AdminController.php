@@ -60,4 +60,12 @@ class AdminController extends BaseController {
 	{
 		return View::make('admin.offers.active');
 	}
+
+	/**
+	 * View individual offer
+	 */
+	public function single($offer)
+	{
+		return View::make('admin.offers.single')->with('offer', Offer::find($offer));
+	}
 }
