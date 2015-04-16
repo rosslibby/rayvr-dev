@@ -247,20 +247,20 @@ Route::group(['before' => 'csrf'], function()
 			return View::make('user.support');
 		});
 
+		/**
+		 * Invite your friends page
+		 */
+		Route::get('invite', [
+			'uses' => 'UserController@invite',
+			'as' => 'invite'
+		]);
+
+		Route::post('invite', [
+			'uses' => 'UserController@sendInvite',
+			'as' => 'sendinvite'
+		]);
+
 		Route::group(['before' => 'verify'], function(){
-
-			/**
-			 * Invite your friends page
-			 */
-			Route::get('invite', [
-				'uses' => 'UserController@invite',
-				'as' => 'invite'
-			]);
-
-			Route::post('invite', [
-				'uses' => 'UserController@sendInvite',
-				'as' => 'sendinvite'
-			]);
 
 			/**
 			 * User offer selector
