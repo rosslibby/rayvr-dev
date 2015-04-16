@@ -21,7 +21,7 @@ We're here to help
 	<!-- Column 2 -->
 	@section('column-2')
 		@section('icon-2')
-		<h1><i class="fa fa-envelope larger"></i></h1>
+		<h1><a href="mailto:support@rayvr.com"><i class="fa fa-envelope larger"></i></a></h1>
 		@stop
 
 		@section('headline-2')
