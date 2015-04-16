@@ -45,11 +45,6 @@ $("#businessRegistration").validate({
 			required: true,
 			minlength: 6,
 		},
-		password_confirmation: {
-			required: true,
-			minlength: 6,
-			equalTo: "#true_password"
-		},
 		agree: {
 			required: true
 		}

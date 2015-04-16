@@ -154,91 +154,103 @@ Route::group(['before' => 'csrf'], function()
 	/**
 	 * Business-specific routes
 	 */
-	Route::group(['before' => 'business'], function(){
 
-		/**
-		 * Business FAQ
-		 */
-		Route::get('business/faq', function(){
-			return View::make('resources.business-faq');
+	/**
+	 * Business pages
+	 */
+	// Route::group(['domain' => 'rayvrbusiness.com'], function(){
+
+		Route::get('business/{referral?}', [
+			'uses' => 'SessionController@register',
+			'as' => 'session.index'
+		]);
+
+		Route::group(['before' => 'business'], function(){
+
+			/**
+			 * Business FAQ
+			 */
+			Route::get('business/faq', function(){
+				return View::make('resources.business-faq');
+			});
+
+			/**
+			 * Dispute shipping claim
+			 */
+			Route::get('orders/{order}/shipping', function($order){
+				$order = Order::find($order);
+				return View::make('orders.shipping-claim')->with('claim', $order->reimbursement);
+			});
+			Route::post('orders/{order}/shipping', 'OrderController@dispute');
+
+			/**
+			 * Delete credit card
+			 */
+			Route::get('card/{id}/delete', [
+				'uses' => 'PaymentController@delete',
+				'as' => 'card.delete'
+			]);
+
+			/**
+			 * Offers ordered
+			 */
+			Route::get('offers/track/{id}', [
+				'uses' => 'OffersController@single',
+				'as' => 'offers.single'
+			]);
+
+			/**
+			 * Image uploader
+			 */
+			Route::get('offer/image', function(){
+				return View::make('offers.image-upload');
+			});
+			Route::post('offer/image', function(){
+				$file = Input::file('image');
+				$extension = ".".$file->getClientOriginalExtension();
+				$destinationPath = public_path().'/uploads/';
+				$filename = "OfferTitle-".str_random(14)."-".microtime(true).$extension;
+				Input::file('image')->move($destinationPath, $filename);
+			});
+
+			/**
+			 * Shipping document uploader
+			 */
+			Route::get('order/{order}/dispute', 'OrderController@shippingDoc');
+			Route::post('order/{order}/dispute', 'OrderController@shippingSave');
+
+			/**
+			 * Offer-pack routes
+			 */
+			Route::get('offers/purchase', 'PaymentController@offers');
+			Route::post('offers/purchase', [
+				'uses' => 'PaymentController@payForOffers',
+				'as' => 'offers/purchase'
+			]);
+
+			/**
+			 * Billing portal
+			 */
+			Route::get('billing', [
+				'uses' => 'PaymentController@billing',
+				'as' => 'billing'
+			]);
+			Route::post('billing', [
+				'uses' => 'PaymentController@subscribe',
+				'as' => 'payments'
+			]);
+
+			/**
+			 * Pay shipping deposit
+			 */
+			Route::get('offers/track/{id}/deposit', 'OffersController@deposit');
+
+			/**
+			 * Process shipping deposit
+			 */
+			Route::get('offers/shipping/deposit', 'OffersController@processDeposit');
 		});
-
-		/**
-		 * Dispute shipping claim
-		 */
-		Route::get('orders/{order}/shipping', function($order){
-			$order = Order::find($order);
-			return View::make('orders.shipping-claim')->with('claim', $order->reimbursement);
-		});
-		Route::post('orders/{order}/shipping', 'OrderController@dispute');
-
-		/**
-		 * Delete credit card
-		 */
-		Route::get('card/{id}/delete', [
-			'uses' => 'PaymentController@delete',
-			'as' => 'card.delete'
-		]);
-
-		/**
-		 * Offers ordered
-		 */
-		Route::get('offers/track/{id}', [
-			'uses' => 'OffersController@single',
-			'as' => 'offers.single'
-		]);
-
-		/**
-		 * Image uploader
-		 */
-		Route::get('offer/image', function(){
-			return View::make('offers.image-upload');
-		});
-		Route::post('offer/image', function(){
-			$file = Input::file('image');
-			$extension = ".".$file->getClientOriginalExtension();
-			$destinationPath = public_path().'/uploads/';
-			$filename = "OfferTitle-".str_random(14)."-".microtime(true).$extension;
-			Input::file('image')->move($destinationPath, $filename);
-		});
-
-		/**
-		 * Shipping document uploader
-		 */
-		Route::get('order/{order}/dispute', 'OrderController@shippingDoc');
-		Route::post('order/{order}/dispute', 'OrderController@shippingSave');
-
-		/**
-		 * Offer-pack routes
-		 */
-		Route::get('offers/purchase', 'PaymentController@offers');
-		Route::post('offers/purchase', [
-			'uses' => 'PaymentController@payForOffers',
-			'as' => 'offers/purchase'
-		]);
-
-		/**
-		 * Billing portal
-		 */
-		Route::get('billing', [
-			'uses' => 'PaymentController@billing',
-			'as' => 'billing'
-		]);
-		Route::post('billing', [
-			'uses' => 'PaymentController@subscribe',
-			'as' => 'payments'
-		]);
-
-		/**
-		 * Pay shipping deposit
-		 */
-		Route::get('offers/track/{id}/deposit', 'OffersController@deposit');
-
-		/**
-		 * Process shipping deposit
-		 */
-		Route::get('offers/shipping/deposit', 'OffersController@processDeposit');
-	});
+	// });
 
 	/**
 	 * User-specific routes
@@ -374,15 +386,6 @@ Route::group(['before' => 'csrf'], function()
 		'as' => 'session.index'
 	]);
 */
-
-	/**
-	 * Business pages
-	 */
-
-	Route::get('business/{referral?}', [
-		'uses' => 'SessionController@register',
-		'as' => 'session.index'
-	]);
 
 	/** temporary **/
 /**	Route::get('register/{referral?}', [

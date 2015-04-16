@@ -17,13 +17,6 @@
 				</div>
 			</div>
 
-			<div class="form-group required">
-				<div class="input-group">
-					{{ Form::password('password_confirmation', ['id' => 'password_confirmation', 'class' => 'form-control inset-form-input', 'placeholder' => 'Confirm Password']) }}
-					<span class="input-group-addon"><i class="fa fa-lock"></i></span>
-				</div>
-			</div>
-
 			<div style="display: none !important;">
 				{{ Form::hidden('business', 'true') }}
 			</div>
