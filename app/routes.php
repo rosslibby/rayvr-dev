@@ -158,7 +158,7 @@ Route::group(['before' => 'csrf'], function()
 	/**
 	 * Business pages
 	 */
-	// Route::group(['domain' => 'rayvrbusiness.com'], function(){
+	Route::group(['domain' => 'rayvrbusiness.com'], function(){
 
 		Route::get('business/{referral?}', [
 			'uses' => 'SessionController@register',
@@ -250,7 +250,7 @@ Route::group(['before' => 'csrf'], function()
 			 */
 			Route::get('offers/shipping/deposit', 'OffersController@processDeposit');
 		});
-	// });
+	});
 
 	/**
 	 * User-specific routes
