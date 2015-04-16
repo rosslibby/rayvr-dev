@@ -40,7 +40,7 @@
 							<p># ordered:</p>
 						</div>
 						<div class="col-md-4 text-right">
-							<strong>{{ count(Order::where('offer_id', $offer->id)->where('confirmation_number',true)->get()) }}</strong></p>
+							<strong>{{ count(Order::where('offer_id', $offer->id)->where('confirmation_number', '!=', '')->get()) }}</strong></p>
 						</div>
 					</div>
 				</div>
