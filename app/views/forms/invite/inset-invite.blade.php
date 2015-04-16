@@ -6,7 +6,7 @@
 
 			<div class="row">
 				<div class="col-md-8 col-md-offset-2 text-center">
-					<p class="h3 raleway light fg-scheme-light" id="inviteAnother">Invite a friend!</p>
+					<p class="h3 raleway light fg-scheme-light" id="inviteAnother">Invite your Facebook friends!</p>
 					<hr class="dashed">
 					<br>
 				</div>
@@ -16,6 +16,8 @@
 				<br>
 				<br>
 			</div>
+			<br>
+			<hr class="dashed" />
 			<div class="form-group required row">
 				<div class="col-md-8 col-md-offset-2 text-center">
 					<p class="fg-scheme-white light"><i class="fa fa-envelope"></i>&nbsp;&nbsp;Or invite using email <i class="fa fa-arrow-circle-down"></i></p>

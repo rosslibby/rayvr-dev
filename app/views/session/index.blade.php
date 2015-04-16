@@ -24,112 +24,84 @@ Before we send an offer out to our members, we have it tested for quality by our
 <!-- Column 1 -->
 	@section('column-1')
 		@section('icon-1')
-		<h1><i class="fa fa-check-square fg-scheme-blue larger"></i></h1>
+		<h1><i class="fa fa-area-chart fg-scheme-blue larger"></i></h1>
 		@stop
 
 		@section('headline-1')
-		ONLY QUALITY PRODUCTS
+		WE TRACK FEEDBACK
 
 		@section('paragraph-1')
-		We accept only high-quality product offers and test each before sending them out to our members.
+		From your dashboard you can see how many products have been redeemed and track feedback as it comes in.
 		@stop
 	@stop
 
 <!-- Column 2 -->
 	@section('column-2')
 		@section('icon-2')
-		<h1><i class="fa fa-crosshairs fg-scheme-blue larger"></i></h1>
+		<h1><i class="fa fa-users fg-scheme-blue larger"></i></h1>
 		@stop
 
 		@section('headline-2')
-		TARGETED PROMOTION
+		ENGAGED USER BASE
 
 		@section('paragraph-2')
-		Your product offer is matched with our members based on their selected categories of interest.
+		Our members receive one product at a time and must submit feedback before being matched with a new product.
 		@stop
 	@stop
 
 <!-- Column 3 -->
 	@section('column-3')
 		@section('icon-3')
-		<h1><i class="fa fa-share-alt fg-scheme-blue larger"></i></h1>
+		<h1><i class="fa fa-eyedropper fg-scheme-blue larger"></i></h1>
 		@stop
 
 		@section('headline-3')
-		OUR MEMBERS SHARE
+		ONLY QUALITY PRODUCTS
 
 		@section('paragraph-3')
-		Our members receive quality products that they express interest in and are more than willing to share their experiences.
+		We accept only high­ quality products in our system and test each before sending them out to our members.
 		@stop
 	@stop
 
 <!-- Column 4 -->
 	@section('column-4')
 		@section('icon-4')
-		<h1><i class="fa fa-area-chart fg-scheme-blue larger"></i></h1>
+		<h1><i class="fa fa-crosshairs fg-scheme-blue larger"></i></h1>
 		@stop
 
 		@section('headline-4')
-		WE TRACK FEEDBACK
+		TARGETED GIVEAWAYS
 
 		@section('paragraph-4')
-		From your dashboard you can see how many offers have been sent out and track feedback as it comes in.
-		@stop
-	@stop
-
-<!-- Column 1 -->
-	@section('column-5')
-		@section('icon-5')
-		<h1><i class="fa fa-envelope fg-scheme-blue larger"></i></h1>
-		@stop
-
-		@section('headline-5')
-		SHIPPING REIMBURSEMENT
-
-		@section('paragraph-5')
-		Our automated system handles the entire process for you, so there's no need to spend hours reimbursing individuals for shipping. 
+		Your product offer is matched with our members based on their interest categories.
 		@stop
 	@stop
 
 <!-- Column 2 -->
 	@section('column-6')
 		@section('icon-6')
-		<h1><i class="fa fa-eyedropper fg-scheme-blue larger"></i></h1>
+		<h1><i class="fa fa-lock fg-scheme-blue larger"></i></h1>
 		@stop
 
 		@section('headline-6')
-		DESIGNED FOR YOU
+		CATEGORY EXCLUSIVITY
 
 		@section('paragraph-6')
-		We collaborated with industry-leading product developers to design and implement our program.
+		We don’t allow competing products in our system. Active users in good standing will be granted exclusivity in their specific product category.
 		@stop
 	@stop
 
 <!-- Column 3 -->
 	@section('column-7')
 		@section('icon-7')
-		<h1><i class="fa fa-dashboard fg-scheme-blue larger"></i></h1>
+		<h1><i class="fa fa-envelope fg-scheme-blue larger"></i></h1>
 		@stop
 
 		@section('headline-7')
-		GET ON THE FAST TRACK
+		SHIPPING REIMBURSEMENT
 
 		@section('paragraph-7')
-		What better way to kickstart a product launch than receiving great feedback for your product?
-		@stop
-	@stop
-
-<!-- Column 4 -->
-	@section('column-8')
-		@section('icon-8')
-		<h1><i class="fa fa-life-buoy fg-scheme-blue larger"></i></h1>
-		@stop
-
-		@section('headline-8')
-		TOP CUSTOMER CARE
-
-		@section('paragraph-8')
-		Our dedicated support team is here to answer any questions you have. 
+		Our automated system handles the entire process for you, so there's no need to spend hours reimbursing individuals for shipping.
 		@stop
 	@stop
 

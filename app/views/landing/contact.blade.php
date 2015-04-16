@@ -1,11 +1,11 @@
 @extends('layouts.landing-contact')
 
-@section('pre-heading')
+@section('heading')
 RAYVR Customer Support
 @stop
 
-@section('heading')
-We're here to help
+@section('description')
+<p class="h4 light">We're here to help</p>
 @stop
 
 	<!-- Column 1 -->

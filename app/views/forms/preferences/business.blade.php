@@ -7,7 +7,12 @@
 @section('contentarea')
 	<div class="header-wrapper">
 		<div class="text-center">
-			<h2 class="fg-scheme-white"><span class="glyphicon glyphicon-wrench"></span>&nbsp;Settings</h2>
+			{{-- Show "Create Your Account" for new registers --}}
+			@if(Auth::user()->address == '' || Auth::user()->city == '' || Auth::user()->zip == '' || Auth::user()->country == '' || Auth::user()->first_name == '' || Auth::user()->last_name == '')
+				<h2 class="fg-scheme-white"><span class="glyphicon glyphicon-wrench"></span>&nbsp;Create Your Account</h2>
+			@else
+				<h2 class="fg-scheme-white"><span class="glyphicon glyphicon-wrench"></span>&nbsp;Settings</h2>
+			@endif
 		</div>
 	</div>
 @stop
