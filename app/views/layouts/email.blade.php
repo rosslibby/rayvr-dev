@@ -671,7 +671,10 @@
 											<td width="100%" height="20"></td>
 										</tr>
 										<tr>
-											<td width="100%" valign="top" style="text-align: left; font-family: Helvetica, Arial, sans-serif; font-size: 14px; color: rgb(135, 135, 135); line-height: 24px; font-weight: normal;" class="fullCenter" mc:edit="33">
+											<td width="100%" height="20"></td>
+										</tr>
+										<tr>
+											<td width="100%" valign="top" style="text-align: left; font-family: Helvetica, Arial, sans-serif; font-size: 14px; color: rgb(0, 0, 0); line-height: 24px; font-weight: normal;" class="fullCenter" mc:edit="33">
 																									
 													<!--[if !mso]><!--><span style="font-family: 'proxima_nova_rgregular', Helvetica; font-weight: normal;"><!--<![endif]-->
 														@section('body')

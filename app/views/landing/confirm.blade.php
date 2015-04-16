@@ -1,0 +1,1 @@
+You need to confirm your account by clicking the confirmation link in your email

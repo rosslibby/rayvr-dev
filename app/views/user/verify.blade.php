@@ -14,8 +14,17 @@
 					<div class="row">
 						<div class="col-md-10 col-md-offset-1">
 							<p class="raleway more-height h5 light">
-								<i class="fa fa-envelope"></i> A postcard is on its way to your residence with your verification code.
+								<i class="fa fa-envelope"></i> We're sending you a postcard with a code to verify your account<br>
+								Be on the lookout for a card that looks like this in your mailbox:<br>
 							</p>
+							<div class="row">
+								<div class="col-md-6">
+									{{ HTML::image('resources/img/user/postcard-back.jpg', 'RAYVR verification postcard (back)', ['width' => 250]) }}
+								</div>
+								<div class="col-md-6">
+									{{ HTML::image('resources/img/user/postcard-front.jpg', 'RAYVR verification postcard (front)', ['width' => 250]) }}
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>

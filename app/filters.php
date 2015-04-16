@@ -63,6 +63,21 @@ Route::filter('verify', function()
 	}
 });
 
+Route::filter('confirm', function()
+{
+	if (Auth::user())
+	{
+		if (!Auth::user()->verified && Auth::user()->active == 3)
+		{
+			$user = Auth::user();
+			if(!$user->postcard_sent)
+			{
+				return Redirect::to('admin/confirm');
+			}
+		}
+	}
+});
+
 
 Route::filter('auth.basic', function()
 {

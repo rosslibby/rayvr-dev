@@ -27,86 +27,123 @@ Route::group(['before' => 'csrf'], function()
 	/**
 	 * Administrator-specific routes
 	 */
+	/**
+	 * Confirm that user is an admin
+	 */
+	Route::get('admin/confirm/{confirm}/{email}', function($confirm, $email){
+		/**
+		 * Find user where email = $email and
+		 * where confirm = $confirm
+		 */
+		$user = User::where(['email' => $email, 'confirm' => $confirm])->get();
+		if($user[0]->id)
+		{
+			$user[0]->verified = true;
+			$user[0]->save();
+			return Redirect::to('/');
+		}
+	});
 	Route::group(['before' => 'admin'], function(){
 
 		/**
-		 * Administrator control page
+		 * Admin confirmation page
 		 */
-		Route::get('admin/control', 'AdminController@index');
-
-		/**
-		 * View users
-		 */
-		Route::get('users', 'AdminController@users');
-
-		/**
-		 * View all offers
-		 */
-		Route::get('offers/all', 'AdminController@offers');
-
-		/**
-		 * View active offers
-		 */
-		Route::get('offers/active', 'AdminController@active');
-
-		/**
-		 * View individual user
-		 */
-		Route::get('users/{id}', 'AdminController@user');
-
-		/**
-		 * Change user account
-		 * type (business/user)
-		 */
-		Route::get('users/{id}/type', function($id){
-			return View::make('user.account-type')->with('id', $id);
+		Route::get('admin/confirm', function(){
+			echo "If you haven't received your account confirmation email, <a href=\"sendconfirm\">click here</a> to resend it.";
 		});
-		Route::post('users/{id}/type', 'UserController@type');
-
 		/**
-		 * Suspend user
+		 * Send admin confirmation email
 		 */
-		Route::get('users/suspend/{id}', [
-			'uses' => 'UserController@suspend',
-			'as' => 'user.suspend'
-		]);
+		Route::get('admin/sendconfirm', function(){
+			$user = Auth::user();
+			Mail::send('emails.admin-confirm', ['name' => $user->first_name.' '.$user->last_name, 'from' => 'The RAYVR team', 'confirm' => $user->confirm, 'email' => $user->email], function($message) use ($user)
+			{
+				$message->to($user->email)->subject('Confirm your email address');
+			});
+			return "Check your email and click the confirmation link that we sent.";
+		});
 
-		Route::get('users/{id}/delete', [
-			'uses' => 'UserController@delete',
-			'as' => 'user.delete'
-		]);
+		Route::group(['before' => 'confirm'], function(){
 
-		/**
-		 * Offer moderation by site moderators
-		 */
-		Route::get('offers/moderate', 'OffersController@moderate');
-		Route::get('offers/approve/{id?}', 'OffersController@approveConfirm');
-		Route::post('offers/approve', [
-			'uses' => 'OffersController@approve',
-			'as' => 'offers.approve'
-		]);
+			/**
+			 * Administrator control page
+			 */
+			Route::get('admin/control', 'AdminController@index');
 
-		Route::get('offers/deny/{id?}', 'OffersController@denyConfirm');
-		Route::post('offers/deny', [
-			'uses' => 'OffersController@deny',
-			'as' => 'offers.deny'
-		]);
+			/**
+			 * View users
+			 */
+			Route::get('users', 'AdminController@users');
 
-		/**
-		 * Shipping moderation
-		 */
-		Route::get('shipping/moderate', 'OrderController@moderateShipping');
-		Route::post('shipping/moderate', 'OrderController@approveShipping');
+			/**
+			 * View all offers
+			 */
+			Route::get('offers/all', 'AdminController@offers');
 
-		/**
-		 * Stop offer
-		 */
-		Route::get('offers/{id}/stop', 'OffersController@stopPromo');
+			/**
+			 * View active offers
+			 */
+			Route::get('offers/active', 'AdminController@active');
 
-		/**
-		 * Delete the offer
-		 */
-		Route::get('offers/delete/{id}', 'OffersController@deletePromo');
+			/**
+			 * View individual user
+			 */
+			Route::get('users/{id}', 'AdminController@user');
+
+			/**
+			 * Change user account
+			 * type (business/user)
+			 */
+			Route::get('users/{id}/type', function($id){
+				return View::make('user.account-type')->with('id', $id);
+			});
+			Route::post('users/{id}/type', 'UserController@type');
+
+			/**
+			 * Suspend user
+			 */
+			Route::get('users/suspend/{id}', [
+				'uses' => 'UserController@suspend',
+				'as' => 'user.suspend'
+			]);
+
+			Route::get('users/{id}/delete', [
+				'uses' => 'UserController@delete',
+				'as' => 'user.delete'
+			]);
+
+			/**
+			 * Offer moderation by site moderators
+			 */
+			Route::get('offers/moderate', 'OffersController@moderate');
+			Route::get('offers/approve/{id?}', 'OffersController@approveConfirm');
+			Route::post('offers/approve', [
+				'uses' => 'OffersController@approve',
+				'as' => 'offers.approve'
+			]);
+
+			Route::get('offers/deny/{id?}', 'OffersController@denyConfirm');
+			Route::post('offers/deny', [
+				'uses' => 'OffersController@deny',
+				'as' => 'offers.deny'
+			]);
+
+			/**
+			 * Shipping moderation
+			 */
+			Route::get('shipping/moderate', 'OrderController@moderateShipping');
+			Route::post('shipping/moderate', 'OrderController@approveShipping');
+
+			/**
+			 * Stop offer
+			 */
+			Route::get('offers/{id}/stop', 'OffersController@stopPromo');
+
+			/**
+			 * Delete the offer
+			 */
+			Route::get('offers/delete/{id}', 'OffersController@deletePromo');
+		});
 	});
 
 	/**
@@ -203,14 +240,14 @@ Route::group(['before' => 'csrf'], function()
 	 */
 	Route::group(['before' => 'user'], function(){
 
-		Route::group(['before' => 'verify'], function(){
+		/**
+		 * User support page
+		 */
+		Route::get('support', function(){
+			return View::make('user.support');
+		});
 
-			/**
-			 * User support page
-			 */
-			Route::get('support', function(){
-				return View::make('user.support');
-			});
+		Route::group(['before' => 'verify'], function(){
 
 			/**
 			 * Invite your friends page

@@ -35,7 +35,7 @@ We're here to help
 		@stop
 
 		@section('headline-3')
-		<p class="h3">FAQ</p>
+		<p class="h3">{{ HTML::link('faq', 'FAQ') }}</p>
 	@stop
 
 @section('inset-form-heading')
