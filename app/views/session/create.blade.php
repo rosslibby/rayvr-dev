@@ -9,7 +9,9 @@ Manage your offers, preferences, and score in your RAYVR dashboard.
 @stop
 
 @section('inset-form-heading')
-Sign in to your User or Business account
+Welcome Back
+<br>
+<small>Sign In</small>
 @stop
 
 @section('alternate')
