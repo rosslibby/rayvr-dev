@@ -19,9 +19,6 @@
 
 			<div style="display: none !important;">
 				{{ Form::hidden('business', 'true') }}
-				@if(isset($referral))
-				{{ Form::hidden('invited_by', $referral) }}
-				@endif
 			</div>
 
 			<br>

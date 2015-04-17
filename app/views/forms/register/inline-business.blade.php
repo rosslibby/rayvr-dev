@@ -22,10 +22,6 @@
 
 			<div class="form-group text-right">
 				{{ Form::hidden('business', 'true') }}
-				@if(isset($referral))
-					{{ Form::hidden('invited_by', $referral) }}
-				@endif
-				
 				{{ Form::submit('Register', ['class' => 'btn btn-success']) }}
 			</div>
 
