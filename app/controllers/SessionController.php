@@ -27,11 +27,6 @@ class SessionController extends BaseController {
 
 	public function register($referral = null)
 	{
-		if($referral)
-			$referral = ['referral' => $referral];
-		else
-			$referral = ['referral' => ''];
-
 		return View::make('session.index')->with('referral', $referral);
 	}
 

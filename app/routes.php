@@ -28,7 +28,7 @@ Route::group(['before' => 'csrf'], function()
 	 * Business pages
 	 */
 	// Route::group(['domain' => 'rayvrbusiness.com'], function(){
-		Route::get('business', [
+		Route::get('business/{referral?}', [
 			'uses' => 'SessionController@register',
 			'as' => 'session.index'
 		]);
