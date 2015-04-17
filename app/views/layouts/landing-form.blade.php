@@ -126,5 +126,7 @@
 <br>
 <br>
 <br>
+<br>
+<br>
 
 @include('includes.foot')
