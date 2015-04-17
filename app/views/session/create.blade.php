@@ -1,17 +1,11 @@
 @extends('layouts.landing-form')
 
 @section('heading')
-Sign in to your account.
-@stop
-
-@section('description')
-Manage your offers, preferences, and score in your RAYVR dashboard.
+Welcome Back
 @stop
 
 @section('inset-form-heading')
-Welcome Back
-<br>
-<small>Sign In</small>
+Sign In
 @stop
 
 @section('alternate')
