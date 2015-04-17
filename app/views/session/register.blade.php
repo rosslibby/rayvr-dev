@@ -67,10 +67,6 @@ Every day our program connects people just like you with quality <strong>free of
 Sign Up Today
 @stop
 
-@section('alternate')
-<p>{{ HTML::link('business', '&nbsp;Register your business here&nbsp;', ['class' => 'btn btn-success more-height h5 normal']) }}</p>
-@stop
-
 @section('use-form')
 @include('forms.register.inset-user')
 @stop
