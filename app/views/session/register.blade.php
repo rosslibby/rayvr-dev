@@ -16,7 +16,7 @@ QUALITY PRODUCTS. 100% FREE.
 @section('heading')
 Why join RAYVR?
 @stop
-
+ 
 @section('description')
 Every day our program connects people just like you with quality <strong>free offers</strong> based on your interests. We help businesses by connecting you with free offers and <strong>getting your feedback</strong>.
 @stop
