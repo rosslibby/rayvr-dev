@@ -33,7 +33,7 @@ Route::group(['before' => 'csrf'], function()
 			'as' => 'session.index'
 		]);
 		Route::get('/', function(){
-			return Route::to('business');
+			return Redirect::to('business');
 		});
 	});
 
