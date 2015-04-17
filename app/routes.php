@@ -27,12 +27,12 @@ Route::group(['before' => 'csrf'], function()
 	/**
 	 * Business pages
 	 */
-	// Route::group(['domain' => 'rayvrbusiness.com'], function(){
+	Route::group(['domain' => 'rayvrbusiness.com'], function(){
 		Route::get('business/{referral?}', [
 			'uses' => 'SessionController@register',
 			'as' => 'session.index'
 		]);
-	// });
+	});
 
 	/**
 	 * Administrator-specific routes
