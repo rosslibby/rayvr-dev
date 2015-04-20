@@ -32,9 +32,6 @@ Route::group(['before' => 'csrf'], function()
 			'uses' => 'SessionController@register',
 			'as' => 'session.index'
 		]);
-		Route::get('/', function(){
-			return Redirect::to('business');
-		});
 
 		/**
 		 * Business-specific routes
