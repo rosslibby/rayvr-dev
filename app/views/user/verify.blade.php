@@ -15,7 +15,7 @@
 						<div class="col-md-10 col-md-offset-1">
 							<p class="raleway more-height h5 light">
 								<i class="fa fa-envelope"></i> We're sending you a postcard with a code to verify your account<br>
-								Be on the lookout for a card that looks like this in your mailbox:<br>
+								Be on the lookout for a card that looks like this in your mailbox on <strong>{{ date('M d, Y', strtotime(json_decode(Auth::user()->postcard, true)['expected_delivery_date'])) }}:</strong><br><br>
 							</p>
 							<div class="row">
 								<div class="col-md-6">
