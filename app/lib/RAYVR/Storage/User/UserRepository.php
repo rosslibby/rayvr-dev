@@ -131,4 +131,9 @@ interface UserRepository {
 	 * Verify user address
 	 */
 	public function verifyAddress($user, $code);
+
+	/**
+	 * Manually generate an affiliate user
+	 */
+	public function makeAffiliate($data);
 }

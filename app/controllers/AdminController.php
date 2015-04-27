@@ -1,7 +1,7 @@
 <?php
 
 use RAYVR\Storage\User\UserRepository as User;
-use \Offer;
+use \Offer, \Affiliate;
 
 class AdminController extends BaseController {
 
@@ -33,6 +33,31 @@ class AdminController extends BaseController {
 	{
 		return View::make('admin.users')
 				->with('users', $this->user->all());
+	}
+
+	/**
+	 * View affiliates
+	 */
+	public function affiliates()
+	{
+		return View::make('admin.affiliates')
+				->with('affiliates', Affiliate::all());
+	}
+
+	/**
+	 * Add new affiliate
+	 */
+	public function newAffiliate()
+	{
+		/**
+		 * Get form data
+		 */
+		$data = Input::all();
+
+		/**
+		 * Create the affiliate
+		 */
+		$affiliate = $this->user->makeAffiliate($data);
 	}
 
 	/**

@@ -182,6 +182,15 @@ Route::group(['before' => 'csrf'], function()
 			Route::get('users', 'AdminController@users');
 
 			/**
+			 * View affiliates
+			 */
+			Route::get('affiliates', 'AdminController@affiliates');
+			Route::post('affiliates', [
+				'uses' => 'AdminController@newAffiliate',
+				'as' => 'affiliates'
+			]);
+
+			/**
 			 * View all offers
 			 */
 			Route::get('offers/all', 'AdminController@offers');

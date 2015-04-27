@@ -1,6 +1,6 @@
 <?php namespace RAYVR\Storage\User;
 
-use User, Matches, Mail, Blacklist, Validator, View, Offer, Order, Omnipay\Omnipay, Voucher, Deposit, OfferPack, Stripe, Billing, Charge, Auth, Category, Interest;
+use User, Matches, Mail, Blacklist, Validator, View, Offer, Order, Omnipay\Omnipay, Voucher, Deposit, OfferPack, Stripe, Billing, Charge, Auth, Category, Interest, Affiliate;
 use RAYVR\Storage\Offer\OfferRepository as OfferRepo;
 use Hashids\Hashids as Hashids;
 use Illuminate\Support\Facades\Hash;
@@ -845,5 +845,32 @@ class EloquentUserRepository implements UserRepository {
 			return true;
 		}
 		return false;
+	}
+
+	public function makeAffiliate($data)
+	{
+		/**
+		 * Create affiliate account
+		 */
+		$a = new Affiliate();
+		$a->create($data);
+		$a->save();
+
+		/**
+		 * Generate invite code
+		 */
+		$a->invite_code = $this->hashids->encode($a->id, mt_rand(100, 100000), mt_rand(100, 100000), mt_rand(100, 100000));
+
+		/**
+		 * Make the affiliate active
+		 */
+		$a->active = true;
+
+		/**
+		 * Save the affiliate
+		 */
+		$a->save();
+
+		return $a;
 	}
 }
