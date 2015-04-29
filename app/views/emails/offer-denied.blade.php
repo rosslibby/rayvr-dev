@@ -14,7 +14,7 @@ Hi {{ $name }},
 @section('body')
 Your product was not approved due to the following reasons:
 <br>
-{{ $reasons }}
+{{ $reason }}
 <br>
 Contact us with any questions.
 <br>
