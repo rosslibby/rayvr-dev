@@ -283,23 +283,29 @@ $(document).ready(function(){
 		} else {
 			$('#email').removeClass('bg-scheme-dark');
 		}
-		if($('#profile').val() === '' || $('#profile').val() == ' ') {
-			e.preventDefault();
-			$('#profile').addClass('bg-scheme-dark');
-			$('#profile').focus();
-		} else {
-			$('#profile').removeClass('bg-scheme-dark');
-		}
-		if(($('#profile').val().indexOf('http://www.amazon.com/gp/profile/') === -1) && ($('#profile').val().indexOf('https://www.amazon.com/gp/profile/') === -1)) {
-			e.preventDefault();
-			if(!$('#profile').hasClass('follow-directions')) {
-				$('#profile_group').prepend('<div class="col-md-10 col-md-offset-1"><div class="alert alert-danger"><p class="h4 light">Follow the instructions below to find your Amazon&trade; profile URL.</p></div></div>');
-			}
-			$('#profile').addClass('bg-scheme-dark follow-directions');
-			$('#profile').focus();
-		} else {
-			$('#profile').removeClass('bg-scheme-dark follow-directions');
-		}
+
+		/*
+		 * Temporarily do not require user profile
+		 * 05/03/2015
+		 *
+		 * if($('#profile').val() === '' || $('#profile').val() == ' ') {
+		 * 	e.preventDefault();
+		 * 	$('#profile').addClass('bg-scheme-dark');
+		 * 	$('#profile').focus();
+		 * } else {
+		 * 	$('#profile').removeClass('bg-scheme-dark');
+		 * }
+		 * if(($('#profile').val().indexOf('http://www.amazon.com/gp/profile/') === -1) && ($('#profile').val().indexOf('https://www.amazon.com/gp/profile/') === -1)) {
+		 * 	e.preventDefault();
+		 * 	if(!$('#profile').hasClass('follow-directions')) {
+		 * 		$('#profile_group').prepend('<div class="col-md-10 col-md-offset-1"><div class="alert alert-danger"><p class="h4 light">Follow the instructions below to find your Amazon&trade; profile URL.</p></div></div>');
+		 * 	}
+		 * 	$('#profile').addClass('bg-scheme-dark follow-directions');
+		 * 	$('#profile').focus();
+		 * } else {
+		 * 	$('#profile').removeClass('bg-scheme-dark follow-directions');
+		 * }
+		 */
 		if($('#address').val() === '' || $('#address').val() == ' ') {
 			e.preventDefault();
 			$('#address').addClass('bg-scheme-dark');

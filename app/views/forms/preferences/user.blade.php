@@ -46,14 +46,14 @@
 
 					<hr>
 
-					<div class="form-group" id="profile_group">
+{{-- 					<div class="form-group" id="profile_group">
 						{{ Form::label('profile', 'Amazon&trade; Profile', ['class' => 'control-label required col-md-2']) }}
 						<div class="col-md-10">
 							<p class="h4 light">We need you to copy your profile link:</p>
 							<p class="h4 light">Step 1. <a href="http://www.amazon.com/gp/pdp/profile/" target="_blank">Click here <i class="fa fa-external-link"></i></a> to get it, and <strong>log in</strong> if prompted</p>
 							<p class="h4 light">Step 2. <strong>Paste the link</strong> below</p>
-{{-- 							<p>In order to use RAYVR you must link your Amazon profile to your RAYVR profile. This does not give us access to your Amazon account, it only allows us to verify that you are a legitimate Amazon shopper.</p>
-							<p>Click {{ HTML::link('http://www.amazon.com/gp/pdp/profile/', 'this link', ['target' => '_blank']) }} and, if prompted, login to Amazon. Once you arrive on your profile page, copy the url and paste it in the input below.</p> --}}
+							<p>In order to use RAYVR you must link your Amazon profile to your RAYVR profile. This does not give us access to your Amazon account, it only allows us to verify that you are a legitimate Amazon shopper.</p>
+							<p>Click {{ HTML::link('http://www.amazon.com/gp/pdp/profile/', 'this link', ['target' => '_blank']) }} and, if prompted, login to Amazon. Once you arrive on your profile page, copy the url and paste it in the input below.</p>
 						</div>
 						<div class="col-md-2">
 						</div>
@@ -62,7 +62,7 @@
 						</div>
 					</div>
 
-					<hr>
+					<hr> --}}
 				
 					<div class="form-group">
 						{{ Form::label('address', 'Address', ['class' => 'control-label required col-md-2']) }}
@@ -110,7 +110,8 @@
 							{{ Form::label(null, 'Gender', ['class' => 'control-label required col-md-2']) }}
 						</div>
 						<div class="row">
-							<div class="col-md-2 col-md-offset-2">
+							<br>
+							<div class="col-md-4">
 
 								{{--*/
 									/**
@@ -125,8 +126,8 @@
 									elseif($gender)
 										$female = 1;
 								/*--}}
-								<p class="normal col-md-12 text-right">Male&nbsp;&nbsp;{{ Form::radio('gender', '0', $male, ['id' => 'male']) }}</p>
-								<p class="normal col-md-12 text-right">Female&nbsp;&nbsp;{{ Form::radio('gender', '1', $female, ['id' => 'female']) }}</p>
+								<p class="normal col-md-6 text-right">Male&nbsp;&nbsp;{{ Form::radio('gender', '0', $male, ['id' => 'male']) }}</p>
+								<p class="normal col-md-6 text-right">Female&nbsp;&nbsp;{{ Form::radio('gender', '1', $female, ['id' => 'female']) }}</p>
 							</div>
 						</div>
 					</div>

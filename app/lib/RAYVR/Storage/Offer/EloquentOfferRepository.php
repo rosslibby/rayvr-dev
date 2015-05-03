@@ -54,6 +54,7 @@ class EloquentOfferRepository implements OfferRepository {
 		 * submitted and not verified
 		 */
 		$orders = Order::where('review',true)->where('completed',false)->get();
+
 		foreach($orders as $order)
 		{
 			/**
@@ -64,9 +65,15 @@ class EloquentOfferRepository implements OfferRepository {
 			/**
 			 * Get the user's review profile
 			 */
-			$profile = $order->user->profile;
-			$profile = explode('/', $profile);
-			$profile = 'http://www.amazon.com/gp/cdp/member-reviews/'.end($profile).'/ref=pdp_new';
+
+			/**
+			 * Temporarily do not track reviews
+			 * 05/03/2015
+			 *
+			 * $profile = $order->user->profile;
+			 * $profile = explode('/', $profile);
+			 * $profile = 'http://www.amazon.com/gp/cdp/member-reviews/'.end($profile).'/ref=pdp_new';
+			*/
 
 			/**
 			 * Get the offer's title
@@ -105,42 +112,67 @@ class EloquentOfferRepository implements OfferRepository {
 			/**
 			 * Start ye old page scraper
 			 */
-			$cc = new Copycat;
-			$cc->setCURL([
-				CURLOPT_RETURNTRANSFER => 1,
-				CURLOPT_CONNECTTIMEOUT => 5,
-				CURLOPT_HTTPHEADER, "Content-Type: text/html; charset=iso-8859-1",
-				CURLOPT_USERAGENT => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1312.57 Safari/537.17',
-				CURLOPT_PROGRESSFUNCTION => 'callback'
-			]);
 
-			$text = '#'.str_replace('/', '/', preg_quote($title)).'#';
-
-			$cc->match([
-				'review' => $text
-			])->URLs($profile);
+			/**
+			 * Temporarily do not track reviews
+			 * 05/03/2015
+			 *
+			 * $cc = new Copycat;
+			 * $cc->setCURL([
+			 * 	CURLOPT_RETURNTRANSFER => 1,
+			 * 	CURLOPT_CONNECTTIMEOUT => 5,
+			 * 	CURLOPT_HTTPHEADER, "Content-Type: text/html; charset=iso-8859-1",
+			 * 	CURLOPT_USERAGENT => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1312.57 Safari/537.17',
+			 * 	CURLOPT_PROGRESSFUNCTION => 'callback'
+			 * ]);
+			 * 
+			 * $text = '#'.str_replace('/', '/', preg_quote($title)).'#';
+			 * 
+			 * $cc->match([
+			 * 	'review' => $text
+			 * ])->URLs($profile);
+			 */
 
 			/**
 			 * Return an array of the data
 			 */
-			$result = [
-				'review' => $cc->get()[0]['review']
-			];
 
-			if($cc->get()[0]['review'])
-			{
-				array_push($reviews, $cc->get()[0]['review']);
+			/**
+			 * Temporarily do not track reviews
+			 * 05/03/2015
+			 *
+			 * $result = [
+			 * 	'review' => $cc->get()[0]['review']
+			 * ];
+			 * 
+			 * if($cc->get()[0]['review'])
+			 * {
+			 * 	array_push($reviews, $cc->get()[0]['review']);
+			 */
 
-				/**
-				 * Set the order as completed
-				 */
-				$order->completed = true;
-				$order->save();
-			}
-			else
-				array_push($reviews, 'fail');
+			/**
+			 * Set the order as completed
+			 */
+			$order->completed = true;
+			$order->save();
+
+			/**
+			 * Temporarily do not track reviews
+			 * 05/03/2015
+			 *
+			 * }
+			 * else
+			 * 	array_push($reviews, 'fail');
+			 */
 		}
-		return $reviews;
+
+		/**
+		 * Temporarily do not track reviews
+		 * 05/03/2015
+		 *
+		 * return $reviews;
+		 */
+		return true;
 	}
 
 	public function paymentMethod($id, $promotion)
