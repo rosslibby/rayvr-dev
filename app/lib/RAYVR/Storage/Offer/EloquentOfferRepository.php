@@ -1374,24 +1374,15 @@ class EloquentOfferRepository implements OfferRepository {
 	public function postpay($offer)
 	{
 		/**
-		 * Don't charge for trial
-		 * promotion
-		 */
-		if(count($offer->business->offers) == 1)
-		{
-			return true;
-		}
-
-		/**
 		 * Set the Rate Per Offer (RPO)
 		 */
 		$RPO = 5;
 
 		/**
-		 * Retrieve all orders associated
-		 * with $offer
+		 * Retrieve all accepted exposures
+		 * associated with $offer
 		 */
-		$orders = $offer->orders()->where('confirmation_number', '!=', '')->get();
+		$orders = $offer->match()->where('accept', true)->get();
 
 		/**
 		 * Calculate total cost of
@@ -1400,7 +1391,14 @@ class EloquentOfferRepository implements OfferRepository {
 		$shipping = 0;
 		foreach($orders as $order)
 		{
-			$shipping += $order->cost;
+			/**
+			 * Check if an order exists
+			 * for the selected exposure
+			 */
+			if(count(Order::where(['user_id' => $order->user_id])->get()))
+			{
+				$shipping += $order->cost;
+			}
 		}
 
 		/**
@@ -1417,8 +1415,18 @@ class EloquentOfferRepository implements OfferRepository {
 		 * + total cost of shipping ($shipping)
 		 * x 100
 		 * = $sum
+		 *
+		 * Don't charge for the 15
+		 * trial exposures
 		 */
-		$sum = ((count($orders) * $RPO) + $shipping) * 100;
+		if(count($offer->business->offers) === 1)
+		{
+			$sum = (((count($orders) - 15) * $RPO) + $shipping) * 100;
+		}
+		else
+		{
+			$sum = ((count($orders) * $RPO) + $shipping) * 100;
+		}
 
 		/**
 		 * Retrieve the Stripe customer
