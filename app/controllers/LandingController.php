@@ -86,9 +86,14 @@ class LandingController extends BaseController {
 			}
 			else
 			{
-				if(Auth::user()->postcard_sent)
-					return Redirect::to('verify');
-				return Redirect::to('preferences');
+				/**
+				 * Temporarily remove postcard
+				 * authentication requirement
+				 */
+				// if(Auth::user()->postcard_sent)
+				// 	return Redirect::to('verify');
+				// return Redirect::to('preferences');
+				return Redirect::to('offers/current');
 			}
 		}
 		else

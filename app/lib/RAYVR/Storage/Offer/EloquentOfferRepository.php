@@ -609,7 +609,7 @@ class EloquentOfferRepository implements OfferRepository {
 			 * match the promo's criteria
 			 */
 			$users = [];
-			$userArr = User::whereNotInt('id', [$blacklistArr])
+			$userArr = User::whereNotIn('id', [$blacklistArr])
 							->where('gender', '!=', $bad)
 							->where('current', false)
 							->get();

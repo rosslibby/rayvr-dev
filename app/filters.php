@@ -55,10 +55,14 @@ Route::filter('verify', function()
 		if (!Auth::user()->verified && !Auth::user()->business)
 		{
 			$user = Auth::user();
-			if($user->postcard_sent)
-			{
-				return Redirect::to('verify');
-			}
+			/**
+			 * Temporarily remove postcard
+			 * authentication requirement
+			 */
+			// if($user->postcard_sent)
+			// {
+			// 	return Redirect::to('verify');
+			// }
 		}
 	}
 });
