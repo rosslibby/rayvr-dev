@@ -13,7 +13,8 @@
 
 		<div class="row">
 			{{-- If the business has used their trial promotion already, show the quota slider --}}
-			@if(count(Auth::user()->offers))
+			{{-- Show the slider for businesses' trial promotions as well (05/03/2015) --}}
+			{{-- @if(count(Auth::user()->offers)) --}}
 				<div class="col-md-12 text-center">
 					<p class="h3 source-sans-pro"><span class="light"><strong><span class="totalCount"><span id="numOffers">{{ $maximum }}</span></strong> Products</span></p>
 					<p class="text-center"><strong>___________________________</strong></p>
@@ -37,15 +38,15 @@
 						<p>Move the slider left or right to select the number of products you have available for this promotion. The dollar amount shown is the maximum you may be charged for redemptions in this promotion. This total does not include the cost of any shipping reimbursements.</p>
 					</div>
 				</div>
-			@else
-				<div class="col-md-12 text-center">
+			{{-- @else --}}
+				{{-- <div class="col-md-12 text-center">
 					<p class="h3 source-sans-pro"><span class="light"><strong><span class="totalCount"><span id="numOffers">15</span></strong> Products</span></p>
 					<p class="text-center"><strong>___________________________</strong></p>
 					<p class="h3 source-sans-pro"><span class="light"><strong>Free Trial / <span class="fg-scheme-dark">$75 Value</span></strong></span></p>
 					<p>After your free trial of 15 free redemptions, this is where you will choose your desired number of redemptions.</p>
 					<br>
-				</div>
-			@endif
+				</div> --}}
+			{{-- @endif --}}
 		</div>
 		<br>
 		
@@ -65,7 +66,7 @@
 				<h2 class="raleway light">or</h2>
 			</div>
 			<div class="col-md-5">
-				<p class="h4">{{ Form::label('codes', 'Single-use Promotional Codes', ['class' => 'control-label raleway h4 light']) }}&nbsp;<i class="fa fa-tags"></i></p>
+				<p class="h4">{{ Form::label('codes', 'Single-use Promotional Codes - At no extra cost!', ['class' => 'control-label raleway h4 light']) }}&nbsp;<i class="fa fa-tags"></i></p>
 				<p><span class="btn btn-info btn-file">Upload a file<span id="codeFileName"></span>{{ Form::file('codes', null, ['id' => 'codes', 'class' => 'form-control']) }}</span></p>
 			</div>
 		</div>

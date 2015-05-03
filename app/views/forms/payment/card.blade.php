@@ -27,10 +27,10 @@
 				<p class="light fg-scheme-white text-left">Within three days you should receive an email regarding the status of your first campaign. Use the link included to log into your account and get things rolling.</p>
 				<p class="light fg-scheme-white text-left">Once you have logged in you can monitor progress for the campaign.</p>
 			@else
-				<h2 class="fg-scheme-white"><span class="fa fa-credit-card"></span>&nbsp;Billing</h2>
+				<h2 class="fg-scheme-white"><span class="fa fa-credit-card"></span>&nbsp;Payment Methods</h2>
 				<br>
-				<p class="h4 light fg-scheme-white text-left"><strong>We won’t charge your credit card now.</strong></p>
-				<p class="light fg-scheme-white text-left">This is just an authorization process. We will charge your credit card only upon completion of a promotion to reimburse our users for any incurred shipping expenses, and to charge for any conversions.</p>
+				<p class="h4 light fg-scheme-white text-left"><strong>We won't charge your credit card now.</strong></p>
+				<p class="light fg-scheme-white text-left">This is just an authorization process. We will charge your credit card only upon a promotion's scheduled end date to reimburse our users for any incurred shipping expenses, and to charge for any accepted exposures.</p>
 				<p class="light fg-scheme-white text-left">For more information on billing please review our {{ HTML::link('resources/terms-and-conditions', 'terms of service', ['target' => '_blank']) }} and {{ HTML::link('business/faq', 'FAQ', ['target' => '_blank']) }} pages.</p>
 			@endif
 			</div>

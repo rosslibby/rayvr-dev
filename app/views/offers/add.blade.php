@@ -90,7 +90,9 @@
 		<br> --}}
 		<!-- Quota & Dates -->
 		<h3 class="raleway">Step 2: <span class="light">Start &amp; End Dates</span></h3>
-		<p class="light">These are the desired dates that you want to run your offers. We will make sure to send out the offers between these dates. Please note that the start date is <strong>3 business days</strong> from today because we need time to review your product for quality control.</p>
+		<p class="light">These are the desired dates that you want to run your promotion. We will make sure to send out the promotion between these dates. Please note that the start date is <strong>3 business days</strong> from today because we need time to review your product for quality control. We may choose to order your product prior to your desired launch date to ensure that we offer only quality products to our users.</p>
+		<br>
+		<p class="light">(Plan for <strong>at least 3 days</strong> from today for our review process. Ensure coupon codes are active at the time you submit the promotion).</p>
 		<hr>
 
 		{{-- <div class="row">
@@ -237,6 +239,7 @@
 		<div class="row">
 			<div class="col-md-12">
 				<p class="h4 text-center">{{ Form::label('categories', 'Relevant Categories', ['class' => 'control-label raleway h4 light']) }}</p>
+				<p class="light">You can choose as many categories as you desire.</p>
 
 				<div class="col-md-12 form-horizontal">
 					@foreach ($interests as $interest)
