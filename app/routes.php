@@ -18,19 +18,8 @@ Route::get('register/welcome', [
 /**
  * Route for testing anything
  */
-Route::get('test', function(){
-	$offer = Offer::find(33);
-	$orders = $offer->match()->where('accept', true)->get();
-	foreach($orders as $order)
-	{
-		if(count(Order::where(['user_id' => $order->user_id])->get()))
-		{
-			echo "True";
-		} else {
-			echo "order dne";
-		}
-	}
-});
+// Route::get('test', function(){
+// });
 
 Route::group(['before' => 'csrf'], function()
 {
