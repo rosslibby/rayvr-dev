@@ -1,6 +1,5 @@
 @extends('layouts.dashboard-master')
 
-
 @section('sidebar')
 	@include('includes.business-sidebar')
 @stop

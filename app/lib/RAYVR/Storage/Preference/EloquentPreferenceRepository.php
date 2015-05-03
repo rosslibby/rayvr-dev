@@ -24,6 +24,7 @@ class EloquentPreferenceRepository implements PreferenceRepository {
 		/**
 		 * Get the new user's id from the entered email
 		 */
+		
 		$user_id = Session::get('new_user');
 
 		/**

@@ -125,7 +125,7 @@
 										$male = 1;
 									elseif($gender)
 										$female = 1;
-								/*--}}
+								/*--}} 
 								<p class="normal col-md-6 text-right">Male&nbsp;&nbsp;{{ Form::radio('gender', '0', $male, ['id' => 'male']) }}</p>
 								<p class="normal col-md-6 text-right">Female&nbsp;&nbsp;{{ Form::radio('gender', '1', $female, ['id' => 'female']) }}</p>
 							</div>

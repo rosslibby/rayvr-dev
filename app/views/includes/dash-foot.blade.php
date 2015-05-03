@@ -305,7 +305,7 @@ $(document).ready(function(){
 		 * } else {
 		 * 	$('#profile').removeClass('bg-scheme-dark follow-directions');
 		 * }
-		 */
+		 */ 
 		if($('#address').val() === '' || $('#address').val() == ' ') {
 			e.preventDefault();
 			$('#address').addClass('bg-scheme-dark');

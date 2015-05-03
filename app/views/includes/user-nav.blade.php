@@ -1,5 +1,5 @@
 @extends('layouts.user-dashboard-master')
-
+ 
 @section('topnav')
 	{{-- If the user is not verified, show the "verify" button --}}
 	{{-- Temporarily do not require verification --}}

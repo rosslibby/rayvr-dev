@@ -45,7 +45,7 @@ class LandingController extends BaseController {
 					/**
 					 * If the user has no approved offers,
 					 * redirect the user to the holding
-					 * page
+					 * page  
 					 */
 					if(!empty(json_decode(Offer::where('business_id',Auth::user()->id)->where('approved',true)->get())))
 					{

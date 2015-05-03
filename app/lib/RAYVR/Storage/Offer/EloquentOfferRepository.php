@@ -47,6 +47,7 @@ class EloquentOfferRepository implements OfferRepository {
 		 * Initiate array to store all reviews that we
 		 * run in
 		 */
+		
 		$reviews = [];
 
 		/**

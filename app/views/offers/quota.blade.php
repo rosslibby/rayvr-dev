@@ -74,7 +74,6 @@
 		<br>
 		<hr>
 		<br>
-
 		<div class="row">
 			<div class="col-md-12 text-center">
 				@if(count(Auth::user()->offers))

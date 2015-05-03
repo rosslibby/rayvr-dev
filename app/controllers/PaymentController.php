@@ -26,7 +26,7 @@ class PaymentController extends BaseController {
 	{
 		return View::make('forms.payment.card');
 	}
-
+ 
 	public function billing()
 	{
 		return View::make('forms.payment.card')->with('data', $this->user->stripeData(Auth::user()));

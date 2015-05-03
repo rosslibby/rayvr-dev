@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Hash;
 class EloquentUserRepository implements UserRepository {
 
 	protected $hashids;
+	
 	protected $offer;
 
 	public function __construct(Hashids $hashids, OfferRepo $offer)
