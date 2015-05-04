@@ -409,6 +409,14 @@ $(document).ready(function(){
 			}
 		});
 	});
+
+	/**
+	 * Apply discount code
+	 */
+	$('#applyDiscount').click(function(e) {
+		e.preventDefault();
+		$('#discountSpin').html('<i class="fa fa-spin fa-spinner"></i>');
+	});
 });
 </script>
 

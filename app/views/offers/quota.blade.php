@@ -22,7 +22,7 @@
 					<br>
 				</div>
 				<div class="col-md-12">
-					{{ Form::text('quota', 25, ['id' => 'quotaSlider', 'data-slider-max' => $maximum, 'data-slider-ticks-snap-bounds' => '5', 'data-slider-min' => '1', 'data-slider-step' => '1', 'style' => 'width: 100%;', 'data-placement' => 'bottom', 'data-slider-ticks' => '[1, '.$maximum.']']) }}
+					{{ Form::text('quota', $maximum, ['id' => 'quotaSlider', 'data-slider-max' => $maximum, 'data-slider-min' => '1', 'data-slider-step' => '1', 'style' => 'width: 100%;', 'data-placement' => 'bottom', 'data-slider-value' => $maximum, 'data-slider-ticks' => '[1, '.$maximum.']']) }}
 				</div>
 				<div class="row">
 					<br>
@@ -36,6 +36,16 @@
 				<div class="row">
 					<div class="col-md-10 col-md-offset-1">
 						<p>Move the slider left or right to select the number of products you have available for this promotion. The dollar amount shown is the maximum you may be charged for redemptions in this promotion. This total does not include the cost of any shipping reimbursements.</p>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-10 col-md-offset-1">
+						<p class="h4"><i class="fa fa-barcode"></i>&nbsp;{{ Form::label('code', 'Have a discount code? Enter it below and we will apply it at checkout.', ['class' => 'control-label raleway h4 light']) }}</p>
+						<div class="col-md-5">{{ Form::text('discount_code', null, ['id' => 'discount', 'class' => 'form-control subtle-input']) }}</div>
+					{{-- 	<div class="row">
+							<div class="col-md-2">{{ Form::button('Apply discount', ['class' => 'btn btn-info raleway normal', 'id' => 'applyDiscount']) }}</div>
+							<div class="col-md-1"><span id="discountSpin"></span></div>
+						</div> --}}
 					</div>
 				</div>
 			{{-- @else --}}

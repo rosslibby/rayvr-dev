@@ -2,7 +2,7 @@
 
 use RAYVR\Storage\Category\CategoryRepository as CategoryRepo;
 
-use Offer, Interest, User, Omnipay\Omnipay, Auth, Reimbursement, Mail, Matches, OfferPack, Blacklist, Voucher, Category, Copycat, Order, Stripe, DateTime, DateInterval, Charge;
+use Offer, Interest, User, Omnipay\Omnipay, Auth, Reimbursement, Mail, Matches, OfferPack, Blacklist, Voucher, Category, Copycat, Order, Stripe, DateTime, DateInterval, Charge, Discount;
 
 class EloquentOfferRepository implements OfferRepository {
 
@@ -1449,15 +1449,21 @@ class EloquentOfferRepository implements OfferRepository {
 		 * x 100
 		 * = $sum
 		 *
-		 * Don't charge for the 15
-		 * trial exposures
+		 * Adjust for any discount codes
 		 */
-		if(count($offer->business->offers) === 1)
+		if($offer->discount_code != '')
 		{
-			$sum = (((count($orders) - 15) * $RPO) + $shipping) * 100;
-		}
-		else
-		{
+			if(count(Discount::where('code', $offer->discount_code)->get()))
+			{
+				$discount = Discount::where('code', $offer->discount_code)->get();
+				$percentage = $discount->discount;
+				$sum = ((count($orders) * ($RPO * ($percentage/100))) + $shipping) * 100;
+			}
+			else
+			{
+				$sum = ((count($orders) * $RPO) + $shipping) * 100;
+			}
+		} else {
 			$sum = ((count($orders) * $RPO) + $shipping) * 100;
 		}
 

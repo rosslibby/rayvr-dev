@@ -1,6 +1,6 @@
 <?php namespace RAYVR\Storage\User;
 
-use User, Matches, Mail, Blacklist, Validator, View, Offer, Order, Omnipay\Omnipay, Voucher, Deposit, OfferPack, Stripe, Billing, Charge, Auth, Category, Interest, Affiliate;
+use User, Matches, Mail, Blacklist, Validator, View, Offer, Order, Omnipay\Omnipay, Voucher, Deposit, OfferPack, Stripe, Billing, Charge, Auth, Category, Interest, Affiliate, Discount;
 use RAYVR\Storage\Offer\OfferRepository as OfferRepo;
 use Hashids\Hashids as Hashids;
 use Illuminate\Support\Facades\Hash;
@@ -873,5 +873,22 @@ class EloquentUserRepository implements UserRepository {
 		$a->save();
 
 		return $a;
+	}
+
+	public function makeDiscount($data)
+	{
+		/**
+		 * Create discount code
+		 */
+		$d = new Discount();
+		$d->create($data);
+
+		/**
+		 * Make the discount active
+		 */
+		$d->active = true;
+		$d->save();
+
+		return $d;
 	}
 }

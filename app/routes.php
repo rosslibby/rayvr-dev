@@ -232,6 +232,15 @@ Route::group(['before' => 'csrf'], function()
 			]);
 
 			/**
+			 * Manage discount codes
+			 */
+			Route::get('discounts', 'AdminController@showDiscounts');
+			Route::post('discounts', [
+				'uses' => 'AdminController@discounts',
+				'as' => 'discounts'
+			]);
+
+			/**
 			 * Offer moderation by site moderators
 			 */
 			Route::get('offers/moderate', 'OffersController@moderate');

@@ -1,7 +1,7 @@
 <?php
 
 use RAYVR\Storage\User\UserRepository as User;
-use \Offer, \Affiliate;
+use \Offer, \Affiliate, \Discount;
 
 class AdminController extends BaseController {
 
@@ -92,5 +92,25 @@ class AdminController extends BaseController {
 	public function single($offer)
 	{
 		return View::make('admin.offers.single')->with('offer', Offer::find($offer));
+	}
+
+	/**
+	 * Show discount codes
+	 */
+	public function showDiscounts()
+	{
+		return View::make('admin.discounts')
+				->with('discounts', Discount::all());
+	}
+
+	/**
+	 * Set discount code
+	 */
+	public function discounts()
+	{
+		$d = $this->user->makeDiscount(Input::all());
+		return View::make('admin.discounts')
+				->with('success', 'Discount #'.$d->id.' created successfuly')
+				->with('discounts', Discount::all());
 	}
 }

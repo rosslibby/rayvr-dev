@@ -136,4 +136,9 @@ interface UserRepository {
 	 * Manually generate an affiliate user
 	 */
 	public function makeAffiliate($data);
+
+	/**
+	 * Manually create a discount
+	 */
+	public function makeDiscount($data);
 }
