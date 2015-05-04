@@ -1238,9 +1238,9 @@ class EloquentOfferRepository implements OfferRepository {
 			$user = $offer->business;
 			if(!$offer->business->has_email)
 			{
-				Mail::send('emails.new-offer', ['name' => $user->first_name.' '.$user->last_name, 'from' => 'The RAYVR team'], function($message) use ($user)
+				Mail::send('emails.promotion-live', ['name' => $user->first_name, 'from' => 'The RAYVR Business Team'], function($message) use ($user)
 				{
-					$message->to($user->email)->subject('Your Offer Has Started');
+					$message->to($user->email)->subject('Your Promotion Is Live');
 				});
 				$offer->business->has_email = true;
 				$offer->business->save();
@@ -1505,9 +1505,39 @@ class EloquentOfferRepository implements OfferRepository {
 		$charge->save();
 
 		if($response)
+		{
+			/**
+			 * Send email receipt
+			 */
+			Mail::send('emails.promotion-receipt', ['name' => $business->first_name, 'from' => 'The RAYVR team', 'amount' => $response->amount, 'promo_id' => $offer->id, 'description' => 'Payment for promotion #'], function($message) use ($business)
+			{
+				$message->to($business->email)->subject('RAYVR Payment Receipt');
+			});
+
+			/**
+			 * Schedule followup email
+			 */
+			Mail::send('emails.promotion-followup', ['first_name' => $business->first_name, 'last_name' => $business->last_name, 'from' => 'The RAYVR Business Team'], function($message) use ($business)
+			{
+				$message->to($business->email)->subject('Your First RAYVR Promotion Is Complete! Keep Going!');
+				$headers = $message->getHeaders();
+				$headers->addTextHeader('X-MC-SendAt', date("Y-m-d H:i:s", time()+7200));
+			});
+
 			return $response;
+		}
 		else
+		{
 			return 'No redeemed offers';
+		}
+
+		/**
+		 * Send promotion end email
+		 */
+		Mail::send('emails.promotion-end', ['name' => $business->first_name, 'from' => 'The RAYVR Business Team', 'title' => $offer->title, 'accepted' => count($orders)], function($message) use ($business)
+		{
+			$message->to($business->email)->subject('Your RAYVR Promotion Has Been Completed!');
+		});
 	}
 
 	public function closeOffers()
