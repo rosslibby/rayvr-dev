@@ -92,7 +92,12 @@ class LandingController extends BaseController {
 				 */
 				// if(Auth::user()->postcard_sent)
 				// 	return Redirect::to('verify');
-				// return Redirect::to('preferences');
+				//  return Redirect::to('preferences');
+				if(Auth::user()->first_name == '')
+				{
+					return Redirect::to('preferences');
+				}
+				return 'foo';
 				return Redirect::to('offers/current');
 			}
 		}
