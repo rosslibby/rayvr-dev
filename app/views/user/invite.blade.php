@@ -15,7 +15,7 @@
 					<div class="row">
 						<div class="col-md-10 col-md-offset-1">
 							<p class="raleway more-height h5 light">
-								Earn points by getting your friends to actively participate in RAYVR. More points = better offers!
+								Invite your friends! There's enough for everyone!
 							</p>
 						</div>
 					</div>
