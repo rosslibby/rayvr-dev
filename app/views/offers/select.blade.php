@@ -17,7 +17,7 @@
 			</div>
 			<div class="text-center">
 				@if(!is_object($matches) || Session::has('cheating'))
-					<h2 class="raleway">You have no offers at this time. Check back soon!</h2>
+					<h2 class="raleway">You have no promotions at this time. Check back soon!</h2>
 					<hr>
 					<div class="col-md-8 col-md-offset-2 raleway">
 						<div class="row">
@@ -27,7 +27,7 @@
 							<div class="col-md-9 text-left">
 								<br>
 								<br>
-								<p class="h4 light">We are currently matching you with an offer that you'll love.</p>
+								<p class="h4 light">We are currently matching you with a promotion that you'll love.</p>
 							</div>
 						</div>
 						<hr>
@@ -38,7 +38,7 @@
 							<div class="col-md-9 text-left">
 								<br>
 								<br>
-								<p class="h4 light">You will receive an email when your offer is available.</p>
+								<p class="h4 light">You will receive an email when you have a promotion available.</p>
 							</div>
 						</div>
 						<hr>
@@ -49,8 +49,8 @@
 							<div class="col-md-9 text-left">
 								<br>
 								<br>
-								<p class="h4 light">Offers are matched based on your categories of interest.</p>
-								<p class="h4 light">Want to be matched with more offer categories?</p>
+								<p class="h4 light">Promotions are matched based on your categories of interest.</p>
+								<p class="h4 light">Want to be matched with more promotion categories?</p>
 								<p class="h4 light col-md-4 col-md-offset-7 text-right">{{ HTML::link('preferences', 'Modify Interests', ['class' => 'btn btn-info']) }}</p>
 							</div>
 						</div>
@@ -111,7 +111,7 @@
 				<br>
 				<br>
 
-				<p class="source-sans-pro">Select this option to immediately reserve this offer for yourself. You will immediately receive a voucher code to redeem this offer for free.</p>
+				<p class="source-sans-pro">Select this option to immediately reserve this promotion for yourself. You will immediately receive a voucher code to redeem this promoted item for free.</p>
 			</div>
 			{{ Form::close() }}
 			<hr>

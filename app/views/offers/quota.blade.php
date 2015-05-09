@@ -86,11 +86,11 @@
 		<br>
 		<div class="row">
 			<div class="col-md-12 text-center">
-				@if(count(Auth::user()->offers))
+				{{--@if(count(Auth::user()->offers))--}}
 					{{ Form::submit('Proceed to Billing', ['class' => 'btn btn-info h2 raleway normal']) }}
-				@else
+				{{--@else
 					{{ Form::submit('Submit Offer', ['class' => 'btn btn-info h2 raleway normal']) }}
-				@endif
+				@endif--}}
 			</div>
 		</div>
 	</div>

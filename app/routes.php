@@ -304,11 +304,20 @@ Route::group(['before' => 'csrf'], function()
 			/**
 			 * User offer selector
 			 */
-			Route::get('offers/current', [
+			// Route::get('offers/current', [
+			// 	'uses' => 'UserController@matches',
+			// 	'as' => 'offers.current'
+			// ]);
+			// Route::post('offers/current', 'UserController@accept');
+			Route::get('promotions/current', [
 				'uses' => 'UserController@matches',
 				'as' => 'offers.current'
 			]);
-			Route::post('offers/current', 'UserController@accept');
+			Route::post('promotions/current', 'UserController@accept');
+			Route::get('offers/current', function()
+			{
+				return Redirect::to('promotions/current');
+			});
 
 			/**
 			 * Shipping reimbursement claims

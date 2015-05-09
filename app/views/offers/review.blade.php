@@ -14,6 +14,7 @@
 			</div>
 		@endif
 		<div class="text-center">
+			<br>
 			<h2 class="fg-scheme-white">We are reviewing your offer and will be in contact shortly.</h2>
 		</div>
 	</div>

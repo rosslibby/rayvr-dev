@@ -80,7 +80,7 @@
 				@elseif($step['step'] === 3)
 					<div class="text-center">
 						<h2 class="raleway normal"><span class="light">Feedback Time!</span></h2>
-						<p class="h4 light">Before you can receive a new offer, we need feedback on</p>
+						<p class="h4 light">Before you can receive a new promotion, we need feedback on</p>
 						<br>
 						<br>
 						<div class="row">
