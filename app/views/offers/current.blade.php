@@ -53,18 +53,7 @@
 							<p>{{ Form::text('cost', null, ['id' => 'cost', 'class' => 'form-control subtle-input text-center']) }}</p>
 						</div>
 						<br>
-						<br>
-						<hr>
-						<br>
-						<div class="col-md-8">
-							<h2 class="raleway normal">Step 4. <span class="light">Confirm Order</span>
-						</div>
-						<div class="col-md-4">
-						</div>
-						<div class="col-md-6 text-left">
-							<br>
-							<p class="source-sans-pro text-left">{{ Form::label('confirmation', 'Confirmation code', ['class' => 'control-label normal']) }}</p>
-							<p>{{ Form::text('confirmation', null, ['id' => 'confirmation', 'class' => 'form-control subtle-input text-center larger taller-input']) }}</p>
+						<div class="col-md-6">
 						</div>
 						<div class="col-md-6 text-right">
 							<br>
