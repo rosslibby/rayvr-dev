@@ -76,9 +76,13 @@ class LandingController extends BaseController {
 						return Redirect::to('offers/track');
 				}
 			}
-			else if(Auth::user()->business && Auth::user()->active == 3)
+			else if(Auth::user()->business && Auth::user()->active == 3 && Auth::user()->verified)
 			{
 				return Redirect::to('admin/control');
+			}
+			else if(Auth::user()->business && Auth::user()->active == 3 && !Auth::user()->verified)
+			{
+				return Redirect::to('admin/confirm');
 			}
 			else if(Auth::user()->verified)
 			{
@@ -93,6 +97,15 @@ class LandingController extends BaseController {
 				// if(Auth::user()->postcard_sent)
 				// 	return Redirect::to('verify');
 				//  return Redirect::to('preferences');
+				/**
+				 * Require email confirmation
+				 * instead of address
+				 * confirmation
+				 */
+				if(!Auth::user()->verified)
+				{
+					return Redirect::to('verify');
+				}
 				if(Auth::user()->first_name == '' || Auth::user()->last_name == '' || Auth::user()->address == '' || Auth::user()->country == '' || Auth::user()->city == '' || Auth::user()->zip == '')
 				{
 					return Redirect::to('preferences');

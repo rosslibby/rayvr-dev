@@ -63,6 +63,13 @@ Route::filter('verify', function()
 			// {
 			// 	return Redirect::to('verify');
 			// }
+			/**
+			 * Add user email confirmation
+			 */
+			if(!$user->verified)
+			{
+				return Redirect::to('verify');
+			}
 		}
 	}
 });

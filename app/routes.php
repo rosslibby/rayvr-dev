@@ -277,7 +277,32 @@ Route::group(['before' => 'csrf'], function()
 	/**
 	 * User-specific routes
 	 */
+	Route::get('account/confirm/{confirm}/{email}', function($confirm, $email){
+		/**
+		 * Find user where email = $email and
+		 * where confirm = $confirm
+		 */
+		$user = User::where(['email' => $email, 'confirm' => $confirm])->get();
+		if($user[0]->id)
+		{
+			$user[0]->verified = true;
+			$user[0]->save();
+			return Redirect::to('/');
+		}
+	});
 	Route::group(['before' => 'user'], function(){
+
+		/**
+		 * Send user account confirmation email
+		 */
+		Route::get('user/sendconfirm', function(){
+			$user = Auth::user();
+			Mail::send('emails.user-confirm', ['name' => null, 'from' => 'The RAYVR team', 'confirm' => $user->confirm, 'email' => $user->email], function($message) use ($user)
+			{
+				$message->to($user->email)->subject('Confirm your email address');
+			});
+			return Redirect::to('verify')->with('success', 'Check your email for your confirmation code');
+		});
 
 		/**
 		 * User support page

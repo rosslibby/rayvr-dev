@@ -1,0 +1,1 @@
+Click the link to confirm your RAYVR account: {{ HTML::link('https://rayvr.com/account/confirm/'.$confirm.'/'.$email, 'https://rayvr.com/account/confirm/'.$confirm.'/'.$email) }}
