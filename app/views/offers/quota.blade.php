@@ -5,7 +5,7 @@
 @stop
 
 @section('content')
-{{ Form::open(['route' => 'offers.store', 'files' => true]) }}
+{{ Form::open(['route' => 'offers.store', 'files' => true, 'id' => 'productPage2']) }}
 <div class="content-wrapper">
 	<div class="col-md-10 col-md-offset-1">
 		<h3 class="raleway">Step 6: <span class="light">Maximum Product Sendouts</span></h3>
