@@ -13,7 +13,7 @@
 		<hr>
 		Activated accounts: <strong>{{ count($active) }}</strong>
 		<hr>
-		% M/F Users: <strong>{{ 100/(count($musers) + count($fusers)) * count($musers) }}/{{ 100/(count($musers) + count($fusers)) * count($fusers) }}</strong>
+		% M/F Users: <strong>{{ round(100/(count($musers) + count($fusers)) * count($musers), 0, PHP_ROUND_HALF_UP) }}/{{ round(100/(count($musers) + count($fusers)) * count($fusers), 0, PHP_ROUND_HALF_UP) }}</strong>
 		<hr>
 		Number of businesses: <strong>{{ count(User::where(['active' => 1, 'business' => true])->get()) }}</strong>
 	</div>
