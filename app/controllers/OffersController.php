@@ -316,6 +316,7 @@ class OffersController extends BaseController {
 	{
 		$offers = $this->offer->unmoderated();
 		$categories = $this->offer->allCategories($offers);
+		return $categories;
 		return View::make('admin.offers.moderate')->with('offers', $categories);
 	}
 
