@@ -61,7 +61,7 @@ class LandingController extends BaseController {
 					}
 					else
 					{
-						if(!empty(json_decode(Offer::where('business_id',Auth::user()->id)->where('approved',false)->get())))
+						if(count(Offer::where('business_id',Auth::user()->id)->where(['approved' => false, 'reason' => ''])->get()))
 							return Redirect::to('offers/review');
 						return Redirect::to('offers/add');
 					}
