@@ -86,7 +86,9 @@ class LandingController extends BaseController {
 			}
 			else if(Auth::user()->verified)
 			{
-				return Redirect::to('offers/current');
+				if(Auth::user()->address && Auth::user()->email && Auth::user()->first_name && Auth::user()->last_name && Auth::user()->zip && Auth::user()->country)
+					return Redirect::to('offers/current');
+				return Redirect::to('preferences');
 			}
 			else
 			{
