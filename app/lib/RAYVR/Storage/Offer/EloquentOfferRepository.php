@@ -33,7 +33,7 @@ class EloquentOfferRepository implements OfferRepository {
 
 	public function unmoderated()
 	{
-		return Offer::where(['approved' => false, 'reason' => null])->get();
+		return Offer::where(['approved' => false, 'reason' => ''])->get();
 	}
 
 	public function approved()
