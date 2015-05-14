@@ -1,7 +1,7 @@
 @extends('layouts.email')
 
 @section('heading')
-Your offer has been submitted
+Your promotion has been submitted
 @stop
 
 @section('greeting')
@@ -9,7 +9,7 @@ Hello {{ $name }},
 @stop
 
 @section('body')
-Thanks for submitting your  offer. it will be reviewedto be sure it meets our guidelines and doesn't conflict with any other offers current in our program.
+Thanks for submitting your promotion. it will be reviewed to be sure it meets our guidelines and doesn't conflict with any other promotions current in our program.
 <br>
 You should hear back from us within 48 hours. If approved, we will order samples of your product for testing before final approval.
 <br>

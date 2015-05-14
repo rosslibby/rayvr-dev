@@ -9,7 +9,7 @@ Hello {{ $name }},
 @stop
 
 @section('body')
-Your promotion, "{{ $title }}" has now been completed and has had <strong>{{ $accepted }}</strong> people accept it. For more information, log in to your <a href="https://rayvrbusiness.com">RAYVR dashboard</a>. We will charge your credit card accordingly.
+Your promotion, "{{ $title }}" has now completed and has had <strong>{{ $accepted }}</strong> people accept it. For more information, log in to your <a href="https://rayvrbusiness.com">RAYVR dashboard</a>. We will charge your credit card accordingly.
 <br>
 <br>
 <strong>Questions?</strong>

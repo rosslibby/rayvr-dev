@@ -1,33 +1,34 @@
 @extends('layouts.email')
 
 @section('heading')
-We were unable to approve your offer
+We were unable to approve your promotion
 @stop
 
 @section('heading-accent')
 @stop
 
 @section('greeting')
-Hi {{ $name }},
+Hello {{ $name }},
 @stop
 
 @section('body')
-Your product was not approved due to the following reasons:
+Unfortunately your product was not approved for promotion on RAYVR.
 <br>
-{{ $reason }}
+You will not be charged by RAYVR. Thank you for your interest in our program. 
 <br>
-Contact us with any questions.
+However, if you have more products that you would like to promote, please feel free to do so by logging into your RAYVR dashboard and selecting ‘Add Another Promotion’.
 <br>
-<br> 
+Questions?
+<br>
+The RAYVR Support Team is here for you! If you have any questions please get in touch and we’ll help you out any way we can.
+<br>
+<br>
 Best,
 <br>
 <br>
-<em>Stuart Carter</em>
+RAYVR Business Team
 <br>
-<br>
-Cofounder, Business Development
-<br>
-<a href="mailto:stu@rayvr.com">stu@rayvr.com</a>
+<a href="mailto:support@rayvr.com">support@rayvr.com</a>
 <br>
 RAYVR
 <br>

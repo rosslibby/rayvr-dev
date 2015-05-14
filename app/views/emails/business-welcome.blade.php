@@ -9,26 +9,23 @@ RAYVR
 @stop
 
 @section('greeting')
-Welcome to RAYVR!
+Hello {{ $name }},
 @stop
 
 @section('body')
-We will contact you in the next few days to collect further information about your product offer.
+Thank you for joining RAYVR, your account is now active.
 <br>
-Looking forward to working with you!
+If you have any questions, please reply to this email and we will reply to you as soon as possible.
 <br>
+To submit a new promotion, <a href="https://rayvrbusiness.com/offers/add">Start Here</a>
 <br> 
-Cheers,
+<br>
+Kind regards,
 <br>
 <br>
-<em>Stuart Carter</em>
+<em>The RAYVR Business Team</em>
 <br>
+<a href="mailto:support@rayvr.com">support@rayvr.com</a>
 <br>
-Cofounder, Business Development
-<br>
-<a href="mailto:stu@rayvr.com">stu@rayvr.com</a>
-<br>
-RAYVR
-<br>
-<a href="http://rayvr.com">www.rayvr.com</a>
+<a href="https://rayvrbusiness.com">https://rayvrbusiness.com</a>
 @stop

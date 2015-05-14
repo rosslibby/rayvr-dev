@@ -11,6 +11,8 @@ Hi {{ $first_name }},
 @section('body')
 Congratulations on your first promotion with RAYVR!
 <br>
+Start another promotion!
+<br>
 Would you like to run another promotion of the same product with RAYVR? EASY!
 <br>
 All you need to do is login to your RAYVR dashboard and 'Add Another Promotion'. Here's the best bit...we won't need to go through the pre-approval process this time, so your promotion can start immediately!

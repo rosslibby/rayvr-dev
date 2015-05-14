@@ -241,7 +241,7 @@ class EloquentOfferRepository implements OfferRepository {
 			$category = $exclusivity;
 			Mail::send('emails.offer-approved', ['name' => $business->first_name.' '.$business->last_name, 'from' => 'The RAYVR team', 'category' => $category], function($message) use ($business)
 			{
-				$message->to($business->email)->subject('Your Offer Has Been Approved');
+				$message->to($business->email)->subject('Your Promotion Has Been Approved!');
 			});
 
 			/**
@@ -273,7 +273,7 @@ class EloquentOfferRepository implements OfferRepository {
 			$business = User::find($offer->business_id);
 			Mail::send('emails.offer-denied', ['name' => $business->first_name.' '.$business->last_name, 'from' => 'The RAYVR team', 'reason' => $reason], function($message) use ($business, $reason)
 			{
-				$message->to($business->email)->subject('Your Offer Has Been Denied');
+				$message->to($business->email)->subject('Your Promotion Was Not Approved');
 			});
 
 			return "<p>The offer for <em>" . $offer->title . "</em> has been denied.</p>";

@@ -135,6 +135,6 @@ class RegisterController extends BaseController {
 			$message->to($user->email)->subject('Welcome to RAYVR!');
 		});
 
-		return View::make('register.welcome-business');
+		return View::make('offers.add');
 	}
 }

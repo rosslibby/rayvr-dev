@@ -9,18 +9,18 @@ Reset
 @stop
 
 @section('greeting')
-Hi {{ $name }},
 @stop
 
 @section('body')
-<strong>We received a request to reset your password.</strong>
-If you believe you have received this message in error, please take no action.
+You have requested to reset your password. To reset your password, click on the link below. 
 <br>
-If you wish to reset your password, please use the following link: <a href="{{ $link }}">{{ $link }}</a>
+<a href="{{ $link }}">{{ $link }}</a>
 <br>
+If you did not request to reset your password, please disregard this email.
+<br>
+For further support, please contact us: 
 <br>
 <em>RAYVR Support</em>
-<br>
 <br>
 <a href="mailto:support@rayvr.com">support@rayvr.com</a>
 @stop

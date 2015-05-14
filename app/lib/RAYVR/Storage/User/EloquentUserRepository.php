@@ -163,6 +163,18 @@ class EloquentUserRepository implements UserRepository {
 				});
 			}
 
+			/**
+			 * Also now sending businesses
+			 * a welcome email
+			 */
+			if($c->business)
+			{
+				Mail::send('emails.business-welcome', ['name' => $user->first_name.' '.$user->last_name, 'from' => 'The RAYVR team'], function($message) use ($c)
+				{
+					$message->to($c->email)->subject('Welcome to RAYVR!');
+				});
+			}
+
 			/*****************************
 			 ** AS OF 03/07/2015 WE ARE **
 			 ** NO LONGER CHECKING      **
@@ -235,7 +247,13 @@ class EloquentUserRepository implements UserRepository {
 	{
 		$user->active = false;
 		if($user->save())
+		{
+			Mail::send('emails.account-cancel', ['name' => $user->first_name.' '.$user->last_name, 'from' => 'The RAYVR team'], function($message) use ($user)
+				{
+					$message->to($user->email)->subject('Cancelled Account- Sorry to See You Go.');
+				});
 			return ['deactivated' => true, 'message' => "Your account has been deactivated."];
+		}
 		return ['deactivated' => false, 'message' => "There was a problem deactivating your account; please contact <a href=\"/contact\">support</a>."];
 	}
 
@@ -812,7 +830,7 @@ class EloquentUserRepository implements UserRepository {
 
 		Mail::send('emails.forgot-password', ['name' => $user->first_name, 'from' => 'RAYVR Support', 'link' => $link], function($message) use ($user)
 		{
-			$message->to($user->email)->subject('Password Reset Request');
+			$message->to($user->email)->subject('Password Reset - Rayvr');
 		});
 	}
 
