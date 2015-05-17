@@ -12,6 +12,8 @@
 				<strong>Success: </strong>
 				{{ Session::get('success') }}
 			</div>
+			<br>
+			<br>
 		@endif
 		<div class="text-center">
 			<br>
