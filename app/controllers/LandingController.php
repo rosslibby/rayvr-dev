@@ -134,4 +134,8 @@ class LandingController extends BaseController {
 	{
 		return View::make('landing.contact');
 	}
+	public function busicontact()
+	{
+		return View::make('landing.business-contact');
+	}
 }

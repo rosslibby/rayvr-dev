@@ -496,6 +496,14 @@ Route::group(['before' => 'csrf'], function()
 		'as' => 'contact.primary'
 	]);
 
+/**
+	 * Business Contact page
+	 */
+	Route::get('busicontact', [
+		'uses' => 'LandingController@busicontact',
+		'as' => 'landing.busicontact'
+	]);
+
 	/**
 	 * Password reset
 	 */

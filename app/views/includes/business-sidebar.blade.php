@@ -17,4 +17,4 @@
 @endif
 {{-- Always show the Preferences and Support options --}}
 <li class="{{ Request::is('settings') ? 'active' : '' }}"><a href="/settings"><span class="glyphicon glyphicon-wrench"></span>&nbsp;&nbsp;&nbsp;&nbsp;Preferences</a></li>
-<li><a href="/contact"><i class="fa fa-phone"></i>&nbsp;&nbsp;&nbsp;&nbsp;Support</a></li>
+<li><a href="/busicontact"><i class="fa fa-phone"></i>&nbsp;&nbsp;&nbsp;&nbsp;Support</a></li>

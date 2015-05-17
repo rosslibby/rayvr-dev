@@ -26,5 +26,7 @@
 
 	</div>
 </div>
+@section('out-container')
+@show
 
 @include('includes.dash-foot')
