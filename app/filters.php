@@ -13,7 +13,20 @@
 
 App::before(function($request)
 {
-	//  
+	//  redirect www to non-www
+	if (substr($request->header('host'), 0, 4) === 'www.')
+	{
+		if(substr($request->header('host'), 5, 13) === 'rayvr.com')
+		{
+			$request->headers->set('host', 'rayvr.com');
+			return Redirect::to($request->path());
+		}
+		else
+		{
+			$request->headers->set('host', 'rayvrbusiness.com');
+			return Redirect::to($request->path());
+		}
+	}
 });
 
 
