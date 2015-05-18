@@ -31,12 +31,12 @@ Route::group(['before' => 'csrf'], function()
 			'uses' => 'SessionController@register',
 			'as' => 'session.index'
 		]);
-		if(!Auth::user())
-		{
-			Route::get('/', function(){
-				return Redirect::to('business');
-			});
-		}
+		// if(!Auth::user())
+		// {
+		// 	Route::get('/', function(){
+		// 		return Redirect::to('business');
+		// 	});
+		// }
 
 		/**
 		 * Business-specific routes
@@ -499,9 +499,9 @@ Route::group(['before' => 'csrf'], function()
 /**
 	 * Business Contact page
 	 */
-	Route::get('busicontact', [
-		'uses' => 'LandingController@busicontact',
-		'as' => 'landing.busicontact'
+	Route::get('business-contact', [
+		'uses' => 'LandingController@businesscontact',
+		'as' => 'landing.business-contact'
 	]);
 
 	/**
