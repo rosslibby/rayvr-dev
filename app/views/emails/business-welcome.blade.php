@@ -9,7 +9,7 @@ RAYVR
 @stop
 
 @section('greeting')
-Hello {{ $name }},
+Hello,
 @stop
 
 @section('body')
@@ -17,7 +17,7 @@ Thank you for joining RAYVR, your account is now active.
 <br>
 If you have any questions, please reply to this email and we will reply to you as soon as possible.
 <br>
-To submit a new promotion, <a href="https://rayvrbusiness.com/offers/add">Start Here</a>
+To submit a new promotion, <a href="https://rayvrbusiness.com/">Start Here</a>
 <br> 
 <br>
 Kind regards,
