@@ -55,15 +55,23 @@
 				</h3>
 			</div>
 			</div>
-				@include('forms.contact.inset-contact')
 				@if(Session::has('error'))
 					<br>
 					<div class="alert alert-warning alert-dismissable">
 						<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
 						{{ Session::get('error') }}
-						<strong>Try again</strong> or <strong>{{ HTML::link('register', 'Sign up') }}</strong>
+						<strong>Try again</strong>
 					</div>
 				@endif
+				@if(Session::has('success'))
+					<br>
+					<div class="alert alert-warning alert-dismissable">
+						<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+						{{ Session::get('success') }}
+						<strong>Thank you</strong>
+					</div>
+				@endif
+				@include('forms.contact.inset-contact')
 			</div>
 		</div>
 	</div>
