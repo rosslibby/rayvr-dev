@@ -837,7 +837,7 @@ class EloquentUserRepository implements UserRepository {
 		 * password
 		 */
 		$invite = $user->invite_code;
-		$link = url().'/'.$user->email.'/'.$invite.'/'.$confirm;
+		$link = url().'/reset/'.$user->email.'/'.$invite.'/'.$confirm;
 
 		Mail::send('emails.forgot-password', ['name' => $user->first_name, 'from' => 'RAYVR Support', 'link' => $link], function($message) use ($user)
 		{
