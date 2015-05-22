@@ -314,7 +314,7 @@ Route::group(['before' => 'csrf'], function()
 		/**
 		 * Invite your friends page
 		 */
-		Route::get('invite', [
+		Route::get('invite/{referral?}', [
 			'uses' => 'UserController@invite',
 			'as' => 'invite'
 		]);
