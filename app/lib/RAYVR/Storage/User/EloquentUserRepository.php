@@ -145,6 +145,9 @@ class EloquentUserRepository implements UserRepository {
 			 * 
 			 * Also send the user a welcome
 			 * email
+			 *
+			 * Also send the account
+			 * confirmation email
 			 */
 			$categories = Category::all();
 			if(!$c->business)
@@ -160,6 +163,14 @@ class EloquentUserRepository implements UserRepository {
 				Mail::send('emails.welcome', ['from' => 'The RAYVR team', 'code' => $c->invite_code], function($message) use ($c)
 				{
 					$message->to($c->email)->subject('Welcome to RAYVR!');
+				});
+
+				/**
+				 * Send the confirmation email
+				 */
+				Mail::send('emails.user-confirm', ['name' => null, 'from' => 'The RAYVR team', 'confirm' => $c->confirm, 'email' => $c->email], function($message) use ($c)
+				{
+					$message->to($c->email)->subject('Confirm your email address');
 				});
 			}
 
