@@ -35,7 +35,7 @@
 						@foreach($matches as $match)
 							{{-- */ $user = User::find($match->user_id); /* --}}
 							@if(isset($user))
-							<p>User id: <strong>{{ $user->id }}</strong> | {{ $user->first_name }} {{ $user->last_name }} | {{ $user->email }}</p>
+							<p>User id: <strong>{{ $user->id }}</strong> | {{ $user->first_name }} {{ $user->last_name }} | {{ $user->email }} | {{ Order::where(['user_id' => $user->id, 'offer_id' => $user->current])->get(['code']) }}</p>
 							<p>Ordered:
 								@if(count(Order::where(['offer_id' => $offer->id, 'user_id' => $user->id])->get()))
 								<strong>Yes</strong></p>
