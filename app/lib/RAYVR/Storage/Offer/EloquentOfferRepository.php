@@ -1321,7 +1321,8 @@ class EloquentOfferRepository implements OfferRepository {
 				/**
 				 * Fetch the offer's matches
 				 */
-				$matches = Matches::where('offer_id', $offer->id)->get();
+				$matches = Matches::where('offer_id', $offer->id)
+								->where('live', true)->get();
 
 				/**
 				 * If the matching breaks, this is why
@@ -1361,7 +1362,7 @@ class EloquentOfferRepository implements OfferRepository {
 					 * Check if the user is currently in an
 					 * offer
 					 */
-					if($user->current == 0 && $counter < $daily)
+					if($user->current == NULL && $counter < $daily)
 					{
 						/**
 						 * Set the match to live
@@ -1385,7 +1386,7 @@ class EloquentOfferRepository implements OfferRepository {
 						 */
 						if(!$user->has_email)
 						{
-							Mail::send('emails.new-offer', ['name' => $user->first_name, 'from' => 'The RAYVR team'], function($message) use ($user)
+							Mail::send('emails.new-offer', ['name' => $user->first_name.' '.$user->last_name, 'from' => 'The RAYVR team'], function($message) use ($user)
 							{
 								$message->to($user->email)->subject('You have a new promotion waiting for you!');
 							});
