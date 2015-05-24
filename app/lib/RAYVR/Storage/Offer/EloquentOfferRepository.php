@@ -578,7 +578,7 @@ class EloquentOfferRepository implements OfferRepository {
 		 */
 		$promotions = Offer::where('end', '>=', $date)
 						->where('approved', true)
-						->where('billing', true)
+						->where('billing', '!=', '')
 						->get();
 		return json_encode($promotions);
 
