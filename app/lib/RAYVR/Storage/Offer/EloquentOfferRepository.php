@@ -1317,7 +1317,6 @@ class EloquentOfferRepository implements OfferRepository {
 				 * Re-determine $daily
 				 */
 				$daily = (int)(($offer->quota - count($accepted)) / ($timespan - $elapsed));
-				return $daily;
 
 				/**
 				 * Fetch the offer's matches
@@ -1357,6 +1356,7 @@ class EloquentOfferRepository implements OfferRepository {
 					 * Find the user associated with the match
 					 */
 					$user = $match['user'];
+					return json_encode($user);
 
 					/**
 					 * Check if the user is currently in an
