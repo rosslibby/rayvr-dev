@@ -1262,7 +1262,6 @@ class EloquentOfferRepository implements OfferRepository {
 					->where('start', '<', $date)
 					->where('approved', true)
 					->get();
-		return json_encode($offers);
 
 		/**
 		 * If the $offers array returned
@@ -1323,6 +1322,7 @@ class EloquentOfferRepository implements OfferRepository {
 				 * Fetch the offer's matches
 				 */
 				$matches = Matches::where('offer_id', $offer->id)->get();
+				return json_encode($matches);
 
 				/**
 				 * If the matching breaks, this is why
