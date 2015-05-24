@@ -524,7 +524,21 @@ class EloquentUserRepository implements UserRepository {
 		{
 			$current = $this->current($user)[0];
 
-			$step_1 = "<span class=\"normal\">Copy this promo code to use at checkout </span><span class=\"label\">" . $current->code . "</span>";
+			/**
+			 * Temporarily disable code display:
+			 * 05/24/2015
+			 * until 1400 PST
+			 */
+			date_default_timezone_set('America/New_York');
+			$tempThen = date('Y-m-d H:i:s', strtotime('2015-05-24 17:00:00'));
+			$tempNow = date('Y-m-d H:i:s');
+
+			if($tempNow < $tempThen)
+			{
+				$step_1 = "<span class=\"normal\">Sorry, your discount code won't be ready until 5pm EST. See you soon!</span>";
+			} else {
+				$step_1 = "<span class=\"normal\">Copy this promo code to use at checkout </span><span class=\"label\">" . $current->code . "</span>";
+			}
 			$step_2 = "Step 2. <span class=\"normal\">Did you pay anything for shipping? If <strong>no</strong>, just click \"I didn't pay for shipping.\"; otherwise, enter your shipping cost below.";
 			$step_3 = "Step 3. <span class=\"normal\">Try out your offer as soon as you receive it, and leave a review <a href=\"".$current->review_link."\" target=\"_blank\">here</a>. Then, copy + paste the text from your review to the box below to complete your offer!</span>";
 
