@@ -580,7 +580,6 @@ class EloquentOfferRepository implements OfferRepository {
 						->where('approved', true)
 						->where('billing', '!=', '')
 						->get();
-		return json_encode($promotions);
 
 		/**
 		 * Iterate through promotions

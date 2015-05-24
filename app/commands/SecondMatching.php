@@ -54,7 +54,7 @@ class SecondMatching extends ScheduledCommand {
 	public function fire()
 	{
 		$this->line('Matching users to promotions');
-		$this->line($this->offer->secondMatching());
+		$this->offer->secondMatching();
 		$this->line('The matches have been made');
 		Log::info('Users matched with promotions.');
 	}
