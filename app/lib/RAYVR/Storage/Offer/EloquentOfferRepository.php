@@ -1363,6 +1363,8 @@ class EloquentOfferRepository implements OfferRepository {
 					 */
 					if($user->current == 0 && $counter < $daily)
 					{
+						if($user->id > 244)
+							return $user->id;
 						/**
 						 * Set the match to live
 						 */
