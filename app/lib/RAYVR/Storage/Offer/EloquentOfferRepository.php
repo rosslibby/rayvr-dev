@@ -1322,7 +1322,7 @@ class EloquentOfferRepository implements OfferRepository {
 				 * Fetch the offer's matches
 				 */
 				$matches = Matches::where('offer_id', $offer->id)
-								->where('live', false)->get();
+								->where('live', true)->get();
 
 				/**
 				 * If the matching breaks, this is why
