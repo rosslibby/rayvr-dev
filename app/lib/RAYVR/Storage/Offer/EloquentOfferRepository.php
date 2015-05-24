@@ -1279,6 +1279,7 @@ class EloquentOfferRepository implements OfferRepository {
 				 * Determine the offer's overall time-span
 				 */
 				$timespan = abs(strtotime($offer->end) - strtotime($offer->start)) / 86400;
+				return $timespan;
 
 				/**
 				 * Determine the number of offers that must
@@ -1387,7 +1388,6 @@ class EloquentOfferRepository implements OfferRepository {
 						 */
 						if(!$user->has_email)
 						{
-							return json_encode($user);
 							Mail::send('emails.new-offer', ['name' => $user->first_name, 'from' => 'The RAYVR team'], function($message) use ($user)
 							{
 								$message->to($user->email)->subject('You have a new promotion waiting for you!');
