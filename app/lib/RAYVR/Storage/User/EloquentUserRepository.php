@@ -535,7 +535,7 @@ class EloquentUserRepository implements UserRepository {
 
 			if($tempNow < $tempThen)
 			{
-				$step_1 = "<span class=\"normal\">Sorry, your discount code won't be ready until <strong>5pm EST</strong>. See you soon!</span>";
+				$step_1 = "<span class=\"normal\">Sorry, your discount code won't be ready until <strong>5pm EST</strong>. We'll email you when it's ready. See you soon!</span>";
 			} else {
 				$step_1 = "<span class=\"normal\">Copy this promo code to use at checkout </span><span class=\"label\">" . $current->code . "</span>";
 			}
