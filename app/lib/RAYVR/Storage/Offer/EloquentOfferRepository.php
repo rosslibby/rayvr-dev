@@ -1321,10 +1321,8 @@ class EloquentOfferRepository implements OfferRepository {
 				/**
 				 * Fetch the offer's matches
 				 */
-				// $matches = Matches::where('offer_id', $offer->id)
-				// 				->where('live', false)->get();
 				$matches = Matches::where('offer_id', $offer->id)
-								->where('live', true)->get();
+								->where('live', false)->get();
 
 				/**
 				 * If the matching breaks, this is why
@@ -1364,7 +1362,7 @@ class EloquentOfferRepository implements OfferRepository {
 					 * Check if the user is currently in an
 					 * offer
 					 */
-					if($user->current == 0 && $counter < $daily)
+					if($user->current == NULL && $counter < $daily)
 					{
 						/**
 						 * Set the match to live
