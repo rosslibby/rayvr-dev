@@ -568,6 +568,7 @@ class EloquentOfferRepository implements OfferRepository {
 		 * Determine today's date
 		 */
 		$date = date('Y-m-d');
+		return $date;
 
 		/**
 		 * Select all promotions that
