@@ -1383,6 +1383,7 @@ class EloquentOfferRepository implements OfferRepository {
 						 * Send only to users that want an email
 						 * notification
 						 */
+						return $user->id;
 						if(!$user->has_email)
 						{
 							return $user->id;
