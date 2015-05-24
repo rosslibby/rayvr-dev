@@ -568,7 +568,6 @@ class EloquentOfferRepository implements OfferRepository {
 		 * Determine today's date
 		 */
 		$date = date('Y-m-d');
-		return $date;
 
 		/**
 		 * Select all promotions that
@@ -581,6 +580,7 @@ class EloquentOfferRepository implements OfferRepository {
 						->where('approved', true)
 						->where('billing', true)
 						->get();
+		return json_encode($promotions);
 
 		/**
 		 * Iterate through promotions
