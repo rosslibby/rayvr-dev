@@ -1349,7 +1349,6 @@ class EloquentOfferRepository implements OfferRepository {
 				 * until the $daily quota is met
 				 */
 				$counter = 0;
-				return count($matches);
 				foreach($matches as $match)
 				{
 					$match = Matches::find($match['id']);
@@ -1362,7 +1361,7 @@ class EloquentOfferRepository implements OfferRepository {
 					 * Check if the user is currently in an
 					 * offer
 					 */
-					if($user->current == NULL && $counter < $daily)
+					if($user->current == 0 && $counter < $daily)
 					{
 						/**
 						 * Set the match to live
