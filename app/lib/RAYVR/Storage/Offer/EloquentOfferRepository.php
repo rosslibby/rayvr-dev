@@ -1383,10 +1383,8 @@ class EloquentOfferRepository implements OfferRepository {
 						 * Send only to users that want an email
 						 * notification
 						 */
-						return $user->id;
 						if(!$user->has_email)
 						{
-							return $user->id;
 							Mail::send('emails.new-offer', ['name' => $user->first_name, 'from' => 'The RAYVR team'], function($message) use ($user)
 							{
 								$message->to($user->email)->subject('You have a new promotion waiting for you!');
