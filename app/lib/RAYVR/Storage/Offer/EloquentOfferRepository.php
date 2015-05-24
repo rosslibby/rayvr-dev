@@ -1356,7 +1356,6 @@ class EloquentOfferRepository implements OfferRepository {
 					 * Find the user associated with the match
 					 */
 					$user = $match['user'];
-					echo "going...\n";
 
 					/**
 					 * Check if the user is currently in an
@@ -1364,6 +1363,7 @@ class EloquentOfferRepository implements OfferRepository {
 					 */
 					if($user->current == 0 && $counter < $daily)
 					{
+						echo "Matching user #".$user->id."\n";
 						/**
 						 * Set the match to live
 						 */
@@ -1386,6 +1386,7 @@ class EloquentOfferRepository implements OfferRepository {
 						 */
 						if(!$user->has_email)
 						{
+							echo "Emailing user #".$user->id.": ".$user->email."\n";
 							Mail::send('emails.new-offer', ['name' => $user->first_name.' '.$user->last_name, 'from' => 'The RAYVR team'], function($message) use ($user)
 							{
 								$message->to($user->email)->subject('You have a new promotion waiting for you!');
