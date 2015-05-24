@@ -1355,8 +1355,8 @@ class EloquentOfferRepository implements OfferRepository {
 					/**
 					 * Find the user associated with the match
 					 */
+					return json_encode($match->user);
 					$user = $match['user'];
-					return json_encode($user);
 
 					/**
 					 * Check if the user is currently in an
@@ -1364,8 +1364,6 @@ class EloquentOfferRepository implements OfferRepository {
 					 */
 					if($user->current == 0 && $counter < $daily)
 					{
-						if($user->id > 244)
-							return $user->id;
 						/**
 						 * Set the match to live
 						 */
