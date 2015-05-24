@@ -1349,6 +1349,7 @@ class EloquentOfferRepository implements OfferRepository {
 				 * until the $daily quota is met
 				 */
 				$counter = 0;
+				return count($matches);
 				foreach($matches as $match)
 				{
 					$match = Matches::find($match['id']);
