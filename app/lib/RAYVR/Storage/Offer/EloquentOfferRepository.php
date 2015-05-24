@@ -1330,11 +1330,11 @@ class EloquentOfferRepository implements OfferRepository {
 				 * new user has the opportunity to be
 				 * matched with an offer
 				 */
-				// $newMatches = $this->match($offer);
-				// if(!empty($newMatches))
-				// 	$matches = array_merge(json_decode($matches, true), json_decode($newMatches, true));
-				// else
-				// 	$matches = json_decode($matches, true);
+				$newMatches = $this->match($offer);
+				if(!empty($newMatches))
+					$matches = array_merge(json_decode($matches, true), json_decode($newMatches, true));
+				else
+					$matches = json_decode($matches, true);
 				/**
 				 * End the new code breaking
 				 */
