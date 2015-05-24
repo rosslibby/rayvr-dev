@@ -1279,7 +1279,6 @@ class EloquentOfferRepository implements OfferRepository {
 				 * Determine the offer's overall time-span
 				 */
 				$timespan = abs(strtotime($offer->end) - strtotime($offer->start)) / 86400;
-				return $timespan;
 
 				/**
 				 * Determine the number of offers that must
@@ -1318,6 +1317,7 @@ class EloquentOfferRepository implements OfferRepository {
 				 * Re-determine $daily
 				 */
 				$daily = (int)(($offer->quota - count($accepted)) / ($timespan - $elapsed));
+				return $daily;
 
 				/**
 				 * Fetch the offer's matches
