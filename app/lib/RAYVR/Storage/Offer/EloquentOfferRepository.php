@@ -1357,6 +1357,8 @@ class EloquentOfferRepository implements OfferRepository {
 					 */
 					$user = $match->user;
 
+					return $daily;
+
 					/**
 					 * Check if the user is currently in an
 					 * offer
