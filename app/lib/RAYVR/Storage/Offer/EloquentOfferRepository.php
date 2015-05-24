@@ -1352,6 +1352,7 @@ class EloquentOfferRepository implements OfferRepository {
 				foreach($matches as $match)
 				{
 					$match = Matches::find($match['id']);
+					return json_encode($match);
 					/**
 					 * Find the user associated with the match
 					 */
