@@ -52,7 +52,7 @@ class OfferDistribution extends ScheduledCommand {
 	public function fire()
 	{
 		$this->line('Redistributing offer assignments in order to meet the quotas on time...');
-		$this->offer->distribute();
+		$this->line($this->offer->distribute());
 		$this->line('The offers have been redistributed as necessary.');
 	}
 
