@@ -1355,8 +1355,7 @@ class EloquentOfferRepository implements OfferRepository {
 					/**
 					 * Find the user associated with the match
 					 */
-					return json_encode($match->user);
-					$user = $match['user'];
+					$user = $match->user;
 
 					/**
 					 * Check if the user is currently in an
