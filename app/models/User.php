@@ -66,7 +66,7 @@ class User extends Ardent implements UserInterface, RemindableInterface, Billabl
 	/**
 	 * Deny for mass assignment
 	 */
-	protected $guarded = array('id');
+	protected $guarded = ['id'];
 
 	/**
 	 * Get the unique identifier for the user.

@@ -1,6 +1,6 @@
 <?php
 
-use RAYVR\Storage\User\UserRepository as User;
+use RAYVR\Storage\User\UserRepository as User, \Stripe;
 
 class LandingController extends BaseController {
 
@@ -54,7 +54,7 @@ class LandingController extends BaseController {
 						 * a membership, direct the user to
 						 * the membership page
 						 */
-						if(!Auth::user()->billing)
+						if(!count(Stripe_Customer::retrieve(Auth::user()->stripe_customer)->sources->all(['object' => 'card'])->data))
 							return Redirect::to('billing');
 						else
 							return Redirect::to('offers/track');
