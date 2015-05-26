@@ -33,7 +33,7 @@
 						<hr>
 						<br>
 						<h2 class="raleway normal">Step 2. <span class="light">Order Product</span></h2>
-						<h3 class="raleway normal">Order product on Amazon using promo code</h3>
+						<h3 class="raleway normal">Order product on Amazon using promo code. <strong>If you are not a Prime member, select only <em>standard</em> shipping. We currently reimburse only standard shipping costs to the continental United States.</h3>
 						<p class="text-right col-md-11">{{ HTML::link($step['link'], 'View Product on Amazon&trade;', ['target' => '_blank', 'class' => 'btn btn-info']) }}</p>
 						<br>
 						<br>
