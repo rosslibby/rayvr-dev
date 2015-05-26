@@ -153,7 +153,7 @@ class EloquentOrderRepository implements OrderRepository {
 			'paid_shipping' => true,
 			'reimbursed' => false
 		];
-		$shipping = Order::where($conditions)->get();
+		$shipping = Order::where($conditions)->where('cost', '>', 0)->get();
 		return $shipping;
 	}
 
