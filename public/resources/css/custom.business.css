@@ -14,12 +14,7 @@ body
 	width: 100%;
 	padding: 50px 0 100px 0;
 	background-size: 25%;
-	background-image: url(../img/business/dash-bg.jpg);
-}
-
-.no-bg
-{
-	background-image: none;
+	background-color: #2E3740;
 }
 
 .content-wrapper

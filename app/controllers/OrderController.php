@@ -83,8 +83,9 @@ class OrderController extends BaseController {
 	 */
 	public function moderateShipping()
 	{
+		$claims = $this->order->moderateClaim();
 		return View::make('admin.orders.moderate-shipping')
-				->with('claims', $this->order->moderateClaim());
+				->with('claims', $claims);
 	}
 
 	/**

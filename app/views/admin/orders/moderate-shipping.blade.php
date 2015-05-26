@@ -9,7 +9,7 @@
 				<strong>{{ Session::get('success') }}</strong>
 			</div>
 		@endif
-		@if(Session::has('claims'))
+		@if(count($claims))
 		{{ Form::open(['post' => 'shipping/approve']) }}
 		<ul class="list-group">
 			@foreach($claims as $claim)
@@ -19,7 +19,7 @@
 					|
 					{{ $claim->user->email }}
 					|
-					{{ $claim->cost }}
+					<strong>$ {{ money_format('%.2n', $claim->cost) }}</strong>
 					</span>
 					<!-- actual data -->
 					{{ Form::hidden('order', $claim) }}
