@@ -17,6 +17,11 @@ body
 	background-image: url(../img/business/dash-bg.jpg);
 }
 
+.no-bg
+{
+	background-image: none;
+}
+
 .content-wrapper
 {
 	float: left;
