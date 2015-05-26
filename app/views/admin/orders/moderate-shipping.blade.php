@@ -15,11 +15,13 @@
 			@foreach($claims as $claim)
 				<li class="list-group-item">
 					<span class="col-md-10">
-					{{ $claim->offer_id }}
+					Promo: #{{ $claim->offer_id }}
 					|
-					{{ $claim->user->email }}
+					User: #{{ $claim->user->id }} - {{ $claim->user->email }}
 					|
-					<strong>$ {{ money_format('%.2n', $claim->cost) }}</strong>
+					Order: #{{ $claim->confirmation_number }}
+					|
+					Cost: <strong>$ {{ money_format('%.2n', $claim->cost) }}</strong>
 					</span>
 					<!-- actual data -->
 					{{ Form::hidden('order', $claim) }}
