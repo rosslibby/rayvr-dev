@@ -22,7 +22,7 @@
 
 		<!-- Offer selector -->
 		<div class="row">
-			{{ Form::open(['url' => 'order/confirm']) }}
+			{{ Form::open(['url' => 'order/confirm', 'id' => 'orderConfirm']) }}
 			<div class="col-md-8 col-md-offset-2">
 				@if($step['step'] === 1)
 					<div class="text-left">
@@ -51,6 +51,10 @@
 							<p>Enter exact shipping cost to be reimbursed</p>
 							<br>
 							<p>{{ Form::text('cost', null, ['id' => 'cost', 'class' => 'form-control subtle-input text-center']) }}</p>
+							<br>
+							<p>Enter your Amazon comfirmation code</p>
+							<br>
+							<p>{{ Form::text('confirmation', null, ['id' => 'confirmationNumber', 'class' => 'form-control subtle-input text-center']) }}</p>
 						</div>
 						<br>
 						<div class="col-md-6">
@@ -59,7 +63,7 @@
 							<br>
 							<br>
 							<br>
-							<p>{{ Form::button('Order Complete', ['type' => 'submit', 'class' => 'btn btn-success larger heavy raleway']) }}</p>
+							<p>{{ Form::submit('Order Complete', ['type' => 'submit', 'class' => 'btn btn-success larger heavy raleway']) }}</p>
 							<br>
 							<br>
 							<br>

@@ -416,4 +416,15 @@ $(document).ready(function(){
 		e.preventDefault();
 		$('#discountSpin').html('<i class="fa fa-spin fa-spinner"></i>');
 	});
+
+	/**
+	 * Confirm order
+	 */
+	$('#orderConfirm').submit(function(e) {
+			if($('#cost').val() !== '' && $('#confirmationNumber').val() === '') {
+			e.preventDefault();
+			$('#confirmationNumber').addClass('has-error');
+			$('#confirmationNumber').focus();
+		}
+	});
 });
