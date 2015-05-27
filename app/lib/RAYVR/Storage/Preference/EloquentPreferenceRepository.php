@@ -128,7 +128,7 @@ class EloquentPreferenceRepository implements PreferenceRepository {
 		{
 			$user->times_updated = 1;
 			$user->save();
-			return \Redirect::route('billing')
+			return \Redirect::route('business.preferences')
 				->with('success', 'Your account setup is complete.');
 		}
 		else
@@ -138,7 +138,7 @@ class EloquentPreferenceRepository implements PreferenceRepository {
 
 			if($user->business)
 			{
-				return Redirect::route('business.preferences')
+				return \Redirect::route('business.preferences')
 					->with('success', 'Your settings have been saved');
 			}
 		}

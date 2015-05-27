@@ -54,10 +54,10 @@
 		<div class="row">
 			<br>
 			<!-- Product image -->
-			<div class="col-md-2 col-md-offset-1 well">
+			<!-- <div class="col-md-2 col-md-offset-1 well">
 				{{ HTML::image($photo, $title, ['id' => 'product-photo']) }}
 				{{ Form::text('photo', $photo, ['id' => 'photo_input', 'class' => 'hidden-input']) }}
-			</div>
+			</div> -->
 
 			<!-- Product title -->
 			<div class="col-md-9 text-left">
