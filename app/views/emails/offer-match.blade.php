@@ -5,7 +5,7 @@ You have a
 @stop
 
 @section('heading-accent')
-new offer!
+new promotion!
 @stop
 
 @section('greeting')
@@ -13,9 +13,11 @@ Hello {{ $name }},
 @stop
 
 @section('body')
-You have a new offer!
+You have a new promotion!
 <br>
 Log in to <a href="http://rayvr.com/login">rayvr.com</a> to check it out!
+<br>
+Don't delay! All promotions are available for limited time <strong>and<strong> quantity- don't miss out!
 <br>
 <br> 
 Best,
