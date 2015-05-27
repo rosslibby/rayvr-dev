@@ -8,7 +8,7 @@
 <div class="col-md-10 col-md-offset-1">
 	<br>
 	<br>
-	<p><strong>{{ HTML::link('offers/track', '&larr; Return to Track Offers', ['class' => 'well fg-scheme-dark raleway']) }}</strong></p>
+	<p><strong>{{ HTML::link('offers/track', '&larr; Return to Track Promotions', ['class' => 'well fg-scheme-dark raleway']) }}</strong></p>
 	<hr>
 	{{-- {{ HTML::image($offer['offer']->photo, null, ['class' => 'well', 'width' => 150]) }} --}}
 	<p class="raleway h4 light"><strong>Promotion:</strong> {{ $offer['offer']->title }}&nbsp;|&nbsp;{{ date('M.j', strtotime($offer['offer']->start)) }} &rarr; {{ date('M. j', strtotime($offer['offer']->end)) }}&nbsp;<a href="{{ $offer['offer']->link }}" target="_blank" class="h5"><span class="glyphicon glyphicon-link"></span></a></p>
@@ -31,7 +31,7 @@
 		<div class="col-md-5 col-md-offset-1">
 			<div class="row">
 				<ul class="list-group">
-					<li class="list-group-item row h4 text-left raleway light">Redeemed Promotions</li>
+					<li class="list-group-item row h4 text-left raleway light">Claimed Promotions</li>
 					@foreach($offer['orders']['data']['orders'] as $order)
 						<li class="list-group-item row">
 							<div id="order-number" class="order-number col-md-6 text-left">
