@@ -1580,6 +1580,57 @@ class EloquentOfferRepository implements OfferRepository {
 		$promo->delete();
 	}
 
+	public function fetchProduct($input)
+	{
+		if(\Request::ajax())
+		{
+			$url = $input['url'];
+
+			/**
+			 * Start ye old page scraper
+			 */
+			$cc = new Copycat;
+			$cc->setCURL(array(
+				CURLOPT_RETURNTRANSFER => 1,
+				CURLOPT_CONNECTTIMEOUT => 5,
+				CURLOPT_HTTPHEADER, "Content-Type: text/html; charset=iso-8859-1",
+				CURLOPT_USERAGENT => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1312.57 Safari/537.17',
+				CURLOPT_PROGRESSFUNCTION => 'callback'
+			));
+
+			$cc->match([
+				'title'				=> '/id="productTitle" class="a-size-large">(.*?)</ms',
+				'photo'				=> '/data-a-dynamic-image="{&quot;(.*?)&quot;/',
+				'description'		=> '/%22productDescriptionWrapper%22%3E%0A(.*?)%3Ch3%20class%3D%22productDescriptionSource/',
+				'alt_description'	=> '/%3D%22productDescriptionWrapper%22%3E%0A(.*?)%0A/',
+				'asin'				=> '/data-asin="(.*?)"/'
+			])->URLs($url)
+			->callback([
+				'_all_' => array('trim')
+			]);
+
+			/**
+			 * Make sure description exists
+			 */
+			$description = $cc->get()[0]['description'];
+			if($description == "")
+				$description = $cc->get()[0]['alt_description'];
+
+			/**
+			 * Return an array of the data
+			 */
+			$product = [
+				'photo' => $cc->get()[0]['photo'],
+				'title' => $cc->get()[0]['title'],
+				'description' => urldecode($description),
+				'url' => $url,
+				'asin' => $cc->get()[0]['asin']
+			];
+
+			return $product;
+		}
+	}
+
 	/*****************************
 	 ** AS OF 03/07/2015 WE ARE **
 	 ** NO LONGER CHECKING      **

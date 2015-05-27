@@ -123,6 +123,11 @@ interface OfferRepository {
 	 */
 	public function deletePromo($id);
 
+	/**
+	 * Fetch product data
+	 */
+	public function fetchProduct($input);
+
 	/*****************************
 	 ** AS OF 03/07/2015 WE ARE **
 	 ** NO LONGER CHECKING      **
