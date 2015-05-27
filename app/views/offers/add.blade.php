@@ -12,15 +12,15 @@
 			@endif
 			<br>
 			<h3 class="raleway fg-scheme-white">Step 1: <span class="light">Product Information</span></h3>
-			<h3 class="raleway fg-scheme-white"><i class="fa fa-link"></i>&nbsp;Enter the Amazon link to your product</h3>
-			<p class="light fg-scheme-white">This will pull your product title, photo, and ASIN from the Amazon&trade; listing.</p>
+			<h3 class="raleway fg-scheme-yellow"><i class="fa fa-link"></i>&nbsp;Enter the Amazon&trade; link to your product</h3>
+			<p class="light fg-scheme-white">This will pull your <strong>product title</strong>, <strong>photo</strong>, and <strong>ASIN</strong> from the Amazon&trade; listing.</p>
 
 			{{ Form::open(['', 'id' => 'fetch']) }}
 
 				<div class="col-md-10 col-md-offset-1">
 					<div class="row">
 						<div class="col-md-9 col-md-offset-1">
-							{{ Form::text('url', null, ['class' => 'form-control bg-scheme-transparent-gray', 'id' => 'url', 'autofocus']) }}
+							{{ Form::text('url', null, ['class' => 'form-control bg-scheme-transparent-gray', 'id' => 'url', 'autofocus', 'placeholder' => 'Amazon&trade; product link']) }}
 						</div>
 						{{ Form::submit('FETCH DATA', ['class' => 'btn btn-primary']) }}
 					</div>
@@ -34,6 +34,9 @@
 								<div id="progress" class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
 									<span class="sr-only">0% Complete</span>
 								</div>
+							</div>
+							<div id="successfulFetch" class="fg-scheme-white">
+								Your product data has been successfuly fetched.
 							</div>
 						</div>
 					</div>

@@ -160,6 +160,14 @@ $(document).ready(function(){
 					progress++;
 				}, 3);
 
+				/** Display a success message **/
+				setInterval(function(){
+					if($("#progress").attr('aria-valuenow') == 100)
+					{
+						$("#successfulFetch").slideDown();
+					}
+				}, 1);
+
 				// Log the data temporarily
 				console.log(data);
 

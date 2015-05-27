@@ -183,6 +183,9 @@ iframe#product-description
 
 .hidden-input { display: none; }
 
+/** product fetch success message **/
+#successfulFetch { display: none; }
+
 /** payments **/
 
 .card-data input { border: none; }
