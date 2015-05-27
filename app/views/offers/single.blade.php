@@ -6,6 +6,8 @@
 
 @section('contentarea')
 <div class="col-md-10 col-md-offset-1">
+	<br>
+	<br>
 	<p><strong>{{ HTML::link('offers/track', '&larr; Return to Track Offers', ['class' => 'well fg-scheme-dark raleway']) }}</strong></p>
 	<hr>
 	{{-- {{ HTML::image($offer['offer']->photo, null, ['class' => 'well', 'width' => 150]) }} --}}
@@ -16,7 +18,7 @@
 			<h3 class="raleway">Claimed: <span class="light">{{ count($offer['offer']->orders) }}</span></h3>
 		</div>
 		<div class="col-md-4">
-			<h3 class="raleway">Redeemed: <span class="light">{{ count($offer['offer']->orders()->where('confirmation_number', '!=', '')->get()) }}</span></h3>
+			<h3 class="raleway">Progress: <span class="light">{{ count($offer['offer']->orders) }} / {{ $offer['offer']->quota }}</span></h3>
 		</div>
 		<div class="col-md-4">
 			<h3 class="raleway">Completed: <span class="light">{{ count($offer['offer']->orders()->where('completed', true)->get()) }}</span></h3>

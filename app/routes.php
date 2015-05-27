@@ -69,7 +69,7 @@ Route::group(['before' => 'csrf'], function()
 			]);
 
 			/**
-			 * Offers ordered
+			 * Promotions ordered
 			 */
 			Route::get('promotions/track/{id}', [
 				'uses' => 'OffersController@single',
