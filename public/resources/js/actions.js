@@ -193,7 +193,13 @@ $(document).ready(function(){
 
 	/** Date range **/
 	var date = new Date();
-	$('.input-daterange').datepicker({  startDate: new Date() });
+
+	/** Set start date to 3 days in future **/
+	var startDate = date.setDate(date.getDate() + 3);
+	var startAt = new Date(startDate);
+	$('.input-daterange').datepicker({
+		startDate: startAt
+	});
 
 	/** Free shipping = no cost to ship **/
 	$("#shippingCost").hide();
