@@ -16,7 +16,7 @@
 		</div>
 		@endif
 		<div class="text-center">
-			<h2 class="fg-scheme-white"><i class="glyphicon glyphicon-list"></i>&nbsp;Your offers</h2>
+			<h2 class="fg-scheme-white"><i class="glyphicon glyphicon-list"></i>&nbsp;Your Promotions</h2>
 		</div>
 
 		@foreach($offers as $offer)
@@ -40,7 +40,7 @@
 							</div>
 						</div>
 					</div>
-					{{ HTML::link('/offers/track/'.$offer['offer']->id, 'VIEW OFFER', ['class' => 'btn btn-success']) }}
+					{{ HTML::link('/promotions/track/'.$offer['offer']->id, 'VIEW PROMO', ['class' => 'btn btn-success']) }}
 					&nbsp;
 					<a href="{{ $offer['offer']->link }}" target="_blank" class="h5 fg-scheme-white"><span class="glyphicon glyphicon-link"></span></a>
 				</div>

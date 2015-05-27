@@ -71,7 +71,7 @@ Route::group(['before' => 'csrf'], function()
 			/**
 			 * Offers ordered
 			 */
-			Route::get('offers/track/{id}', [
+			Route::get('promotions/track/{id}', [
 				'uses' => 'OffersController@single',
 				'as' => 'offers.single'
 			]);
@@ -543,11 +543,27 @@ Route::group(['before' => 'csrf'], function()
 		/**
 		 * Offers
 		 */
-		Route::post('offers/fetch', 'OffersController@fetch');
+		Route::post('promotions/fetch', 'OffersController@fetch');
 
-		Route::get('offers/add', 'OffersController@add');
 
-		Route::get('offers/billing', 'OffersController@billing');
+		Route::get('offers/add', function()
+		{
+			//use new naming conventions
+			return Redirect::to('promotions/new');
+		});
+
+		Route::get('promotions/new', [
+			'uses' => 'OffersController@add',
+			'as' => 'offers.add'
+		]);
+
+		Route::get('offers/billing', function()
+		{
+			//use new naming conventions
+			return Redirect::to('promotions/new/billing');
+		});
+
+		Route::get('promotions/new/billing', 'OffersController@billing');
 
 		/**
 		 * Select credit card as billing method
@@ -557,7 +573,7 @@ Route::group(['before' => 'csrf'], function()
 			'as' => 'billing.select'
 		]);
 
-		Route::post('offers/add', [
+		Route::post('promotions/add', [
 			'uses' => 'OffersController@quota',
 			'as' => 'offers.quota'
 		]);
@@ -567,7 +583,13 @@ Route::group(['before' => 'csrf'], function()
 			'as' => 'offers.store'
 		]);
 
-		Route::get('offers/track', [
+		Route::get('offers/track', function()
+		{
+			//use new naming conventions
+			return Redirect::to('promotions/track');
+		});
+
+		Route::get('promotions/track', [
 			'uses' => 'OffersController@track',
 			'as' => 'offers.track'
 		]);

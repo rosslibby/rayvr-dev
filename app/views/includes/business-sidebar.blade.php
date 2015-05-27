@@ -3,7 +3,7 @@
 
 {{-- If the business has any approved offers, show the entire menu --}}
 @if(!empty(json_decode($offers)))
-<li class="{{ Request::is('offers/track*') ? 'active' : '' }}"><a href="/offers/track"><span class="glyphicon glyphicon-stats"></span>&nbsp;&nbsp;&nbsp;&nbsp;Track Offers</a></li>
+<li class="{{ Request::is('offers/track*') ? 'active' : '' }}"><a href="/offers/track"><span class="glyphicon glyphicon-stats"></span>&nbsp;&nbsp;&nbsp;&nbsp;Track Promotions</a></li>
 @endif
 @if(Auth::user()->stripe_customer)
 	{{-- @if(!empty(json_decode($offers))) --}}
