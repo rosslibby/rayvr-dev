@@ -116,6 +116,10 @@ Route::group(['before' => 'csrf'], function()
 				'uses' => 'PaymentController@subscribe',
 				'as' => 'payments'
 			]);
+			Route::post('promotions/new/billing', [
+				'uses' => 'PaymentController@subscribe',
+				'as' => 'promotion.billing'
+			]);
 
 			/**
 			 * Pay shipping deposit

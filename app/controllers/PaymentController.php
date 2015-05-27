@@ -29,7 +29,7 @@ class PaymentController extends BaseController {
  
 	public function billing()
 	{
-		return View::make('forms.payment.card')->with('data', $this->user->stripeData(Auth::user()));
+		return View::make('forms.payment.select')->with('data', $this->user->stripeData(Auth::user()));
 		// return $this->user->postpay($this->offer->find(5));
 	}
 

@@ -44,20 +44,16 @@
 @stop
 
 @section('content')
-<br>
-<br>
 {{ Form::open(['route' => 'offers.quota', 'files' => true, 'id' => 'productPage1']) }}
 <div class="content-wrapper">
 	<div class="col-md-10 col-md-offset-1">
-		<hr>
 
 		<div class="row">
-			<br>
 			<!-- Product image -->
-			<!-- <div class="col-md-2 col-md-offset-1 well">
+			{{-- <div class="col-md-2 col-md-offset-1 well">
 				{{ HTML::image($photo, $title, ['id' => 'product-photo']) }}
-				{{ Form::text('photo', $photo, ['id' => 'photo_input', 'class' => 'hidden-input']) }}
-			</div> -->
+			</div> --}}
+			{{ Form::text('photo', $photo, ['id' => 'photo_input', 'class' => 'hidden-input']) }}
 
 			<!-- Product title -->
 			<div class="col-md-9 text-left">
@@ -71,9 +67,7 @@
 			<!-- Product ASIN -->
 			{{ Form::hidden('asin', $asin = null, ['id' => 'asin_input', 'class' => 'hidden-input']) }}
 		</div>
-
-		<br>
-		<br>
+		
 {{-- 		<!-- Review page link -->
 		<h3 class="raleway">Step 2: <span class="light">Link to Review Page</span></h3>
 		<hr>
