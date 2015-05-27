@@ -43,7 +43,7 @@ class OfferPay extends ScheduledCommand {
 	 */
 	public function schedule(Schedulable $scheduler)
 	{
-		return $scheduler->daily()->hours(22);
+		return $scheduler;
 	}
 
 	/**
