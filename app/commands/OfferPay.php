@@ -56,7 +56,7 @@ class OfferPay extends ScheduledCommand {
 		$this->line('Discovering offers that ended yesterday...');
 		$this->line($offers = $this->offer->closeOffers());
 		$this->line('The offers have been closed and charged for.');
-		Log::info('Offer closeout completed with offers: '.json_encode($offers));
+		Log::info('Offer closeout completed with promotions: '.json_encode($offers));
 	}
 
 	/**
