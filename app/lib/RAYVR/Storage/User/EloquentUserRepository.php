@@ -601,6 +601,16 @@ class EloquentUserRepository implements UserRepository {
 		$email = $user->email;
 
 		/**
+		 * Add discount code to
+		 * promotion if applicable
+		 */
+		$discount = $input['discount_code'];
+		$promotion = \Session::get('promotion')['id'];
+		$promotion = Offer::find($promotion);
+		$promotion->discount_code = $discount;
+		$promotion->save();
+
+		/**
 		 * Create a new Stripe customer
 		 * if one does not already exist
 		 * for this user
@@ -633,8 +643,17 @@ class EloquentUserRepository implements UserRepository {
 			 * business to the "new offer" page
 			 */
 			if($verify)
-				return \Redirect::to('offers/add');
-			return \Redirect::to('billing')->with('fail', 'Your card failed to verify. Please try a different card.');
+			{
+				/**
+				 * We are no longer adding
+				 * card prior to product
+				 * entry
+				 */
+				// return \Redirect::to('offers/add');
+
+				return \Redirect::to('promotions/track');
+			}
+			return \Redirect::to('promotions/new/billing')->with('fail', 'Your card failed to verify. Please try a different card.');
 		}
 		else
 		{
@@ -663,7 +682,7 @@ class EloquentUserRepository implements UserRepository {
 			/**
 			 * Show a thank-you message
 			 */
-			return \Redirect::to('billing')->with('success', 'Your payment information has been saved successfully.');
+			return \Redirect::to('promotions/track')->with('success', 'Your promotion has been submitted successfully.');
 		}
 	}
 

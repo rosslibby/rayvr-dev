@@ -210,6 +210,11 @@ class OffersController extends BaseController {
 		$s = $this->offer->categories($data, $categories, Auth::user()->id);
 
 		/**
+		 * Store the offer in a session variable
+		 */
+		Session::put('promotion', $s);
+
+		/**
 		 * Redirect based on the offer's success code:
 		 * 1: No action required
 		 * 2: Purchase Prime offers
