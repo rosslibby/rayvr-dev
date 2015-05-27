@@ -116,6 +116,9 @@ body
 	color: #CCC;
 	border-right: 4px solid #E9573F;
 }
+
+.fg-scheme-yellow { color: #febd69; }
+
 .sidebar .nav-sidebar a
 {
 	color: #487788;
