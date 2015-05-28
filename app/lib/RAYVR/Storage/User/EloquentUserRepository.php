@@ -1,6 +1,6 @@
 <?php namespace RAYVR\Storage\User;
 
-use User, Matches, Mail, Blacklist, Validator, View, Offer, Order, Omnipay\Omnipay, Voucher, Deposit, OfferPack, Stripe, Billing, Charge, Auth, Category, Interest, Affiliate, Discount;
+use User, Matches, Mail, Blacklist, Validator, View, Offer, Order, Omnipay\Omnipay, Voucher, Deposit, OfferPack, Stripe, Billing, Charge, Auth, Category, Interest, Affiliate, Discount, Email;
 use RAYVR\Storage\Offer\OfferRepository as OfferRepo;
 use Hashids\Hashids as Hashids;
 use Illuminate\Support\Facades\Hash;
@@ -965,5 +965,25 @@ class EloquentUserRepository implements UserRepository {
 		$d->save();
 
 		return $d;
+	}
+
+
+	public function orderReminder(){
+		$now    = date('Y-m-d H:i:s');
+		$day    = strtotime($now.'- 23 hours');
+		$before  = date('Y-m-d H:i:s', $day);
+		$day    = strtotime($now.'- 24 hours');
+		$after = date('Y-m-d H:i:s', $day);
+		$orders = Order::where('created_at', '>', $after)
+					   ->where('created_at', '<', $before)
+					   ->where('confirmation_number', '')
+					   ->get();
+		foreach ($orders as $order) {
+			$user = User::find($order->user_id);
+			Mail::queue('emails.order-reminder', ['name' => $user->first_name, 'from' => 'The RAYVR team'], function($message) use ($user)
+				{
+					$message->to($user->email)->subject('Don\'t Forget To Order Your Offer');
+				});
+		}
 	}
 }

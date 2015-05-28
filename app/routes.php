@@ -18,8 +18,8 @@ Route::get('register/welcome', [
 /**
  * Route for testing anything
  */
-// Route::get('test', function(){
-// });
+//Route::get('test', function(){
+//});
 
 Route::group(['before' => 'csrf'], function()
 {

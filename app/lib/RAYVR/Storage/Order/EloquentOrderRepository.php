@@ -371,10 +371,11 @@ class EloquentOrderRepository implements OrderRepository {
 	public function confirm($user, $confirmation)
 	{
 		$order = Order::where(['user_id' => $user->id, 'offer_id' => $user->current])->get()[0];
-		// Temporarily do not require order confirmation number
+		// Do not require order confirmation number for Prime users
 		// instead, enter a false number
 		$order->confirmation_number = $confirmation;
-		//$order->confirmation_number = 'implicitly_confirmed';
+		if($confirmation == '')
+			$order->confirmation_number = 'implicitly_confirmed';
 		$order->save();
 		$successMsg = "Your order has been confirmed with code <strong>" . $confirmation . "</strong>";
 

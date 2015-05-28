@@ -141,4 +141,11 @@ interface UserRepository {
 	 * Manually create a discount
 	 */
 	public function makeDiscount($data);
+
+
+	/**
+	 * Send reminder email to order
+	 */
+	public function orderReminder();
+
 }
