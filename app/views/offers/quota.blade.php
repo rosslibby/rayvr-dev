@@ -68,6 +68,7 @@
 			<div class="col-md-5">
 				<p class="h4">{{ Form::label('codes', 'Single-use Promotional Codes - At no extra cost!', ['class' => 'control-label raleway h4 light']) }}&nbsp;<i class="fa fa-tags"></i></p>
 				<p><span class="btn btn-info btn-file">Upload a file<span id="codeFileName"></span>{{ Form::file('codes', null, ['id' => 'codes', 'class' => 'form-control']) }}</span></p>
+				<p class="light">Please use only .txt files for code lists.</p>
 			</div>
 		</div>
 
