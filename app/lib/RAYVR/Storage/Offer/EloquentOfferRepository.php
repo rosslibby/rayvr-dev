@@ -9,12 +9,14 @@ class EloquentOfferRepository implements OfferRepository {
 	protected $category;
 	protected $user;
 	protected $order;
+	protected $discount;
 
-	public function __construct(CategoryRepo $category, User $user, Order $order)
+	public function __construct(CategoryRepo $category, User $user, Order $order, Discount $discount)
 	{
 		$this->category = $category;
 		$this->user = $user;
 		$this->order = $order;
+		$this->discount = $discount;
 
 		/**
 		 * Set up Omnipay
@@ -1411,6 +1413,9 @@ class EloquentOfferRepository implements OfferRepository {
 	{
 		/**
 		 * Set the Rate Per Offer (RPO)
+		 * This is the cost in USD of
+		 * each product that is
+		 * accepted by a user
 		 */
 		$RPO = 5;
 
@@ -1431,7 +1436,7 @@ class EloquentOfferRepository implements OfferRepository {
 			 * Check if an order exists
 			 * for the selected exposure
 			 */
-			if(count(Order::where(['user_id' => $order->user_id])->get()))
+			if(count(Order::where(['user_id' => $order->user_id, 'offer_id' => $offer->id])->get()))
 			{
 				$shipping += $order->cost;
 			}
@@ -1456,9 +1461,9 @@ class EloquentOfferRepository implements OfferRepository {
 		 */
 		if($offer->discount_code != '')
 		{
-			if(count(Discount::where('code', $offer->discount_code)->get()))
+			if(count($this->discount->where('code', $offer->discount_code)->get()))
 			{
-				$discount = Discount::where('code', $offer->discount_code)->get();
+				$discount = $this->discount->where('code', $offer->discount_code)->get()[0];
 				$percentage = $discount->discount;
 				$sum = ((count($orders) * ($RPO * ($percentage/100))) + $shipping) * 100;
 			}
@@ -1471,8 +1476,8 @@ class EloquentOfferRepository implements OfferRepository {
 		}
 
 		/**
-		 * Retrieve the Stripe customer
-		 * associated with the business
+		 * Retrieve the Stripe card
+		 * associated with the promotion
 		 */
 		$customer = \Stripe_Customer::retrieve($offer->business->stripe_customer);
 
@@ -1487,7 +1492,7 @@ class EloquentOfferRepository implements OfferRepository {
 				'amount' => $sum,
 				'currency' => 'usd',
 				'customer' => $customer,
-				// 'source' => $offer->billing
+				'source' => $offer->billing
 			]);
 		}
 
@@ -1506,6 +1511,12 @@ class EloquentOfferRepository implements OfferRepository {
 		$charge->card_id = $customer->sources->data[0]->id;
 		$charge->charge = ($sum/100);
 		$charge->save();
+
+		/**
+		 * Set up the business to
+		 * receive the invoice
+		 */
+		$business = $this->user->find($offer->business_id);
 
 		if($response)
 		{
@@ -1545,7 +1556,9 @@ class EloquentOfferRepository implements OfferRepository {
 
 	public function closeOffers()
 	{
-		$date = date('Y-m-d');
+		$endDate = date('Y-m-d');
+		$closeDate = strtotime($endDate.' -1 days');
+		$date = date('Y-m-d', $closeDate);
 		$offers = Offer::where('end', '<', $date)->where('billed', false)->get();
 		if(count($offers))
 		{
