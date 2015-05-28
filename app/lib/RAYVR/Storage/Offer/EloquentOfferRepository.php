@@ -1571,6 +1571,7 @@ class EloquentOfferRepository implements OfferRepository {
 				foreach($offer->match()->where(['accept' => false])->get() as $match)
 				{
 					$match->live = false;
+					$match->save();
 				}
 
 				return $this->postpay($offer);
