@@ -516,12 +516,18 @@ class EloquentUserRepository implements UserRepository {
 					 * to order the offer
 					 */
 
-					Mail::send('emails.order-reminder', ['name' => $user->first_name.' '.$user->last_name, 'from' => 'The RAYVR team'], function($message) use ($user)
-					{
-						$message->to($user->email)->subject('Don\'t Forget To Order Your Offer');
-						$headers = $message->getHeaders();
-						$headers->addTextHeader('X-MC-SendAt', date("Y-m-d H:i:s", time()+86400));
-					});
+					/**
+					 * We no longer need this block
+					 * as it runs in a different
+					 * function with a cron job
+					 */
+
+					// Mail::send('emails.order-reminder', ['name' => $user->first_name.' '.$user->last_name, 'from' => 'The RAYVR team'], function($message) use ($user)
+					// {
+					// 	$message->to($user->email)->subject('Don\'t Forget To Order Your Free Product');
+					// 	$headers = $message->getHeaders();
+					// 	$headers->addTextHeader('X-MC-SendAt', date("Y-m-d H:i:s", time()+86400));
+					// });
 				}
 			}
 		}
@@ -982,7 +988,7 @@ class EloquentUserRepository implements UserRepository {
 			$user = User::find($order->user_id);
 			Mail::queue('emails.order-reminder', ['name' => $user->first_name, 'from' => 'The RAYVR team'], function($message) use ($user)
 				{
-					$message->to($user->email)->subject('Don\'t Forget To Order Your Offer');
+					$message->to($user->email)->subject('Don\'t Forget To Order Your Free Product');
 				});
 		}
 	}
