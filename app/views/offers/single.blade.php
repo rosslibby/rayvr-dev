@@ -14,15 +14,16 @@
 	<p class="raleway h4 light"><strong>Promotion:</strong> {{ $offer['offer']->title }}&nbsp;|&nbsp;{{ date('M.j', strtotime($offer['offer']->start)) }} &rarr; {{ date('M. j', strtotime($offer['offer']->end)) }}&nbsp;<a href="{{ $offer['offer']->link }}" target="_blank" class="h5"><span class="glyphicon glyphicon-link"></span></a></p>
 	<hr class="dashed">
 	<div class="row">
-		<div class="col-md-4">
+		<div class="col-md-6">
 			<h3 class="raleway">Claimed: <span class="light">{{ count($offer['offer']->orders) }}</span></h3>
 		</div>
-		<div class="col-md-4">
+		<div class="col-md-6">
 			<h3 class="raleway">Progress: <span class="light">{{ count($offer['offer']->orders) }} / {{ $offer['offer']->quota }}</span></h3>
 		</div>
-		<div class="col-md-4">
+{{-- We don't need to show the businesses review tracking at this point in time
+ 		<div class="col-md-4">
 			<h3 class="raleway">Completed: <span class="light">{{ count($offer['offer']->orders()->where('completed', true)->get()) }}</span></h3>
-		</div>
+		</div> --}}
 	</div>
 	<hr class="dashed">
 
