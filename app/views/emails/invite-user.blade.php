@@ -1,11 +1,10 @@
 @extends('layouts.email')
 
 @section('heading')
-You're
+You're Invited
 @stop
 
 @section('heading-accent')
-Invited
 @stop
 
 @section('greeting')
@@ -17,12 +16,7 @@ Hi {{ $name }},
 <br>
 Join the only program that connects you with high quality FREE products - all we need is your feedback.
 <br>
-Sign up today to be matched with your first product offer:
+Sign up today to be matched with your first promotion:
 <br>
 <a href="http://rayvr.com/register/{{ $code }}" class="underline btn btn-success">Join RAYVR Today</a>
-<br>
-<br>
-<em>The RAYVR team</em>
-<br>
-<a href="mailto:info@rayvr.com">info@rayvr.com</a>
 @stop

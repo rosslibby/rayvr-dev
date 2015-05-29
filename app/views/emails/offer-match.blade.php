@@ -1,15 +1,14 @@
 @extends('layouts.email')
 
 @section('heading')
-You have a 
+You have a new promotion!
 @stop
 
 @section('heading-accent')
-new promotion!
 @stop
 
 @section('greeting')
-Hello {{ $name }},
+Hi {{ $name }},
 @stop
 
 @section('body')
@@ -17,15 +16,5 @@ You have a new promotion!
 <br>
 Log in to <a href="http://rayvr.com/login">rayvr.com</a> to check it out!
 <br>
-Don't delay! All promotions are available for limited time <strong>and<strong> quantity- don't miss out!
-<br>
-<br> 
-Best,
-<br>
-<br>
-<em>RAYVR Team</em>
-<br>
-<a href="mailto:info@rayvr.com">info@rayvr.com</a>
-<br>
-<a href="http://rayvr.com">rayvr.com</a>
+Don't delay! All promotions are available for limited <strong>time</strong> and <strong>quantity</strong> - don't miss out!
 @stop

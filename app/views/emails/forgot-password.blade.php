@@ -1,11 +1,10 @@
 @extends('layouts.email')
 
 @section('heading')
-Password 
+RAYVR Password Reset
 @stop
 
 @section('heading-accent')
-Reset
 @stop
 
 @section('greeting')
@@ -18,9 +17,5 @@ You have requested to reset your password. To reset your password, click on the 
 <br>
 If you did not request to reset your password, please disregard this email.
 <br>
-For further support, please contact us: 
-<br>
-<em>RAYVR Support</em>
-<br>
-<a href="mailto:support@rayvr.com">support@rayvr.com</a>
+For further support, please contact us: <a href="mailto:support@rayvr.com">support@rayvr.com</a>
 @stop

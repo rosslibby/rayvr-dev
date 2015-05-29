@@ -37,16 +37,4 @@ If our users were charged shipping and wish to be reimbursed, then we will reimb
 The RAYVR Support Team is here for you! If you have any questions about your promotion, need to change the date, or update 
 the coupon code(s), please get in touch by replying to this email or submitting the ‘contact us’ form at rayvr.com and we’ll 
 help you out any way we can.
-<br>
-<br>
-Best,
-<br>
-<br>
-RAYVR Business Team
-<br>
-<a href="mailto:support@rayvr.com">support@rayvr.com</a>
-<br>
-RAYVR
-<br>
-<a href="http://rayvr.com">www.rayvr.com</a>
 @stop
