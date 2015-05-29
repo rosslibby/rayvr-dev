@@ -8,23 +8,13 @@ Did your product arrive?
 @stop
 
 @section('greeting')
-Hello {{ $name }},
+Hi {{ $name }},
 @stop
 
 @section('body')
-Did your product arrive? It should be soon.
+Did your product arrive? It should be there soon!
 <br>
-Use it and login to <a href="http://rayvr.com/login">rayvr.com</a> to leave feedback as soon as you can!
+Try it out and login to <a href="http://rayvr.com/login">rayvr.com</a> to leave feedback as soon as you can!
 <br>
-You can't get another another promotion match until you do!
-<br>
-<br> 
-Best,
-<br>
-<br>
-<em>RAYVR Team</em>
-<br>
-<a href="mailto:info@rayvr.com">info@rayvr.com</a>
-<br>
-<a href="http://rayvr.com">rayvr.com</a>
+You can't get another another promotion until you do!
 @stop

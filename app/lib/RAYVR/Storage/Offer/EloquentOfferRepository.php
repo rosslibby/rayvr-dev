@@ -1576,6 +1576,7 @@ class EloquentOfferRepository implements OfferRepository {
 
 				return $this->postpay($offer);
 			}
+			echo "The promotions have been closed and charged for.\n";
 			return $offers;
 		}
 		return 'No offers to charge for.';
