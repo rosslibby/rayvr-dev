@@ -18,13 +18,8 @@ Route::get('register/welcome', [
 /**
  * Route for testing anything
  */
-Route::get('test', function(){
-	$users = User::paginate(2);
-    foreach ($users as $user):
-        echo $user->first_name."\n";
-    endforeach;
-	echo $users->links();
-});
+// Route::get('test', function(){
+// });
 
 Route::group(['before' => 'csrf'], function()
 {
