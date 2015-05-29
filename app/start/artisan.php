@@ -19,3 +19,4 @@ Artisan::add(new OfferPay($offer));
 Artisan::add(new CheckReviews($offer));
 Artisan::add(new SecondMatching($offer));
 Artisan::add(new OrderReminder($user));
+Artisan::add(new ReviewReminder($user));

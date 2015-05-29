@@ -12,9 +12,11 @@ Hello {{ $name }},
 @stop
 
 @section('body')
-Did your product arrive? Use it and login to <a href="http://rayvr.com/login">rayvr.com</a> to leave feedback as soon as you can!
+Did your product arrive? It should be soon.
 <br>
-Our speediest members get the best new offers!
+Use it and login to <a href="http://rayvr.com/login">rayvr.com</a> to leave feedback as soon as you can!
+<br>
+You can't get another another promotion match until you do!
 <br>
 <br> 
 Best,

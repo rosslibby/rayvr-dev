@@ -385,18 +385,6 @@ class EloquentOrderRepository implements OrderRepository {
 		$user->has_email = false;
 		$user->save();
 
-		/**
-		 * Schedule review-reminder email
-		 * for user
-		 */
-		Mail::send('emails.review-reminder', ['name' => $user->first_name.' '.$user->last_name, 'from' => 'The RAYVR team'], function($message) use ($user)
-		{
-			$message->to($user->email)->subject('Don\'t Forget: Leave Feedback For Your Offer');
-
-			$headers = $message->getHeaders();
-			$headers->addTextHeader('X-MC-SendAt', date('Y-m-d H:i:s', strtotime(date('Y-m-d H:i:s'). ' + 2 days')));
-		});
-
 		return \Redirect::to('offers/current')->with('success', $successMsg);
 	}
 

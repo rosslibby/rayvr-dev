@@ -28,6 +28,7 @@ class AdminController extends BaseController {
 
 	/**
 	 * View user accounts
+	 * *No longer used*
 	 */
 	public function users()
 	{

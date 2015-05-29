@@ -5,6 +5,7 @@
 	<div class="col-md-12">
 
 		<div class="list-group col-md-10 col-md-offset-1">
+			<br>
 			@foreach($users as $user)
 				<div class="list-group-item">
 					<span class="col-md-2"><strong>ID: </strong>{{ $user->id }} <i class="fa fa-arrow-circle-o-right"></i></span>
@@ -32,6 +33,7 @@
 					@endif
 				</div>
 			@endforeach
+			{{ $users->links(); }}
 		</div>
 
 	</div>

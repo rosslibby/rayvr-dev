@@ -18,8 +18,13 @@ Route::get('register/welcome', [
 /**
  * Route for testing anything
  */
-//Route::get('test', function(){
-//});
+Route::get('test', function(){
+	$users = User::paginate(2);
+    foreach ($users as $user):
+        echo $user->first_name."\n";
+    endforeach;
+	echo $users->links();
+});
 
 Route::group(['before' => 'csrf'], function()
 {
@@ -182,7 +187,16 @@ Route::group(['before' => 'csrf'], function()
 			/**
 			 * View users
 			 */
-			Route::get('users', 'AdminController@users');
+			Route::get('users', function(){
+				return View::make('admin.users')->with('users', User::paginate(20));
+			});
+
+			/**
+			 * View user's feednack
+			 */
+			Route::get('feedback', function(){
+				return View::make('admin.feedback')->with('comments', Feedback::paginate(5));
+			});
 
 			/**
 			 * View affiliates

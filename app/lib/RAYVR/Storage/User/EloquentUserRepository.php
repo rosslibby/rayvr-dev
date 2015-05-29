@@ -973,23 +973,99 @@ class EloquentUserRepository implements UserRepository {
 		return $d;
 	}
 
-
 	public function orderReminder(){
+
+		/**
+		 * Get a time range of 23-24 hours ago
+		 */
 		$now    = date('Y-m-d H:i:s');
 		$day    = strtotime($now.'- 23 hours');
 		$before  = date('Y-m-d H:i:s', $day);
 		$day    = strtotime($now.'- 24 hours');
 		$after = date('Y-m-d H:i:s', $day);
+
+		/**
+		 * Find unshipped orders from that range
+		 */
 		$orders = Order::where('created_at', '>', $after)
 					   ->where('created_at', '<', $before)
 					   ->where('confirmation_number', '')
 					   ->get();
 		foreach ($orders as $order) {
 			$user = User::find($order->user_id);
+
+			/**
+			 * Send order-reminder email
+			 * for users that haven't
+			 */
 			Mail::queue('emails.order-reminder', ['name' => $user->first_name, 'from' => 'The RAYVR team'], function($message) use ($user)
 				{
 					$message->to($user->email)->subject('Don\'t Forget To Order Your Free Product');
 				});
+		}
+	}
+
+	public function reviewReminder(){
+
+		/**
+		 * Get a time range of 47-48 hours ago
+		 */
+		$now    = date('Y-m-d H:i:s');
+		$day    = strtotime($now.'- 47 hours');
+		$before  = date('Y-m-d H:i:s', $day);
+		$day    = strtotime($now.'- 48 hours');
+		$after = date('Y-m-d H:i:s', $day);
+
+		/**
+		 * Find Prime orders from that range
+		 */
+		$orders = Order::where('created_at', '>', $after)
+					   ->where('created_at', '<', $before)
+					   ->where('confirmation_number', 'implicitly_confirmed')
+					   ->get();
+		foreach ($orders as $order) {
+			$user = User::find($order->user_id);
+			
+			/**
+			 * Send review-reminder email
+			 * for Prime users
+			 */
+			Mail::queue('emails.review-reminder', ['name' => $user->first_name, 'from' => 'The RAYVR team'], function($message) use ($user)
+			{
+				$message->to($user->email)->subject('Don\'t Forget: Leave Feedback For Your Offer');
+			});
+		}
+
+		/**
+		 * Get a time range of 119-120 hours ago
+		 * (5 days ago)
+		 */
+		$day    = strtotime($now.'- 119 hours');
+		$before  = date('Y-m-d H:i:s', $day);
+		$day    = strtotime($now.'- 120 hours');
+		$after = date('Y-m-d H:i:s', $day);
+
+		/**
+		 * Find non-Prime orders from that range
+		 */
+		$orders = Order::where('created_at', '>', $after)
+					   ->where('created_at', '<', $before)
+					   ->where('confirmation_number', '!=', 'implicitly_confirmed')
+					   ->where('confirmation_number', '!=', '')
+					   ->get();
+		
+		//echo $after.' '.$before."\n".$orders;
+		foreach ($orders as $order) {
+			$user = User::find($order->user_id);
+
+			/**
+			 * Send review-reminder email
+			 * for non-Prime users
+			 */
+			Mail::queue('emails.review-reminder', ['name' => $user->first_name, 'from' => 'The RAYVR team'], function($message) use ($user)
+			{
+				$message->to($user->email)->subject('Don\'t Forget: Leave Feedback For Your Offer');
+			});
 		}
 	}
 }
