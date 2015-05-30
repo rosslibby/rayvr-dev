@@ -57,7 +57,7 @@ class OrderController extends BaseController {
 		if($this->order->feedback(Input::all(), Auth::user()))
 			return Redirect::route('offers.current')->with('success', 'Thanks for your feedback!');
 		else
-			return Redirect::route('offers.feedback');
+			return Redirect::route('promotions.feedback');
 	}
 
 	/**

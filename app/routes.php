@@ -390,11 +390,11 @@ Route::group(['before' => 'csrf'], function()
 			/**
 			 * Leave feedback for offer
 			 */
-			Route::get('offers/feedback', [
+			Route::get('promotions/feedback', [
 				'uses' => 'OrderController@feedback',
-				'as' => 'offers.feedback'
+				'as' => 'promotions.feedback'
 			]);
-			Route::post('offers/feedback', 'OrderController@saveFeedback');
+			Route::post('promotions/feedback', 'OrderController@saveFeedback');
 
 			/**
 			 * Confirm review with

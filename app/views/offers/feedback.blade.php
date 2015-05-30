@@ -5,7 +5,7 @@
 	<div class="col-md-12">
 		<!-- Offer selector -->
 		<div class="row">
-			{{ Form::open(['url' => 'offers/feedback', 'id' => 'feedbackForm']) }}
+			{{ Form::open(['url' => 'promotions/feedback', 'id' => 'feedbackForm']) }}
 				<div class="col-md-8 col-md-offset-2">
 					<div class="text-center">
 						<h2 class="raleway normal"><span class="light">Feedback Survey</span></h2>
