@@ -1574,6 +1574,17 @@ class EloquentOfferRepository implements OfferRepository {
 					$match->save();
 				}
 
+				/**
+				 * Set all unredeemed promotions
+				 * to zero
+				 */
+				$currents = User::where('current', $offer->id)->get();
+				foreach($currents as $current)
+				{
+					$current->current = 0;
+					$current->save();
+				}
+
 				return $this->postpay($offer);
 			}
 			echo "The promotions have been closed and charged for.\n";
