@@ -1578,12 +1578,21 @@ class EloquentOfferRepository implements OfferRepository {
 				 * Set all unredeemed promotions
 				 * to zero
 				 */
-				// $currents = User::where('current', $offer->id)->get();
-				// foreach($currents as $current)
-				// {
-				// 	$current->current = 0;
-				// 	$current->save();
-				// }
+				$currents = User::where('current', $offer->id)->get();
+				foreach($currents as $current)
+				{
+					/**
+					 * Only remove the promotion
+					 * if the user has not placed
+					 * an order
+					 */
+					$order = Order::where(['offer_id' => $offer->id, 'user_id' => $current->id, 'paid_shipping' => true])->get();
+					if(!count($order))
+					{
+						$current->current = 0;
+						$current->save();
+					}
+				}
 
 				return $this->postpay($offer);
 			}
