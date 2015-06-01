@@ -48,7 +48,7 @@
 				<div class="col-md-2 text-right">
 					<p>{{ HTML::link('offers/view/'.$offer->id, 'View product', ['class' => 'btn btn-success']) }}</p>
 					<p>{{ HTML::link('users/'.$offer->business_id, 'View business', ['class' => 'btn btn-info']) }}</p>
-					@if($offer->start > date('Y-m-d') || $offer->approved == 0 || $offer->end < date('Y-m-d'))
+					@if($offer->start > date('Y-m-d') || $offer->approved == 0)
 						<p>{{ HTML::link('offers/delete/'.$offer->id, 'Delete promotion', ['class' => 'btn btn-danger']) }}</p>
 					@endif
 				</div>

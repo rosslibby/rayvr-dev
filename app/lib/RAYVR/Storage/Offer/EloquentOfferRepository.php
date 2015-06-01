@@ -1557,7 +1557,8 @@ class EloquentOfferRepository implements OfferRepository {
 		 * Send email summary
 		 */
 		Mail::send('emails.promotion-summary', ['name' => $business->first_name, 'from' => 'The RAYVR team', 'ordered' => count($orders), 
-												'promo_id' => $offer->id, 'confirmed' => $confirmedCount, 'claimed' => $reimbursedCount], function($message) use ($business)
+												'promo_id' => $offer->id, 'confirmed' => $confirmedCount, 'claimed' => $reimbursedCount, 
+												'title' => $offer->title], function($message) use ($business)
 		{
 			$message->to($business->email)->subject('RAYVR Promotion Summary');
 		});
@@ -1565,10 +1566,10 @@ class EloquentOfferRepository implements OfferRepository {
 		/**
 		 * Send promotion end email
 		 */
-		Mail::send('emails.promotion-end', ['name' => $business->first_name, 'from' => 'The RAYVR Business Team', 'title' => $offer->title, 'accepted' => count($orders)], function($message) use ($business)
-		{
-			$message->to($business->email)->subject('Your RAYVR Promotion Has Been Completed!');
-		});
+		// Mail::send('emails.promotion-end', ['name' => $business->first_name, 'from' => 'The RAYVR Business Team', 'title' => $offer->title, 'accepted' => count($orders)], function($message) use ($business)
+		// {
+		// 	$message->to($business->email)->subject('Your RAYVR Promotion Has Been Completed!');
+		// });
 	}
 
 	public function closeOffers()
