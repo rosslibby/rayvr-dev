@@ -1427,9 +1427,12 @@ class EloquentOfferRepository implements OfferRepository {
 
 		/**
 		 * Calculate total cost of
-		 * shipping
+		 * shipping and get totals
+		 * for summary
 		 */
 		$shipping = 0;
+		$reimbursedCount = 0;
+		$confirmedCount = 0;
 		foreach($orders as $order)
 		{
 			/**
@@ -1438,6 +1441,11 @@ class EloquentOfferRepository implements OfferRepository {
 			 */
 			if(count(Order::where(['user_id' => $order->user_id, 'offer_id' => $offer->id])->get()))
 			{
+				if($order->cost > 0)
+				{
+					$reimbursedCount += 1;
+				}
+				$confirmedCount += 1;
 				$shipping += $order->cost;
 			}
 		}
@@ -1544,6 +1552,15 @@ class EloquentOfferRepository implements OfferRepository {
 		{
 			return 'No redeemed offers';
 		}
+
+		/**
+		 * Send email summary
+		 */
+		Mail::send('emails.promotion-summary', ['name' => $business->first_name, 'from' => 'The RAYVR team', 'ordered' => count($orders), 
+												'promo_id' => $offer->id, 'confirmed' => $confirmedCount, 'claimed' => $reimbursedCount], function($message) use ($business)
+		{
+			$message->to($business->email)->subject('RAYVR Promotion Summary');
+		});
 
 		/**
 		 * Send promotion end email
