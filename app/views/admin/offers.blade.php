@@ -11,7 +11,6 @@
 		@endif
 		<br>
 		<br>
-		{{ date('Y-m-d')}}
 		@foreach(Offer::all() as $offer)
 			<div class="row">
 				<div class="col-md-2">
