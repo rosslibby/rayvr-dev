@@ -18,9 +18,8 @@ Route::get('register/welcome', [
 /**
  * Route for testing anything
  */
-Route::get('test', function(){
-	return View::make('business.new')->with('user', User::find(68));
-});
+// Route::get('test', function(){
+// });
 
 Route::group(['before' => 'csrf'], function()
 {
