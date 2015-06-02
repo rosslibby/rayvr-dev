@@ -1,0 +1,30 @@
+.bg-scheme-dark {
+	background-color: #2E3740;
+}
+
+.bg-scheme-transparent-gray {
+	background-color: rgb(230, 233, 237);
+	background-color: rgba(230, 233, 237, .1);
+	border-color: #525252;
+	color: #ccc;
+}
+
+.fg-scheme-white {
+	color: #fff;
+}
+
+.fg-scheme-yellow {
+	color: #febd69;
+}
+
+.raleway {
+	font-family: 'Raleway', sans-serif;
+}
+
+.largest {
+	font-size: 6em;
+}
+
+#successfulFetch {
+	display: none;
+}
