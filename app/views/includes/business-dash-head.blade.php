@@ -7,12 +7,14 @@
 	{{ HTML::style( asset( 'resources/css/business/bootstrap.min.css' ) ) }}
 	{{ HTML::style( asset( 'resources/css/business/skin-red.css' ) ) }}
 	{{ HTML::style( asset( 'resources/css/business/AdminLTE.min.css' ) ) }}
+	{{ HTML::style( asset( 'resources/css/business/custom.css' ) ) }}
 	<!-- {{ HTML::style( asset( 'resources/css/custom.business.css' ) ) }} -->
 	{{ HTML::style( asset( 'resources/css/jquery.fs.selecter.css' ) ) }}
 	{{ HTML::style( asset( 'resources/css/datepicker.css' ) ) }}
 	{{ HTML::style( asset( '//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css' ) ) }}
 	{{ HTML::style( asset( '//fonts.googleapis.com/css?family=Raleway:700,100,400,200' ) ) }}
 	{{ HTML::style( asset( '//fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,700' ) ) }}
+	{{ HTML::style( asset( '//fonts.googleapis.com/css?family=Raleway:400,100,200,300,500,600,700,800,900' ) ) }}
 	{{ HTML::style( asset( 'resources/css/bootstrap-slider.css' ) ) }}
 	{{ HTML::script( 'https://js.stripe.com/v2/' ) }}
 
