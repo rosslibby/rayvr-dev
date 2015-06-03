@@ -14,5 +14,6 @@ Hello {{ $name }},
 @section('body')
 Thank you for joining RAYVR, your account is now active.
 <br>
+<br>
 If you have any questions, please email us at {{ HTML::link('mailto:support@rayvr.com', 'support@rayvr.com') }} and we will reply to you as soon as possible.
 @stop

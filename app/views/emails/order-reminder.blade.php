@@ -14,5 +14,6 @@ Hi {{ $name }},
 @section('body')
 Don't miss out on your first promotion - it's totally free!
 <br>
+<br>
 Log in to <a href="http://rayvr.com/login">rayvr.com</a> to check it out!
 @stop
