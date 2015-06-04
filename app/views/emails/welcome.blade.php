@@ -15,7 +15,9 @@ You're our newest member!
 @section('body')
 Congratulations on joining RAYVR.
 <br>
+<br>
 We're working away to ensure we have top-notch products ready to go for our launch.
+<br>
 <br>
 Stayt tuned - you'll be receiving an email about your first offer in the next few weeks.
 <br>

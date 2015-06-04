@@ -11,6 +11,7 @@ Your payment was successful for ${{ $amount }} amount for the RAYVR promotion ID
 @section('body')
 This payment includes the number of promotions that were accepted by our users, and any shipping charges that our users were reimbursed.
 <br>
+<br>
 This will appear on your credit card as {{ $description }} {{ $promo_id }}.
 <br> 
 <br>

@@ -14,9 +14,12 @@ Hello {{ $name }},
 @section('body')
 Unfortunately your product was not approved for promotion on RAYVR.
 <br>
+<br>
 You will not be charged by RAYVR. Thank you for your interest in our program. 
 <br>
+<br>
 However, if you have more products that you would like to promote, please feel free to do so by logging into your RAYVR dashboard and selecting 'New Promotion'.
+<br>
 <br>
 Questions?
 <br>
