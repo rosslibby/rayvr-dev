@@ -1,6 +1,7 @@
 <?php
 
-use RAYVR\Storage\User\UserRepository as User;
+use \User;
+use RAYVR\Storage\User\UserRepository as UserRepo;
 use RAYVR\Storage\Category\CategoryRepository as Category;
 
 class RegisterController extends BaseController {
@@ -19,7 +20,7 @@ class RegisterController extends BaseController {
 	 * Inject the User Repository
 	 * Inject the Category Repository
 	 */
-	public function __construct(User $user, Category $category)
+	public function __construct(UserRepo $user, Category $category)
 	{
 		$this->user = $user;
 		$this->category = $category;
@@ -75,6 +76,11 @@ class RegisterController extends BaseController {
 
 	public function store()
 	{
+		if(count(User::where('email',Input::get('email'))->get())){
+			Session::put('error', 'Email already in use.');
+			return Redirect::to('/');
+		}
+
 		$s = $this->user->create(Input::all());
 
 		if($s[0])
