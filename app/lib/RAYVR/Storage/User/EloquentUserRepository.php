@@ -935,9 +935,9 @@ class EloquentUserRepository implements UserRepository {
 		 * Create affiliate account
 		 */
 		$a = new Affiliate();
-		$a->create($data);
+		$a->fill($data);
 		$a->save();
-
+		
 		/**
 		 * Generate invite code
 		 */

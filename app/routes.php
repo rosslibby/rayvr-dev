@@ -202,6 +202,9 @@ Route::group(['before' => 'csrf'], function()
 				'uses' => 'AdminController@newAffiliate',
 				'as' => 'affiliates'
 			]);
+			Route::get('affiliates/{code}', function($code){
+				return View::make('admin.affiliate')->with('users', User::where('invited_by',$code)->paginate(10));
+			});
 
 			/**
 			 * View all offers
@@ -654,7 +657,7 @@ Route::post('settings', [
 /**
  * The 404 route
  */
-// App::missing(function($exception)
-// {
-//     return 'Error 404 page not found!';
-// });
+App::missing(function($exception)
+{
+    return View::make('404');
+});

@@ -3,7 +3,8 @@
 @section('content')
 <div class="header-wrapper">
 	<div class="col-md-12">
-
+	<br>
+	<br>
 		<div class="row">
 			<div class="col-md-10 col-md-offset-1">
 				{{ Form::open(['route' => 'affiliates', 'class' => 'row']) }}
@@ -31,7 +32,7 @@
 					<div class="list-group-item">
 						<span class="col-md-2"><strong>ID: </strong>{{ $affiliate->id }} <i class="fa fa-arrow-circle-o-right"></i></span>
 						{{ $affiliate->email }} | Referral code: <span class="label label-success">https://rayvr.com/register/{{ $affiliate->invite_code }}</span>
-						{{-- {{ HTML::link('affiliates/'.$affiliate->id, '[Manage user]') }} --}}
+						{{ HTML::link('affiliates/'.$affiliate->invite_code, ' [View recruits]') }}
 						@if($affiliate->active == 1)
 							<span class="badge badge-info">Active</span>
 						@else

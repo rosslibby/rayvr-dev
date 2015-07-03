@@ -123,14 +123,7 @@
 					</div>
 
 					<hr>
-
-					<div class="form-group">
-						<div class="col-md-7 text-left source-sans-pro light">
-							@if(Session::has('success'))
-								<p><em>{{ Session::get('success') }}</em></p>
-							@endif
-						</div>
-					</div>
+					<span ng-if="form.state.$dirty && form.state.$valid" class="help-block">Saving...</span>
 
 				</form>
 				</div>
