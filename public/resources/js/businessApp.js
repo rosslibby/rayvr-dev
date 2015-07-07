@@ -1,0 +1,1 @@
+var businessApp = angular.module('BusinessApp', []);

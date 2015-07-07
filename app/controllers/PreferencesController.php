@@ -105,9 +105,15 @@ class PreferencesController extends BaseController {
 	 */
 	public function storeBusiness()
 	{
-		$preferences = Input::all();
 
-		return $this->preference->preferences($preferences, Auth::user());
+		$user = Auth::user();
+		$preferences = Input::all();
+		$this->preference->preferences($preferences, Auth::user());
+
+		$user->fill($preferences);
+		$user->save();
+
+        return Response::json(array('success' => true));
 	}
 
 	/**

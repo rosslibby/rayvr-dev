@@ -1,5 +1,15 @@
 @extends('includes.business-nav')
 
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.5/angular.min.js"></script>
+<!-- Modules -->
+<script src="resources/js/businessApp.js"></script>
+
+<!-- Controllers -->
+<script src="resources/js/controllers/businessController.js"></script>
+
+<!-- Directives -->
+<script src="resources/js/directives/autoSaveForm.js"></script>
+
 @section('sidebar')
 	@include('includes.business-sidebar')
 @stop
@@ -18,24 +28,113 @@
 @stop
 
 @section('content')
-<div class="content-wrapper">
+<div class="content-wrapper" ng-app="BusinessApp">
 	<div class="col-md-12">
 		<br>
 		<br>
 		<div class="row">
 			<div class="col-md-10 col-md-offset-1">
-				@if(Session::has('success'))
-				<div class="alert alert-success alert-dismissable">
-					<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&#10005;</button>
-					<strong>Your settings have been saved</strong>.
-					{{-- If the business has no offers yet, prompt the business to submit a new offer --}}
-					@if(!empty(json_decode(Offer::where('business_id',Auth::user()->id)->where('approved',true)->get())))
-						Visit the {{ HTML::link('offers/add', 'New Offer') }} page to submit your first offer for review! {{ HTML::link('offers/add', '(click here)') }}
-					@endif
-				</div>
-				@endif
 				<br>
-				{{ Form::open(['post' => 'preferences.storeBusiness', 'class' => 'form-horizontal', 'id' => 'businessPreferences']) }}
+				<div ng-controller="BusinessController">
+				<form name="form.state" class="form-horizontal" auto-save-form="saveForm()">
+
+					<div class="form-group" ng-class="{ 'has-error': form.state.text.$invalid }">
+						{{ Form::label('first_name', 'First name', ['class' => 'control-label required col-md-2']) }}
+						<div class="col-md-9">
+							{{ Form::text('first_name', $model['first_name'], ['class' => 'form-control required subtle-input', 'id' => 'firstName', 'ng-model' =>"form.data.first_name"]) }}
+						</div>
+					</div>
+
+					<hr>
+				
+					<div class="form-group">
+						{{ Form::label('last_name', 'Last name', ['class' => 'control-label required col-md-2']) }}
+						<div class="col-md-9">
+							{{ Form::text('last_name', $model['last_name'], ['class' => 'form-control required subtle-input', 'id' => 'lastName', 'ng-model' =>"form.data.last_name"]) }}
+						</div>
+					</div>
+
+					<hr>
+				
+					<div class="form-group">
+						{{ Form::label('email', 'Email address', ['class' => 'control-label required col-md-2']) }}
+						<div class="col-md-9">
+							{{ Form::text('email', $model['email'], ['class' => 'form-control required subtle-input', 'id' => 'email', 'ng-model' =>"form.data.email"]) }}
+						</div>
+					</div>
+
+					<hr>
+				
+					<div class="form-group">
+						{{ Form::label('business_name', 'Business name', ['class' => 'control-label col-md-2']) }}
+						<div class="col-md-9">
+							{{ Form::text('business_name', $model['business_name'], ['class' => 'form-control required subtle-input', 'id' => 'businessName', 'ng-model' =>"form.data.business_name"]) }}
+						</div>
+					</div>
+
+					<hr>
+				
+					<div class="form-group">
+						{{ Form::label('address', 'Business address', ['class' => 'control-label required col-md-2']) }}
+						<div class="col-md-9">
+							{{ Form::text('address', $model['address'], ['class' => 'form-control required subtle-input', 'id' => 'address', 'ng-model' =>"form.data.address"]) }}
+						</div>
+					</div>
+
+					<hr>
+				
+					<div class="form-group">
+						{{ Form::label('address_2', 'Address line 2', ['class' => 'control-label col-md-2']) }}
+						<div class="col-md-9">
+							{{ Form::text('address_2', $model['address_2'], ['class' => 'form-control subtle-input', 'ng-model' =>"form.data.address_2"]) }}
+						</div>
+					</div>
+
+					<hr>
+				
+					<div class="form-group">
+						{{ Form::label('city', 'City', ['class' => 'control-label required col-md-2']) }}
+						<div class="col-md-4">
+							{{ Form::text('city', $model['city'], ['class' => 'form-control subtle-input', 'id' => 'city', 'ng-model' =>"form.data.city"]) }}
+						</div>
+						{{ Form::label('state', 'State', ['class' => 'control-label col-md-1']) }}
+						<div class="col-md-4">
+							@include('forms.lists.statesjs')
+						</div>
+					</div>
+					<div class="form-group">
+						{{ Form::label('country', 'Country', ['class' => 'control-label required col-md-2']) }}
+						<div class="col-md-4">
+							@include('forms.lists.countriesjs')
+						</div>
+						{{ Form::label('zip', 'Zip', ['class' => 'control-label required col-md-2']) }}
+						<div class="col-md-3">
+							{{ Form::text('zip', $model['zip'], ['class' => 'form-control subtle-input', 'id' => 'zip', 'ng-model' =>"form.data.zip"]) }}
+						</div>
+					</div>
+
+					<hr>
+				
+					<div class="form-group">
+						{{ Form::label('phone', 'Phone number', ['class' => 'control-label required col-md-2']) }}
+						<div class="col-md-7">
+							{{ Form::text('phone', $model['phone'], ['class' => 'form-control required subtle-input', 'id' => 'phone', 'ng-model' =>"form.data.phone"]) }}
+						</div>
+					</div>
+
+					<hr>
+
+					<div class="form-group">
+						<div class="col-md-7 text-left source-sans-pro light">
+							@if(Session::has('success'))
+								<p><em>{{ Session::get('success') }}</em></p>
+							@endif
+						</div>
+					</div>
+
+				</form>
+				</div>
+			{{-- 	{{ Form::open(['post' => 'preferences.storeBusiness', 'class' => 'form-horizontal', 'id' => 'businessPreferences']) }}
 
 					<div class="form-group">
 						{{ Form::label('first_name', 'First name', ['class' => 'control-label required col-md-2']) }}
@@ -134,7 +233,7 @@
 						</div>
 					</div>
 
-				{{ Form::close() }}
+				{{ Form::close() }} --}}
 			</div>
 		</div>
 	</div>
