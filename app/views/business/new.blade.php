@@ -61,7 +61,7 @@
 
 		<div class="row">
 
-			<section class="col-lg-10 col-lg-offset-1 col-sm-12 col-xs-12">
+			<section class="col-lg-12">
 
 				<h1 class="raleway largest"><strong>Step 2</strong></h1>
 				<h3 class="raleway">Promotion start &amp; end dates</h3>
@@ -70,41 +70,52 @@
 
 				<br>
 			<!-- Date range -->
+			{{-- new --}}
+							{{--*/
+								$date = date('m/d/Y');
+								$futureDate = null;
+								if(date('d') == 1)
+								{
+									$startDate = date('m/d/Y', strtotime($date. ' + 3 days'));
+									$endDate = date('m/d/Y', strtotime($date. ' + 8 days'));
+								}
+								else
+								{
+									$startDate = date('m/d/Y', strtotime($date. ' + 5 days'));
+									$endDate = date('m/d/Y', strtotime($date. ' + 10 days'));
+								}
+							/*--}}
 				<div class="row">
-					<div class="col-lg-6 col-sm-12 col-xs-12">
-						<div class="box">
+					<div class="col-lg-5">
+						<div class="box box-solid bg-green-gradient">
 							<div class="box-header">
-								<h3 class="box-title">{{ Form::label('date', 'Preferred start &amp; end dates', ['class' => 'control-label raleway h4 light']) }}</h3>
-							</div>
-							<div class="sandbox-container box-body">
-								<div class="input-daterange input-group col-md-12" id="datepicker">
-									{{--*/
-										$date = date('m/d/Y');
-										$futureDate = null;
-										if(date('d') == 1)
-										{
-											$startDate = date('m/d/Y', strtotime($date. ' + 3 days'));
-											$endDate = date('m/d/Y', strtotime($date. ' + 8 days'));
-										}
-										else
-										{
-											$startDate = date('m/d/Y', strtotime($date. ' + 5 days'));
-											$endDate = date('m/d/Y', strtotime($date. ' + 10 days'));
-										}
-									/*--}}
-									{{ Form::text('start', $startDate, ['class' => 'form-control subtle-input']) }}
-									<span class="input-group-addon">to</span>
-									{{ Form::text('end', $endDate, ['class' => 'form-control subtle-input']) }}
-								</div>
-
-								<br>
-
-								<p class="light text-center">(Plan for <strong>at least 3 days</strong> from today for our review process.)</p>
-							</div>
-						</div>
+								<i class="fa fa-calendar"></i>
+								<h3 class="box-title">Start date</h3>
+							</div><!-- /.box-header -->
+							<div class="box-body no-padding">
+								<!--The calendar -->
+								<div id="calendar" style="width: 100%" data-date="{{ $startDate }}"></div>
+								{{ Form::hidden('start', $startDate, ['id' => 'calendarStart']) }}
+							</div><!-- /.box-body -->
+						</div><!-- /.box -->
 					</div>
 				</div>
 
+				{{-- End date --}}
+				<div class="col-lg-4 col-sm-8 col-sx-12">
+					<div class="box box-solid bg-green-gradient">
+						<div class="box-header">
+							<i class="fa fa-calendar"></i>
+							<h3 class="box-title">End date</h3>
+						</div><!-- /.box-header -->
+						<div class="box-body no-padding">
+							<!--The calendar -->
+							<div id="endCalendar" style="width: 100%" data-date="{{ $endDate }}"></div>
+							{{ Form::hidden('end', $endDate, ['id' => 'calendarEnd']) }}
+						</div><!-- /.box-body -->
+					</div><!-- /.box -->
+				</div>
+			{{-- end new --}}
 			</section>
 
 		</div>

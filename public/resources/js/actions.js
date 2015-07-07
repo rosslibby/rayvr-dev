@@ -187,7 +187,7 @@ $(document).ready(function(){
 			}
 		},"json");
 	});
-	
+
 	/** Selecter **/
 	// $("select").selecter();
 
@@ -197,8 +197,21 @@ $(document).ready(function(){
 	/** Set start date to 3 days in future **/
 	var startDate = date.setDate(date.getDate() + 3);
 	var startAt = new Date(startDate);
-	$('.input-daterange').datepicker({
+	$('#calendar').datepicker({
 		startDate: startAt
+	});
+	$("#calendar").on("changeDate", function(event) {
+		$("#calendarStart").val(
+			$("#calendar").datepicker('getFormattedDate')
+		)
+	});
+	$('#endCalendar').datepicker({
+		startDate: startAt
+	});
+	$("#endCalendar").on("changeDate", function(event) {
+		$("#calendarEnd").val(
+			$("#endCalendar").datepicker('getFormattedDate')
+		)
 	});
 
 	/** Free shipping = no cost to ship **/

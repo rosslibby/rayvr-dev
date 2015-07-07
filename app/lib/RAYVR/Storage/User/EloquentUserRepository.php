@@ -180,7 +180,7 @@ class EloquentUserRepository implements UserRepository {
 			 */
 			if($c->business)
 			{
-				Mail::send('emails.business-welcome', ['from' => 'The RAYVR team'], function($message) use ($c)
+				Mail::send('emails.business-welcome', ['from' => 'The RAYVR team', 'name' => ''], function($message) use ($c)
 				{
 					$message->to($c->email)->subject('Welcome to RAYVR!');
 				});
