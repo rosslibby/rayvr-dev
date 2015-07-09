@@ -8,7 +8,7 @@
 <script src="resources/js/controllers/businessController.js"></script>
 
 <!-- Directives -->
-<script src="resources/js/directives/autoSaveForm.js"></script>
+<script src="resources/js/directives/Business/autoSaveForm.js"></script>
 
 @section('sidebar')
 	@include('includes.business-sidebar')
@@ -109,7 +109,7 @@
 						</div>
 						{{ Form::label('zip', 'Zip', ['class' => 'control-label required col-md-2']) }}
 						<div class="col-md-3">
-							{{ Form::text('zip', $model['zip'], ['class' => 'form-control subtle-input', 'id' => 'zip', 'ng-model' =>"form.data.zip"]) }}
+							{{ Form::text('zip', $model['zip'], ['class' => 'form-control subtle-input', 'id' => 'zip', 'ng-model' =>"form.data.zip", 'ng-pattern' => "/^\d+$/"]) }}
 						</div>
 					</div>
 
@@ -123,9 +123,13 @@
 					</div>
 
 					<hr>
-					<span ng-if="form.state.$dirty && form.state.$valid" class="help-block">Saving...</span>
+					<span ng-if="form.state.$dirty && form.state.$valid" class="help-block">Changes saving...</span>
+					<span ng-if="!form.state.$dirty && form.state.$valid" class="help-block">Changes saved.</span>
+					<span ng-if="form.state.$dirty && !form.state.$valid" class="help-block">Changes invalid.</span>
 
+					{{ link_to('/', 'Continue', array('class' => 'btn btn-success')) }}
 				</form>
+
 				</div>
 			{{-- 	{{ Form::open(['post' => 'preferences.storeBusiness', 'class' => 'form-horizontal', 'id' => 'businessPreferences']) }}
 

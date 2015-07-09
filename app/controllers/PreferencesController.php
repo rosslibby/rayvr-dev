@@ -105,7 +105,9 @@ class PreferencesController extends BaseController {
 	 */
 	public function storeBusiness()
 	{
-
+		/**
+		 * Save the preferences
+		 */
 		$user = Auth::user();
 		$preferences = Input::all();
 		$this->preference->preferences($preferences, Auth::user());
@@ -113,6 +115,9 @@ class PreferencesController extends BaseController {
 		$user->fill($preferences);
 		$user->save();
 
+		/**
+		 * Return AJS succuss
+		 */
         return Response::json(array('success' => true));
 	}
 
@@ -122,25 +127,24 @@ class PreferencesController extends BaseController {
 	public function storeUser()
 	{
 		$preferences = Input::except(['_token', 'interest']);
-		$interests = Input::only('interest');
 
 		/**
 		 * Validate input
 		 */
-		$validator = Validator::make(
-			Input::except('address_2'),
-			[
-				'email' => 'required|unique',
-				'first_name' => 'required',
-				'last_name' => 'required',
-				'address' => 'required',
-				'city' => 'required',
-				'state' => 'required',
-				'zip' => 'required',
-				'country' => 'required',
-				'gender' => 'required'
-			]
-		);
+		// $validator = Validator::make(
+		// 	Input::except('address_2'),
+		// 	[
+		// 		'email' => 'required|unique',
+		// 		'first_name' => 'required',
+		// 		'last_name' => 'required',
+		// 		'address' => 'required',
+		// 		'city' => 'required',
+		// 		'state' => 'required',
+		// 		'zip' => 'required',
+		// 		'country' => 'required',
+		// 		'gender' => 'required'
+		// 	]
+		// );
 
 		/**
 		 * Change the string value of gender
@@ -157,40 +161,53 @@ class PreferencesController extends BaseController {
 		 * Send the post card if the account
 		 * is unverified
 		 */
-		$this->preference->postcard($user);
+		//$this->preference->postcard($user);
 
 		/**
 		 * Add new interests and
 		 * remove any old interests
+		 * if the form isn't autosaving
 		 */
-		$this->preference->setInterests($user, $interests);
 
+		if(Input::has('interest'))
+		{
+		$interests = Input::only('interest');
+		$this->preference->setInterests($user, $interests);
+		}
+
+		$user->save();
+
+		/**
+		 * Return AJS succuss
+		 */
+        //return Response::json(array('success' => true));
 		/**
 		 * If this is the first time setting
 		 * preferences, redirect the user to
 		 * 'invite your friends' page
+		 * BROKEN BY AUTOSAVE
 		 */
-		if(!$user->times_updated)
-		{
-			$user->times_updated = 1;
-			$user->save();
-			return Redirect::route('invite')
-				->with('success', 'Your account set is complete.');
-		}
-		else
-		{
-			$user->times_updated = (int)($user->times_updated) + 1;
-			$user->save();
-		}
+		// if(!$user->times_updated)
+		// {
+		// 	$user->times_updated = 1;
+		// 	$user->save();
+		// 	return Redirect::route('invite')
+		// 		->with('success', 'Your account set is complete.');
+		// }
+		// else
+		// {
+		// 	$user->times_updated = (int)($user->times_updated) + 1;
+		// 	$user->save();
+		// }
 
 		if($user->save())
 		{
-			if($validator)
+			//if($validator)
 				return Redirect::route('user.preferences')
 					->with('success', 'Your preferences have been updated');
-			else
-				return Redirect::to('user.preferences')
-					->with('success', 'You missed a few fields yo');
+			// else
+			// 	return Redirect::to('user.preferences')
+			// 		->with('success', 'You missed a few fields yo');
 		}
 
 		return Redirect::to('user/preferences')

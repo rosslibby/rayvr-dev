@@ -416,10 +416,6 @@ Route::group(['before' => 'csrf'], function()
 				'uses' => 'PreferencesController@user',
 				'as' => 'user.preferences'
 			]);
-			Route::post('preferences', [
-				'uses' => 'PreferencesController@storeUser',
-				'as' => 'user.storePreferences'
-			]);
 
 			Route::post('deactivate', [
 				'uses' => 'UserController@deactivate',
@@ -650,10 +646,20 @@ Route::group(['before' => 'csrf'], function()
 	Route::resource('referrals', 'ReferralsController');
 });
 
+/**
+ * Preference POST routes, 
+ * Angular can't find them inside before => auth paths.
+ */
+Route::post('preferences', [
+	'uses' => 'PreferencesController@storeUser',
+	'as' => 'user.storePreferences'
+]);
+
 Route::post('settings', [
 	'uses' => 'PreferencesController@storeBusiness',
 	'as' => 'preferences.storeBusiness'
 ]);
+
 /**
  * The 404 route
  */

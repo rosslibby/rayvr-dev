@@ -76,12 +76,28 @@ class RegisterController extends BaseController {
 
 	public function store()
 	{
-		if(count(User::where('email',Input::get('email'))->get())){
-			Session::put('error', 'Email already in use.');
+		$input = Input::all();
+		if(count(User::where('email',$input['email'])->get()))
+		{
+			$input = Input::all();
+
+			$attempt = Auth::attempt([
+				'email' => $input['email'],
+				'password' => $input['password'],
+			], false);
+
+			if($attempt && Auth::user()->active)
+				return Redirect::intended('/');
+			else if($attempt)
+			{
+				Auth::logout();
+				return Redirect::to('login')->with('error', 'Your account has been suspended. Please contact <a href="/contact">support</a> to reopen it.');
+			}
+			Session::put('error', 'Email already in use and password incorrect');
 			return Redirect::to('/');
 		}
 
-		$s = $this->user->create(Input::all());
+		$s = $this->user->create($input);
 
 		if($s[0])
 		{
