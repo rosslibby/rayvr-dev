@@ -18,9 +18,9 @@ Route::get('register/welcome', [
 /**
  * Route for testing anything
  */
-Route::get('test', function(){
-	return 'foo';
-});
+// Route::get('test', function(){
+// 	return View::make('business.new')->with('user', User::find(68));
+// });
 
 Route::group(['before' => 'csrf'], function()
 {
@@ -629,10 +629,10 @@ Route::group(['before' => 'csrf'], function()
 			'as' => 'business.preferences'
 		]);
 
-		// Route::post('settings', [
-		// 	'uses' => 'PreferencesController@storeBusiness',
-		// 	'as' => 'preferences.storeBusiness'
-		// ]);
+		Route::post('settings', [
+			'uses' => 'PreferencesController@storeBusiness',
+			'as' => 'preferences.storeBusiness'
+		]);
 
 		Route::get('offers/purchase', 'PaymentController@offers');
 		Route::post('offers/purchase', [
@@ -646,15 +646,3 @@ Route::group(['before' => 'csrf'], function()
 	 */
 	Route::resource('referrals', 'ReferralsController');
 });
-
-Route::post('settings', [
-	'uses' => 'PreferencesController@storeBusiness',
-	'as' => 'preferences.storeBusiness'
-]);
-/**
- * The 404 route
- */
-// App::missing(function($exception)
-// {
-//     return 'Error 404 page not found!';
-// });
