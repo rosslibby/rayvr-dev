@@ -131,20 +131,20 @@ class PreferencesController extends BaseController {
 		/**
 		 * Validate input
 		 */
-		// $validator = Validator::make(
-		// 	Input::except('address_2'),
-		// 	[
-		// 		'email' => 'required|unique',
-		// 		'first_name' => 'required',
-		// 		'last_name' => 'required',
-		// 		'address' => 'required',
-		// 		'city' => 'required',
-		// 		'state' => 'required',
-		// 		'zip' => 'required',
-		// 		'country' => 'required',
-		// 		'gender' => 'required'
-		// 	]
-		// );
+		$validator = Validator::make(
+			Input::except('address_2'),
+			[
+				'email' => 'required|unique',
+				'first_name' => 'required',
+				'last_name' => 'required',
+				'address' => 'required',
+				'city' => 'required',
+				'state' => 'required',
+				'zip' => 'required',
+				'country' => 'required',
+				'gender' => 'required'
+			]
+		);
 
 		/**
 		 * Change the string value of gender
@@ -175,7 +175,7 @@ class PreferencesController extends BaseController {
 		$this->preference->setInterests($user, $interests);
 		}
 
-		$user->save();
+		//$user->save();
 
 		/**
 		 * Return AJS succuss
@@ -202,12 +202,12 @@ class PreferencesController extends BaseController {
 
 		if($user->save())
 		{
-			//if($validator)
+			if($validator)
 				return Redirect::route('user.preferences')
 					->with('success', 'Your preferences have been updated');
-			// else
-			// 	return Redirect::to('user.preferences')
-			// 		->with('success', 'You missed a few fields yo');
+			else
+				return Redirect::to('user.preferences')
+					->with('success', 'You missed a few fields yo');
 		}
 
 		return Redirect::to('user/preferences')

@@ -31,7 +31,7 @@
 				{{ Form::open(['name' =>"form.state", 'post' => 'preferences.storeUser', 'class' => 'form-horizontal', 'id' => 'preferences', 'auto-save-form'=>"saveForm()"]) }}
 
 					<div class="form-group" ng-class="{ 'has-error': form.state.text.$invalid }">
-						{{ Form::label('first_name', 'First name', ['class' => 'control-label col-md-2']) }}
+						{{ Form::label('first_name', 'First name', ['class' => 'control-label required col-md-2']) }}
 						<div class="col-md-7">
 							{{ Form::text('first_name', $model['first_name'], ['class' => 'form-control subtle-input', 'id' => 'firstName', 'ng-model' =>"form.data.first_name", 'ng-init' => "form.data.first_name='$model[first_name]'"]) }}
 						</div>
@@ -40,7 +40,7 @@
 					<hr>
 				
 					<div class="form-group">
-						{{ Form::label('last_name', 'Last name', ['class' => 'control-label col-md-2']) }}
+						{{ Form::label('last_name', 'Last name', ['class' => 'control-label required col-md-2']) }}
 						<div class="col-md-7">
 							{{ Form::text('last_name', $model['last_name'], ['class' => 'form-control subtle-input', 'id' => 'lastName', 'ng-model' =>"form.data.last_name", 'ng-init' => "form.data.last_name='$model[last_name]'"]) }}
 						</div>
@@ -49,7 +49,7 @@
 					<hr>
 				
 					<div class="form-group">
-						{{ Form::label('email', 'Email address', ['class' => 'control-label col-md-2']) }}
+						{{ Form::label('email', 'Email address', ['class' => 'control-label required col-md-2']) }}
 						<div class="col-md-7">
 							{{ Form::text('email', $model['email'], ['class' => 'form-control subtle-input', 'id' => 'email', 'ng-model' =>"form.data.email", 'ng-init' => "form.data.email='$model[email]'"]) }}
 						</div>
@@ -76,7 +76,7 @@
 					<hr> --}}
 				
 					<div class="form-group">
-						{{ Form::label('address', 'Address', ['class' => 'control-label col-md-2']) }}
+						{{ Form::label('address', 'Address', ['class' => 'control-label required col-md-2']) }}
 						<div class="col-md-7">
 							{{ Form::text('address', $model['address'], ['class' => 'form-control subtle-input', 'id' => 'address', 'ng-model' =>"form.data.address", 'ng-init' => "form.data.address='$model[address]'"]) }}
 						</div>
@@ -94,22 +94,22 @@
 					<hr>
 				
 					<div class="form-group">
-						{{ Form::label('city', 'City', ['class' => 'control-label col-md-2']) }}
+						{{ Form::label('city', 'City', ['class' => 'control-label required col-md-2']) }}
 						<div class="col-md-3">
 							{{ Form::text('city', $model['city'], ['class' => 'form-control subtle-input', 'id' => 'city', 'ng-model' =>"form.data.city", 'ng-init' => "form.data.city='$model[city]'"]) }}
 						</div>
-						{{ Form::label('state', 'State', ['class' => 'control-label col-md-1']) }}
+						{{ Form::label('state', 'State', ['class' => 'control-label required col-md-1']) }}
 						<div class="col-md-2">
 							@include('forms.lists.statesjs')
 						</div>
 					</div>
 					
 					<div class="form-group">
-						{{ Form::label('country', 'Country', ['class' => 'control-label col-md-2']) }}
+						{{ Form::label('country', 'Country', ['class' => 'control-label required col-md-2']) }}
 						<div class="col-md-4">
 							@include('forms.lists.countriesjs')
 						</div>
-						{{ Form::label('zip', 'Zip', ['class' => 'control-label col-md-2']) }}
+						{{ Form::label('zip', 'Zip', ['class' => 'control-label required col-md-2']) }}
 						<div class="col-md-3">
 							{{ Form::text('zip', $model['zip'], ['class' => 'form-control subtle-input', 'id' => 'zip', 'ng-model' =>"form.data.zip", 'ng-pattern' => "/^\d+$/", 'ng-init' => "form.data.zip='$model[zip]'"]) }}
 						</div>

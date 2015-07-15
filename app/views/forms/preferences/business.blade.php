@@ -41,7 +41,7 @@
 					<div class="form-group" ng-class="{ 'has-error': form.state.text.$invalid }">
 						{{ Form::label('first_name', 'First name', ['class' => 'control-label required col-md-2']) }}
 						<div class="col-md-9">
-							{{ Form::text('first_name', $model['first_name'], ['class' => 'form-control required subtle-input', 'id' => 'firstName', 'ng-model' =>"form.data.first_name"]) }}
+							{{ Form::text('first_name', $model['first_name'], ['class' => 'form-control required subtle-input', 'id' => 'firstName', 'ng-model' =>"form.data.first_name", 'ng-init' => "form.data.first_name='$model[first_name]'"]) }}
 						</div>
 					</div>
 
@@ -50,7 +50,7 @@
 					<div class="form-group">
 						{{ Form::label('last_name', 'Last name', ['class' => 'control-label required col-md-2']) }}
 						<div class="col-md-9">
-							{{ Form::text('last_name', $model['last_name'], ['class' => 'form-control required subtle-input', 'id' => 'lastName', 'ng-model' =>"form.data.last_name"]) }}
+							{{ Form::text('last_name', $model['last_name'], ['class' => 'form-control required subtle-input', 'id' => 'lastName', 'ng-model' =>"form.data.last_name", 'ng-init' => "form.data.last_name='$model[last_name]'"]) }}
 						</div>
 					</div>
 
@@ -59,7 +59,7 @@
 					<div class="form-group">
 						{{ Form::label('email', 'Email address', ['class' => 'control-label required col-md-2']) }}
 						<div class="col-md-9">
-							{{ Form::text('email', $model['email'], ['class' => 'form-control required subtle-input', 'id' => 'email', 'ng-model' =>"form.data.email"]) }}
+							{{ Form::text('email', $model['email'], ['class' => 'form-control required subtle-input', 'id' => 'email', 'ng-model' =>"form.data.email", 'ng-init' => "form.data.email='$model[email]'"]) }}
 						</div>
 					</div>
 
@@ -68,7 +68,7 @@
 					<div class="form-group">
 						{{ Form::label('business_name', 'Business name', ['class' => 'control-label col-md-2']) }}
 						<div class="col-md-9">
-							{{ Form::text('business_name', $model['business_name'], ['class' => 'form-control required subtle-input', 'id' => 'businessName', 'ng-model' =>"form.data.business_name"]) }}
+							{{ Form::text('business_name', $model['business_name'], ['class' => 'form-control required subtle-input', 'id' => 'businessName', 'ng-model' =>"form.data.business_name", 'ng-init' => "form.data.business_name='$model[business_name]'"]) }}
 						</div>
 					</div>
 
@@ -77,7 +77,7 @@
 					<div class="form-group">
 						{{ Form::label('address', 'Business address', ['class' => 'control-label required col-md-2']) }}
 						<div class="col-md-9">
-							{{ Form::text('address', $model['address'], ['class' => 'form-control required subtle-input', 'id' => 'address', 'ng-model' =>"form.data.address"]) }}
+							{{ Form::text('address', $model['address'], ['class' => 'form-control required subtle-input', 'id' => 'address', 'ng-model' =>"form.data.address", 'ng-init' => "form.data.address='$model[address]'"]) }}
 						</div>
 					</div>
 
@@ -86,7 +86,7 @@
 					<div class="form-group">
 						{{ Form::label('address_2', 'Address line 2', ['class' => 'control-label col-md-2']) }}
 						<div class="col-md-9">
-							{{ Form::text('address_2', $model['address_2'], ['class' => 'form-control subtle-input', 'ng-model' =>"form.data.address_2"]) }}
+							{{ Form::text('address_2', $model['address_2'], ['class' => 'form-control subtle-input', 'ng-model' =>"form.data.address_2", 'ng-init' => "form.data.address_2='$model[address_2]'"]) }}
 						</div>
 					</div>
 
@@ -95,7 +95,7 @@
 					<div class="form-group">
 						{{ Form::label('city', 'City', ['class' => 'control-label required col-md-2']) }}
 						<div class="col-md-4">
-							{{ Form::text('city', $model['city'], ['class' => 'form-control subtle-input', 'id' => 'city', 'ng-model' =>"form.data.city"]) }}
+							{{ Form::text('city', $model['city'], ['class' => 'form-control subtle-input', 'id' => 'city', 'ng-model' =>"form.data.city", 'ng-init' => "form.data.city='$model[city]'"]) }}
 						</div>
 						{{ Form::label('state', 'State', ['class' => 'control-label col-md-1']) }}
 						<div class="col-md-4">
@@ -118,7 +118,7 @@
 					<div class="form-group">
 						{{ Form::label('phone', 'Phone number', ['class' => 'control-label required col-md-2']) }}
 						<div class="col-md-7">
-							{{ Form::text('phone', $model['phone'], ['class' => 'form-control required subtle-input', 'id' => 'phone', 'ng-model' =>"form.data.phone"]) }}
+							{{ Form::text('phone', $model['phone'], ['class' => 'form-control required subtle-input', 'id' => 'phone', 'ng-model' =>"form.data.phone", 'ng-init' => "form.data.phone='$model[phone]'"]) }}
 						</div>
 					</div>
 
